@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Xinh Nguyen, brand and communication operator. Follow one project from messy brief to finish line.">
+</head>
+<body>
+<title>XINH.OS Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dela+Gothic+One&family=Patrick+Hand&family=VT323&display=swap">
+<style>
+/* Layout: the whole site is one project run by Xinh. A single thread starts as a tangled brief in the hero,
+   untangles on scroll, then draws itself through LV.1 Clarify (about) > LV.2 Structure (process, a staircase)
+   > LV.3 Align (stakeholder hub + skills) > LV.4 Follow through (pinned horizontal case route) > GOAL (contact).
+   Dashed line = the plan ahead, solid pink line = work done. A HUD tracks the level. One bright look by choice. */
+:root{
+  color-scheme: light;
+  --sky:#a9d8ff; --sky-deep:#5fb2ff; --sky-pale:#dff1ff;
+  --cobalt:#1d4ed8; --cobalt-dark:#14328f; --cobalt-ink:#d6e0ff;
+  --pink:#ff5fa8; --pink-soft:#ffd6e8; --pink-deep:#9b2563;
+  --sun:#ffd23f; --sun-pale:#fff3c4; --grass:#3aa64a; --grass-dark:#2a7f36; --orange:#ff7a2f;
+  --cream:#fff8ee; --paper:#fffdf8; --chrome:#e8e4dc; --chrome-dark:#b9b3a8;
+  --ink:#1c1a2e; --muted:#58556c; --white:#ffffff;
+  --f-display:"Dela Gothic One","Arial Black",Impact,sans-serif;
+  --f-body:"Be Vietnam Pro","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --f-pixel:"VT323","Courier New",ui-monospace,monospace;
+  --f-hand:"Patrick Hand","Comic Sans MS","Segoe Print",cursive;
+  --gutter:clamp(16px,4vw,40px);
+  --railpad:64px;
+  --hud:58px;
+  --stage-bg:var(--sky);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:calc(var(--hud) + 12px)}
+body{background:var(--cream); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; overflow-x:hidden}
+[data-lang="en"] .vi,[data-lang="vi"] .en{display:none!important}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pink); outline-offset:3px}
+h1,h2,h3,h4{text-wrap:balance; margin:0}
+p,figure{margin:0}
+.pixel{font-family:var(--f-pixel); letter-spacing:.04em}
+
+/* World background: the thread "paints" each level as it arrives */
+#bg{position:fixed; inset:0; z-index:-1; background:var(--stage-bg); transition:background-color 1s ease}
+html[data-stage="0"]{--stage-bg:var(--sky)}
+html[data-stage="1"]{--stage-bg:var(--cream)}
+html[data-stage="2"]{--stage-bg:var(--sky-pale)}
+html[data-stage="3"]{--stage-bg:var(--sun-pale)}
+html[data-stage="4"]{--stage-bg:var(--pink-soft)}
+html[data-stage="5"]{--stage-bg:var(--sky)}
+
+.wrap{position:relative; z-index:3; max-width:1180px; margin-inline:auto; padding-inline:calc(var(--gutter) + var(--railpad)) var(--gutter)}
+
+/* ---------- Thread layer ---------- */
+#thread{position:absolute; top:0; left:0; width:0; height:0; z-index:2; pointer-events:none}
+#thread svg{position:absolute; top:0; left:0; overflow:visible}
+#tBase{fill:none; stroke:var(--ink); stroke-opacity:.28; stroke-width:2; stroke-dasharray:3 9; stroke-linecap:round}
+#tUnder{fill:none; stroke:var(--ink); stroke-width:10; stroke-linecap:round}
+#tLive{fill:none; stroke:var(--pink); stroke-width:5; stroke-linecap:round}
+#player{position:absolute; top:0; left:0; z-index:6; width:0; height:0; pointer-events:none; transition:opacity .25s}
+#player i{position:absolute; left:-17px; top:-17px; width:34px; height:34px; display:grid; place-items:center; background:var(--pink); color:var(--white); border:3px solid var(--ink); border-radius:10px; box-shadow:3px 3px 0 var(--ink); font-family:var(--f-pixel); font-style:normal; font-size:22px; line-height:1; animation:bob 1.2s ease-in-out infinite}
+#player.hide{opacity:0}
+@keyframes bob{50%{transform:translateY(-3px) rotate(-6deg)}}
+
+/* Nodes: checkpoints the thread passes through */
+.node{position:absolute; width:18px; height:18px; transform:translate(-50%,-50%); border-radius:50%; background:var(--paper); border:3px solid var(--ink); z-index:4; transition:background-color .3s, transform .3s}
+.node.on{background:var(--sun); transform:translate(-50%,-50%) scale(1.25)}
+.node.rail{left:calc(var(--railpad) / -2)}
+.node.cp{width:26px; height:26px; border-radius:6px; transform:translate(-50%,-50%) rotate(45deg)}
+.node.cp.on{background:var(--pink); transform:translate(-50%,-50%) rotate(45deg) scale(1.2)}
+
+/* ---------- HUD ---------- */
+.hud{position:fixed; top:0; left:0; right:0; z-index:50; padding:calc(8px + env(safe-area-inset-top,0px)) 12px 8px; display:flex; align-items:center; gap:14px; background:var(--chrome); border-bottom:3px solid var(--ink)}
+.logo{flex:none; font-family:var(--f-display); font-size:16px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:4px 10px; background:var(--paper); border:2px solid var(--ink); box-shadow:2px 2px 0 var(--ink)}
+.logo i{width:12px; height:12px; background:conic-gradient(var(--pink) 0 25%, var(--sun) 0 50%, var(--grass) 0 75%, var(--cobalt) 0)}
+.route-top{flex:1; min-width:0; position:relative; height:30px}
+.route-top .bar{position:absolute; left:10px; right:10px; top:50%; height:6px; margin-top:-3px; background:var(--chrome-dark); border:2px solid var(--ink); border-radius:999px; overflow:hidden}
+.route-top .fill{display:block; height:100%; width:0; background:var(--pink)}
+.pips{position:absolute; inset:0; display:flex; justify-content:space-between; align-items:center}
+.pips a{position:relative; width:20px; height:20px; display:grid; place-items:center; text-decoration:none; background:var(--paper); border:2px solid var(--ink); border-radius:50%; font-family:var(--f-pixel); font-size:13px; line-height:1}
+.pips a.done{background:var(--sun)}
+.pips a.cur{background:var(--pink); color:var(--white); transform:scale(1.2)}
+.pips a span{position:absolute; top:22px; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:14px; display:none}
+.now{flex:none; font-family:var(--f-pixel); font-size:20px; line-height:1; padding:5px 10px; background:var(--ink); color:var(--sun); border:2px solid var(--ink); min-width:150px; text-align:center}
+.lang{flex:none; display:flex; border:2px solid var(--ink)}
+.lang button{font-family:var(--f-pixel); font-size:18px; line-height:1; padding:5px 8px; border:0; background:var(--paper); color:var(--ink); cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--cobalt); color:var(--white)}
+
+/* ---------- Shared bits ---------- */
+.win{background:var(--chrome); border:2px solid var(--ink); box-shadow:6px 6px 0 var(--ink); min-width:0}
+.win-bar{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:4px 6px 4px 10px; background:linear-gradient(90deg,var(--cobalt-dark),var(--cobalt) 60%,#4f86ff); color:var(--white); font-family:var(--f-pixel); font-size:20px; line-height:1.1}
+.win-bar > span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.win-btns{display:flex; gap:4px; flex:none}
+.win-btns b{width:20px; height:18px; background:var(--chrome); border:2px solid; border-color:var(--white) var(--ink) var(--ink) var(--white); display:grid; place-items:center; color:var(--ink); font-weight:400; font-size:16px; line-height:1}
+.win-body{background:var(--paper); margin:4px; border:2px solid; border-color:var(--chrome-dark) var(--white) var(--white) var(--chrome-dark)}
+.btn{display:inline-flex; align-items:center; gap:8px; font-family:var(--f-body); font-weight:700; font-size:15px; padding:10px 18px; background:var(--chrome); color:var(--ink); border:2px solid; border-color:var(--white) var(--ink) var(--ink) var(--white); box-shadow:2px 2px 0 var(--ink); text-decoration:none; cursor:pointer}
+.btn:active{transform:translate(1px,1px)}
+.btn.primary{background:var(--cobalt); color:var(--white); border-color:#7ea3ff var(--ink) var(--ink) #7ea3ff}
+.chip{display:inline-block; border:2px solid var(--ink); background:var(--paper); padding:2px 10px; font-size:13px; font-weight:600; text-decoration:none; border-radius:999px}
+a.chip:hover{background:var(--sun)}
+.sticker{display:inline-block; font-family:var(--f-hand); font-size:21px; line-height:1.1; background:var(--sun); color:var(--ink); padding:5px 13px; border:2px solid var(--ink); border-radius:999px; transform:rotate(-4deg); box-shadow:3px 3px 0 var(--ink)}
+.sticker.pink{background:var(--pink); color:var(--white)}
+.ph{position:relative; border:2px dashed var(--ink); background:repeating-linear-gradient(45deg, rgba(255,255,255,.55) 0 9px, transparent 9px 18px), var(--slot,var(--sky-pale)); aspect-ratio:var(--ar,4/3); max-width:100%; display:grid; place-items:center; text-align:center; padding:10px; overflow:hidden}
+.ph span{font-family:var(--f-pixel); font-size:18px; line-height:1.1; background:var(--paper); border:2px solid var(--ink); padding:2px 8px}
+.ph small{display:block; font-family:var(--f-body); font-size:11px; color:var(--muted); margin-top:4px}
+.ph img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+
+.stage{position:relative; padding-block:clamp(64px,9vw,112px)}
+.sec-head{position:relative; display:grid; gap:6px; margin-bottom:clamp(32px,5vw,52px); max-width:760px}
+.sec-head .node{top:22px}
+.lvtag{font-family:var(--f-pixel); font-size:22px; line-height:1; color:var(--cobalt)}
+.lvtag b{font-weight:400; background:var(--ink); color:var(--sun); padding:2px 8px; margin-right:8px}
+.sec-head h2{font-family:var(--f-display); font-weight:400; font-size:clamp(30px,4.4vw,52px); line-height:1.08; letter-spacing:-.01em}
+.sec-head .sub{color:var(--muted); max-width:62ch}
+
+/* Reveal: content rests visible; it only settles upward when reached */
+.js .rv{transform:translateY(28px); transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{transform:none}
+
+/* Bridges between levels */
+.wpt{position:relative; height:0}
+.node.wp{opacity:0}
+.bridge{position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:22px; padding-block:24px 8px; text-align:center}
+.bridge .node{position:relative; transform:none; left:auto}
+.bridge .node.on{transform:scale(1.25)}
+.bridge p{font-family:var(--f-pixel); font-size:21px; line-height:1.2; background:var(--paper); border:2px solid var(--ink); box-shadow:3px 3px 0 var(--ink); padding:6px 14px; max-width:min(520px,100%)}
+.bridge p .st{display:inline-block; margin-right:8px; padding:0 6px; background:var(--chrome-dark); color:var(--ink); transition:background-color .3s}
+.bridge.reached p .st{background:var(--grass); color:var(--white)}
+.bridge .st .ok{display:none}
+.bridge.reached .st .ok{display:inline}
+.bridge.reached .st .wait{display:none}
+
+/* ---------- START (hero) ---------- */
+.hero{padding-block:calc(var(--hud) + clamp(36px,6vw,72px)) clamp(40px,6vw,72px); overflow:hidden}
+.hero::before,.hero::after{content:""; position:absolute; z-index:0; background:var(--white); border-radius:999px; opacity:.85; animation:drift 40s linear infinite alternate}
+.hero::before{width:180px; height:46px; top:120px; left:6%; box-shadow:60px -22px 0 4px var(--white)}
+.hero::after{width:220px; height:52px; top:70px; right:8%; box-shadow:-70px 20px 0 -6px var(--white); animation-duration:55s}
+@keyframes drift{to{transform:translateX(60px)}}
+.hero-grid{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr); gap:clamp(28px,5vw,64px); align-items:center}
+.prompt{font-family:var(--f-pixel); font-size:21px; color:var(--cobalt-dark)}
+.cursor{display:inline-block; width:.55em; height:1em; background:var(--cobalt); vertical-align:-2px; margin-left:4px; animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero h1{font-family:var(--f-display); font-weight:400; font-size:clamp(36px,6vw,74px); line-height:1.02; margin-top:10px; letter-spacing:-.015em}
+.hero h1 .hl{background:linear-gradient(transparent 58%, var(--sun) 58% 92%, transparent 92%)}
+.hero .lede{margin-top:20px; font-size:clamp(16px,1.6vw,18px); max-width:56ch}
+.cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px}
+.status{display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:22px; font-family:var(--f-pixel); font-size:19px; line-height:1.2}
+.status > span{display:inline-flex; align-items:center; gap:8px}
+.dot{width:10px; height:10px; border-radius:50%; background:var(--grass); box-shadow:0 0 0 2px var(--ink); flex:none; display:inline-block}
+.dot.alt{background:var(--sun)}
+.tangle{position:relative; transform:rotate(1.5deg)}
+.tangle .win-bar{background:linear-gradient(90deg,#8a1a5a,var(--pink))}
+.tangle .win-body{position:relative; padding:14px 14px 0; background:
+  linear-gradient(var(--sky-pale) 1px, transparent 1px) 0 0/100% 24px, var(--paper)}
+.tangle svg{display:block; width:100%; height:auto; overflow:visible}
+.tangle #tg{fill:none; stroke:var(--pink); stroke-width:5; stroke-linecap:round; stroke-linejoin:round}
+.tangle #tgU{fill:none; stroke:var(--ink); stroke-width:10; stroke-linecap:round; stroke-linejoin:round}
+.tangle .stat-line{display:flex; justify-content:space-between; gap:8px; font-family:var(--f-pixel); font-size:18px; line-height:1.1; padding:0 0 8px}
+.tangle .stat-line b{font-weight:400; padding:0 6px; background:var(--pink); color:var(--white)}
+.tangle.clear .stat-line b{background:var(--grass)}
+.tangle .clear-t{display:none}
+.tangle.clear .clear-t{display:inline}
+.tangle.clear .messy-t{display:none}
+.tangle .node{left:50%; bottom:0; top:auto; transform:translate(-50%,50%) rotate(45deg)}
+.tangle .node.on{transform:translate(-50%,50%) rotate(45deg) scale(1.2)}
+.tangle .sticker{position:absolute; left:-26px; top:46px; z-index:2}
+.scroll-hint{margin-top:56px; font-family:var(--f-pixel); font-size:20px; text-align:center}
+.scroll-hint span{display:inline-block; animation:hint 1.4s ease-in-out infinite}
+@keyframes hint{50%{transform:translateY(5px)}}
+
+.tape{position:relative; z-index:3; background:var(--sun); border-block:3px solid var(--ink); overflow:hidden; white-space:nowrap}
+.tape-track{display:inline-flex; gap:28px; padding-block:10px; animation:marquee 36s linear infinite; font-family:var(--f-display); font-size:19px; line-height:1}
+.tape-track span{display:inline-flex; gap:28px}
+.tape-track i{font-style:normal; color:var(--pink)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- LV.1 CLARIFY (about) ---------- */
+.about-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(28px,5vw,64px); align-items:start}
+.timeline{list-style:none; margin:0; padding:0; display:grid; gap:34px}
+.tl{position:relative}
+.tl .node{top:14px}
+.tl .when{font-family:var(--f-pixel); font-size:20px; color:var(--cobalt); line-height:1.2; font-variant-numeric:tabular-nums}
+.tl h3{font-size:18px; font-weight:700; margin-top:2px}
+.tl .lane{display:inline-block; font-family:var(--f-pixel); font-size:16px; font-weight:400; background:var(--pink-soft); padding:0 6px; margin-left:4px; vertical-align:2px}
+.tl p{font-size:15px; color:var(--muted); margin-top:4px; max-width:52ch}
+.scope{margin-top:8px; height:8px; border:2px solid var(--ink); background:var(--paper); max-width:260px}
+.scope i{display:block; height:100%; background:var(--pink); width:var(--w)}
+.scope-lbl{font-family:var(--f-pixel); font-size:15px; color:var(--muted)}
+.thread-line{margin-top:0; font-family:var(--f-pixel); font-size:21px; letter-spacing:.06em}
+.player-card{display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:18px; align-items:start; background:var(--pink); border:3px solid var(--ink); border-radius:16px; padding:14px; box-shadow:6px 6px 0 var(--ink); transform:rotate(-1deg)}
+.player-card .ph{--ar:3/4; --slot:#ffc2dc; border-radius:8px; border-color:var(--pink-deep)}
+.player-card .who{color:var(--white)}
+.player-card .who b{display:block; font-family:var(--f-hand); font-size:34px; line-height:1; text-shadow:2px 2px 0 var(--ink)}
+.player-card .stats{margin-top:10px; display:grid; gap:4px; font-family:var(--f-pixel); font-size:17px; line-height:1.1; background:var(--paper); color:var(--ink); border:2px solid var(--ink); border-radius:6px; padding:8px 10px}
+.player-card .stats span{display:flex; justify-content:space-between; gap:8px}
+.about-copy{margin-top:30px; display:grid; gap:14px}
+.about-copy p{font-size:17px; max-width:60ch}
+.owner{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:6px}
+.owner .big{font-family:var(--f-hand); font-size:clamp(32px,4vw,46px); color:var(--pink-deep); line-height:1}
+.creds{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; font-size:14px; color:var(--muted); margin-top:10px}
+.creds h3{font-family:var(--f-pixel); font-weight:400; font-size:19px; color:var(--ink); letter-spacing:.04em}
+.creds ul{margin:4px 0 0; padding-left:18px}
+
+/* ---------- LV.2 STRUCTURE (process) ---------- */
+.board{position:relative; margin-inline:clamp(8px,2vw,28px); background:var(--cobalt); color:var(--white); border:3px solid var(--ink); border-radius:clamp(20px,3vw,40px); box-shadow:8px 8px 0 var(--ink)}
+.board .lvtag{color:var(--sun)}
+.board .sec-head .sub{color:var(--cobalt-ink)}
+.board .node{border-color:var(--ink)}
+.stairs{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:22px; align-items:start}
+.step{position:relative; min-width:0}
+.step:nth-child(2){margin-top:80px} .step:nth-child(3){margin-top:160px} .step:nth-child(4){margin-top:240px}
+.step .node{left:0; top:30px}
+.lvl{position:relative; z-index:3; background:var(--cobalt-dark); border:3px solid var(--white); box-shadow:5px 5px 0 var(--ink); padding:18px 18px 22px}
+.lvl .tag{display:inline-block; font-family:var(--f-pixel); font-size:20px; line-height:1; background:var(--sun); color:var(--ink); padding:4px 8px; border:2px solid var(--ink)}
+.lvl .hearts{float:right; font-family:var(--f-pixel); font-size:20px; color:var(--pink); letter-spacing:2px}
+.lvl h3{font-family:var(--f-display); font-weight:400; font-size:23px; margin-top:12px; line-height:1.15}
+.lvl .kick{font-weight:600; margin-top:4px}
+.lvl p{font-size:15px; color:var(--cobalt-ink); margin-top:8px}
+.lvl .here{display:block; margin-top:14px; font-family:var(--f-pixel); font-size:16px; line-height:1.15; color:var(--sun)}
+.board blockquote{margin:64px 0 0; font-family:var(--f-hand); font-size:clamp(24px,3vw,34px); line-height:1.2; max-width:36ch}
+.board blockquote::before{content:"> "; font-family:var(--f-pixel); color:var(--sun)}
+
+/* ---------- LV.3 ALIGN (hub + skills) ---------- */
+.hub{position:relative; max-width:680px; margin:0 auto 56px}
+.hub svg{display:block; width:100%; height:auto}
+.hub .node{left:50%; top:50%; opacity:0}
+.hub .spoke{fill:none; stroke:var(--ink); stroke-width:3; stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .7s ease}
+.hub.reached .spoke{stroke-dashoffset:0}
+.hub .spoke:nth-of-type(2){transition-delay:.1s} .hub .spoke:nth-of-type(3){transition-delay:.2s} .hub .spoke:nth-of-type(4){transition-delay:.3s} .hub .spoke:nth-of-type(5){transition-delay:.4s} .hub .spoke:nth-of-type(6){transition-delay:.5s}
+.hub .pill rect{fill:var(--paper); stroke:var(--ink); stroke-width:3; transition:fill .4s}
+.hub.reached .pill rect{fill:var(--white)}
+.hub.reached .pill:nth-of-type(odd) rect{fill:var(--pink-soft)}
+.hub text{font-family:var(--f-pixel); font-size:23px; fill:var(--ink); text-anchor:middle; dominant-baseline:central}
+.hub .core circle{fill:var(--sun); stroke:var(--ink); stroke-width:4}
+.hub .core text{font-family:var(--f-display); font-size:17px}
+.hub-cap{text-align:center; font-family:var(--f-hand); font-size:22px; margin-top:6px}
+.inv{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px}
+.mod{position:relative; background:var(--paper); border:3px solid var(--ink); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px; min-width:0; box-shadow:6px 6px 0 var(--c,var(--pink))}
+.mod:nth-child(1){--c:var(--pink)} .mod:nth-child(2){--c:var(--sun)} .mod:nth-child(3){--c:var(--grass)}
+.mod:nth-child(4){--c:var(--sky-deep)} .mod:nth-child(5){--c:var(--orange)} .mod:nth-child(6){--c:var(--cobalt)}
+.mod .slotno{font-family:var(--f-pixel); font-size:18px; color:var(--cobalt); display:flex; justify-content:space-between; gap:8px}
+.mod .slotno span:last-child{color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.mod h3{font-size:19px; font-weight:700; line-height:1.25}
+.mod p.d{font-size:15px; color:var(--muted)}
+.mod .hire{font-size:13px; padding:8px 10px; background:var(--cream); border:2px solid var(--ink); border-radius:6px}
+.mod .hire b{font-family:var(--f-pixel); font-weight:400; font-size:16px; display:block; line-height:1; margin-bottom:3px}
+.proof{display:flex; flex-wrap:wrap; gap:6px}
+.loot{margin-top:auto; display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; padding:8px 10px; border-radius:6px; background:var(--c); color:var(--white); border:2px solid var(--ink)}
+.mod:nth-child(2) .loot,.mod:nth-child(4) .loot{color:var(--ink)}
+.loot.empty{background:transparent; color:var(--muted); border-style:dashed; font-weight:500}
+.loot .k{font-family:var(--f-pixel); font-weight:400; font-size:17px}
+.ways{margin-top:36px; display:flex; flex-wrap:wrap; align-items:center; gap:10px}
+.ways .lbl{font-family:var(--f-pixel); font-size:20px}
+
+/* ---------- LV.4 FOLLOW THROUGH (work route) ---------- */
+.deliver{padding-bottom:0}
+.brands{display:flex; flex-wrap:wrap; gap:8px}
+.brands .grp{font-family:var(--f-pixel); font-size:19px; align-self:center; margin-right:4px}
+.pin{position:relative; z-index:3; margin-top:36px}
+.pin-inner{position:relative; padding-block:20px 28px; background:
+  radial-gradient(circle, var(--sun) 0 8px, transparent 9px) 0 0/120px 120px,
+  radial-gradient(circle, var(--sky-deep) 0 6px, transparent 7px) 60px 40px/120px 120px,
+  radial-gradient(circle, var(--white) 0 10px, transparent 11px) 90px 95px/120px 120px,
+  var(--pink-soft); border-block:3px solid var(--ink)}
+.track{display:grid; gap:36px; padding-inline:var(--gutter)}
+.case{position:relative; max-width:1000px; margin-inline:auto; width:100%}
+.case .node{display:none}
+.case .win-body{padding:clamp(14px,2.2vw,24px); display:grid; grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr); gap:clamp(16px,2.6vw,28px)}
+.media{display:grid; grid-template-columns:1fr 1fr; gap:8px; align-content:start}
+.media .ph:first-child{grid-column:1/-1; --ar:4/3}
+.media .ph{--ar:1/1}
+.case h3{font-family:var(--f-display); font-weight:400; font-size:clamp(21px,2.3vw,27px); line-height:1.15}
+.case .meta{margin-top:4px; font-family:var(--f-pixel); font-size:18px; color:var(--muted)}
+.cgrid{margin-top:12px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 20px}
+.cgrid > div{min-width:0}
+.cgrid h4{font-family:var(--f-pixel); font-weight:400; font-size:18px; letter-spacing:.06em; color:var(--cobalt); text-transform:uppercase}
+.cgrid p{font-size:14px; margin-top:1px}
+.team{margin-top:10px; font-size:13px; color:var(--muted)}
+.team b{font-family:var(--f-pixel); font-weight:400; font-size:16px; color:var(--ink); margin-right:4px}
+.outcome{margin-top:12px; border:3px solid var(--ink); background:var(--sun); padding:10px 12px; box-shadow:4px 4px 0 var(--ink)}
+.outcome .k{display:block; font-family:var(--f-pixel); font-size:19px; line-height:1; margin-bottom:4px}
+.outcome p{font-size:14px; font-weight:600}
+.nums{margin-top:8px; display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px}
+.num{background:var(--white); border:2px solid var(--ink); padding:8px 10px}
+.num b{display:block; font-family:var(--f-display); font-weight:400; font-size:clamp(24px,2.6vw,30px); line-height:1; color:var(--pink); font-variant-numeric:tabular-nums}
+.num span{font-size:12px; color:var(--muted)}
+.num.empty{background:transparent; border-style:dashed}
+.num.empty b{color:var(--muted); font-family:var(--f-pixel); font-size:24px}
+.src{margin-top:6px; font-size:12px; opacity:.8}
+.loop{margin-top:6px; font-family:var(--f-pixel); font-size:18px; color:var(--cobalt)}
+.case.more .win-body{display:block}
+.more-grid{display:grid; gap:14px; margin-top:12px}
+.more-item{display:grid; grid-template-columns:110px minmax(0,1fr); gap:14px; align-items:center; background:var(--white); border:2px solid var(--ink); padding:10px}
+.more-item .ph{--ar:1/1; padding:4px}
+.more-item b{display:block}
+.more-item span.d{font-size:14px; color:var(--muted)}
+.route{display:none}
+html:not(.pinned) .pin{z-index:auto}
+html:not(.pinned) .pin-inner{background:none; border:0}
+html:not(.pinned) .track{position:relative; z-index:3}
+
+/* Pinned horizontal route on big screens */
+.pinned .pin-inner{position:sticky; top:var(--hud); height:calc(100vh - var(--hud)); display:flex; flex-direction:column; justify-content:center; gap:22px; overflow:hidden; padding-block:16px}
+.pinned .track{display:flex; gap:48px; width:max-content; padding-inline:max(var(--gutter), calc((100vw - 1000px) / 2)); will-change:transform; align-items:center}
+.pinned .case{width:min(940px, calc(100vw - 2 * var(--gutter) - 40px)); flex:none; margin:0; transition:transform .4s, opacity .4s; opacity:.55; transform:scale(.94)}
+.pinned .case.cur{opacity:1; transform:none}
+.pinned .route{display:flex; align-items:center; gap:14px; margin-inline:auto; width:min(940px, calc(100vw - 2 * var(--gutter)))}
+.route .lbl{flex:none; font-family:var(--f-pixel); font-size:20px; line-height:1; background:var(--ink); color:var(--sun); padding:4px 10px; font-variant-numeric:tabular-nums}
+.route .line{position:relative; flex:1; height:30px}
+.route .line::before{content:""; position:absolute; left:0; right:0; top:50%; border-top:3px dashed var(--ink); opacity:.4}
+.route .done{position:absolute; left:0; top:50%; height:6px; margin-top:-2px; width:0; background:var(--pink); border:2px solid var(--ink); border-radius:999px}
+.route .stop{position:absolute; top:50%; width:16px; height:16px; margin:-7px 0 0 -8px; background:var(--paper); border:3px solid var(--ink); border-radius:50%}
+.route .stop.on{background:var(--sun)}
+.route .mini{position:absolute; top:50%; left:0; width:28px; height:28px; margin:-13px 0 0 -14px; display:grid; place-items:center; background:var(--pink); color:var(--white); border:3px solid var(--ink); border-radius:8px; font-family:var(--f-pixel); font-size:19px; line-height:1}
+.route .hint{flex:none; font-family:var(--f-pixel); font-size:18px}
+
+/* ---------- GOAL (contact) ---------- */
+.finish{padding-top:24px; padding-bottom:clamp(16px,3vw,32px)}
+.goal{position:relative; display:flex; flex-direction:column; align-items:center}
+.flag{position:relative; width:120px; height:150px}
+.flag svg{width:100%; height:100%; overflow:visible}
+.flag .cloth{transform:translateY(92px); transition:transform 1.1s cubic-bezier(.3,1.4,.5,1)}
+.goal.reached .flag .cloth{transform:none}
+.goal .node{left:50%; top:auto; bottom:-9px; transform:translate(-50%,0)}
+.goal .node.on{transform:translate(-50%,0) scale(1.2)}
+.game{position:relative; z-index:3; margin-inline:clamp(8px,2vw,28px); margin-top:-2px; border:3px solid var(--ink); border-radius:clamp(20px,3vw,40px); overflow:hidden; background:
+  repeating-linear-gradient(100deg, transparent 0 6px, rgba(0,0,0,.05) 6px 8px),
+  linear-gradient(180deg, var(--sky) 0 28%, var(--grass) 28%, var(--grass-dark)); padding-block:clamp(36px,6vw,72px)}
+.game .wrap{padding-inline:var(--gutter)}
+.screen{max-width:820px; margin-inline:auto; background:var(--ink); color:var(--white); border:4px solid var(--ink); border-radius:18px; box-shadow:0 0 0 6px var(--chrome), 10px 10px 0 6px var(--ink); padding:clamp(22px,4vw,44px)}
+.hudline{display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; font-family:var(--f-pixel); font-size:20px; line-height:1}
+.hudline .h{color:var(--pink); letter-spacing:3px}
+.gameover{margin-top:22px; font-family:var(--f-display); font-weight:400; font-size:clamp(40px,8vw,88px); line-height:.95; color:var(--sun); text-shadow:4px 4px 0 var(--pink)}
+.screen h2{margin-top:10px; font-family:var(--f-hand); font-weight:400; font-size:clamp(26px,3.6vw,38px); line-height:1.15}
+.screen .lede{margin-top:12px; color:#cfd3ea; max-width:56ch}
+.recap{margin-top:20px; display:flex; flex-wrap:wrap; gap:8px}
+.recap span{font-family:var(--f-pixel); font-size:17px; line-height:1; padding:4px 8px; border:2px solid var(--sun); color:var(--sun)}
+.mail{margin-top:24px; display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.mail code{font-family:var(--f-pixel); font-size:26px; background:var(--white); color:var(--ink); border:2px solid var(--sun); padding:4px 12px; user-select:all; overflow-wrap:anywhere}
+.play{font-family:var(--f-pixel); font-size:24px; line-height:1; letter-spacing:.08em; background:var(--sky-deep); color:var(--ink); border:3px solid var(--white); border-radius:999px; padding:8px 22px; cursor:pointer; box-shadow:0 4px 0 var(--white); animation:pulse 1.6s ease-in-out infinite}
+.play:active{transform:translateY(3px); box-shadow:0 1px 0 var(--white)}
+@keyframes pulse{50%{transform:scale(1.05)}}
+.copied{font-family:var(--f-pixel); font-size:19px; color:var(--sun); min-height:1.2em}
+.open-to{margin-top:24px; display:grid; gap:8px; font-size:15px; color:#e8eaf6}
+.open-to div{display:flex; gap:10px; align-items:baseline}
+.open-to b{color:var(--white)}
+.foot{margin-top:30px; font-family:var(--f-pixel); font-size:18px; color:var(--white); text-align:center; text-shadow:1px 1px 0 var(--ink)}
+.replay{display:block; margin:14px auto 0; width:max-content}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important; transition:none!important}
+  .js .rv{transform:none}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px){
+  .hero-grid,.about-grid{grid-template-columns:minmax(0,1fr)}
+  .tangle{max-width:380px; width:100%; justify-self:center}
+  .stairs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step:nth-child(n){margin-top:0}
+  .step:nth-child(even){margin-top:60px}
+  .step:nth-child(3){margin-top:-30px}
+  .inv{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .case .win-body{grid-template-columns:minmax(0,1fr)}
+  .media{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .media .ph:first-child{grid-column:auto; --ar:1/1}
+}
+@media (max-width: 720px){
+  :root{--railpad:30px; --hud:52px}
+  .now{min-width:0; font-size:17px}
+  .logo b{display:none}
+  .stairs,.inv,.cgrid,.creds{grid-template-columns:minmax(0,1fr)}
+  .step:nth-child(n){margin-top:0}
+  .step .node{left:calc(var(--railpad) / -2)}
+  .player-card{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
+  .tangle .sticker{left:-8px}
+  .case .node{display:block; left:calc(var(--railpad) / -2); top:22px}
+  .track{padding-inline:calc(var(--gutter) + var(--railpad)) var(--gutter)}
+  .more-item{grid-template-columns:72px minmax(0,1fr)}
+}
+@media (max-width: 460px){ .now{display:none} }
+</style>
+
+<div id="bg" aria-hidden="true"></div>
+
+<!-- Thread drawn across the whole document -->
+<div id="thread" aria-hidden="true">
+  <svg id="threadSvg" width="0" height="0">
+    <path id="tBase" d=""/>
+    <path id="tUnder" d=""/>
+    <path id="tLive" d=""/>
+  </svg>
+</div>
+<div id="player" aria-hidden="true"><i>X</i></div>
+
+<!-- ================= HUD ================= -->
+<header class="hud">
+  <a class="logo" href="#start"><i></i><b>XINH.OS</b></a>
+  <nav class="route-top" aria-label="Levels">
+    <div class="bar"><span class="fill" id="hudFill"></span></div>
+    <div class="pips">
+      <a href="#start" data-pip="0" title="Start">S<span>START</span></a>
+      <a href="#clarify" data-pip="1" title="LV.1">1<span class="en">CLARIFY</span><span class="vi">LÀM RÕ</span></a>
+      <a href="#structure" data-pip="2" title="LV.2">2<span class="en">STRUCTURE</span><span class="vi">CẤU TRÚC</span></a>
+      <a href="#align" data-pip="3" title="LV.3">3<span class="en">ALIGN</span><span class="vi">ĐIỀU PHỐI</span></a>
+      <a href="#deliver" data-pip="4" title="LV.4">4<span class="en">FOLLOW</span><span class="vi">VỀ ĐÍCH</span></a>
+      <a href="#finish" data-pip="5" title="Goal">★<span>GOAL</span></a>
+    </div>
+  </nav>
+  <div class="now" id="now" aria-live="polite">START</div>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-set="en" aria-pressed="true">EN</button>
+    <button type="button" data-set="vi" aria-pressed="false">VI</button>
+  </div>
+</header>
+
+<main>
+<!-- ================= START ================= -->
+<section class="stage hero" id="start">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="prompt">C:\XINH.OS&gt; <span class="en">new_project --owner xinh</span><span class="vi">du_an_moi --owner xinh</span><span class="cursor" aria-hidden="true"></span></p>
+      <h1>
+        <span class="en">Every brief starts as a tangle. <span class="hl">I pull it straight.</span></span>
+        <span class="vi">Brief nào cũng bắt đầu rối. <span class="hl">Tôi gỡ cho nó thẳng.</span></span>
+      </h1>
+      <p class="lede en"><b>Xinh Nguyen, brand &amp; communication operator.</b> 4+ years planning, coordinating and delivering campaigns, social always-on and activations for banks, fintechs and consumer brands. Scroll, and follow one project from messy brief to finish line.</p>
+      <p class="lede vi"><b>Xinh Nguyen, người vận hành thương hiệu &amp; truyền thông.</b> Hơn 4 năm lên kế hoạch, điều phối và triển khai chiến dịch, social always-on và activation cho ngân hàng, fintech và thương hiệu tiêu dùng. Cuộn xuống và đi cùng một dự án, từ brief rối đến vạch đích.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#finish"><span class="en">Skip to the goal</span><span class="vi">Đến thẳng vạch đích</span></a>
+        <a class="btn" href="#deliver"><span class="en">See the work</span><span class="vi">Xem dự án</span></a>
+      </div>
+      <div class="status">
+        <span><i class="dot"></i><span class="en">Open to brand &amp; marketing roles</span><span class="vi">Sẵn sàng cho vị trí brand &amp; marketing</span></span>
+        <span><i class="dot alt"></i><span class="en">Taking freelance projects</span><span class="vi">Nhận dự án freelance</span></span>
+      </div>
+    </div>
+
+    <div class="win tangle" id="tangle">
+      <div class="win-bar"><span><span class="messy-t">brief_v7_final_FINAL.doc</span><span class="clear-t">goal.txt</span></span><div class="win-btns" aria-hidden="true"><b>_</b><b>×</b></div></div>
+      <div class="win-body">
+        <p class="stat-line"><span class="en">status:</span><span class="vi">trạng thái:</span>
+          <b><span class="messy-t"><span class="en">UNCLEAR</span><span class="vi">CHƯA RÕ</span></span><span class="clear-t"><span class="en">CLEAR ✓</span><span class="vi">ĐÃ RÕ ✓</span></span></b></p>
+        <svg viewBox="0 0 300 330" aria-hidden="true">
+          <path id="tgU" d=""/>
+          <path id="tg" d=""/>
+        </svg>
+        <span class="node cp" data-node data-cp="0"></span>
+      </div>
+      <span class="sticker"><span class="en">scroll to untangle</span><span class="vi">cuộn để gỡ rối</span></span>
+    </div>
+  </div>
+  <p class="scroll-hint wrap" aria-hidden="true"><span>▼</span> <span class="en">the thread leads the way</span><span class="vi">sợi chỉ sẽ dẫn đường</span></p>
+</section>
+
+<div class="tape" aria-hidden="true">
+  <div class="tape-track">
+    <span>VIB <i>★</i> MSB <i>★</i> CAKE BY VPBANK <i>★</i> DIGIMI <i>★</i> BVBANK <i>★</i> POCA <i>★</i> LAY'S <i>★</i> HẢO HẢO <i>★</i> PRUDENTIAL <i>★</i> TETRA PAK <i>★</i> NHỰA DUY TÂN <i>★</i> CINDY BLOOM <i>★</i></span>
+    <span>VIB <i>★</i> MSB <i>★</i> CAKE BY VPBANK <i>★</i> DIGIMI <i>★</i> BVBANK <i>★</i> POCA <i>★</i> LAY'S <i>★</i> HẢO HẢO <i>★</i> PRUDENTIAL <i>★</i> TETRA PAK <i>★</i> NHỰA DUY TÂN <i>★</i> CINDY BLOOM <i>★</i></span>
+  </div>
+</div>
+
+<!-- ================= LV.1 CLARIFY ================= -->
+<section class="stage" id="clarify">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="node rail cp" data-node data-cp="1"></span>
+      <p class="lvtag"><b>LV.1</b><span class="en">CLARIFY · who's on this brief</span><span class="vi">LÀM RÕ · ai nhận brief này</span></p>
+      <h2><span class="en">Hi, I'm Xinh. My scope kept growing.</span><span class="vi">Chào, tôi là Xinh. Phạm vi việc của tôi lớn dần.</span></h2>
+      <p class="sub"><span class="en">Four roles at Xanh Marketing, Ho Chi Minh City. Each one moved me from understanding the brief to owning more of the work around it.</span><span class="vi">Bốn vai trò tại Xanh Marketing, TP.HCM. Mỗi bước đưa tôi từ hiểu brief sang làm chủ nhiều hơn phần việc quanh nó.</span></p>
+    </div>
+    <div class="about-grid">
+      <ol class="timeline">
+        <li class="tl">
+          <span class="node rail" data-node></span>
+          <div class="when">04/2022 – 08/2022</div>
+          <h3>Digital Planning Assistant <span class="lane">PLANNING</span></h3>
+          <p class="en">Market, competitor and audience research; kept creative and media teams aligned on messaging.</p>
+          <p class="vi">Nghiên cứu thị trường, đối thủ, đối tượng; giữ team creative và media thống nhất thông điệp.</p>
+          <div class="scope" style="--w:25%"><i></i></div><span class="scope-lbl"><span class="en">scope: understand</span><span class="vi">phạm vi: hiểu</span></span>
+        </li>
+        <li class="tl">
+          <span class="node rail" data-node></span>
+          <div class="when">08/2022 – 09/2024</div>
+          <h3>Account Executive <span class="lane">CLIENT + DELIVERY</span></h3>
+          <p class="en">Ran communication projects across several brand accounts, from client communication to execution quality.</p>
+          <p class="vi">Quản lý dự án truyền thông cho nhiều thương hiệu, từ giao tiếp với client đến chất lượng triển khai.</p>
+          <div class="scope" style="--w:50%"><i></i></div><span class="scope-lbl"><span class="en">scope: + deliver</span><span class="vi">phạm vi: + triển khai</span></span>
+        </li>
+        <li class="tl">
+          <span class="node rail" data-node></span>
+          <div class="when">09/2024 – 04/2026</div>
+          <h3>Senior Business Development <span class="lane">PITCH + GROWTH</span></h3>
+          <p class="en">Managed pitches, client relationships and scope expansion; coordinated creative, account, media and production; mentored 1–2 juniors.</p>
+          <p class="vi">Phụ trách pitching, quan hệ khách hàng và mở rộng scope; điều phối creative, account, media, production; hướng dẫn 1–2 bạn junior.</p>
+          <div class="scope" style="--w:75%"><i></i></div><span class="scope-lbl"><span class="en">scope: + connect</span><span class="vi">phạm vi: + kết nối</span></span>
+        </li>
+        <li class="tl">
+          <span class="node rail" data-node></span>
+          <div class="when">05/2026 – 08/2026</div>
+          <h3>Associate Account Manager <span class="lane">OWNERSHIP</span></h3>
+          <p class="en">Owned end-to-end projects across scope, timeline and deliverables; managed client expectations and project issues.</p>
+          <p class="vi">Làm chủ dự án từ đầu đến cuối về scope, timeline và deliverables; quản lý kỳ vọng của client và các phát sinh.</p>
+          <div class="scope" style="--w:100%"><i></i></div><span class="scope-lbl"><span class="en">scope: + own</span><span class="vi">phạm vi: + làm chủ</span></span>
+        </li>
+      </ol>
+
+      <div>
+        <figure class="player-card rv" aria-label="Player card">
+          <div class="ph"><span>portrait.png<small class="en">photo slot</small><small class="vi">chỗ đặt ảnh</small></span></div>
+          <figcaption class="who">
+            <b>Xinh Nguyen</b>
+            <span class="pixel">BUSINESS-MINDED OPERATOR</span>
+            <div class="stats">
+              <span><span class="en">EXP</span><span class="vi">KINH NGHIỆM</span><b>4+ YRS</b></span>
+              <span><span class="en">BASE</span><span class="vi">NƠI Ở</span><b>HCMC</b></span>
+              <span><span class="en">CLASS</span><span class="vi">HỆ</span><b>BRAND · COMMS</b></span>
+              <span><span class="en">ITEMS</span><span class="vi">VẬT PHẨM</span><b>brief · timeline · cà phê</b></span>
+            </div>
+          </figcaption>
+        </figure>
+        <div class="about-copy">
+          <p class="en">I work best where the brief is not fully clear, people need alignment, and someone has to stay accountable for the outcome.</p>
+          <p class="vi">Tôi làm tốt nhất ở những chỗ brief chưa rõ, nhiều bên cần thống nhất, và cần một người chịu trách nhiệm đến kết quả cuối cùng.</p>
+          <div class="owner">
+            <span class="big">Tôi thích làm chủ.</span>
+            <span class="sticker pink"><span class="en">= I like owning the outcome</span><span class="vi">= làm chủ từ mục tiêu đến kết quả</span></span>
+          </div>
+          <div class="creds">
+            <div>
+              <h3><span class="en">EDUCATION</span><span class="vi">HỌC VẤN</span></h3>
+              <ul><li><span class="en">Bachelor of Public Administration, Ho Chi Minh City Cadre Academy</span><span class="vi">Cử nhân Hành chính công, Học viện Cán bộ TP.HCM</span></li></ul>
+            </div>
+            <div>
+              <h3><span class="en">CERTIFICATIONS · BRANDCAMP</span><span class="vi">CHỨNG CHỈ · BRANDCAMP</span></h3>
+              <ul><li>Foundation of Digital Marketing</li><li>Foundation of PR &amp; Corporate Communication</li><li>Integrated Brand Communication</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wpt" style="margin-top:30px"><span class="node rail wp" data-node></span></div>
+    <p class="thread-line"><span class="en">UNDERSTAND MORE · CONNECT MORE · OWN MORE</span><span class="vi">HIỂU SÂU HƠN · KẾT NỐI NHIỀU HƠN · LÀM CHỦ NHIỀU HƠN</span></p>
+    <div class="wpt" style="margin-top:24px"><span class="node rail wp" data-node></span></div>
+  </div>
+  <div class="bridge wrap" data-reach>
+    <span class="node" data-node></span>
+    <p><span class="st">LV.1 <span class="ok">✓</span><span class="wait">…</span></span><span class="en">Clear on who. Now, how does the work run?</span><span class="vi">Đã rõ là ai. Giờ, việc sẽ chạy thế nào?</span></p>
+  </div>
+</section>
+
+<!-- ================= LV.2 STRUCTURE ================= -->
+<section class="stage board" id="structure">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="node rail cp" data-node data-cp="2"></span>
+      <p class="lvtag"><b>LV.2</b><span class="en">STRUCTURE · problem into plan</span><span class="vi">CẤU TRÚC · từ bài toán thành kế hoạch</span></p>
+      <h2><span class="en">How a project moves with me.</span><span class="vi">Một dự án đi cùng tôi sẽ chạy thế nào.</span></h2>
+      <p class="sub"><span class="en">Four levels I run on every brief, from a one-off launch to a two-year retainer. This page runs on them too: you're on level two.</span><span class="vi">Bốn màn tôi chơi với mọi brief, từ một đợt launch đến retainer hai năm. Trang này cũng chạy theo đúng bốn màn đó: bạn đang ở màn hai.</span></p>
+    </div>
+    <div class="stairs">
+      <div class="step"><span class="node" data-node></span>
+        <div class="lvl rv"><span class="tag">LV.1</span><span class="hearts" aria-hidden="true">♥♡♡♡</span>
+          <h3><span class="en">Clarify</span><span class="vi">Làm rõ</span></h3>
+          <p class="kick"><span class="en">Goal before tasks</span><span class="vi">Mục tiêu trước công việc</span></p>
+          <p><span class="en">Pin down the goal, context, scope and what success looks like before anyone starts making things.</span><span class="vi">Làm rõ mục tiêu, bối cảnh, phạm vi và tiêu chí thành công trước khi bắt tay làm.</span></p>
+          <span class="here"><span class="en">↳ on this page: about me</span><span class="vi">↳ trên trang này: về tôi</span></span></div></div>
+      <div class="step"><span class="node" data-node></span>
+        <div class="lvl rv"><span class="tag">LV.2</span><span class="hearts" aria-hidden="true">♥♥♡♡</span>
+          <h3><span class="en">Structure</span><span class="vi">Cấu trúc</span></h3>
+          <p class="kick"><span class="en">Problem into plan</span><span class="vi">Từ bài toán thành kế hoạch</span></p>
+          <p><span class="en">Break the work into tasks, dependencies and priorities, and agree how it will run.</span><span class="vi">Chia đầu việc, xác định phụ thuộc, thứ tự ưu tiên và cách vận hành.</span></p>
+          <span class="here"><span class="en">↳ you are here</span><span class="vi">↳ bạn đang ở đây</span></span></div></div>
+      <div class="step"><span class="node" data-node></span>
+        <div class="lvl rv"><span class="tag">LV.3</span><span class="hearts" aria-hidden="true">♥♥♥♡</span>
+          <h3><span class="en">Align</span><span class="vi">Điều phối</span></h3>
+          <p class="kick"><span class="en">Right people, right roles</span><span class="vi">Đúng người, đúng vai trò</span></p>
+          <p><span class="en">Connect client, team and partners; set expectations and allocate resources.</span><span class="vi">Kết nối client, team và partner; thống nhất kỳ vọng và phân bổ nguồn lực.</span></p>
+          <span class="here"><span class="en">↳ next: what I run</span><span class="vi">↳ tiếp theo: năng lực</span></span></div></div>
+      <div class="step"><span class="node" data-node></span>
+        <div class="lvl rv"><span class="tag">LV.4</span><span class="hearts" aria-hidden="true">♥♥♥♥</span>
+          <h3><span class="en">Follow through</span><span class="vi">Theo đến kết quả</span></h3>
+          <p class="kick"><span class="en">Plan to outcome</span><span class="vi">Từ kế hoạch đến kết quả</span></p>
+          <p><span class="en">Track progress and quality, handle issues early and adjust when needed.</span><span class="vi">Theo sát tiến độ và chất lượng, xử lý phát sinh sớm và điều chỉnh khi cần.</span></p>
+          <span class="here"><span class="en">↳ then: the work</span><span class="vi">↳ sau đó: dự án</span></span></div></div>
+    </div>
+    <blockquote><span class="en">Ownership, to me, means staying with the problem, not just completing the task.</span><span class="vi">Với tôi, làm chủ là ở lại với vấn đề đến cùng, không chỉ hoàn thành đầu việc.</span></blockquote>
+  </div>
+</section>
+<div class="bridge wrap" data-reach style="padding-block:56px 8px">
+  <span class="node" data-node></span>
+  <p><span class="st">LV.2 <span class="ok">✓</span><span class="wait">…</span></span><span class="en">Plan's set. Bring in the right people.</span><span class="vi">Kế hoạch xong. Kéo đúng người vào cuộc.</span></p>
+</div>
+
+<!-- ================= LV.3 ALIGN ================= -->
+<section class="stage" id="align">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="node rail cp" data-node data-cp="3"></span>
+      <p class="lvtag"><b>LV.3</b><span class="en">ALIGN · right people, right roles</span><span class="vi">ĐIỀU PHỐI · đúng người, đúng vai</span></p>
+      <h2><span class="en">One goal in the middle. Everyone connected to it.</span><span class="vi">Một mục tiêu ở giữa. Mọi bên nối về đó.</span></h2>
+      <p class="sub"><span class="en">Most brand work stalls between people, not inside one team. These are the parties I keep pointed at the same goal, and the six jobs I run for brands.</span><span class="vi">Việc làm thương hiệu thường tắc ở giữa các bên, không phải trong một team. Đây là những bên tôi giữ cùng hướng về một mục tiêu, và sáu mảng việc tôi vận hành cho thương hiệu.</span></p>
+    </div>
+
+    <div class="wpt" style="margin-top:-20px"><span class="node rail wp" data-node></span></div>
+    <div class="hub" data-reach>
+      <svg viewBox="0 0 640 360" role="img" aria-label="Stakeholders connected to one goal">
+        <line class="spoke" pathLength="1" x1="320" y1="180" x2="175" y2="70"/>
+        <line class="spoke" pathLength="1" x1="320" y1="180" x2="145" y2="180"/>
+        <line class="spoke" pathLength="1" x1="320" y1="180" x2="175" y2="290"/>
+        <line class="spoke" pathLength="1" x1="320" y1="180" x2="465" y2="70"/>
+        <line class="spoke" pathLength="1" x1="320" y1="180" x2="495" y2="180"/>
+        <line class="spoke" pathLength="1" x1="320" y1="180" x2="465" y2="290"/>
+        <g class="pill"><rect x="45" y="48" width="140" height="44" rx="22"/><text x="115" y="70"><tspan class="en">Client</tspan><tspan class="vi">Khách hàng</tspan></text></g>
+        <g class="pill"><rect x="15" y="158" width="140" height="44" rx="22"/><text x="85" y="180"><tspan class="en">Creative</tspan><tspan class="vi">Sáng tạo</tspan></text></g>
+        <g class="pill"><rect x="45" y="268" width="140" height="44" rx="22"/><text x="115" y="290">Media</text></g>
+        <g class="pill"><rect x="455" y="48" width="140" height="44" rx="22"/><text x="525" y="70"><tspan class="en">Production</tspan><tspan class="vi">Sản xuất</tspan></text></g>
+        <g class="pill"><rect x="485" y="158" width="140" height="44" rx="22"/><text x="555" y="180">KOL / KOC</text></g>
+        <g class="pill"><rect x="455" y="268" width="140" height="44" rx="22"/><text x="525" y="290"><tspan class="en">Partners</tspan><tspan class="vi">Đối tác</tspan></text></g>
+        <g class="core"><circle cx="320" cy="180" r="54"/><text x="320" y="180"><tspan class="en">GOAL</tspan><tspan class="vi">MỤC TIÊU</tspan></text></g>
+      </svg>
+      <span class="node" data-node></span>
+      <p class="hub-cap"><span class="en">the thread runs through the goal, not around it</span><span class="vi">sợi chỉ đi xuyên qua mục tiêu, không vòng quanh nó</span></p>
+    </div>
+
+    <div class="inv">
+      <article class="mod rv">
+        <p class="slotno"><span>SLOT 01</span><span>brand_plan.doc</span></p>
+        <h3><span class="en">Brand &amp; campaign planning</span><span class="vi">Lên kế hoạch thương hiệu &amp; chiến dịch</span></h3>
+        <p class="d"><span class="en">Turn business goals into a plan: insight, message, channel mix, timeline and budget, kept consistent across every touchpoint.</span><span class="vi">Biến mục tiêu kinh doanh thành kế hoạch: insight, thông điệp, kênh, timeline và ngân sách, nhất quán trên mọi điểm chạm.</span></p>
+        <div class="hire"><b><span class="en">TEAMS HIRE FOR</span><span class="vi">NHÀ TUYỂN DỤNG CẦN</span></b><span class="en">Quarterly and yearly brand plans, consistent messaging, campaign briefs.</span><span class="vi">Kế hoạch brand theo quý/năm, thông điệp nhất quán, brief chiến dịch.</span></div>
+        <div class="proof"><a class="chip" href="#case-vib">VIB Ivy Card</a><a class="chip" href="#case-more">Nhựa Duy Tân Tết 2025</a></div>
+        <p class="loot"><span class="k">WIN&gt;</span><span class="en">Won the VIB pitch, opening a long-term partnership</span><span class="vi">Thắng pitch VIB, mở ra hợp tác dài hạn</span></p>
+      </article>
+      <article class="mod rv">
+        <p class="slotno"><span>SLOT 02</span><span>launch_delivery.exe</span></p>
+        <h3><span class="en">Campaign &amp; launch delivery</span><span class="vi">Triển khai chiến dịch &amp; ra mắt</span></h3>
+        <p class="d"><span class="en">Run the project from brief to live: agencies, production, approvals, timeline and budget in one place.</span><span class="vi">Chạy dự án từ brief đến lúc lên sóng: agency, production, duyệt, timeline và ngân sách trong một mối.</span></p>
+        <div class="hire"><b><span class="en">TEAMS HIRE FOR</span><span class="vi">NHÀ TUYỂN DỤNG CẦN</span></b><span class="en">Managing agencies and production on time and within budget.</span><span class="vi">Quản lý agency và production đúng hạn, đúng ngân sách.</span></div>
+        <div class="proof"><a class="chip" href="#case-poca">Poca Yummy</a><a class="chip" href="#case-more">Cindy Bloom</a></div>
+        <p class="loot"><span class="k">WIN&gt;</span><span class="en">266K+ Facebook engagements on Poca Yummy</span><span class="vi">266K+ tương tác Facebook cho Poca Yummy</span></p>
+      </article>
+      <article class="mod rv">
+        <p class="slotno"><span>SLOT 03</span><span>always_on.sys</span></p>
+        <h3><span class="en">Social always-on operations</span><span class="vi">Vận hành social always-on</span></h3>
+        <p class="d"><span class="en">A content rhythm that holds: channel roles, calendar, production flow and a review loop the whole team can keep.</span><span class="vi">Nhịp nội dung bền vững: vai trò từng kênh, lịch nội dung, quy trình sản xuất và vòng duyệt cả team giữ được.</span></p>
+        <div class="hire"><b><span class="en">TEAMS HIRE FOR</span><span class="vi">NHÀ TUYỂN DỤNG CẦN</span></b><span class="en">Running Facebook, TikTok and YouTube content with monthly improvement.</span><span class="vi">Vận hành nội dung Facebook, TikTok, YouTube và cải thiện hằng tháng.</span></div>
+        <div class="proof"><a class="chip" href="#case-msb">MSB Social AWO</a><a class="chip" href="#case-digimi">Digimi &amp; BVBank</a></div>
+        <p class="loot empty"><span class="k">+ ADD&gt;</span><span class="en">outcome slot: e.g. posts per month, retention</span><span class="vi">chỗ cho kết quả: vd. số bài/tháng, thời gian giữ hợp đồng</span></p>
+      </article>
+      <article class="mod rv">
+        <p class="slotno"><span>SLOT 04</span><span>kol_partners.wav</span></p>
+        <h3><span class="en">KOL/KOC &amp; partnerships</span><span class="vi">KOL/KOC &amp; hợp tác đối tác</span></h3>
+        <p class="d"><span class="en">Brief, book and manage creators, communities and entertainment partners so the content stays on brand and on time.</span><span class="vi">Brief, booking và quản lý creator, cộng đồng, đối tác giải trí để nội dung đúng brand và đúng hạn.</span></p>
+        <div class="hire"><b><span class="en">TEAMS HIRE FOR</span><span class="vi">NHÀ TUYỂN DỤNG CẦN</span></b><span class="en">Hands-on KOL/KOC and partnership management, from selection to tracking.</span><span class="vi">Quản lý KOL/KOC và đối tác thực chiến, từ chọn người đến đo hiệu quả.</span></div>
+        <div class="proof"><a class="chip" href="#case-poca">Poca × TikTok creators</a><a class="chip" href="#case-vib">VIB × Anh Trai Say Hi</a></div>
+        <p class="loot empty"><span class="k">+ ADD&gt;</span><span class="en">outcome slot: e.g. creators managed, views</span><span class="vi">chỗ cho kết quả: vd. số creator, lượt xem</span></p>
+      </article>
+      <article class="mod rv">
+        <p class="slotno"><span>SLOT 05</span><span>activation.evt</span></p>
+        <h3><span class="en">Activation &amp; events</span><span class="vi">Activation &amp; sự kiện</span></h3>
+        <p class="d"><span class="en">Bring the brand offline and connect the experience back to a measurable action, like an app sign-up.</span><span class="vi">Đưa thương hiệu ra đời thực và nối trải nghiệm với một hành động đo được, như đăng ký app.</span></p>
+        <div class="hire"><b><span class="en">TEAMS HIRE FOR</span><span class="vi">NHÀ TUYỂN DỤNG CẦN</span></b><span class="en">Activations, events and on-ground programs tied to business KPIs.</span><span class="vi">Activation, sự kiện, chương trình on-ground gắn với KPI kinh doanh.</span></div>
+        <div class="proof"><a class="chip" href="#case-digimi">Digimi coffee truck</a><a class="chip" href="#case-vib">VIB Ngày hội không tiền mặt</a></div>
+        <p class="loot"><span class="k">WIN&gt;</span><span class="en">268 registrations, 140 conversions from one activation</span><span class="vi">268 đăng ký, 140 chuyển đổi từ một activation</span></p>
+      </article>
+      <article class="mod rv">
+        <p class="slotno"><span>SLOT 06</span><span>report.xls</span></p>
+        <h3><span class="en">Measurement &amp; optimization</span><span class="vi">Đo lường &amp; tối ưu</span></h3>
+        <p class="d"><span class="en">Reports that explain the numbers, then a clear call on what to change in the next round.</span><span class="vi">Báo cáo giải thích được con số, kèm đề xuất rõ ràng cần đổi gì ở vòng tiếp theo.</span></p>
+        <div class="hire"><b><span class="en">TEAMS HIRE FOR</span><span class="vi">NHÀ TUYỂN DỤNG CẦN</span></b><span class="en">Tracking reach, engagement, conversion and cost efficiency, then recommending fixes.</span><span class="vi">Theo dõi reach, tương tác, chuyển đổi, hiệu quả chi phí và đề xuất cải thiện.</span></div>
+        <div class="proof"><a class="chip" href="#case-msb">MSB reporting</a><a class="chip" href="#case-digimi">Digimi funnel</a></div>
+        <p class="loot empty"><span class="k">+ ADD&gt;</span><span class="en">outcome slot: e.g. a metric you improved</span><span class="vi">chỗ cho kết quả: vd. một chỉ số đã cải thiện</span></p>
+      </article>
+    </div>
+    <div class="ways">
+      <span class="lbl"><span class="en">HOW WE CAN WORK:</span><span class="vi">HÌNH THỨC HỢP TÁC:</span></span>
+      <span class="chip"><span class="en">Full-time brand / marketing role</span><span class="vi">Vị trí brand / marketing toàn thời gian</span></span>
+      <span class="chip"><span class="en">Per project</span><span class="vi">Theo dự án</span></span>
+      <span class="chip"><span class="en">Monthly retainer</span><span class="vi">Retainer theo tháng</span></span>
+    </div>
+  </div>
+  <div class="bridge wrap" data-reach style="padding-top:72px">
+    <span class="node" data-node></span>
+    <p><span class="st">LV.3 <span class="ok">✓</span><span class="wait">…</span></span><span class="en">Everyone's aligned. Now follow it to the outcome.</span><span class="vi">Mọi bên đã khớp. Giờ theo đến kết quả.</span></p>
+  </div>
+</section>
+
+<!-- ================= LV.4 FOLLOW THROUGH ================= -->
+<section class="stage deliver" id="deliver">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="node rail cp" data-node data-cp="4"></span>
+      <p class="lvtag"><b>LV.4</b><span class="en">FOLLOW THROUGH · plan to outcome</span><span class="vi">THEO ĐẾN KẾT QUẢ · từ kế hoạch đến kết quả</span></p>
+      <h2><span class="en">Five projects, followed to the end.</span><span class="vi">Năm dự án, theo đến cùng.</span></h2>
+      <p class="sub"><span class="en">Each stop separates what I did from what the team did. Pitches and strategy were team efforts.</span><span class="vi">Mỗi chặng tách rõ phần tôi làm và phần của team. Pitch và chiến lược là công sức chung.</span></p>
+    </div>
+    <div class="brands">
+      <span class="grp"><span class="en">BANKING &amp; FINTECH</span><span class="vi">NGÂN HÀNG &amp; FINTECH</span></span>
+      <span class="chip">VIB</span><span class="chip">MSB</span><span class="chip">Cake by VPBank</span><span class="chip">Digimi</span><span class="chip">BVBank</span>
+      <span class="grp"><span class="en">CONSUMER</span><span class="vi">TIÊU DÙNG</span></span>
+      <span class="chip">Poca</span><span class="chip">Lay's</span><span class="chip">Hảo Hảo</span><span class="chip">Prudential</span><span class="chip">Tetra Pak</span><span class="chip">Nhựa Duy Tân</span><span class="chip">Cindy Bloom</span>
+    </div>
+  </div>
+
+  <div class="pin" id="pin">
+    <div class="pin-inner" id="pinView">
+      <div class="track" id="track">
+        <!-- VIB -->
+        <article class="win case" id="case-vib">
+          <span class="node" data-node></span>
+          <div class="win-bar"><span>stop 1/6 · vib_pitch_to_partnership</span><div class="win-btns" aria-hidden="true"><b>_</b><b>×</b></div></div>
+          <div class="win-body">
+            <div class="media">
+              <figure class="ph" style="--slot:var(--sky-pale)"><span>vib_ivy_kv.jpg<small>key visual</small></span></figure>
+              <figure class="ph" style="--slot:var(--sky-pale)"><span>asth.jpg</span></figure>
+              <figure class="ph" style="--slot:var(--sky-pale)"><span>activation.jpg</span></figure>
+            </div>
+            <div>
+              <h3><span class="en">VIB: from one pitch to a long-term partnership</span><span class="vi">VIB: từ một lần pitch đến hợp tác dài hạn</span></h3>
+              <p class="meta">Banking · Pitch → Execution</p>
+              <div class="cgrid">
+                <div><h4><span class="en">Challenge</span><span class="vi">Bài toán</span></h4><p><span class="en">VIB Ivy Card needed a catchy message that fit the card's positioning and supported its new-card-open KPI.</span><span class="vi">VIB Ivy Card cần một thông điệp bắt tai, khớp định vị thẻ và hỗ trợ KPI mở thẻ mới.</span></p></div>
+                <div><h4><span class="en">My role</span><span class="vi">Vai trò của tôi</span></h4><p><span class="en">Identified the core need, shaped the proposal direction and coordinated the specialist team. Later handled pitching and overall management for Anh Trai Say Hi and the Ivy Card activation.</span><span class="vi">Xác định nhu cầu cốt lõi, định hướng proposal và điều phối team chuyên môn. Sau đó phụ trách pitching và quản lý tổng thể cho Anh Trai Say Hi và activation Ivy Card.</span></p></div>
+              </div>
+              <p class="team"><b>TEAM&gt;</b><span class="en">The pitch was a team effort with specialist teams. Lesson: a good proposal starts with the real objective.</span><span class="vi">Pitch là nỗ lực chung với các team chuyên môn. Bài học: proposal tốt bắt đầu từ mục tiêu thật.</span></p>
+              <div class="outcome"><span class="k">OUTCOME&gt;</span>
+                <p><span class="en">Xanh won the pitch, opening a continuing VIB relationship across launch, entertainment partnership, production and activation.</span><span class="vi">Xanh thắng pitch, mở ra quan hệ liên tục với VIB qua ra mắt sản phẩm, hợp tác giải trí, sản xuất và activation.</span></p>
+                <div class="nums"><div class="num"><b>4</b><span><span class="en">projects in the relationship</span><span class="vi">dự án trong mối hợp tác</span></span></div><div class="num empty"><b>+ ___</b><span><span class="en">add a result metric</span><span class="vi">thêm một chỉ số kết quả</span></span></div></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- MSB -->
+        <article class="win case" id="case-msb">
+          <span class="node" data-node></span>
+          <div class="win-bar"><span>stop 2/6 · msb_social_always_on</span><div class="win-btns" aria-hidden="true"><b>_</b><b>×</b></div></div>
+          <div class="win-body">
+            <div class="media">
+              <figure class="ph" style="--slot:#ffe0cc"><span>msb_feed.jpg<small>social feed</small></span></figure>
+              <figure class="ph" style="--slot:#ffe0cc"><span>post_01.jpg</span></figure>
+              <figure class="ph" style="--slot:#ffe0cc"><span>post_02.jpg</span></figure>
+            </div>
+            <div>
+              <h3><span class="en">MSB Social Always-On: fixing how the work works</span><span class="vi">MSB Social Always-On: sửa cách làm việc, không chỉ nội dung</span></h3>
+              <p class="meta">Banking · 2025–2027 · AWO · Production · Booking · Media</p>
+              <div class="cgrid">
+                <div><h4><span class="en">Challenge</span><span class="vi">Bài toán</span></h4><p><span class="en">After three years together, MSB needed a clearer long-term direction for social, and the collaboration had pain points around process and quality.</span><span class="vi">Sau ba năm hợp tác, MSB cần định hướng dài hạn rõ hơn cho social, trong khi việc phối hợp có điểm nghẽn về quy trình và chất lượng.</span></p></div>
+                <div><h4><span class="en">My role</span><span class="vi">Vai trò của tôi</span></h4><p><span class="en">Helped frame the proposal around the client's real concerns. After kick-off, checked in regularly on how the client saw quality and turned feedback into adjustments with the team.</span><span class="vi">Cùng team định hình proposal quanh mối lo thật của client. Sau kick-off, thường xuyên hỏi client cảm nhận về chất lượng và cùng team biến feedback thành điều chỉnh.</span></p></div>
+              </div>
+              <p class="team"><b>TEAM&gt;</b><span class="en">Strategy and proposal were developed with the team. The plan: clear channel roles, platform tone, analytical reports, a proactive idea pipeline.</span><span class="vi">Chiến lược và proposal được xây cùng team. Kế hoạch: vai trò rõ cho từng kênh, giọng điệu theo nền tảng, báo cáo có phân tích, nguồn ý tưởng chủ động.</span></p>
+              <div class="outcome"><span class="k">OUTCOME&gt;</span>
+                <p><span class="en">The team won the work. I stayed accountable for how the solution worked in practice.</span><span class="vi">Team thắng dự án. Tôi tiếp tục chịu trách nhiệm cho việc giải pháp chạy thực tế ra sao.</span></p>
+                <div class="nums"><div class="num"><b>3 → 5</b><span><span class="en">years of partnership (to 2027)</span><span class="vi">năm hợp tác (đến 2027)</span></span></div><div class="num empty"><b>+ ___</b><span><span class="en">add a channel metric</span><span class="vi">thêm chỉ số kênh</span></span></div></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Cake -->
+        <article class="win case" id="case-cake">
+          <span class="node" data-node></span>
+          <div class="win-bar"><span>stop 3/6 · cake_relationship</span><div class="win-btns" aria-hidden="true"><b>_</b><b>×</b></div></div>
+          <div class="win-body">
+            <div class="media">
+              <figure class="ph" style="--slot:var(--pink-soft)"><span>cake_ai_land.jpg<small>campaign visual</small></span></figure>
+              <figure class="ph" style="--slot:var(--pink-soft)"><span>gato.jpg</span></figure>
+              <figure class="ph" style="--slot:var(--pink-soft)"><span>wechoice.jpg</span></figure>
+            </div>
+            <div>
+              <h3><span class="en">Cake by VPBank: a relationship that opened the next door</span><span class="vi">Cake by VPBank: một mối quan hệ mở ra cơ hội mới</span></h3>
+              <p class="meta">Digital bank · New business</p>
+              <div class="cgrid">
+                <div><h4><span class="en">Challenge</span><span class="vi">Bài toán</span></h4><p><span class="en">Cake wanted to grow its Gen Y audience without diluting the Gen Z identity it had built.</span><span class="vi">Cake muốn mở rộng tệp Gen Y mà không làm loãng bản sắc Gen Z đã xây dựng.</span></p></div>
+                <div><h4><span class="en">My role</span><span class="vi">Vai trò của tôi</span></h4><p><span class="en">A client I had worked with at Digimi moved to Cake and invited me into the pitch. I reconnected and contributed to the pitching process.</span><span class="vi">Một client từng làm cùng tôi ở Digimi chuyển sang Cake và mời tôi tham gia pitch. Tôi kết nối lại và đóng góp vào quá trình pitching.</span></p></div>
+              </div>
+              <p class="team"><b>TEAM&gt;</b><span class="en">Creative directions (Cake AI-land, comment-led interactions, a WeChoice Awards photo series, the Gato mascot) were agency team work.</span><span class="vi">Các hướng sáng tạo (Cake AI-land, tương tác qua bình luận, bộ ảnh WeChoice Awards, mascot Gato) là sản phẩm của team agency.</span></p>
+              <div class="outcome"><span class="k">OUTCOME&gt;</span>
+                <p><span class="en">The team won a social retainer with Cake. The relationship opened the door; the team won the pitch.</span><span class="vi">Team giành được hợp đồng social retainer với Cake. Mối quan hệ mở cửa, còn thắng pitch là nhờ cả team.</span></p>
+                <div class="nums"><div class="num empty"><b>+ ___</b><span><span class="en">add retainer length or a result</span><span class="vi">thêm thời hạn retainer hoặc kết quả</span></span></div></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Poca -->
+        <article class="win case" id="case-poca">
+          <span class="node" data-node></span>
+          <div class="win-bar"><span>stop 4/6 · poca_yummy_quay_verse</span><div class="win-btns" aria-hidden="true"><b>_</b><b>×</b></div></div>
+          <div class="win-body">
+            <div class="media">
+              <figure class="ph" style="--slot:var(--sun-pale)"><span>quay_verse_mv.jpg<small>hero video still</small></span></figure>
+              <figure class="ph" style="--slot:var(--sun-pale)"><span>capcut.jpg</span></figure>
+              <figure class="ph" style="--slot:var(--sun-pale)"><span>tiktok.jpg</span></figure>
+            </div>
+            <div>
+              <h3><span class="en">Poca Yummy: making the school break a brand moment</span><span class="vi">Poca Yummy: biến giờ ra chơi thành khoảnh khắc thương hiệu</span></h3>
+              <p class="meta">FMCG · Integrated launch · 2023 · "Quẩy-verse"</p>
+              <div class="cgrid">
+                <div><h4><span class="en">Challenge</span><span class="vi">Bài toán</span></h4><p><span class="en">A new sub-brand needed a distinctive way into a crowded snacking moment.</span><span class="vi">Một sub-brand mới cần cách xuất hiện khác biệt trong thị trường snack đông đúc.</span></p></div>
+                <div><h4><span class="en">My role</span><span class="vi">Vai trò của tôi</span></h4><p><span class="en">Coordinated the moving parts across formats and distribution: hero music video, CapCut challenge, TikTok creators, community and comic pages.</span><span class="vi">Điều phối các phần việc trên nhiều định dạng và kênh: MV chính, CapCut challenge, TikToker, cộng đồng và trang comic.</span></p></div>
+              </div>
+              <div class="outcome"><span class="k">OUTCOME&gt;</span>
+                <div class="nums">
+                  <div class="num"><b>266K+</b><span><span class="en">Facebook engagements</span><span class="vi">tương tác Facebook</span></span></div>
+                  <div class="num"><b>45.7K+</b><span><span class="en">website clicks</span><span class="vi">lượt click website</span></span></div>
+                </div>
+                <p class="src"><span class="en">Source: Xanh Credential 2024.</span><span class="vi">Nguồn: Xanh Credential 2024.</span></p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Digimi -->
+        <article class="win case" id="case-digimi">
+          <span class="node" data-node></span>
+          <div class="win-bar"><span>stop 5/6 · digimi_bvbank</span><div class="win-btns" aria-hidden="true"><b>_</b><b>×</b></div></div>
+          <div class="win-body">
+            <div class="media">
+              <figure class="ph" style="--slot:#d4f2d6"><span>coffee_truck.jpg<small>activation photo</small></span></figure>
+              <figure class="ph" style="--slot:#d4f2d6"><span>booth.jpg</span></figure>
+              <figure class="ph" style="--slot:#d4f2d6"><span>bvbank_post.jpg</span></figure>
+            </div>
+            <div>
+              <h3><span class="en">Digimi &amp; BVBank: from brand experience to always-on</span><span class="vi">Digimi &amp; BVBank: từ trải nghiệm thương hiệu đến always-on</span></h3>
+              <p class="meta">Digital banking · Activation · Social operations</p>
+              <div class="cgrid">
+                <div><h4>Activation</h4><p><span class="en">A coffee truck used a familiar coffee moment to introduce Digimi and move people from experience to engagement to app sign-up.</span><span class="vi">Xe cà phê dùng khoảnh khắc quen thuộc để giới thiệu Digimi, dẫn người dùng từ trải nghiệm đến tương tác rồi đăng ký app.</span></p></div>
+                <div><h4>Always-on</h4><p><span class="en">Planned content calendars, coordinated image and video production, aligned stakeholders and reviewed output against brand needs.</span><span class="vi">Lên lịch nội dung, điều phối sản xuất hình ảnh và video, thống nhất các bên và kiểm tra chất lượng theo yêu cầu thương hiệu.</span></p>
+                <p class="loop">anticipate → coordinate → review → improve</p></div>
+              </div>
+              <div class="outcome"><span class="k">OUTCOME&gt;</span>
+                <div class="nums">
+                  <div class="num"><b>~2,000</b><span><span class="en">booth visitors</span><span class="vi">lượt ghé booth</span></span></div>
+                  <div class="num"><b>268</b><span><span class="en">registrations</span><span class="vi">lượt đăng ký</span></span></div>
+                  <div class="num"><b>140</b><span><span class="en">conversions</span><span class="vi">chuyển đổi</span></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- More -->
+        <article class="win case more" id="case-more">
+          <span class="node" data-node></span>
+          <div class="win-bar"><span>stop 6/6 · also_on_file/</span><div class="win-btns" aria-hidden="true"><b>_</b><b>×</b></div></div>
+          <div class="win-body">
+            <h3><span class="en">Also on file</span><span class="vi">Dự án khác</span></h3>
+            <div class="more-grid">
+              <div class="more-item"><figure class="ph" style="--slot:var(--white)"><span>tet.jpg</span></figure><div><b>Nhựa Duy Tân · Tết 2025</b><span class="d"><span class="en">Communication plan, pitching, AWO, production, booking, media</span><span class="vi">Kế hoạch truyền thông, pitching, AWO, production, booking, media</span></span></div></div>
+              <div class="more-item"><figure class="ph" style="--slot:var(--white)"><span>launch.jpg</span></figure><div><b>Cindy Bloom · Launch campaign</b><span class="d"><span class="en">Pitch to execution, production, social campaign</span><span class="vi">Từ pitch đến triển khai, production, social campaign</span></span></div></div>
+            </div>
+            <div class="outcome"><span class="k">NEXT&gt;</span><p><span class="en">The route ends at the goal flag. One step left: say hi.</span><span class="vi">Lộ trình kết thúc ở lá cờ đích. Còn một bước: chào nhau.</span></p></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="route" aria-hidden="true">
+        <span class="lbl" id="routeLbl">STOP 1/6</span>
+        <div class="line" id="routeLine"><span class="done" id="routeDone"></span><span class="mini" id="routeMini">X</span></div>
+        <span class="hint"><span class="en">keep scrolling →</span><span class="vi">cuộn tiếp →</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bridge wrap" data-reach style="padding-top:64px">
+    <span class="node" data-node></span>
+    <p><span class="st">LV.4 <span class="ok">✓</span><span class="wait">…</span></span><span class="en">Outcomes delivered. One step left.</span><span class="vi">Kết quả đã về. Còn một bước.</span></p>
+  </div>
+</section>
+
+<!-- ================= GOAL ================= -->
+<section class="stage finish" id="finish">
+  <div class="goal" data-reach>
+    <div class="flag" aria-hidden="true">
+      <svg viewBox="0 0 120 150">
+        <rect x="56" y="6" width="8" height="140" fill="#e8e4dc" stroke="#1c1a2e" stroke-width="3"/>
+        <circle cx="60" cy="8" r="8" fill="#ffd23f" stroke="#1c1a2e" stroke-width="3"/>
+        <g class="cloth">
+          <path d="M64 18 h48 l-10 16 l10 16 h-48z" fill="#ff5fa8" stroke="#1c1a2e" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M74 27 l4 6 l8-10" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </div>
+    <span class="node cp" data-node data-cp="5"></span>
+  </div>
+  <div class="game">
+    <div class="wrap">
+      <div class="screen">
+        <div class="hudline"><span>PLAYER: XINH</span><span class="h" aria-hidden="true">♥♥♥♥♥</span><span>LV.4 ✓</span></div>
+        <p class="gameover">GAME OVER</p>
+        <h2><span class="en">for messy briefs and missed deadlines.</span><span class="vi">cho brief rối và deadline trễ.</span></h2>
+        <div class="recap">
+          <span><span class="en">✓ CLARIFIED</span><span class="vi">✓ ĐÃ LÀM RÕ</span></span>
+          <span><span class="en">✓ STRUCTURED</span><span class="vi">✓ ĐÃ CẤU TRÚC</span></span>
+          <span><span class="en">✓ ALIGNED</span><span class="vi">✓ ĐÃ ĐIỀU PHỐI</span></span>
+          <span><span class="en">✓ DELIVERED</span><span class="vi">✓ ĐÃ VỀ ĐÍCH</span></span>
+        </div>
+        <p class="lede"><span class="en">Hiring for a brand or marketing role, or have a project that needs to move? Press play, copy my email and tell me what you're working on.</span><span class="vi">Bạn đang tuyển vị trí brand/marketing, hoặc có dự án cần đẩy về đích? Nhấn play, sao chép email và kể tôi nghe bạn đang làm gì.</span></p>
+        <div class="mail">
+          <button class="play" type="button" id="copy">▶ PLAY</button>
+          <code id="email">ngnxinhh@gmail.com</code>
+          <span class="copied" id="copied" aria-live="polite"></span>
+        </div>
+        <div class="open-to">
+          <div><i class="dot"></i><span><span class="en"><b>Roles:</b> Brand / Marketing Executive, marketing project roles. Banking &amp; fintech a priority.</span><span class="vi"><b>Vị trí:</b> Brand / Marketing Executive, các vai trò quản lý dự án marketing. Ưu tiên ngân hàng &amp; fintech.</span></span></div>
+          <div><i class="dot alt"></i><span><span class="en"><b>Projects:</b> campaign, launch, always-on and activation work. Ho Chi Minh City or remote.</span><span class="vi"><b>Dự án:</b> chiến dịch, ra mắt, always-on và activation. Tại TP.HCM hoặc remote.</span></span></div>
+        </div>
+      </div>
+      <a class="btn replay" href="#start"><span class="en">↺ Replay from the brief</span><span class="vi">↺ Chơi lại từ brief</span></a>
+      <p class="foot">XINH.OS · Xinh Nguyen · Brand / Communication / Project Ownership</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+  /* ---------- Language ---------- */
+  var stageNames = {
+    en:['START','LV.1 CLARIFY','LV.2 STRUCTURE','LV.3 ALIGN','LV.4 FOLLOW','GOAL ★'],
+    vi:['BẮT ĐẦU','LV.1 LÀM RÕ','LV.2 CẤU TRÚC','LV.3 ĐIỀU PHỐI','LV.4 VỀ ĐÍCH','ĐÍCH ★']
+  };
+  var lang = 'en', stage = -1;
+  function setLang(l){
+    lang = l;
+    root.setAttribute('data-lang', l); root.setAttribute('lang', l);
+    document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.set === l ? 'true' : 'false'); });
+    try{ localStorage.setItem('xinhos-lang', l); }catch(e){}
+    document.getElementById('now').textContent = stageNames[l][Math.max(stage,0)];
+    schedule();
+  }
+  var saved = 'en';
+  try{ saved = localStorage.getItem('xinhos-lang') || 'en'; }catch(e){}
+  document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.set); }); });
+
+  /* ---------- Hero tangle ---------- */
+  var tangleBox = document.getElementById('tangle');
+  var tg = document.getElementById('tg'), tgU = document.getElementById('tgU');
+  var N = 34, END = {x:150, y:330}, messy = [], neat = [];
+  for (var i = 0; i < N; i++){
+    var a = i * 0.92, r = 62 + 46 * Math.sin(i * 1.7);
+    var mx = 150 + r * Math.cos(a) + 34 * Math.sin(i * 0.45);
+    var my = 140 + i * 2.2 + r * 0.85 * Math.sin(a * 1.3);
+    if (i === 0){ mx = 40; my = 30; }
+    if (i >= N - 4){ var w = (i - (N - 5)) / 4; mx += (END.x - mx) * w; my += (END.y - my) * w; }
+    messy.push({x:mx, y:my});
+    neat.push({x:150, y:16 + i * ((END.y - 16) / (N - 1))});
+  }
+  function smooth(pts){
+    var d = 'M' + pts[0].x.toFixed(1) + ',' + pts[0].y.toFixed(1);
+    for (var i = 0; i < pts.length - 1; i++){
+      var p0 = pts[i-1] || pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2] || p2;
+      d += ' C' + (p1.x + (p2.x - p0.x) / 6).toFixed(1) + ',' + (p1.y + (p2.y - p0.y) / 6).toFixed(1) + ' ' +
+           (p2.x - (p3.x - p1.x) / 6).toFixed(1) + ',' + (p2.y - (p3.y - p1.y) / 6).toFixed(1) + ' ' +
+           p2.x.toFixed(1) + ',' + p2.y.toFixed(1);
+    }
+    return d;
+  }
+  function ease(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2; }
+  var lastT = -1;
+  function drawTangle(now){
+    var hero = document.getElementById('start');
+    var t = reduce ? 1 : clamp(window.scrollY / (hero.offsetHeight * 0.55), 0, 1);
+    var wob = reduce ? 0 : (1 - t);
+    if (Math.abs(t - lastT) < 0.0005 && wob === 0) return;
+    lastT = t;
+    var pts = [];
+    for (var i = 0; i < N; i++){
+      var k = ease(clamp(t * 1.7 - ((N - 1 - i) / N) * 0.7, 0, 1));
+      var j = (i > 0 && i < N - 1) ? Math.sin(now / 520 + i * 1.3) * 3 * wob : 0;
+      pts.push({x: messy[i].x + (neat[i].x - messy[i].x) * k + j, y: messy[i].y + (neat[i].y - messy[i].y) * k + j * .6});
+    }
+    var d = smooth(pts);
+    tg.setAttribute('d', d); tgU.setAttribute('d', d);
+    tangleBox.classList.toggle('clear', t > 0.92);
+  }
+
+  /* ---------- Pinned work route ---------- */
+  var pin = document.getElementById('pin'), pinView = document.getElementById('pinView'), track = document.getElementById('track');
+  var cases = Array.prototype.slice.call(track.querySelectorAll('.case'));
+  var routeLine = document.getElementById('routeLine'), routeDone = document.getElementById('routeDone'), routeMini = document.getElementById('routeMini'), routeLbl = document.getElementById('routeLbl');
+  var pinned = false, pinDist = 0, stops = [];
+  cases.forEach(function(c, i){
+    var s = document.createElement('span'); s.className = 'stop';
+    s.style.left = (cases.length > 1 ? i / (cases.length - 1) * 100 : 0) + '%';
+    routeLine.insertBefore(s, routeMini); stops.push(s);
+  });
+  function layoutPin(){
+    var can = !reduce && window.innerWidth >= 900 && window.innerHeight >= 680;
+    pinned = can; root.classList.toggle('pinned', can);
+    if (!can){ pin.style.height = ''; track.style.transform = ''; cases.forEach(function(c){ c.classList.remove('cur'); }); return; }
+    track.style.transform = '';
+    pinDist = Math.max(0, track.scrollWidth - pinView.clientWidth);
+    pin.style.height = (pinView.offsetHeight + pinDist) + 'px';
+  }
+  function updatePin(){
+    if (!pinned) return;
+    var hud = document.querySelector('.hud').offsetHeight;
+    var r = pin.getBoundingClientRect();
+    var span = pin.offsetHeight - pinView.offsetHeight;
+    var p = span > 0 ? clamp((hud - r.top) / span, 0, 1) : 0;
+    track.style.transform = 'translate3d(' + (-p * pinDist).toFixed(1) + 'px,0,0)';
+    var idx = Math.round(p * (cases.length - 1));
+    cases.forEach(function(c, i){ c.classList.toggle('cur', i === idx); });
+    stops.forEach(function(s, i){ s.classList.toggle('on', i <= idx); });
+    routeDone.style.width = (p * 100) + '%';
+    routeMini.style.left = (p * 100) + '%';
+    routeLbl.textContent = 'STOP ' + (idx + 1) + '/' + cases.length;
+  }
+
+  /* ---------- Global thread ---------- */
+  var svg = document.getElementById('threadSvg');
+  var base = document.getElementById('tBase'), under = document.getElementById('tUnder'), live = document.getElementById('tLive');
+  var player = document.getElementById('player');
+  var fill = document.getElementById('hudFill');
+  var pips = Array.prototype.slice.call(document.querySelectorAll('[data-pip]'));
+  var samples = [], total = 0, nodes = [], drawn = 0, ready = false, pinRange = null;
+
+  function build(){
+    layoutPin();
+    svg.setAttribute('height', 0); svg.setAttribute('width', 0);
+    var W = root.clientWidth, H = Math.max(document.body.scrollHeight, root.scrollHeight);
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var els = Array.prototype.slice.call(document.querySelectorAll('[data-node]')).filter(function(el){
+      if (pinned && el.closest('.track')) return false;
+      return el.getClientRects().length > 0;
+    });
+    var sx = window.scrollX, sy = window.scrollY;
+    var pts = els.map(function(el){ var r = el.getBoundingClientRect(); return {x:r.left + r.width/2 + sx, y:r.top + r.height/2 + sy, el:el}; });
+    if (pts.length < 2) return;
+    var d = 'M' + pts[0].x.toFixed(1) + ',' + pts[0].y.toFixed(1);
+    for (var i = 1; i < pts.length; i++){
+      var a = pts[i-1], b = pts[i], dy = b.y - a.y;
+      var k = Math.max(24, Math.abs(dy) * 0.5);
+      d += ' C' + a.x.toFixed(1) + ',' + (a.y + k).toFixed(1) + ' ' + b.x.toFixed(1) + ',' + (b.y - k).toFixed(1) + ' ' + b.x.toFixed(1) + ',' + b.y.toFixed(1);
+    }
+    base.setAttribute('d', d); under.setAttribute('d', d); live.setAttribute('d', d);
+    total = live.getTotalLength();
+    samples = [];
+    for (var l = 0; l < total; l += 6){ var p = live.getPointAtLength(l); samples.push([l, p.x, p.y]); }
+    var pe = live.getPointAtLength(total); samples.push([total, pe.x, pe.y]);
+    var si = 0;
+    nodes = pts.map(function(p){
+      var best = si, bd = Infinity;
+      for (var j = si; j < samples.length; j++){
+        var dx = samples[j][1] - p.x, dyy = samples[j][2] - p.y, dd = dx*dx + dyy*dyy;
+        if (dd < bd){ bd = dd; best = j; }
+        if (bd < 16 && dd > 250000) break;
+      }
+      si = best;
+      return {el:p.el, len:samples[best][0], cp:p.el.hasAttribute('data-cp') ? +p.el.getAttribute('data-cp') : -1, reach:p.el.closest('[data-reach]')};
+    });
+    var cp4 = nodes.filter(function(n){ return n.cp === 4; })[0];
+    var after = cp4 ? nodes[nodes.indexOf(cp4) + 1] : null;
+    pinRange = (pinned && cp4 && after) ? [cp4.len + 40, after.len - 40] : null;
+    [base, under, live].forEach(function(p){ p.style.strokeDasharray = total + ' ' + total; });
+    base.style.strokeDasharray = '';
+    ready = true;
+    drawn = Math.min(drawn, total);
+    schedule();
+  }
+
+  function lenForY(y){
+    if (!samples.length) return 0;
+    if (y <= samples[0][2]) return 0;
+    for (var j = 0; j < samples.length; j++){ if (samples[j][2] >= y) return samples[j][0]; }
+    return total;
+  }
+
+  function setStage(s){
+    if (s === stage) return;
+    stage = s;
+    root.setAttribute('data-stage', s);
+    document.getElementById('now').textContent = stageNames[lang][s];
+    pips.forEach(function(p){ var n = +p.dataset.pip; p.classList.toggle('done', n < s); p.classList.toggle('cur', n === s); });
+  }
+
+  var raf = 0, animating = false;
+  function schedule(){ if (!raf) raf = requestAnimationFrame(frame); }
+  function frame(now){
+    raf = 0;
+    drawTangle(now || 0);
+    updatePin();
+    if (ready){
+      var docH = root.scrollHeight;
+      var target = reduce ? total : lenForY(window.scrollY + window.innerHeight * 0.62);
+      if (window.scrollY + window.innerHeight >= docH - 4) target = total;
+      drawn += (target - drawn) * (reduce ? 1 : 0.16);
+      if (Math.abs(target - drawn) < 0.6) drawn = target;
+      var off = (total - drawn).toFixed(1);
+      live.style.strokeDashoffset = off; under.style.strokeDashoffset = off;
+      var pt = live.getPointAtLength(drawn);
+      player.style.transform = 'translate(' + pt.x.toFixed(1) + 'px,' + pt.y.toFixed(1) + 'px)';
+      player.classList.toggle('hide', !!(pinRange && drawn > pinRange[0] && drawn < pinRange[1]));
+      var s = 0;
+      nodes.forEach(function(n){
+        var on = drawn >= n.len - 3;
+        n.el.classList.toggle('on', on);
+        if (n.reach) n.reach.classList.toggle('reached', on);
+        if (on && n.cp > s) s = n.cp;
+      });
+      setStage(s);
+      fill.style.width = (total ? drawn / total * 100 : 0) + '%';
+      animating = drawn !== target;
+    }
+    if (animating || (!reduce && lastT < 0.999)) schedule();
+  }
+
+  window.addEventListener('scroll', schedule, {passive:true});
+  var rt = 0;
+  function rebuild(){ clearTimeout(rt); rt = setTimeout(build, 120); }
+  window.addEventListener('resize', rebuild);
+  if ('ResizeObserver' in window){ new ResizeObserver(rebuild).observe(document.querySelector('main')); }
+  if (document.fonts && document.fonts.ready){ document.fonts.ready.then(rebuild); }
+  window.addEventListener('load', rebuild);
+
+  /* ---------- Reveal (content is visible at rest; it only settles) ---------- */
+  if ('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {rootMargin:'0px 0px -12% 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- Copy email ---------- */
+  var copied = document.getElementById('copied');
+  document.getElementById('copy').addEventListener('click', function(){
+    var text = document.getElementById('email').textContent;
+    var vi = lang === 'vi';
+    function selectIt(){
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      copied.textContent = vi ? 'Đã chọn email, nhấn Ctrl/Cmd+C' : 'Email selected. Press Ctrl/Cmd+C';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ copied.textContent = vi ? 'Đã sao chép email! Gửi thư cho tôi nhé.' : 'Email copied! Drop me a line.'; }, selectIt);
+    } else { selectIt(); }
+  });
+
+  setLang(saved === 'vi' ? 'vi' : 'en');
+  setStage(0);
+  build();
+})();
+</script>
+
+</body>
+</html>
