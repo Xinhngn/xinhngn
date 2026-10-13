@@ -52,7 +52,13 @@ Mỗi case cần 4 nhóm thông tin. **Ưu tiên số liệu gắn với phần 
 | **Nhựa Duy Tân** · Tết 2025 | Phạm vi việc | Đề bài, vai trò, quy mô, 1 kết quả. Ảnh: `duytan_tet_2025.jpg` + 3 ảnh phụ |
 | **Cindy Bloom** · launch | Phạm vi việc | Đề bài, vai trò, thời gian, quy mô, 1 kết quả. Ảnh: `cindy_bloom_kv.jpg` + 3 ảnh phụ |
 
-## 5. Skills
+## 5. Skills (bảng chấm 10 cột)
+
+Tab Năng lực và mục 03 dùng chung một bảng: 5 loại dự án + 5 mức độ đảm nhận, chấm cho cả 7 dự án (● Xinh dẫn dắt, ■ cùng team). Bảng này Claude chấm từ nội dung case hiện có: **hãy rà lại từng ô** trong `MX` ở `src/page.html`.
+
+Số liệu cá nhân cần xác nhận: "4 pitch thắng cùng team" (VIB, MSB, Duy Tân, Cindy Bloom) và "3 → 5 năm MSB".
+
+### (cũ) Thành tích từng kỹ năng
 
 Ba kỹ năng chưa có "WIN": **Always-on**, **KOL / KOC**, **Measurement**. Mỗi mục cần 1 thành tích ngắn. Ví dụ:
 - Always-on: "Giữ nhịp 30 bài/tháng cho MSB trong 2 năm".
