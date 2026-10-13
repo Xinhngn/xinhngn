@@ -1,0 +1,2 @@
+Icons and stickers: Microsoft Fluent Emoji 3D (MIT License), via the @lobehub/fluent-emoji-3d npm package.
+https://github.com/microsoft/fluentui-emoji

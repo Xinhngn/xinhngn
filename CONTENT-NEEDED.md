@@ -19,7 +19,7 @@ Gửi cho Claude theo từng mục bên dưới, Claude sẽ điền vào phần
 | Cần gì | Ghi chú |
 |---|---|
 | ~~Link CV (PDF)~~ | Đã có: `assets/XinhNguyen-CV.pdf` |
-| LinkedIn | Phần sau `linkedin.com/in/` |
+| ~~LinkedIn~~ | Đã có: xinh-nguyen-exploremore |
 | Xác nhận vị trí mong muốn | Hiện ghi: Brand / Marketing Executive, ưu tiên ngân hàng & fintech, TP.HCM hoặc remote |
 | Thời gian có thể bắt đầu (tuỳ chọn) | Ví dụ: "ngay" / "từ 11/2026" |
 
@@ -30,7 +30,7 @@ Gửi cho Claude theo từng mục bên dưới, Claude sẽ điền vào phần
 | Gọi | Đã có: 0975 108 131 (từ CV) |
 | Zalo | Đang dùng cùng số điện thoại. Báo nếu Zalo khác số |
 | Facebook / Messenger | Username (phần sau `facebook.com/`) |
-| LinkedIn | như mục 2 |
+| LinkedIn | Đã có |
 | Gmail | Đã có: ngnxinhh@gmail.com |
 
 ## 4. Case study (tab Work + Story LV.4)
