@@ -1,7 +1,7 @@
 <title>XINH.OS Journey</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,700&family=Be+Vietnam+Pro:wght@400;500;700&family=Playwrite+VN:wght@300;400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,700&family=Be+Vietnam+Pro:wght@400;500;700&family=Baloo+2:wght@600;800&display=swap">
 <style>
 /* XINH.OS 3 — "liquid chrome girlhood".
    Layout: two modes. STORY = one continuous scroll journey (a glossy pink thread untangles the brief and runs through LV.1–LV.4 to the goal).
@@ -19,7 +19,7 @@
   --f-head:"Chakra Petch","Arial Narrow",Arial,sans-serif;
   --f-body:"Be Vietnam Pro","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --f-mono:"Chakra Petch","Arial Narrow",Arial,sans-serif;
-  --f-script:"Playwrite VN","Segoe Script","Brush Script MT",cursive;
+  --f-round:"Baloo 2","Arial Rounded MT Bold",Arial,sans-serif;
   --gutter:clamp(16px,4vw,44px);
   --railpad:60px;
   --hud:76px;
@@ -47,7 +47,7 @@ p,figure{margin:0}
 #tLive{fill:none; stroke:var(--hot); stroke-width:7; stroke-linecap:round}
 #tShine{fill:none; stroke:var(--white); stroke-opacity:.75; stroke-width:1.6; stroke-linecap:round}
 #player{position:absolute; top:0; left:0; z-index:6; width:0; height:0; pointer-events:none; transition:opacity .25s}
-#player i{position:absolute; left:-20px; top:-20px; width:40px; height:40px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #fff 0 12%, transparent 13%), radial-gradient(circle at 50% 50%, #ff7cc0, var(--hot) 60%, #c4006a); border:3px solid var(--ink); display:grid; place-items:center; color:var(--white); font-family:var(--f-bubble); font-style:normal; font-size:17px; animation:bob 1.3s ease-in-out infinite}
+#player i{position:absolute; left:-20px; top:-20px; width:40px; height:40px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #fff 0 12%, transparent 13%), radial-gradient(circle at 50% 50%, #ff7cc0, var(--hot) 60%, #c4006a); border:3px solid var(--ink); display:grid; place-items:center; color:var(--white); font-family:var(--f-round); font-weight:800; font-style:normal; font-size:17px; animation:bob 1.3s ease-in-out infinite}
 #player.hide{opacity:0; visibility:hidden}
 .story-off #player,.story-off #thread{display:none}
 @keyframes bob{50%{transform:translateY(-4px) scale(1.05)}}
@@ -102,7 +102,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .dot{width:9px; height:9px; border-radius:50%; background:var(--grass); flex:none; box-shadow:0 0 0 2px var(--ink)}
 .dot.y{background:var(--butter)}
 .tag{display:inline-flex; align-items:center; gap:10px; font-family:var(--f-mono); font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase}
-.tag b{font-family:var(--f-bubble); font-weight:400; font-size:15px; letter-spacing:.02em; padding:3px 11px; border-radius:999px; background:var(--ink); color:var(--lime)}
+.tag b{font-family:var(--f-round); font-weight:800; font-size:15px; letter-spacing:.02em; padding:3px 11px; border-radius:999px; background:var(--ink); color:var(--lime)}
 .h2{font-family:var(--f-head); font-weight:700; font-size:clamp(34px,5.4vw,70px); line-height:.98; letter-spacing:-.015em}
 .h2 em{font-style:italic; color:var(--hot)}
 .lead{font-size:clamp(16px,1.5vw,18px); color:var(--muted); max-width:48ch}
@@ -152,8 +152,8 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .ver > span{font-family:var(--f-mono); font-size:12px; font-weight:700; letter-spacing:.08em; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.72); border:1.5px solid var(--ink)}
 .ver > span.l{background:var(--lime)}
 .name{position:relative; margin-top:6px; max-width:720px}
-.name .script{position:absolute; right:0; bottom:-24%; font-family:var(--f-script); font-weight:400; font-size:clamp(34px,4.8vw,66px); line-height:1.3; color:var(--hot); transform:rotate(-6deg); text-shadow:2px 2px 0 var(--white), 4px 4px 0 var(--ink)}
-.thesis{margin-top:clamp(64px,7.5vw,104px); font-family:var(--f-head); font-weight:700; font-style:italic; font-size:clamp(24px,3.4vw,44px); line-height:1.02; letter-spacing:-.01em; text-transform:uppercase}
+.name .script{position:absolute; right:-1%; bottom:-10%; font-family:var(--f-round); font-weight:800; font-size:clamp(28px,4vw,54px); line-height:1.05; color:var(--white); background:var(--hot); padding:.08em .5em .14em; border-radius:999px; border:3px solid var(--ink); box-shadow:4px 4px 0 var(--ink); transform:rotate(-7deg)}
+.thesis{margin-top:clamp(40px,5vw,64px); font-family:var(--f-head); font-weight:700; font-style:italic; font-size:clamp(24px,3.4vw,44px); line-height:1.02; letter-spacing:-.01em; text-transform:uppercase}
 .thesis .p{color:var(--hot); display:block} .thesis .w{color:var(--cobalt); display:block}
 .hero .lead{margin-top:14px; color:var(--ink)}
 .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
@@ -163,7 +163,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .case-box{position:relative; justify-self:center; width:min(390px,100%); margin:0; border-radius:22px; border:3px solid var(--ink); background:var(--white); box-shadow:12px 14px 0 var(--ink); overflow:hidden; transform:rotate(2deg)}
 .case-box::before{content:""; position:absolute; z-index:-1; inset:-40px; background:radial-gradient(closest-side, rgba(200,255,46,.6), transparent)}
 .cb-top{display:flex; justify-content:space-between; align-items:center; padding:10px 14px; color:var(--white); background:var(--hot); border-bottom:3px solid var(--ink)}
-.cb-top b{font-family:var(--f-bubble); font-weight:400; font-size:22px; letter-spacing:.02em}
+.cb-top b{font-family:var(--f-round); font-weight:800; font-size:22px; letter-spacing:.02em}
 .cb-top span{font-family:var(--f-mono); font-size:12px; letter-spacing:.08em}
 .cb-band{display:flex; justify-content:space-between; gap:8px; padding:5px 12px; background:linear-gradient(90deg,var(--cobalt),#5e7bff); color:var(--white); font-family:var(--f-head); font-weight:700; font-size:12px; letter-spacing:.06em; text-transform:uppercase}
 .cb-shot{position:relative; aspect-ratio:4/4.8; border-bottom:3px solid var(--ink)}
@@ -180,14 +180,14 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .cb-cursor{position:absolute; z-index:4; right:4%; bottom:5%; width:30px; height:30px}
 .cb-foot{display:flex; align-items:stretch; gap:12px; padding:12px 14px; background:var(--white); color:var(--ink)}
 .rating{flex:none; width:64px; border-radius:12px; background:var(--ink); color:var(--lime); text-align:center; padding:6px 4px; display:grid; place-content:center}
-.rating b{display:block; font-family:var(--f-bubble); font-weight:400; font-size:24px; line-height:1}
+.rating b{display:block; font-family:var(--f-round); font-weight:800; font-size:24px; line-height:1}
 .rating small{display:block; font-family:var(--f-mono); font-size:8px; letter-spacing:.06em; font-weight:700}
 .cb-foot p{font-size:13px; line-height:1.35; color:var(--muted)}
 .cb-foot p b{display:block; font-family:var(--f-head); font-weight:700; font-size:20px; line-height:1.05; color:var(--ink); margin-bottom:4px}
 
 /* designed fallbacks (no photo yet) */
 .cov{position:absolute; inset:0; display:grid; place-items:center; background:radial-gradient(color-mix(in srgb, var(--fg) 22%, transparent) 1.5px, transparent 1.7px) 0 0/16px 16px, var(--bg); color:var(--fg); overflow:hidden}
-.cov b{font-family:var(--f-bubble); font-weight:400; font-size:clamp(34px,5vw,72px); line-height:.95; text-align:center; padding:0 8%; -webkit-text-stroke:2px var(--ink); paint-order:stroke; text-shadow:5px 5px 0 var(--ink)}
+.cov b{font-family:var(--f-round); font-weight:800; font-size:clamp(34px,5vw,72px); line-height:.95; text-align:center; padding:0 8%; -webkit-text-stroke:2px var(--ink); paint-order:stroke; text-shadow:5px 5px 0 var(--ink)}
 .cov i{position:absolute; right:7%; top:8%; font-style:normal; font-size:clamp(28px,3vw,44px); color:var(--fg); -webkit-text-stroke:1.5px var(--ink)}
 .cov .slot,.ph .slot,.mono-pt .slot{position:absolute; left:50%; bottom:12px; transform:translateX(-50%); font-family:var(--f-mono); font-weight:700; font-size:12px; padding:3px 10px; border-radius:999px; background:var(--white); color:var(--ink); border:2px dashed var(--hot); white-space:nowrap}
 .mono-pt{position:absolute; inset:0; display:grid; place-items:center; background:radial-gradient(60% 50% at 30% 20%, rgba(255,255,255,.55), transparent 60%), linear-gradient(160deg, var(--cobalt), #7a5cff 52%, var(--hot)); overflow:hidden}
@@ -229,23 +229,60 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .notice{font-size:12px; color:var(--muted); margin-top:10px}
 .bliss .notice{color:var(--white); text-shadow:1px 1px 0 var(--ink)}
 
+.hello{margin-top:clamp(36px,4.6vw,58px); font-family:var(--f-round); font-weight:800; font-size:clamp(20px,2.2vw,28px); line-height:1.25; max-width:30ch}
+.hello em{font-style:normal; color:var(--hot)}
+.hello + .thesis{margin-top:14px; font-size:clamp(20px,2.6vw,32px)}
+.tl-grid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+.rolechips{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.rolechips > span{padding:5px 11px; border-radius:999px; background:var(--white); border:2px solid var(--ink); font-family:var(--f-head); font-weight:700; font-size:14px; line-height:1.2}
+.rolechips.alt > span{background:var(--lime)}
+.ladder{list-style:none; margin:10px 0 8px; padding:0; display:grid; gap:6px}
+.ladder button{width:100%; display:grid; grid-template-columns:76px minmax(0,1fr) auto; gap:8px; align-items:center; text-align:left; padding:7px 10px; border-radius:12px; border:1.5px solid #cfd3ea; background:var(--white); cursor:pointer; font-size:14px; transition:background-color .2s, border-color .2s}
+.ladder button:hover{border-color:var(--ink); background:var(--lime)}
+.ladder .y{font-family:var(--f-mono); font-weight:700; font-size:12px; color:var(--muted)}
+.tl-c .ladder li{display:block}
+.tl-c .ladder b{font-family:var(--f-head); font-weight:700; font-size:15px; line-height:1.15; padding:0; background:none; color:var(--ink); border-radius:0}
+.ladder i{font-style:normal; font-weight:700}
+.checks{list-style:none; margin:10px 0 0; padding:0; display:grid; gap:8px; font-size:14px}
+.checks li{display:grid; grid-template-columns:22px minmax(0,1fr); gap:8px; align-items:start}
+.checks li::before{content:"✓"; width:22px; height:22px; border-radius:50%; background:var(--ink); color:var(--lime); display:grid; place-items:center; font-size:12px; font-weight:700}
+.tl-proof{font-size:13px; color:var(--muted)}
+.tl-proof b{color:var(--ink)}
+.log-top{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px}
+.tap{display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:999px; background:var(--hot); color:var(--white); font-family:var(--f-head); font-weight:700; font-size:13px; letter-spacing:.03em; animation:tapPulse 1.6s ease-in-out infinite}
+@keyframes tapPulse{50%{transform:scale(1.06)}}
+.role{position:relative}
+.role .st2{position:absolute; top:10px; right:10px; width:9px; height:9px; border-radius:50%; background:var(--hot); box-shadow:0 0 0 3px rgba(255,46,147,.25); animation:ping 1.4s infinite}
+.role[aria-selected="true"] .st2{display:none}
+.role-panel .val{margin-top:12px; padding:10px 14px; border-radius:14px; background:var(--lime); font-weight:700; font-size:15px}
+.role-nav{margin-top:14px; display:flex; justify-content:space-between; gap:8px}
+.role-nav button{border:2px solid var(--ink); background:var(--white); border-radius:999px; padding:6px 14px; font-family:var(--f-head); font-weight:700; font-size:13px; cursor:pointer}
+.role-nav button:hover{background:var(--lime)}
+.role-nav button[disabled]{opacity:.3; cursor:default; background:var(--white)}
+.own-card{margin-top:6px; border-radius:24px; background:var(--ink); color:var(--white); padding:clamp(18px,2.6vw,28px); box-shadow:8px 10px 0 var(--hot); display:grid; gap:6px}
+.own-card .k{font-family:var(--f-mono); font-weight:700; font-size:12px; letter-spacing:.08em; color:var(--lime); text-transform:uppercase}
+.own-card .s{font-family:var(--f-round); font-weight:800; font-size:clamp(34px,4.4vw,56px); line-height:1.05; color:var(--lime)}
+.own-card .s2{font-family:var(--f-head); font-weight:700; font-size:14px; color:var(--muted-d)}
+.own-card .d{margin-top:4px; font-size:16px; max-width:56ch; color:#e6e8f8}
+.own-card .d b{color:var(--white)}
+.tz-status b{font-variant-numeric:tabular-nums}
+
 /* ---------- TANGLE ---------- */
 .tangle-z{position:relative; padding-block:clamp(90px,12vw,160px) clamp(80px,10vw,130px); overflow:hidden}
 .tz-grid{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(24px,4vw,56px); align-items:center}
 .tz-say{font-family:var(--f-head); font-weight:700; font-size:clamp(38px,5.6vw,76px); line-height:.98; letter-spacing:-.02em}
-.tz-say .then{display:block; margin-top:.25em; font-style:italic; color:var(--hot); opacity:.16; transition:opacity .6s}
+.tz-say .then{display:block; margin-top:.3em; font-size:.62em; line-height:1.08; font-style:italic; color:var(--hot); opacity:.16; transition:opacity .6s}
 .tangle-z.clear .tz-say .then{opacity:1}
 .tz-status{margin-top:22px; display:inline-flex; align-items:center; gap:10px; font-family:var(--f-mono); font-weight:700; font-size:13px; letter-spacing:.07em; padding:8px 14px; border-radius:999px; border:2px solid var(--ink); background:var(--white)}
 .tz-status i{width:10px; height:10px; border-radius:50%; background:var(--hot); box-shadow:0 0 0 2px var(--ink)}
 .tangle-z.clear .tz-status i{background:var(--lime)}
-.tz-status .c{display:none} .tangle-z.clear .tz-status .c{display:inline} .tangle-z.clear .tz-status .m{display:none}
 .tangle{position:relative}
 .tangle svg{display:block; width:100%; height:auto; overflow:visible}
 #tg{fill:none; stroke:var(--hot); stroke-width:7; stroke-linecap:round; stroke-linejoin:round}
 #tgU{fill:none; stroke:var(--ink); stroke-width:12; stroke-linecap:round; stroke-linejoin:round}
 #tgS{fill:none; stroke:var(--white); stroke-opacity:.75; stroke-width:1.6; stroke-linecap:round}
 .tangle .node{left:50%; top:100%}
-.notes > span{position:absolute; z-index:4; font-family:var(--f-mono); font-weight:700; font-size:clamp(11px,1.1vw,13px); line-height:1; padding:7px 10px; border-radius:10px; background:var(--white); border:2px solid var(--ink); box-shadow:3px 3px 0 var(--ink); white-space:nowrap; transition:background-color .4s, color .4s}
+.notes > span{position:absolute; z-index:4; font-family:var(--f-mono); font-weight:700; font-size:clamp(12px,1.1vw,14px); max-width:62%; white-space:normal!important; line-height:1; padding:7px 10px; border-radius:10px; background:var(--white); border:2px solid var(--ink); box-shadow:3px 3px 0 var(--ink); white-space:nowrap; transition:background-color .4s, color .4s}
 .notes > span::before{content:"⚠ "; color:var(--hot)}
 .notes > span.ok{background:var(--lime); text-decoration:line-through}
 .notes > span.ok::before{content:"✓ "; color:var(--ink)}
@@ -267,7 +304,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .face.back{position:absolute; inset:0; transform:rotateY(180deg); background:var(--ink); color:var(--white); display:flex; flex-direction:column; gap:14px; padding:22px; overflow:auto}
 .face .ph{aspect-ratio:4/5; border-radius:18px; border:2.5px solid var(--ink)}
 .face .nm{display:flex; justify-content:space-between; align-items:end; gap:10px; margin-top:12px}
-.face .nm b{font-family:var(--f-bubble); font-weight:400; font-size:26px; line-height:1}
+.face .nm b{font-family:var(--f-round); font-weight:800; font-size:26px; line-height:1}
 .face .nm span{font-family:var(--f-mono); font-size:12px; font-weight:700; letter-spacing:.1em; text-align:right}
 .face.back h3{font-family:var(--f-mono); font-size:12px; letter-spacing:.08em; color:var(--lime)}
 .face.back ul{margin:4px 0 0; padding-left:18px; font-size:14px}
@@ -290,7 +327,6 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .scope .m i{display:block; height:100%; background:linear-gradient(90deg,var(--hot),var(--cobalt))}
 .scope span{font-family:var(--f-mono); font-size:12px; font-weight:700; letter-spacing:.07em}
 .own{display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin-top:10px}
-.own .s{font-family:var(--f-script); font-size:clamp(26px,3.2vw,40px); line-height:1.5; color:var(--hot)}
 .own .t{font-family:var(--f-mono); font-weight:700; font-size:12px; letter-spacing:.06em; padding:6px 12px; border-radius:999px; background:var(--lime); border:2px solid var(--ink); transform:rotate(-3deg)}
 
 /* Brand band */
@@ -309,7 +345,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .tile{position:relative; flex:1 1 0; min-width:0; text-align:left; display:flex; flex-direction:column; justify-content:space-between; gap:18px; padding:20px; border-radius:26px; border:2px solid var(--white); background:rgba(255,255,255,.08); color:var(--white); cursor:pointer; overflow:hidden; transition:flex-grow .55s cubic-bezier(.3,1,.4,1), background-color .3s}
 .tile:hover{background:rgba(255,255,255,.16)}
 .tile[aria-expanded="true"]{flex-grow:2.6; background:var(--white); color:var(--ink); border-color:var(--ink); box-shadow:0 8px 0 var(--ink)}
-.tile .n{font-family:var(--f-bubble); font-weight:400; font-size:clamp(58px,6vw,92px); line-height:.85; -webkit-text-stroke:2px currentColor; color:rgba(255,255,255,.12)}
+.tile .n{font-family:var(--f-round); font-weight:800; font-size:clamp(58px,6vw,92px); line-height:.85; -webkit-text-stroke:2px currentColor; color:rgba(255,255,255,.12)}
 .tile[aria-expanded="true"] .n{-webkit-text-stroke:2.5px var(--ink); color:var(--lime)}
 .tile .tt{display:block; font-family:var(--f-head); font-weight:700; font-size:clamp(20px,2vw,26px); line-height:1.05}
 .tile .k{display:block; margin-top:6px; font-family:var(--f-mono); font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; opacity:.8}
@@ -337,7 +373,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .orbit .ring{position:absolute; inset:7% 9%; border-radius:50%; border:2px dashed var(--ink); opacity:.3}
 .orbit .ring.r2{inset:24% 26%; opacity:.18}
 .core{position:absolute; left:50%; top:50%; width:30%; aspect-ratio:1; transform:translate(-50%,-50%); border-radius:50%; border:3px solid var(--ink); display:grid; place-items:center; text-align:center; background:radial-gradient(circle at 32% 26%, #fff 0 10%, transparent 30%), radial-gradient(circle at 50% 60%, #fff 0, #e6e0ff 30%, #8f86d8 56%, #f6f4ff 78%); box-shadow:0 10px 0 rgba(8,8,15,.2); z-index:2}
-.core b{font-family:var(--f-bubble); font-weight:400; font-size:clamp(18px,2.2vw,28px)}
+.core b{font-family:var(--f-round); font-weight:800; font-size:clamp(18px,2.2vw,28px)}
 .core small{display:block; font-family:var(--f-mono); font-size:12px; letter-spacing:.07em}
 .orbit .node{left:50%; top:50%; opacity:0}
 .sk{position:absolute; left:var(--x); top:var(--y); transform:translate(-50%,-50%); z-index:3; display:flex; align-items:center; gap:8px; padding:9px 16px 9px 9px; border-radius:999px; border:2px solid var(--ink); background:var(--white); font-family:var(--f-head); font-weight:700; font-size:15px; cursor:pointer; white-space:nowrap; box-shadow:0 4px 0 var(--ink); transition:transform .25s, background-color .25s, color .25s; animation:hover-bob 4s ease-in-out infinite; animation-delay:var(--d)}
@@ -368,7 +404,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .nums{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px}
 .num{border-radius:24px; border:2.5px solid var(--ink); background:var(--white); color:var(--ink); padding:18px 16px; box-shadow:0 6px 0 var(--ink); transition:transform .25s; min-width:0}
 .num:hover{transform:translateY(-6px) rotate(-1.5deg)}
-.num b{display:block; font-family:var(--f-bubble); font-weight:400; font-size:clamp(30px,3.6vw,48px); line-height:1; font-variant-numeric:tabular-nums; color:var(--cobalt)}
+.num b{display:block; font-family:var(--f-round); font-weight:800; font-size:clamp(30px,3.6vw,48px); line-height:1; font-variant-numeric:tabular-nums; color:var(--cobalt)}
 .num span{display:block; margin-top:8px; font-size:13px; font-weight:700}
 .num small{display:block; margin-top:2px; font-family:var(--f-mono); font-size:12px; letter-spacing:.1em; color:var(--muted)}
 
@@ -385,7 +421,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .card > .node{left:calc(var(--railpad) / -2 - 3px); top:24px}
 .shot{position:relative; min-height:320px; border-right:3px solid var(--white); border-radius:27px 0 0 27px; overflow:hidden}
 .shot .ph{position:absolute; inset:0}
-.brandtag{position:absolute; z-index:2; left:16px; top:16px; font-family:var(--f-bubble); font-weight:400; font-size:20px; padding:7px 14px; border-radius:999px; background:var(--white); color:var(--ink); border:2px solid var(--ink); transform:rotate(-4deg)}
+.brandtag{position:absolute; z-index:2; left:16px; top:16px; font-family:var(--f-round); font-weight:800; font-size:20px; padding:7px 14px; border-radius:999px; background:var(--white); color:var(--ink); border:2px solid var(--ink); transform:rotate(-4deg)}
 .stopn{position:absolute; z-index:2; right:14px; bottom:14px; font-family:var(--f-mono); font-size:12px; font-weight:700; letter-spacing:.07em; padding:4px 10px; border-radius:999px; background:var(--ink); color:var(--lime)}
 .subs{position:absolute; z-index:2; left:16px; bottom:16px; display:flex; flex-wrap:wrap; gap:6px; max-width:66%}
 .subs span{font-family:var(--f-mono); font-size:12px; font-weight:700; letter-spacing:.08em; padding:3px 8px; border-radius:999px; background:rgba(255,255,255,.9); color:var(--ink); border:1.5px solid var(--ink)}
@@ -402,7 +438,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .swp p{animation:fadeup .35s both}
 .res{display:flex; flex-wrap:wrap; gap:10px; margin-top:auto}
 .res div{flex:1 1 120px; border-radius:18px; border:2px solid var(--ink); background:var(--lime); color:var(--ink); padding:10px 14px}
-.res b{display:block; font-family:var(--f-bubble); font-weight:400; font-size:clamp(26px,2.8vw,34px); line-height:1; font-variant-numeric:tabular-nums}
+.res b{display:block; font-family:var(--f-round); font-weight:800; font-size:clamp(26px,2.8vw,34px); line-height:1; font-variant-numeric:tabular-nums}
 .res span{display:block; margin-top:4px; font-size:12px; font-weight:700}
 .res div.empty{background:transparent; border:2px dashed var(--muted-d); color:var(--muted-d)}
 .res div.empty b{font-family:var(--f-mono); font-size:20px}
@@ -484,11 +520,11 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .wt .ov{position:absolute; inset:auto 14px 14px auto; z-index:2; padding:8px 14px; border-radius:999px; background:var(--lime); color:var(--ink); border:2px solid var(--ink); font-family:var(--f-head); font-weight:700; font-size:13px; letter-spacing:.08em; transform:translateY(12px) scale(.9); opacity:0; transition:.3s}
 .wt:hover .ov,.wt:focus-visible .ov{transform:none; opacity:1}
 .wt .bt{position:absolute; z-index:2; left:14px; top:14px}
-.wt .bt span{font-family:var(--f-bubble); font-weight:400; font-size:18px; padding:5px 12px; border-radius:999px; background:var(--white); color:var(--ink); border:2px solid var(--ink); display:inline-block; transform:rotate(-3deg)}
+.wt .bt span{font-family:var(--f-round); font-weight:800; font-size:18px; padding:5px 12px; border-radius:999px; background:var(--white); color:var(--ink); border:2px solid var(--ink); display:inline-block; transform:rotate(-3deg)}
 .wt .cap{display:flex; justify-content:space-between; align-items:start; gap:10px; margin-top:12px}
 .wt .cap h3{font-family:var(--f-head); font-weight:700; font-size:clamp(18px,1.8vw,24px); line-height:1.05}
 .wt .cap .tg{font-family:var(--f-mono); font-size:12px; letter-spacing:.1em; color:var(--muted-d); text-align:right; flex:none; max-width:45%}
-.wt .cap .big-n{font-family:var(--f-bubble); color:var(--lime); font-size:18px; display:block}
+.wt .cap .big-n{font-family:var(--f-round); font-weight:800; color:var(--lime); font-size:18px; display:block}
 .wt.dim{opacity:.18; filter:grayscale(1); pointer-events:none}
 .stamp{margin-top:clamp(40px,5vw,64px); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; padding:22px; border-radius:24px; border:2px dashed var(--muted-d)}
 .stamp p{font-family:var(--f-head); font-weight:700; font-size:clamp(20px,2.2vw,28px); line-height:1.05}
@@ -521,7 +557,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .pf-bio .big{font-family:var(--f-head); font-weight:700; font-size:clamp(24px,2.8vw,36px); line-height:1.1}
 .stats4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
 .stats4 div{border-radius:20px; border:2px solid var(--ink); background:var(--white); padding:14px; min-width:0}
-.stats4 b{display:block; font-family:var(--f-bubble); font-weight:400; font-size:clamp(26px,3vw,38px); line-height:1; color:var(--cobalt)}
+.stats4 b{display:block; font-family:var(--f-round); font-weight:800; font-size:clamp(26px,3vw,38px); line-height:1; color:var(--cobalt)}
 .stats4 span{display:block; margin-top:6px; font-size:12px; font-weight:700}
 .sec{margin-top:clamp(48px,6vw,84px)}
 .sec > h3{display:flex; align-items:center; gap:12px; font-family:var(--f-head); font-weight:700; font-size:clamp(22px,2.4vw,30px); margin-bottom:18px}
@@ -534,7 +570,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .tl4 .scope{margin-top:auto}
 .steps4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; counter-reset:s}
 .steps4 div{border-radius:22px; background:var(--cobalt); color:var(--white); padding:18px; border:2px solid var(--ink); min-width:0}
-.steps4 b{display:block; font-family:var(--f-bubble); font-weight:400; font-size:34px; color:var(--lime); line-height:1}
+.steps4 b{display:block; font-family:var(--f-round); font-weight:800; font-size:34px; color:var(--lime); line-height:1}
 .steps4 h4{margin-top:8px; font-family:var(--f-head); font-size:20px}
 .steps4 p{margin-top:6px; font-size:14px; color:#dfe3ff}
 .edu{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
@@ -600,7 +636,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .kpis{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px}
 .kpi{border-radius:22px; border:2px solid var(--ink); background:var(--white); padding:16px; min-width:0}
 .kpi span{display:block; font-family:var(--f-mono); font-size:12px; font-weight:700; letter-spacing:.07em; color:var(--muted); text-transform:uppercase}
-.kpi b{display:block; margin-top:8px; font-family:var(--f-bubble); font-weight:400; font-size:clamp(28px,3vw,40px); line-height:1; font-variant-numeric:tabular-nums}
+.kpi b{display:block; margin-top:8px; font-family:var(--f-round); font-weight:800; font-size:clamp(28px,3vw,40px); line-height:1; font-variant-numeric:tabular-nums}
 .kpi small{display:block; margin-top:4px; font-size:12px; color:var(--muted)}
 .panels{margin-top:14px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
 .panel{border-radius:22px; border:2px solid var(--ink); background:var(--white); padding:18px; min-width:0}
@@ -672,7 +708,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   .connect::after{content:"Hi!"}
 }
 @media (max-width: 1000px){
-  .hero-grid,.tz-grid,.lv1-grid,.lv3-grid,.pf-grid,.ct-grid,.tl-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-grid,.tz-grid,.lv1-grid,.lv3-grid,.pf-grid,.ct-grid,.tl-grid,.tl-grid2{grid-template-columns:minmax(0,1fr)}
   .case-box{width:min(340px,100%)}
   .flip{margin-inline:auto}
   .flip-btn{display:flex; margin-inline:auto; width:max-content}
@@ -698,6 +734,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   .tabs{display:none}
   .lang{display:flex; margin-left:auto}
   .lvbar{display:none}
+  .notes > span{font-size:12px; max-width:50%; padding:5px 8px}
   .tldr{margin-top:-40px}
   body{padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
   .tabbar{display:flex; position:fixed; z-index:50; left:8px; right:8px; bottom:calc(8px + env(safe-area-inset-bottom,0px)); justify-content:space-around; padding:6px; border-radius:22px; border:2px solid var(--ink); background:rgba(255,255,255,.92); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px)}
@@ -822,16 +859,20 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   <span class="bubble" style="--s:140px; right:-36px; top:56%; --d:-1s" aria-hidden="true"></span>
   <div class="wrap hero-grid">
     <div>
-      <div class="ver"><span class="l"><span class="en">Brand &amp; Communication</span><span class="vi">Thương hiệu &amp; Truyền thông</span></span><span><span class="en">Ho Chi Minh City</span><span class="vi">TP. Hồ Chí Minh</span></span></div>
-      <h1 class="name" aria-label="Xinh Nguyễn">
+      <div class="ver"><span class="l"><span class="en">Brand &amp; Project Management</span><span class="vi">Quản lý thương hiệu &amp; dự án</span></span><span><span class="en">Ho Chi Minh City</span><span class="vi">TP. Hồ Chí Minh</span></span></div>
+      <h1 class="name" aria-label="Xinh say hi!">
         <svg class="lq" id="heroWord" viewBox="0 0 1000 300" aria-hidden="true"><text x="500" y="238" text-anchor="middle" font-size="270" fill="url(#gIrid)" stroke-width="7" filter="url(#liquid)">XINH</text></svg>
-        <span class="script" aria-hidden="true">Nguyễn</span>
+        <span class="script" aria-hidden="true">say hi!</span>
       </h1>
+      <p class="hello">
+        <span class="en">Hi, I'm Xinh Nguyễn. Hand me a messy brief, <em>I'll get it to the finish line.</em></span>
+        <span class="vi">Chào bạn, Xinh đây! Đưa Xinh một brief còn rối, <em>Xinh đưa dự án về đích.</em></span>
+      </p>
       <p class="thesis">
         <span class="en"><span class="p">Playful off the clock.</span><span class="w">Precise on the job.</span></span>
         <span class="vi"><span class="p">Điệu đà khi sống.</span><span class="w">Gọn gàng khi làm.</span></span>
       </p>
-      <p class="lead"><span class="en">4+ years planning and running campaigns for banks, fintechs and consumer brands.</span><span class="vi">Hơn 4 năm lên kế hoạch và triển khai chiến dịch cho ngân hàng, fintech và các thương hiệu tiêu dùng.</span></p>
+      <p class="lead"><span class="en">5 years planning, coordinating and delivering campaigns for banks, fintechs and consumer brands.</span><span class="vi">5 năm lên kế hoạch, điều phối và triển khai chiến dịch cho ngân hàng, fintech và các thương hiệu tiêu dùng.</span></p>
       <div class="cta">
         <a class="btn hot" href="#brief">▶ <span class="en">Play the journey</span><span class="vi">Xem hành trình</span></a>
         <a class="btn" href="#work"><span class="en">Jump to the work</span><span class="vi">Xem nhanh dự án</span> →</a>
@@ -841,7 +882,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
       <div class="cb-top"><b>XINH NGUYỄN</b><span><span class="en">HCMC · 2026</span><span class="vi">TP.HCM · 2026</span></span></div>
       <div class="cb-shot"><div data-portrait="portrait.png"></div></div>
       <figcaption class="cb-foot">
-        <span class="rating"><b>4+</b><small><span class="en">YEARS IN BRAND</span><span class="vi">NĂM LÀM BRAND</span></small></span>
+        <span class="rating"><b>5</b><small><span class="en">YEARS EXPERIENCE</span><span class="vi">NĂM KINH NGHIỆM</span></small></span>
         <p><b><span class="en">From brief to finish line.</span><span class="vi">Người đưa brief về đích.</span></b><span class="en">Plan · Align · Follow through</span><span class="vi">Lên kế hoạch · Điều phối · Theo đến kết quả</span></p>
       </figcaption>
     </figure>
@@ -852,18 +893,28 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   <div class="wrap plain">
     <div class="tl-in">
       <div class="tl-head">
-        <p class="tag"><b>30s</b><span class="en">For recruiters</span><span class="vi">Dành cho nhà tuyển dụng</span></p>
-        <h2 id="tlTitle"><span class="en">Xinh, in 30 seconds.</span><span class="vi">30 giây để hiểu Xinh.</span></h2>
+        <p class="tag"><b>30s</b><span class="en">For recruiters &amp; brands</span><span class="vi">Cho nhà tuyển dụng &amp; thương hiệu</span></p>
+        <h2 id="tlTitle"><span class="en">Is Xinh the right fit? Your 30-second answer.</span><span class="vi">Xinh có hợp với bạn không? Trả lời trong 30 giây.</span></h2>
       </div>
-      <div class="tl-grid">
-        <div class="tl-c"><span class="k"><span class="en">Looking for</span><span class="vi">Vị trí mong muốn</span></span><b>Brand / Marketing Executive</b><p><span class="en">Banking &amp; fintech first · HCMC or remote · open to freelance projects</span><span class="vi">Ưu tiên ngân hàng &amp; fintech · TP.HCM hoặc làm từ xa · nhận cả dự án freelance</span></p></div>
-        <div class="tl-c"><span class="k"><span class="en">Experience</span><span class="vi">Kinh nghiệm</span></span><b><span class="en">4+ years · Xanh Marketing</span><span class="vi">4+ năm · Xanh Marketing</span></b><p>Planning → Account Executive → Senior BD → Assoc. Account Manager</p></div>
-        <div class="tl-c"><span class="k"><span class="en">Track record</span><span class="vi">Đã làm được</span></span><ul>
-          <li><b>VIB</b><span><span class="en">Pitch won, then 4 projects together</span><span class="vi">Thắng pitch, rồi cùng làm thêm 4 dự án</span></span></li>
-          <li><b>MSB</b><span><span class="en">Partnership extended to 2027 (3 → 5 years)</span><span class="vi">Được gia hạn hợp tác đến 2027 (từ 3 lên 5 năm)</span></span></li>
-          <li><b>Digimi</b><span><span class="en">268 sign-ups, 140 conversions from one activation</span><span class="vi">268 lượt đăng ký, 140 chuyển đổi chỉ từ một activation</span></span></li>
-        </ul></div>
+      <div class="tl-grid2">
+        <div class="tl-c"><span class="k"><span class="en">Roles I fit</span><span class="vi">Vai trò phù hợp</span></span>
+          <div class="rolechips"><span>Brand Executive / Specialist</span><span>Marketing Executive</span><span>Marketing Project Manager</span><span>Account Manager</span></div>
+          <p><span class="en">Banking &amp; fintech first, open to other industries. HCMC or remote. Brands that book directly can also hire me per project or on a monthly retainer.</span><span class="vi">Ưu tiên ngân hàng &amp; fintech, sẵn sàng với ngành khác. Làm tại TP.HCM hoặc từ xa. Thương hiệu cần người theo dự án hoặc theo tháng có thể book Xinh trực tiếp.</span></p></div>
+        <div class="tl-c"><span class="k"><span class="en">Experience</span><span class="vi">Kinh nghiệm</span></span><b><span class="en">5 years agency-side · Xanh Marketing</span><span class="vi">5 năm phía agency · Xanh Marketing</span></b>
+          <ol class="ladder" id="ladder"></ol>
+          <a class="more-link" href="#clarify" data-jump-role="3"><span class="en">See what each role covered</span><span class="vi">Xem chi tiết từng vai trò</span> ↓</a></div>
+        <div class="tl-c"><span class="k"><span class="en">What I run</span><span class="vi">Mảng việc Xinh làm</span></span>
+          <div class="rolechips alt"><span>IMC campaign</span><span>Social always-on</span><span><span class="en">Launch campaign</span><span class="vi">Chiến dịch ra mắt</span></span><span>Activation &amp; event</span><span><span class="en">Video &amp; content production</span><span class="vi">Sản xuất video &amp; nội dung</span></span><span>KOL / KOC booking</span><span>Pitching &amp; proposal</span></div></div>
+        <div class="tl-c"><span class="k"><span class="en">How far I take it</span><span class="vi">Mức độ đảm nhận</span></span>
+          <ul class="checks">
+            <li><span class="en">Propose the idea, plan and budget myself</span><span class="vi">Tự đề xuất ý tưởng, kế hoạch và ngân sách</span></li>
+            <li><span class="en">Plan it, then run it through to sign-off</span><span class="vi">Lên plan rồi trực tiếp triển khai đến nghiệm thu</span></li>
+            <li><span class="en">Manage agencies, production houses, KOLs and partners</span><span class="vi">Quản lý agency, production house, KOL và đối tác</span></li>
+            <li><span class="en">Keep every stakeholder aligned, on time and on quality</span><span class="vi">Điều phối các bên liên quan, giữ đúng tiến độ và chất lượng</span></li>
+            <li><span class="en">Handle the paperwork: briefs, proposals, quotes, contracts, acceptance, reports</span><span class="vi">Lo trọn giấy tờ: brief, proposal, báo giá, hợp đồng, nghiệm thu, báo cáo</span></li>
+          </ul></div>
       </div>
+      <p class="tl-proof"><b><span class="en">Worked with:</span><span class="vi">Đã làm cùng:</span></b> VIB · MSB · Cake by VPBank · Digimi · BVBank · Poca · Lay's · Hảo Hảo · Prudential · Tetra Pak · Nhựa Duy Tân · Cindy Bloom</p>
       <div class="tl-acts" id="tlActs"></div>
     </div>
   </div>
@@ -873,19 +924,19 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   <div class="wrap tz-grid">
     <div>
       <p class="tz-say">
-        <span class="en">Every brief starts as a tangle.<span class="then">I pull it straight.</span></span>
-        <span class="vi">Brief nào cũng bắt đầu rối.<span class="then">Tôi gỡ cho thẳng.</span></span>
+        <span class="en">Every project starts as a tangle of questions.<span class="then">I untangle every knot, and own it until it's done.</span></span>
+        <span class="vi">Dự án nào cũng bắt đầu bằng một mớ câu hỏi.<span class="then">Xinh gỡ từng nút, và chịu trách nhiệm đến khi xong.</span></span>
       </p>
-      <p class="tz-status"><i></i><span class="m"><span class="en">STATUS: UNCLEAR</span><span class="vi">TRẠNG THÁI: CHƯA RÕ</span></span><span class="c"><span class="en">STATUS: CLEAR</span><span class="vi">TRẠNG THÁI: ĐÃ RÕ</span></span></p>
+      <p class="tz-status"><i></i><span id="tzCount"></span></p>
     </div>
     <div class="tangle" id="tangle">
       <svg viewBox="0 0 600 440" aria-hidden="true"><path id="tgU" d=""/><path id="tg" d=""/><path id="tgS" d=""/></svg>
       <div class="notes" aria-hidden="true">
-        <span style="left:2%; top:6%; rotate:-6deg"><span class="en">what's the KPI?</span><span class="vi">KPI là gì?</span></span>
-        <span style="right:2%; top:2%; rotate:5deg"><span class="en">who signs off?</span><span class="vi">ai duyệt?</span></span>
-        <span style="left:-2%; top:50%; rotate:4deg"><span class="en">due friday??</span><span class="vi">deadline thứ 6??</span></span>
-        <span style="right:-2%; top:42%; rotate:-5deg"><span class="en">budget…</span><span class="vi">budget bao nhiêu…</span></span>
-        <span style="right:8%; top:76%; rotate:3deg"><span class="en">+1 stakeholder</span><span class="vi">thêm 1 bên nữa</span></span>
+        <span style="right:6%; top:78%; rotate:3deg"><span class="en">Agency, KOLs, our team: who owns what?</span><span class="vi">Agency, KOL, team mình: ai lo phần nào?</span></span>
+        <span style="left:-2%; top:56%; rotate:4deg"><span class="en">Launch in 3 weeks?!</span><span class="vi">Ra mắt trong 3 tuần?!</span></span>
+        <span style="right:-2%; top:36%; rotate:-5deg"><span class="en">Posting daily, no orders</span><span class="vi">Đăng bài đều mà chẳng ra đơn</span></span>
+        <span style="left:2%; top:8%; rotate:-6deg"><span class="en">Tight budget: which channels?</span><span class="vi">Ngân sách có hạn, chạy kênh nào?</span></span>
+        <span style="right:2%; top:0%; rotate:5deg"><span class="en">Sales stalled. Fix what first?</span><span class="vi">Doanh số chững, làm gì trước?</span></span>
       </div>
       <span class="node cp" data-node data-cp="0"></span>
     </div>
@@ -897,7 +948,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
     <div class="head">
       <span class="node rail cp" data-node data-cp="1"></span>
       <p class="tag"><b>LV.1</b><span class="en">Clarify</span><span class="vi">Làm rõ</span></p>
-      <h2 class="h2"><span class="en">Who's on <em>this brief?</em></span><span class="vi">Ai nhận <em>brief này?</em></span></h2>
+      <h2 class="h2"><span class="en">Who'll run <em>your project?</em></span><span class="vi">Ai sẽ cầm <em>dự án của bạn?</em></span></h2>
     </div>
     <div class="lv1-grid">
       <div>
@@ -919,10 +970,10 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
         <button class="btn flip-btn" type="button" id="flipBtn" aria-controls="flip" data-cursor="FLIP">↻ <span class="en">Flip the card</span><span class="vi">Lật thẻ</span></button>
       </div>
       <div class="log">
-        <p class="mono"><span class="en">Level-up log · Xanh Marketing · tap a role</span><span class="vi">Nhật ký lên cấp · Xanh Marketing · chạm từng vai</span></p>
+        <div class="log-top"><p class="mono"><span class="en">5 years at Xanh Marketing · 4 roles</span><span class="vi">5 năm tại Xanh Marketing · 4 vai trò</span></p><span class="tap"><span class="en">Tap each step ↓</span><span class="vi">Bấm từng nấc để xem ↓</span></span></div>
         <div class="roles" role="tablist" aria-label="Roles" id="roleTabs"></div>
         <div class="role-panel" role="tabpanel" aria-live="polite" id="rolePanel"></div>
-        <div class="own"><span class="s">Tôi thích làm chủ.</span><span class="t en">= I like owning the outcome</span></div>
+        <div class="own-card"><p class="k"><span class="en">How I work</span><span class="vi">Tinh thần làm việc</span></p><p class="s">Tôi thích làm chủ.</p><p class="s2 en">I like to own it.</p><p class="d"><span class="en">To me, owning it means <b>understanding the business goal before starting</b>, <b>taking the hard parts on myself</b>, and <b>staying until there is a result</b>, not just until the task is done.</span><span class="vi">Với Xinh, làm chủ là <b>hiểu mục tiêu kinh doanh trước khi bắt tay làm</b>, <b>nhận phần khó về mình</b>, và <b>ở lại với dự án đến khi có kết quả</b>, không chỉ đến khi xong đầu việc.</span></p></div>
         <a class="more-link" href="#profile"><span class="en">Full profile</span><span class="vi">Xem hồ sơ đầy đủ</span> →</a>
       </div>
     </div>
@@ -937,7 +988,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
 <div class="brk" data-reach>
   <span class="node" data-node></span>
   <p class="lvdone"><span class="ok">✓</span><span class="w">…</span> LV.1</p>
-  <p class="say"><span class="en">Clear on who. <em>Now, how?</em></span><span class="vi">Rõ là ai rồi. <em>Giờ, làm sao?</em></span></p>
+  <p class="say"><span class="en">Now you know who. <em>Here's how.</em></span><span class="vi">Đã biết ai làm. <em>Giờ xem làm thế nào.</em></span></p>
 </div>
 
 <section class="zone pod lv2" id="structure">
@@ -946,8 +997,8 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
     <div class="head">
       <span class="node rail cp" data-node data-cp="2"></span>
       <p class="tag"><b>LV.2</b><span class="en">Structure</span><span class="vi">Cấu trúc</span></p>
-      <h2 class="h2"><span class="en">Four moves. <em>Every brief.</em></span><span class="vi">Bốn bước. <em>Brief nào cũng vậy.</em></span></h2>
-      <p class="lead"><span class="en">From a one-off launch to a two-year retainer. Open each move.</span><span class="vi">Từ một đợt launch đến retainer hai năm. Mở từng bước để xem.</span></p>
+      <h2 class="h2"><span class="en">Four steps. <em>Every project.</em></span><span class="vi">Bốn bước. <em>Dự án nào cũng vậy.</em></span></h2>
+      <p class="lead"><span class="en">The same for a one-off launch or a two-year retainer. Tap each step.</span><span class="vi">Dù là một đợt ra mắt hay hợp đồng hai năm. Bấm vào từng bước để xem.</span></p>
     </div>
     <div class="proc" id="proc"></div>
     <div class="wpt" style="margin-top:40px"><span class="node rail wp" data-node></span></div>
@@ -959,7 +1010,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   <span class="stk" data-drag data-cursor="DRAG" style="--s:70px; left:12%; top:30%; --d:-2s" aria-hidden="true"><svg><use href="#s-star"/></svg></span>
   <span class="node" data-node></span>
   <p class="lvdone"><span class="ok">✓</span><span class="w">…</span> LV.2</p>
-  <p class="say"><span class="en">Plan's set. <em>Bring in the right people.</em></span><span class="vi">Kế hoạch xong. <em>Kéo đúng người vào cuộc.</em></span></p>
+  <p class="say"><span class="en">Plan's ready. <em>Now, the right people.</em></span><span class="vi">Có kế hoạch rồi. <em>Giờ gọi đúng người vào việc.</em></span></p>
 </div>
 
 <section class="zone" id="align" style="padding-top:0">
@@ -967,8 +1018,8 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
     <div class="head">
       <span class="node rail cp" data-node data-cp="3"></span>
       <p class="tag"><b>LV.3</b><span class="en">Align</span><span class="vi">Điều phối</span></p>
-      <h2 class="h2"><span class="en">Six jobs I run <em>for brands.</em></span><span class="vi">Sáu việc tôi vận hành <em>cho thương hiệu.</em></span></h2>
-      <p class="hint"><span class="en">tap a skill on the orbit ↓</span><span class="vi">chạm vào một kỹ năng trên quỹ đạo ↓</span></p>
+      <h2 class="h2"><span class="en">Six things I run <em>for brands.</em></span><span class="vi">Sáu mảng việc Xinh làm <em>cho thương hiệu.</em></span></h2>
+      <p class="hint"><span class="en">Tap a skill to see the details ↓</span><span class="vi">Bấm vào từng mảng để xem chi tiết ↓</span></p>
     </div>
     <div class="wpt" style="margin-top:-30px"><span class="node rail wp" data-node></span></div>
     <div class="lv3-grid">
@@ -985,7 +1036,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   <div class="brk" data-reach style="padding-bottom:clamp(50px,7vw,90px)">
     <span class="node" data-node></span>
     <p class="lvdone"><span class="ok">✓</span><span class="w">…</span> LV.3</p>
-    <p class="say"><span class="en">Everyone's aligned. <em>Now, results.</em></span><span class="vi">Mọi bên đã khớp. <em>Giờ là kết quả.</em></span></p>
+    <p class="say"><span class="en">Everyone's aligned. <em>Now, results.</em></span><span class="vi">Mọi bên đã khớp. <em>Giờ đến kết quả.</em></span></p>
   </div>
 </section>
 
@@ -994,7 +1045,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   <span class="stk" data-drag data-cursor="DRAG" style="--s:76px; right:3%; top:-40px; --d:-2s" aria-hidden="true"><svg><use href="#s-star"/></svg></span>
   <div class="wrap plain">
     <div class="nums-head">
-      <h2><span class="en">Picked up along the way.</span><span class="vi">Nhặt được dọc đường.</span></h2>
+      <h2><span class="en">A few numbers worth remembering.</span><span class="vi">Vài con số đáng nhớ.</span></h2>
       <p><span class="en">Campaign results from projects I coordinated. Team numbers, credited to the team.</span><span class="vi">Kết quả chiến dịch từ các dự án tôi điều phối. Là số liệu chung của cả team.</span></p>
     </div>
     <div class="nums">
@@ -1013,7 +1064,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
       <span class="node rail cp" data-node data-cp="4"></span>
       <p class="tag"><b>LV.4</b><span class="en">Follow through</span><span class="vi">Theo đến cùng</span></p>
       <h2 class="h2"><span class="en">Three projects, <em>to the end.</em></span><span class="vi">Ba dự án, <em>theo đến cùng.</em></span></h2>
-      <p class="lead"><span class="en">Flip the switch to see my part and the team's. All seven cases live in Work.</span><span class="vi">Gạt công tắc để xem phần tôi và phần team. Đủ bảy case nằm trong tab Dự án.</span></p>
+      <p class="lead"><span class="en">Flip the switch to see my part and the team's. All seven cases live in Work.</span><span class="vi">Gạt công tắc để xem phần của Xinh và phần của team. Cả bảy dự án nằm trong tab Dự án.</span></p>
     </div>
   </div>
   <div class="pod night" style="padding-block:clamp(30px,4vw,50px) 0">
@@ -1082,7 +1133,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
       <p class="mono" style="color:var(--lime)"><span class="en">Quick view · 01 / Work</span><span class="vi">Xem nhanh · 01 / Dự án</span></p>
       <svg class="lq" viewBox="0 0 1000 230" aria-label="Work"><text x="8" y="190" font-size="230" fill="url(#gLime)" stroke-width="7" filter="url(#liquid)">WORK</text></svg>
       <div class="row">
-        <p class="lead"><span class="en">Five projects and two more on file. Each case separates what I did from what the team did.</span><span class="vi">Năm dự án và hai dự án khác. Mỗi case tách rõ phần tôi làm và phần của team.</span></p>
+        <p class="lead"><span class="en">Five projects and two more on file. Each case separates what I did from what the team did.</span><span class="vi">Năm dự án chính và hai dự án khác. Mỗi dự án tách rõ phần Xinh làm và phần của team.</span></p>
         <div class="filters" id="filters" role="group" aria-label="Filter"></div>
       </div>
     </div>
@@ -1110,10 +1161,10 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
       </div>
       <div class="pf-bio">
         <p class="big"><span class="en">I work best where the brief isn't fully clear, people need alignment, and someone has to own the outcome.</span><span class="vi">Tôi làm tốt nhất ở nơi brief chưa rõ, nhiều bên cần thống nhất, và cần một người làm chủ kết quả.</span></p>
-        <p class="lead"><span class="en">Planning, account, business development and delivery, built over four years at Xanh Marketing, Ho Chi Minh City.</span><span class="vi">Planning, account, business development và triển khai, tích luỹ hơn bốn năm tại Xanh Marketing, TP.HCM.</span></p>
-        <p class="own"><span class="s" style="font-size:clamp(30px,3.6vw,44px)">Tôi thích làm chủ.</span></p>
+        <p class="lead"><span class="en">Five years agency-side at Xanh Marketing, Ho Chi Minh City: planning, account, business development and project management.</span><span class="vi">5 năm phía agency tại Xanh Marketing, TP.HCM: planning, account, business development và quản lý dự án.</span></p>
+        <div class="own-card"><p class="k"><span class="en">How I work</span><span class="vi">Tinh thần làm việc</span></p><p class="s">Tôi thích làm chủ.</p><p class="s2 en">I like to own it.</p><p class="d"><span class="en">To me, owning it means <b>understanding the business goal before starting</b>, <b>taking the hard parts on myself</b>, and <b>staying until there is a result</b>, not just until the task is done.</span><span class="vi">Với Xinh, làm chủ là <b>hiểu mục tiêu kinh doanh trước khi bắt tay làm</b>, <b>nhận phần khó về mình</b>, và <b>ở lại với dự án đến khi có kết quả</b>, không chỉ đến khi xong đầu việc.</span></p></div>
         <div class="stats4">
-          <div><b>4+</b><span><span class="en">years in brand</span><span class="vi">năm làm brand</span></span></div>
+          <div><b>5</b><span><span class="en">years experience</span><span class="vi">năm kinh nghiệm</span></span></div>
           <div><b>12</b><span><span class="en">brands served</span><span class="vi">thương hiệu</span></span></div>
           <div><b>4</b><span><span class="en">roles, one agency</span><span class="vi">vai trò, một agency</span></span></div>
           <div><b>1–2</b><span><span class="en">juniors mentored</span><span class="vi">junior đã kèm</span></span></div>
@@ -1138,7 +1189,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
     <div class="qhead">
       <p class="mono"><span class="en">Quick view · 03 / Skills</span><span class="vi">Xem nhanh · 03 / Năng lực</span></p>
       <svg class="lq" viewBox="0 0 1000 230" aria-label="Skills"><text x="8" y="190" font-size="230" fill="url(#gIrid)" stroke-width="7" filter="url(#liquid)">SKILLS</text></svg>
-      <p class="lead"><span class="en">The six jobs brand and marketing teams hire for most. Each links to where I've done it.</span><span class="vi">Sáu mảng việc team brand và marketing tuyển nhiều nhất. Mỗi mảng dẫn tới dự án tôi đã làm.</span></p>
+      <p class="lead"><span class="en">Six things I can run for your brand. Each links to a project where I did it.</span><span class="vi">Sáu mảng việc Xinh làm được cho thương hiệu. Mỗi mảng dẫn tới dự án đã làm.</span></p>
     </div>
     <div class="sk-grid" id="skGrid"></div>
     <div class="stamp" style="border-color:var(--ink)">
@@ -1210,7 +1261,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
      CONFIG — fill these in. Leave a value empty to show it as "coming soon".
      ===================================================================== */
   var CONTACT = {
-    phone: '',        // e.g. '0901234567'  (used for Call + Zalo)
+    phone: '0975108131', // used for Call + Zalo
     zalo: '',         // Zalo phone or id if different from phone
     facebook: '',     // e.g. 'xinh.nguyen' (facebook.com/<this>)
     linkedin: '',     // e.g. 'xinh-nguyen' (linkedin.com/in/<this>)
@@ -1221,7 +1272,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
     'portrait.png': 'assets/portrait.webp',
   };
   // Link to your CV (PDF on Google Drive / Canva / any public URL). Empty = button hidden.
-  var CV_URL = '';
+  var CV_URL = 'assets/XinhNguyen-CV.pdf';
   var ARTIFACT_URL = 'https://claude.ai/artifact/RkAnAJMf5LtoW96VTVcjoc';
   var GOATCOUNTER = ''; // e.g. 'https://xinh.goatcounter.com/count' — only used when hosted outside claude.ai
 
@@ -1264,51 +1315,55 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
      ===================================================================== */
   var ROLES = [
     {lane:'PLANNING', t:'Digital Planning Assistant', short:'Planning Assistant', y:'2022', w:'04/2022 – 08/2022', s:25,
-     d:{en:'Researched market, competitors and audience. Kept creative and media on one message.', vi:'Nghiên cứu thị trường, đối thủ, khách hàng. Giữ creative và media chung một thông điệp.'}, sc:{en:'UNDERSTAND', vi:'HIỂU'}},
-    {lane:'CLIENT + DELIVERY', t:'Account Executive', short:'Account Executive', y:'2022–24', w:'08/2022 – 09/2024', s:50,
-     d:{en:'Ran communication projects for several brands, from client talks to execution quality.', vi:'Chạy dự án truyền thông cho nhiều thương hiệu, từ làm việc với client đến chất lượng triển khai.'}, sc:{en:'+ DELIVER', vi:'+ TRIỂN KHAI'}},
-    {lane:'PITCH + GROWTH', t:'Senior Business Development', short:'Senior BD', y:'2024–26', w:'09/2024 – 04/2026', s:75,
-     d:{en:'Led pitches and grew scope. Coordinated creative, account, media and production. Mentored 1–2 juniors.', vi:'Dẫn pitch và mở rộng scope. Điều phối creative, account, media, production. Kèm 1–2 bạn junior.'}, sc:{en:'+ CONNECT', vi:'+ KẾT NỐI'}},
-    {lane:'OWNERSHIP', t:'Associate Account Manager', short:'Assoc. Account Manager', y:'2026', w:'05/2026 – 08/2026', s:100,
-     d:{en:'Owned projects end to end: scope, timeline, deliverables and client expectations.', vi:'Làm chủ dự án từ đầu đến cuối: scope, timeline, deliverables và kỳ vọng của client.'}, sc:{en:'+ OWN', vi:'+ LÀM CHỦ'}}
+     d:{en:'Researched market, competitors and audiences to ground the communication plan. Coordinated Creative and Media so the message stayed consistent and on time.', vi:'Nghiên cứu thị trường, đối thủ và khách hàng mục tiêu để làm nền cho kế hoạch truyền thông. Phối hợp team Creative và Media để thông điệp nhất quán, ra đúng hạn.'},
+     v:{en:'For you: plans built on data, not guesses.', vi:'Với bạn: kế hoạch dựa trên dữ liệu, không phải phỏng đoán.'}, sc:{en:'UNDERSTAND', vi:'HIỂU'}},
+    {lane:'CLIENT & DELIVERY', t:'Account Executive', short:'Account Executive', y:'2022–24', w:'08/2022 – 09/2024', s:50,
+     d:{en:'Managed communication projects for several brands at once. Main contact for clients and stakeholders through delivery. Coordinated internal teams and outside partners, and tracked progress and quality.', vi:'Quản lý dự án truyền thông cho nhiều thương hiệu cùng lúc. Là đầu mối làm việc với khách hàng và các bên liên quan suốt quá trình triển khai. Điều phối team nội bộ, đối tác bên ngoài và theo sát tiến độ, chất lượng.'},
+     v:{en:'For you: one point of contact who keeps every party moving.', vi:'Với bạn: một đầu mối duy nhất, giữ mọi bên chạy đúng nhịp.'}, sc:{en:'+ DELIVER', vi:'+ TRIỂN KHAI'}},
+    {lane:'PITCH & GROWTH', t:'Senior Business Development cum Assistant Account Manager', short:'Senior BD × Asst. Account Manager', y:'2024–26', w:'09/2024 – 04/2026', s:75,
+     d:{en:'Built research-based communication solutions tied to brand goals. Led pitches, client relationships and scope growth. Coordinated Creative, Account, Media and Production. Managed scope, budget, timeline and quality. Mentored 1–2 juniors.', vi:'Xây giải pháp truyền thông dựa trên nghiên cứu, bám sát mục tiêu thương hiệu. Phụ trách pitching, quan hệ khách hàng và mở rộng phạm vi dự án. Điều phối Creative, Account, Media và Production. Quản lý phạm vi, ngân sách, timeline và chất lượng. Kèm 1–2 bạn junior.'},
+     v:{en:'For you: solutions tied to business goals, with budget and quality under control.', vi:'Với bạn: giải pháp bám mục tiêu kinh doanh, ngân sách và chất lượng nằm trong tầm kiểm soát.'}, sc:{en:'+ CONNECT', vi:'+ KẾT NỐI'}},
+    {lane:'END-TO-END OWNERSHIP', t:'Associate Account Manager', short:'Associate Account Manager', y:'2026', w:'05/2026 – 08/2026', s:100,
+     d:{en:'Owned communication projects end to end: scope, timeline and deliverables. Managed client relationships, expectations and issues. Coordinated cross-functional teams and partners, and drove quality and on-time delivery.', vi:'Làm chủ dự án truyền thông từ đầu đến cuối: phạm vi, timeline và sản phẩm bàn giao. Quản lý quan hệ, kỳ vọng của khách hàng và xử lý phát sinh. Điều phối các team và đối tác, đảm bảo chất lượng và bàn giao đúng hạn.'},
+     v:{en:'For you: one person who owns the project from brief to result.', vi:'Với bạn: một người làm chủ dự án từ brief đến kết quả.'}, sc:{en:'+ OWN', vi:'+ LÀM CHỦ'}}
   ];
   var STEPS = [
-    {t:{en:'Clarify', vi:'Làm rõ'}, k:{en:'Goal before tasks', vi:'Mục tiêu trước việc'}, d:{en:'Pin down goal, context, scope and what success looks like before anyone makes anything.', vi:'Chốt mục tiêu, bối cảnh, phạm vi và tiêu chí thành công trước khi bắt tay làm.'}},
-    {t:{en:'Structure', vi:'Cấu trúc'}, k:{en:'Problem into plan', vi:'Bài toán thành kế hoạch'}, d:{en:'Break it into tasks, dependencies and priorities. Agree how it will run.', vi:'Chia đầu việc, phụ thuộc, ưu tiên. Thống nhất cách vận hành.'}},
-    {t:{en:'Align', vi:'Điều phối'}, k:{en:'Right people, right roles', vi:'Đúng người, đúng vai'}, d:{en:'Connect client, team and partners. Set expectations, allocate resources.', vi:'Kết nối client, team, partner. Thống nhất kỳ vọng, phân bổ nguồn lực.'}},
-    {t:{en:'Follow through', vi:'Theo đến cùng'}, k:{en:'Plan to outcome', vi:'Kế hoạch đến kết quả'}, d:{en:'Track progress and quality. Catch issues early, adjust when needed.', vi:'Theo sát tiến độ, chất lượng. Xử lý phát sinh sớm, điều chỉnh khi cần.'}}
+    {t:{en:'Clarify', vi:'Làm rõ'}, k:{en:'Goal first, tasks second', vi:'Mục tiêu trước, việc sau'}, d:{en:'Pin down the business goal, context, scope and what success looks like before anyone starts making things.', vi:'Chốt mục tiêu kinh doanh, bối cảnh, phạm vi và thế nào là thành công, trước khi bắt tay vào làm.'}},
+    {t:{en:'Structure', vi:'Cấu trúc'}, k:{en:'From problem to plan', vi:'Từ bài toán thành kế hoạch'}, d:{en:'Break the work into tasks, priorities and dependencies. Agree how it will run.', vi:'Chia nhỏ đầu việc, xác định thứ tự ưu tiên và các phần phụ thuộc nhau. Thống nhất cách vận hành.'}},
+    {t:{en:'Align', vi:'Điều phối'}, k:{en:'Right people, right jobs', vi:'Đúng người, đúng việc'}, d:{en:'Connect the brand, the team and partners. Set expectations and assign resources.', vi:'Kết nối thương hiệu, team và đối tác. Thống nhất kỳ vọng, phân bổ nguồn lực.'}},
+    {t:{en:'Follow through', vi:'Theo đến cùng'}, k:{en:'From plan to result', vi:'Từ kế hoạch đến kết quả'}, d:{en:'Track progress and quality, handle issues early, adjust when needed.', vi:'Theo sát tiến độ và chất lượng, xử lý phát sinh sớm, điều chỉnh khi cần.'}}
   ];
   var SKILLS = [
     {c:'var(--hot)', name:{en:'Planning', vi:'Kế hoạch'}, file:'brand_plan.doc',
-     t:{en:'Brand & campaign planning', vi:'Kế hoạch thương hiệu & chiến dịch'},
-     d:{en:'Business goal into a plan: insight, message, channels, timeline, budget.', vi:'Từ mục tiêu kinh doanh thành kế hoạch: insight, thông điệp, kênh, timeline, ngân sách.'},
-     h:{en:'Quarterly and yearly brand plans, campaign briefs.', vi:'Kế hoạch brand theo quý/năm, brief chiến dịch.'},
+     t:{en:'Brand & campaign planning', vi:'Lập kế hoạch thương hiệu & chiến dịch'},
+     d:{en:'Turn a business goal into a plan: insight, message, channels, timeline and budget.', vi:'Biến mục tiêu kinh doanh thành kế hoạch: insight, thông điệp, kênh, timeline và ngân sách.'},
+     h:{en:'A yearly or quarterly brand plan, or a clear brief for a campaign.', vi:'Kế hoạch thương hiệu theo năm, theo quý, hoặc một brief chiến dịch rõ ràng.'},
      p:[['VIB Ivy Card','vib'],['Nhựa Duy Tân Tết 2025','duytan']], w:{en:'Won the VIB pitch, opening a long-term partnership', vi:'Thắng pitch VIB, mở ra hợp tác dài hạn'}},
-    {c:'var(--lime)', name:{en:'Launch', vi:'Ra mắt'}, file:'launch_delivery.exe',
-     t:{en:'Campaign & launch delivery', vi:'Triển khai chiến dịch & ra mắt'},
-     d:{en:'Brief to live: agencies, production, approvals, timeline and budget in one place.', vi:'Từ brief đến lên sóng: agency, production, duyệt, timeline, ngân sách trong một mối.'},
-     h:{en:'Managing agencies and production on time and on budget.', vi:'Quản lý agency, production đúng hạn, đúng ngân sách.'},
+    {c:'var(--lime)', name:{en:'IMC & launch', vi:'IMC & ra mắt'}, file:'imc_launch.exe',
+     t:{en:'IMC campaigns & launches', vi:'Chiến dịch IMC & ra mắt sản phẩm'},
+     d:{en:'Run a campaign from brief to live: agencies, production, approvals, timeline and budget in one hand.', vi:'Chạy chiến dịch từ brief đến lúc lên sóng: agency, production, duyệt, timeline và ngân sách nằm trong một mối.'},
+     h:{en:'A launch or campaign that has to ship on time and on budget.', vi:'Một đợt ra mắt hay chiến dịch cần lên đúng hạn, đúng ngân sách.'},
      p:[['Poca Yummy','poca'],['Cindy Bloom','cindy']], w:{en:'266K+ Facebook engagements on Poca Yummy', vi:'266K+ tương tác Facebook cho Poca Yummy'}},
     {c:'var(--sky)', name:{en:'Always-on', vi:'Always-on'}, file:'always_on.sys',
-     t:{en:'Social always-on operations', vi:'Vận hành social always-on'},
-     d:{en:'A content rhythm that holds: channel roles, calendar, production flow, review loop.', vi:'Nhịp nội dung bền: vai trò kênh, lịch nội dung, quy trình sản xuất, vòng duyệt.'},
-     h:{en:'Facebook, TikTok and YouTube content that improves monthly.', vi:'Nội dung Facebook, TikTok, YouTube cải thiện hằng tháng.'},
+     t:{en:'Social always-on', vi:'Vận hành social always-on'},
+     d:{en:'A content rhythm that holds: channel roles, calendar, production flow and a review loop.', vi:'Nhịp nội dung bền vững: vai trò từng kênh, lịch nội dung, quy trình sản xuất và vòng duyệt.'},
+     h:{en:'Facebook, TikTok and YouTube channels that keep improving month after month.', vi:'Kênh Facebook, TikTok, YouTube cần được duy trì và cải thiện hằng tháng.'},
      p:[['MSB Social AWO','msb'],['Digimi & BVBank','digimi']], w:null},
     {c:'var(--lilac)', name:{en:'KOL / KOC', vi:'KOL / KOC'}, file:'kol_partners.wav',
      t:{en:'KOL/KOC & partnerships', vi:'KOL/KOC & đối tác'},
-     d:{en:'Brief, book and manage creators and entertainment partners, on brand and on time.', vi:'Brief, booking, quản lý creator và đối tác giải trí, đúng brand, đúng hạn.'},
-     h:{en:'Hands-on creator management, from selection to tracking.', vi:'Quản lý creator thực chiến, từ chọn người đến đo hiệu quả.'},
+     d:{en:'Brief, book and manage creators and entertainment partners, on brand and on time.', vi:'Brief, booking và quản lý creator, đối tác giải trí, đúng chất thương hiệu, đúng hạn.'},
+     h:{en:'Creators and partners chosen, briefed and tracked properly.', vi:'Chọn đúng creator, đối tác, brief rõ ràng và theo dõi hiệu quả.'},
      p:[['Poca × TikTok creators','poca'],['VIB × Anh Trai Say Hi','vib']], w:null},
     {c:'var(--pink-soft)', name:{en:'Activation', vi:'Activation'}, file:'activation.evt',
      t:{en:'Activation & events', vi:'Activation & sự kiện'},
-     d:{en:'Take the brand offline and tie the experience to a measurable action.', vi:'Đưa thương hiệu ra đời thực và gắn trải nghiệm với hành động đo được.'},
-     h:{en:'On-ground programs tied to business KPIs.', vi:'Chương trình on-ground gắn với KPI kinh doanh.'},
-     p:[['Digimi coffee truck','digimi'],['VIB cashless day','vib']], w:{en:'268 registrations, 140 conversions from one activation', vi:'268 đăng ký, 140 chuyển đổi từ một activation'}},
-    {c:'var(--butter)', name:{en:'Measurement', vi:'Đo lường'}, file:'report.xls',
-     t:{en:'Measurement & optimization', vi:'Đo lường & tối ưu'},
-     d:{en:'Reports that explain the numbers, then a clear call on what to change next.', vi:'Báo cáo giải thích được con số, kèm đề xuất rõ cần đổi gì ở vòng sau.'},
-     h:{en:'Reach, engagement, conversion and cost, with recommended fixes.', vi:'Reach, tương tác, chuyển đổi, chi phí, kèm đề xuất cải thiện.'},
-     p:[['MSB reporting','msb'],['Digimi funnel','digimi']], w:null}
+     d:{en:'Take the brand offline and tie the experience to a measurable action.', vi:'Đưa thương hiệu ra đời thực và gắn trải nghiệm với một hành động đo được.'},
+     h:{en:'An on-ground program that has to move a business number.', vi:'Một chương trình on-ground cần tạo ra con số kinh doanh.'},
+     p:[['Digimi coffee truck','digimi'],['VIB cashless day','vib']], w:{en:'268 sign-ups, 140 conversions from one activation', vi:'268 đăng ký, 140 chuyển đổi từ một activation'}},
+    {c:'var(--butter)', name:{en:'Production', vi:'Sản xuất'}, file:'production.mp4',
+     t:{en:'Content & video production', vi:'Sản xuất nội dung & video'},
+     d:{en:'From idea and script to shoot and edit: coordinate production houses and KOLs, and check every asset before it goes live.', vi:'Từ ý tưởng, kịch bản đến quay dựng: điều phối production house, KOL và duyệt từng sản phẩm trước khi lên sóng.'},
+     h:{en:'Social content, key visuals and videos made on brand and on time.', vi:'Nội dung social, key visual và video đúng chất thương hiệu, đúng hạn.'},
+     p:[['MSB production','msb'],['Cindy Bloom','cindy'],['Nhựa Duy Tân','duytan']], w:null}
   ];
   var CATS = [
     {k:'all', t:{en:'All', vi:'Tất cả'}}, {k:'bank', t:{en:'Banking & fintech', vi:'Ngân hàng & fintech'}}, {k:'fmcg', t:{en:'Consumer', vi:'Tiêu dùng'}},
@@ -1374,13 +1429,13 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {
-    vib:    {role:'', period:'', scope:[]},
-    msb:    {role:'', period:'2025 – 2027', scope:[]},
+    vib:    {role:'Pitching → overall management', period:'', scope:[]},
+    msb:    {role:'Pitching → execution', period:'2025 – 2027', scope:['AWO · Production · Booking · Media']},
     cake:   {role:'', period:'', scope:[]},
     poca:   {role:'', period:'2023', scope:[]},
     digimi: {role:'', period:'', scope:[]},
-    duytan: {role:'', period:'Tết 2025', scope:[]},
-    cindy:  {role:'', period:'', scope:[]}
+    duytan: {role:'Communication plan · Pitching', period:'Tết 2025', scope:['AWO · Production · Booking · Media']},
+    cindy:  {role:'Pitching → execution', period:'', scope:['Production · Social campaign']}
   };
   CASES.forEach(function(c){ var l = LOOK[c.id] || ['var(--ink)','var(--lime)'], f = FACTS[c.id] || {}; c.bg = l[0]; c.fg = l[1]; c.role = f.role || ''; c.period = f.period || ''; c.scope = f.scope || []; });
   var FEATURED = ['vib', 'msb', 'digimi'];
@@ -1450,15 +1505,23 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   });
 
   /* LV.1 roles + flip */
-  var roleIdx = 3;
+  var roleIdx = 3, seenRoles = {3:1};
   function renderRoles(){
-    $('#roleTabs').innerHTML = ROLES.map(function(r, i){ return '<button class="role" type="button" role="tab" data-role="' + i + '" aria-selected="' + (i === roleIdx ? 'true' : 'false') + '"><span class="y">' + r.y + '</span><b>' + esc(r.short) + '</b></button>'; }).join('');
+    var vi = lang === 'vi';
+    $('#roleTabs').innerHTML = ROLES.map(function(r, i){ return '<button class="role" type="button" role="tab" data-role="' + i + '" aria-selected="' + (i === roleIdx ? 'true' : 'false') + '">' + (seenRoles[i] ? '' : '<span class="st2" aria-hidden="true"></span>') + '<span class="y">' + r.y + '</span><b>' + esc(r.short) + '</b></button>'; }).join('');
     var r = ROLES[roleIdx];
     $('#rolePanel').innerHTML = '<span class="lane">' + r.lane + '</span><h3>' + esc(r.t) + '</h3><p class="mono" style="margin-top:6px">' + r.w + '</p><p class="d">' + esc(L(r.d)) + '</p>' +
-      '<div class="scope"><span>' + (lang === 'vi' ? 'PHẠM VI' : 'SCOPE') + '</span><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div>';
-    $('#tl4').innerHTML = ROLES.map(function(r){ return '<article><span class="lane">' + r.lane + '</span><h4>' + esc(r.t) + '</h4><span class="w">' + r.w + '</span><p>' + esc(L(r.d)) + '</p><div class="scope"><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div></article>'; }).join('');
+      '<p class="val">' + esc(L(r.v)) + '</p>' +
+      '<div class="scope"><span>' + (vi ? 'PHẠM VI' : 'SCOPE') + '</span><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div>' +
+      '<div class="role-nav"><button type="button" data-role="' + (roleIdx - 1) + '"' + (roleIdx ? '' : ' disabled') + '>‹ ' + (vi ? 'Vai trò trước' : 'Previous') + '</button><button type="button" data-role="' + (roleIdx + 1) + '"' + (roleIdx < ROLES.length - 1 ? '' : ' disabled') + '>' + (vi ? 'Vai trò tiếp' : 'Next') + ' ›</button></div>';
+    $('#tl4').innerHTML = ROLES.map(function(r){ return '<article><span class="lane">' + r.lane + '</span><h4>' + esc(r.t) + '</h4><span class="w">' + r.w + '</span><p>' + esc(L(r.d)) + '</p><p style="font-weight:700; color:var(--ink)">' + esc(L(r.v)) + '</p><div class="scope"><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div></article>'; }).join('');
+    $('#ladder').innerHTML = ROLES.map(function(r, i){ return '<li><button type="button" data-jump-role="' + i + '"><span class="y">' + r.w.replace(/\/20/g, '/') + '</span><b>' + esc(r.t) + '</b><i aria-hidden="true">↓</i></button></li>'; }).join('');
   }
-  document.addEventListener('click', function(e){ var b = e.target.closest('[data-role]'); if (b){ roleIdx = +b.dataset.role; renderRoles(); } });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-role]'); if (b && !b.disabled){ roleIdx = +b.dataset.role; seenRoles[roleIdx] = 1; renderRoles(); return; }
+    var j = e.target.closest('[data-jump-role]');
+    if (j){ e.preventDefault(); roleIdx = +j.dataset.jumpRole; seenRoles[roleIdx] = 1; renderRoles(); var t = $('#roleTabs'); if (curView !== 'story'){ location.hash = 'clarify'; } else if (t) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
+  });
   $('#flipBtn').addEventListener('click', function(){
     var flip = $('#flip'), on = flip.classList.toggle('flipped');
     $('.face.back', flip).setAttribute('aria-hidden', on ? 'false' : 'true');
@@ -1482,7 +1545,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
     var proof = s.p.map(function(p){ return '<a class="chip" href="#case-' + p[1] + '">' + esc(p[0]) + '</a>'; }).join('');
     var win = s.w ? '<p class="win"><b>WIN&gt;</b>' + esc(L(s.w)) + '</p>' : (EDIT ? '<p class="win empty"><b>+ ADD&gt;</b>' + (lang === 'vi' ? 'thêm một kết quả' : 'add an outcome') + '</p>' : '');
     return '<div class="skc" style="--c:' + s.c + '"><p class="no"><span>SKILL 0' + (i + 1) + '/06</span><span>' + s.file + '</span></p><h3>' + esc(L(s.t)) + '</h3><p class="d">' + esc(L(s.d)) + '</p>' +
-      '<div class="hire"><b>' + (lang === 'vi' ? 'NHÀ TUYỂN DỤNG CẦN' : 'TEAMS HIRE FOR') + '</b>' + esc(L(s.h)) + '</div><div class="proof">' + proof + '</div>' + win + '</div>';
+      '<div class="hire"><b>' + (lang === 'vi' ? 'PHÙ HỢP KHI BẠN CẦN' : 'GOOD FIT WHEN YOU NEED') + '</b>' + esc(L(s.h)) + '</div><div class="proof">' + proof + '</div>' + win + '</div>';
   }
   function renderOrbit(){
     var orbit = $('#orbit'), spokes = $('#spokes');
@@ -1524,7 +1587,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   function methodList(){
     var ph = CONTACT.phone.replace(/\s+/g, ''), zl = (CONTACT.zalo || ph).replace(/\s+/g, '');
     return [
-      {k:'call', c:'var(--lime)', ic:'i-phone', t:{en:'Call', vi:'Gọi điện'}, v:ph, href:ph ? 'tel:' + ph : '', copy:ph},
+      {k:'call', c:'var(--lime)', ic:'i-phone', t:{en:'Call', vi:'Gọi điện'}, v:ph.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3'), href:ph ? 'tel:' + ph : '', copy:ph},
       {k:'zalo', c:'var(--sky)', ic:'i-zalo', t:{en:'Zalo', vi:'Zalo'}, v:zl, href:zl ? 'https://zalo.me/' + zl : '', copy:zl},
       {k:'facebook', c:'var(--lilac)', ic:'i-fb', t:{en:'Facebook / Messenger', vi:'Facebook / Messenger'}, v:CONTACT.facebook, href:CONTACT.facebook ? 'https://m.me/' + CONTACT.facebook : ''},
       {k:'linkedin', c:'var(--pink-soft)', ic:'i-in', t:{en:'LinkedIn', vi:'LinkedIn'}, v:CONTACT.linkedin, href:CONTACT.linkedin ? 'https://www.linkedin.com/in/' + CONTACT.linkedin : ''},
@@ -1563,8 +1626,9 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
     $('#bigActs').innerHTML = acts.join('');
     var cvBtn = CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">CV ↗</a>' : '';
     var liBtn = CONTACT.linkedin ? '<a class="btn" href="https://www.linkedin.com/in/' + esc(CONTACT.linkedin) + '" target="_blank" rel="noopener" data-m="linkedin">LinkedIn ↗</a>' : '';
-    $('#tlActs').innerHTML = (CV_URL ? '<a class="btn hot" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (lang === 'vi' ? 'Xem CV' : 'View CV') + ' ↗</a>' : need(lang === 'vi' ? 'link CV' : 'CV link')) + liBtn +
-      '<button class="btn lime" type="button" data-connect>' + (lang === 'vi' ? 'Kết nối ngay' : 'Connect now') + '</button><a class="btn" href="#work">' + (lang === 'vi' ? 'Xem cả 7 dự án' : 'See all 7 cases') + ' →</a>';
+    var phoneTxt = CONTACT.phone ? CONTACT.phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3') : '';
+    $('#tlActs').innerHTML = (CONTACT.phone ? '<a class="btn hot" href="tel:' + esc(CONTACT.phone) + '" data-m="call">' + (lang === 'vi' ? 'Gọi ngay ' : 'Call ') + esc(phoneTxt) + '</a><a class="btn lime" href="https://zalo.me/' + esc(CONTACT.zalo || CONTACT.phone) + '" target="_blank" rel="noopener" data-m="zalo">Zalo ↗</a>' : '') + (CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (lang === 'vi' ? 'Xem CV' : 'View CV') + ' ↗</a>' : need(lang === 'vi' ? 'link CV' : 'CV link')) + liBtn +
+      '<a class="btn" href="#work">' + (lang === 'vi' ? 'Xem cả 7 dự án' : 'See all 7 cases') + ' →</a>';
     $('#goalCv').innerHTML = cvBtn;
     $('#whoOpts').innerHTML = WHO.map(function(w, i){ return '<button class="chip" type="button" data-who="' + i + '" aria-pressed="' + (i === whoIdx ? 'true' : 'false') + '">' + esc(L(w.t)) + '</button>'; }).join('');
     var w = WHO[whoIdx];
@@ -1675,7 +1739,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
   /* =====================================================================
      STORY: tangle, pin, thread
      ===================================================================== */
-  var tz = $('#brief'), tg = $('#tg'), tgU = $('#tgU'), tgS = $('#tgS'), notes = $$('.notes > span');
+  var tzCount = $('#tzCount'), tz = $('#brief'), tg = $('#tg'), tgU = $('#tgU'), tgS = $('#tgS'), notes = $$('.notes > span');
   var N = 40, END = {x:300, y:440}, messy = [], neat = [];
   for (var i = 0; i < N; i++){
     var a = i * 0.88, rr = 92 + 70 * Math.sin(i * 1.6);
@@ -1714,8 +1778,13 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
     }
     var d = smooth(pts);
     tg.setAttribute('d', d); tgU.setAttribute('d', d); tgS.setAttribute('d', d);
-    notes.forEach(function(n, i){ n.classList.toggle('ok', t > 0.15 + i * 0.16); });
-    tz.classList.toggle('clear', t > 0.94);
+    var open = 0;
+    notes.forEach(function(n, i){ var ok = t > 0.3 + i * 0.14; n.classList.toggle('ok', ok); if (!ok) open++; });
+    var cl = t > 0.94; tz.classList.toggle('clear', cl);
+    var key = lang + open + cl;
+    if (tzCount.dataset.k !== key){ tzCount.dataset.k = key; var vi = lang === 'vi';
+      tzCount.innerHTML = cl ? (vi ? 'Đã có lời giải · <b>kế hoạch đã chốt</b>' : 'All answered · <b>plan locked</b>')
+        : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'open question' : 'open questions')); }
   }
 
   var pin = $('#pin'), pinView = $('#pinView'), trackEl = $('#track');
@@ -1817,7 +1886,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid #eceefa; font-variant-nume
       under.style.strokeDashoffset = off; live.style.strokeDashoffset = off; shine.style.strokeDashoffset = off;
       var pt = live.getPointAtLength(drawn);
       player.style.transform = 'translate(' + pt.x.toFixed(1) + 'px,' + pt.y.toFixed(1) + 'px)';
-      player.classList.toggle('hide', !!(pinRange && drawn > pinRange[0] && drawn < pinRange[1]));
+      player.classList.toggle('hide', !!(pinRange && drawn > pinRange[0] && drawn < pinRange[1]) || (!tz.classList.contains('clear') && drawn < 4));
       var s = 0;
       nodes.forEach(function(n){
         var on = drawn >= n.len - 3;
