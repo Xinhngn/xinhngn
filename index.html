@@ -18,15 +18,15 @@
    Be Vietnam Pro (body), JetBrains Mono (system UI). One icon language: hand-built chrome/holo SVG stickers. */
 :root{
   color-scheme: light;
-  --ink:#07070d; --ink2:#11111c; --ink3:#1a1a2a; --paper:#f2f3ff; --white:#ffffff;
-  --peri:#8d9bff; --peri2:#a9b4ff; --blue:#3448ff; --sky:#7fe3ff; --lime:#c6ff1f; --pink:#ff4fa8; --pink2:#ffc2e2; --lilac:#d8d3ff;
-  --muted:#5d5f80; --muted-d:#a3a6c8; --line:#d9dcf5; --line-d:rgba(255,255,255,.14);
+  --ink:#1d1f3d; --ink2:#2c2f52; --ink3:#3a3d63; --paper:#f6f6fb; --white:#ffffff; --mist:#eef0ff; --edge:rgba(29,31,61,.14);
+  --peri:#dfe3ff; --peri2:#ccd3ff; --blue:#4757ff; --sky:#a8ecff; --lime:#d6ff6b; --pink:#ff5fae; --pink2:#ffd6ea; --lilac:#e6e2ff;
+  --muted:#62658a; --muted-d:#8a8db0; --line:#e3e5f6; --line-d:rgba(255,255,255,.14);
   --hot:var(--pink); --cobalt:var(--blue); --butter:#fff2b8; --grass:#29d36b; --pink-soft:var(--pink2); --sky-soft:#d6f6ff; --bg:var(--paper); --surface:var(--white);
   --chrome:linear-gradient(180deg,#ffffff 0%,#dfe3f5 30%,#7c84ad 49%,#2b2f55 52%,#c3cbef 64%,#ffffff 100%);
   --holo:linear-gradient(115deg,#ffc2e2 0%,#d8d3ff 30%,#b9f3ff 58%,#eaffb0 82%,#ffc2e2 100%);
   --gloss:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.08) 52%,rgba(255,255,255,0) 53%);
-  --sh-1:0 2px 0 rgba(7,7,13,.06), 0 14px 34px rgba(20,20,70,.14);
-  --sh-2:0 30px 80px rgba(10,10,50,.32);
+  --sh-1:0 1px 2px rgba(29,31,61,.05), 0 10px 28px rgba(29,31,61,.07);
+  --sh-2:0 2px 6px rgba(29,31,61,.06), 0 26px 60px rgba(29,31,61,.12);
   --f-head:"Unbounded","Be Vietnam Pro",Arial,sans-serif;
   --f-body:"Be Vietnam Pro","Segoe UI",Roboto,Arial,sans-serif;
   --f-mono:"JetBrains Mono",Consolas,monospace;
@@ -77,22 +77,22 @@ p,figure{margin:0}
 .tag{display:inline-flex; align-items:center; gap:10px; font-family:var(--f-mono); font-weight:500; font-size:12px; letter-spacing:.08em; text-transform:uppercase}
 .tag b{font-weight:700; padding:4px 10px; border-radius:999px; background:var(--ink); color:var(--lime)}
 .sc-ink .tag b,.qv-night .tag b{background:var(--lime); color:var(--ink)}
-.qv-night .btn{border-color:var(--white); box-shadow:0 4px 0 rgba(255,255,255,.85)}
+.qv-night .btn{border-color:var(--white); box-shadow:var(--sh-1)}
 .head{position:relative; display:grid; gap:16px; margin-bottom:clamp(30px,4.4vw,56px)}
 .head .node{top:10px}
 
 /* ---------- buttons, chips ---------- */
-.btn{position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--f-head); font-weight:600; font-size:14px; letter-spacing:-.01em; padding:13px 22px; border-radius:999px; border:1.5px solid var(--ink); background:var(--white); color:var(--ink); text-decoration:none; cursor:pointer; transition:transform .2s cubic-bezier(.3,1.6,.5,1), box-shadow .2s; box-shadow:0 4px 0 var(--ink)}
+.btn{position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--f-head); font-weight:600; font-size:14px; letter-spacing:-.01em; padding:13px 22px; border-radius:999px; border:1px solid var(--edge); background:var(--white); color:var(--ink); text-decoration:none; cursor:pointer; transition:transform .2s cubic-bezier(.3,1.6,.5,1), box-shadow .2s; box-shadow:var(--sh-1)}
 .btn::after{content:""; position:absolute; inset:2px 6px auto; height:45%; border-radius:999px; background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0)); pointer-events:none}
 .btn:hover{transform:translateY(-2px)}
-.btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--ink)}
+.btn:active{transform:translateY(3px); box-shadow:var(--sh-1)}
 .btn.lime{background:var(--lime)} .btn.hot{background:var(--pink); color:var(--white)} .btn.ink{background:var(--ink); color:var(--white)} .btn.ink::after{opacity:.25}
 .btn.chrome{background:var(--chrome)}
 .btn.ghost{background:transparent; box-shadow:none; border-color:currentColor} .btn.ghost::after{display:none}
-.sc-ink .btn{border-color:var(--white); box-shadow:0 4px 0 rgba(255,255,255,.85)}
+.sc-ink .btn{border-color:var(--white); box-shadow:var(--sh-1)}
 .sc-ink .btn.ghost{box-shadow:none; color:var(--white)}
 .btn .ico{width:18px; height:18px}
-.chip{display:inline-flex; align-items:center; gap:6px; border:1.5px solid var(--ink); background:var(--white); padding:5px 12px; border-radius:999px; font-size:13px; font-weight:600; text-decoration:none; color:var(--ink); cursor:default}
+.chip{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--edge); background:var(--white); padding:5px 12px; border-radius:999px; font-size:13px; font-weight:600; text-decoration:none; color:var(--ink); cursor:default}
 a.chip,button.chip{cursor:pointer} a.chip:hover,button.chip:hover{background:var(--lime)}
 button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 .chip .ct{font-family:var(--f-mono); font-size:10px; opacity:.6}
@@ -105,14 +105,14 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:var(--lime)}
 #editBadge{position:fixed; z-index:70; left:12px; bottom:calc(12px + env(safe-area-inset-bottom,0px)); padding:8px 14px; border-radius:999px; background:var(--pink); color:var(--white); font-family:var(--f-mono); font-size:12px}
 
 /* ---------- OS window ---------- */
-.win{position:relative; border-radius:18px; background:var(--white); color:var(--ink); border:1.5px solid var(--ink); box-shadow:0 6px 0 var(--ink), var(--sh-1); overflow:hidden; min-width:0}
-.win-bar{display:flex; align-items:center; gap:10px; padding:8px 10px 8px 14px; background:linear-gradient(90deg,var(--blue),var(--peri) 70%,var(--sky)); color:var(--white); font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; border-bottom:1.5px solid var(--ink)}
+.win{position:relative; border-radius:18px; background:var(--white); color:var(--ink); border:1px solid var(--edge); box-shadow:var(--sh-1); overflow:hidden; min-width:0}
+.win-bar{display:flex; align-items:center; gap:10px; padding:8px 10px 8px 14px; background:linear-gradient(90deg,var(--blue),var(--peri) 70%,var(--sky)); color:var(--white); font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; border-bottom:1px solid var(--edge)}
 .win-bar b{flex:1; min-width:0; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .win-bar .ctl{display:flex; gap:5px}
-.win-bar .ctl i{width:18px; height:14px; border-radius:6px; background:var(--chrome); border:1px solid rgba(7,7,13,.5)}
+.win-bar .ctl i{width:18px; height:14px; border-radius:6px; background:var(--chrome); border:1px solid var(--edge)}
 .win-bar .ctl i:last-child{background:var(--pink)}
 .win-body{padding:clamp(18px,2.4vw,28px)}
-.win.dk{background:var(--ink2); color:var(--white); border-color:rgba(255,255,255,.55); box-shadow:0 6px 0 rgba(255,255,255,.55), 0 30px 70px rgba(0,0,0,.4)}
+.win.dk{background:var(--ink2); color:var(--white); border-color:rgba(255,255,255,.55); box-shadow:var(--sh-1)}
 .win.dk .win-bar{background:linear-gradient(90deg,#20203a,#2c2c52); border-bottom-color:rgba(255,255,255,.3)}
 .win.lime .win-bar{background:linear-gradient(90deg,#9ee600,var(--lime)); color:var(--ink)}
 .win.pink .win-bar{background:linear-gradient(90deg,var(--pink),#ff8cc6); }
@@ -166,7 +166,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 
 /* dock + toast */
 .dock{position:fixed; z-index:48; right:calc(16px + env(safe-area-inset-right,0px)); bottom:calc(18px + env(safe-area-inset-bottom,0px)); display:flex; flex-direction:column; gap:8px}
-.dock button{width:46px; height:46px; border-radius:50%; border:1.5px solid var(--ink); background:var(--chrome); box-shadow:0 3px 0 var(--ink); display:grid; place-items:center; cursor:pointer; transition:transform .2s}
+.dock button{width:46px; height:46px; border-radius:50%; border:1px solid var(--edge); background:var(--chrome); box-shadow:var(--sh-1); display:grid; place-items:center; cursor:pointer; transition:transform .2s}
 .dock button:hover{transform:translateY(-2px)}
 .dock button .ico{width:20px; height:20px}
 .dock button[hidden]{display:none}
@@ -208,7 +208,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .mode p{font-size:14px; color:#d8dbf3}
 .mode .go{margin-top:6px; font-family:var(--f-head); font-weight:600; font-size:13px; color:var(--lime)}
 .mode.quick .go{color:var(--pink2)}
-.mode .ico.big{position:absolute; right:14px; top:34px; width:54px; height:54px; opacity:.95}
+.mode .ico.big{position:absolute; right:16px; top:50px; width:54px; height:54px; opacity:.95}
 .boot-skip{font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; color:var(--muted-d); background:none; border:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px}
 .boot .bubble{z-index:1}
 .flash{position:fixed; inset:0; z-index:99; pointer-events:none; background:var(--white); opacity:0}
@@ -278,7 +278,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .log-top{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px}
 .roles{position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
 .roles::before{content:""; position:absolute; left:4%; right:4%; top:50%; height:4px; border-radius:4px; background:linear-gradient(90deg,var(--pink),var(--blue),var(--lime)); z-index:0; transform:translateY(-50%); opacity:.5}
-.role{position:relative; z-index:1; text-align:left; padding:14px 16px 16px; border-radius:16px; border:1.5px solid var(--ink); background:var(--white); box-shadow:0 4px 0 var(--ink); cursor:pointer; min-width:0; transition:transform .2s, background-color .2s}
+.role{position:relative; z-index:1; text-align:left; padding:14px 16px 16px; border-radius:16px; border:1px solid var(--edge); background:var(--white); box-shadow:var(--sh-1); cursor:pointer; min-width:0; transition:transform .2s, background-color .2s}
 .role:hover{transform:translateY(-3px)}
 .role .y{display:block; font-family:var(--f-mono); font-size:11px; color:var(--muted)}
 .role b{display:block; margin-top:6px; font-family:var(--f-head); font-weight:600; font-size:14px; line-height:1.2; letter-spacing:-.02em}
@@ -291,18 +291,18 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .lane{display:inline-block; font-family:var(--f-mono); font-size:11px; padding:3px 10px; border-radius:999px; background:var(--lime); color:var(--ink); border:1px solid var(--ink)}
 .role-panel h3{margin-top:12px; font-size:clamp(20px,2.4vw,28px); line-height:1.1}
 .role-panel p.d{margin-top:10px; color:var(--muted)}
-.role-panel .val{padding:18px; border-radius:16px; background:var(--holo); border:1.5px solid var(--ink); font-family:var(--f-head); font-weight:600; font-size:16px; line-height:1.35; letter-spacing:-.02em}
+.role-panel .val{padding:18px; border-radius:16px; background:var(--holo); border:1px solid var(--edge); font-family:var(--f-head); font-weight:600; font-size:16px; line-height:1.35; letter-spacing:-.02em}
 .role-panel .val small{display:block; margin-bottom:6px; font-family:var(--f-mono); font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--blue)}
 .scope{margin-top:16px; display:flex; align-items:center; gap:12px}
 .scope .m{flex:1; height:8px; border-radius:999px; background:var(--line); overflow:hidden; border:1px solid var(--ink)}
 .scope .m i{display:block; height:100%; background:linear-gradient(90deg,var(--pink),var(--blue),var(--lime))}
 .scope span{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
 .role-nav{margin-top:14px; display:flex; gap:8px}
-.role-nav button{border:1.5px solid var(--ink); background:var(--white); border-radius:999px; padding:7px 14px; font-family:var(--f-head); font-weight:600; font-size:12px; cursor:pointer}
+.role-nav button{border:1px solid var(--edge); background:var(--white); border-radius:999px; padding:7px 14px; font-family:var(--f-head); font-weight:600; font-size:12px; cursor:pointer}
 .role-nav button[disabled]{opacity:.35; cursor:default}
 
 /* band */
-.band{position:relative; z-index:3; overflow:hidden; white-space:nowrap; background:var(--lime); border-block:1.5px solid var(--ink)}
+.band{position:relative; z-index:3; overflow:hidden; white-space:nowrap; background:var(--lime); border-block:1px solid var(--edge)}
 .band-track{display:inline-flex; gap:34px; padding-block:14px; animation:marquee 36s linear infinite}
 .band-track span{display:inline-flex; gap:34px; align-items:center; font-family:var(--f-head); font-weight:800; font-size:clamp(18px,2.2vw,26px); letter-spacing:-.03em; color:var(--ink)}
 .band-track .ico{width:.9em; height:.9em}
@@ -323,8 +323,8 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .own-line span:last-child{background:var(--lime); color:var(--ink); border-color:var(--lime)}
 .own-line i{font-style:normal; color:var(--lime)}
 .proc{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px}
-.how-card{position:relative; border-radius:20px; border:1.5px solid var(--ink); padding:20px; background:var(--white); color:var(--ink); box-shadow:0 5px 0 var(--ink); display:flex; flex-direction:column; gap:8px; min-width:0; transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
-.sc-ink .how-card{box-shadow:0 5px 0 rgba(255,255,255,.7); border-color:var(--white)}
+.how-card{position:relative; border-radius:20px; border:1px solid var(--edge); padding:20px; background:var(--white); color:var(--ink); box-shadow:var(--sh-1); display:flex; flex-direction:column; gap:8px; min-width:0; transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.sc-ink .how-card{box-shadow:var(--sh-1); border-color:var(--white)}
 .how-card:nth-child(1){background:var(--lime)} .how-card:nth-child(2){background:var(--pink2)} .how-card:nth-child(3){background:var(--sky)} .how-card:nth-child(4){background:var(--white)}
 .how-card:hover{transform:translateY(-6px) rotate(-1deg)}
 .how-card .n{font-family:var(--f-mono); font-size:12px; font-weight:700}
@@ -342,14 +342,14 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 
 /* LV3 stats & proof */
 .ach{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-bottom:16px}
-.badge{position:relative; display:flex; gap:12px; align-items:center; padding:14px 16px; border-radius:18px; background:var(--white); border:1.5px solid var(--ink); box-shadow:0 4px 0 var(--ink); min-width:0}
-.badge .medal{flex:none; width:58px; height:58px; border-radius:50%; display:grid; place-items:center; background:var(--chrome); border:1.5px solid var(--ink); font-family:var(--f-head); font-weight:900; font-size:18px; letter-spacing:-.04em; box-shadow:inset 0 -4px 0 rgba(7,7,13,.15)}
+.badge{position:relative; display:flex; gap:12px; align-items:center; padding:14px 16px; border-radius:18px; background:var(--white); border:1px solid var(--edge); box-shadow:var(--sh-1); min-width:0}
+.badge .medal{flex:none; width:58px; height:58px; border-radius:50%; display:grid; place-items:center; background:var(--chrome); border:1px solid var(--edge); font-family:var(--f-head); font-weight:900; font-size:18px; letter-spacing:-.04em; box-shadow:inset 0 -4px 0 rgba(7,7,13,.15)}
 .badge:nth-child(2) .medal{background:var(--lime)} .badge:nth-child(3) .medal{background:var(--pink); color:var(--white)} .badge:nth-child(4) .medal{background:var(--sky)}
 .badge b{display:block; font-family:var(--f-head); font-weight:600; font-size:13px; line-height:1.25; letter-spacing:-.02em}
 .badge small{display:block; margin-top:2px; font-size:12px; color:var(--muted); line-height:1.35}
 .badge .lock{position:absolute; top:-9px; right:12px; font-family:var(--f-mono); font-size:9px; letter-spacing:.08em; padding:2px 8px; border-radius:999px; background:var(--ink); color:var(--lime)}
 .stp{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0}
-.stp-list{padding:clamp(16px,2vw,24px); border-right:1.5px solid var(--ink); display:grid; gap:4px; align-content:start}
+.stp-list{padding:clamp(16px,2vw,24px); border-right:1px solid var(--edge); display:grid; gap:4px; align-content:start}
 .stp-list h4{font-family:var(--f-mono); font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:10px 0 4px}
 .stp-list h4:first-child{margin-top:0}
 .stat{display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:12px; width:100%; border:0; background:none; padding:8px 10px; border-radius:12px; cursor:pointer; text-align:left}
@@ -364,7 +364,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .stp-detail{padding:clamp(16px,2vw,26px); display:grid; gap:12px; align-content:start; background:var(--paper)}
 .stp-detail h3{font-size:clamp(20px,2.2vw,26px); letter-spacing:-.03em}
 .stp-detail p{color:var(--muted)}
-.fit{padding:12px 14px; border-radius:14px; background:var(--white); border:1.5px solid var(--ink); font-size:14px}
+.fit{padding:12px 14px; border-radius:14px; background:var(--white); border:1px solid var(--edge); font-size:14px}
 .fit b{display:block; font-family:var(--f-mono); font-weight:700; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--pink)}
 .proof{display:flex; flex-wrap:wrap; gap:6px}
 .legend2{display:flex; flex-wrap:wrap; gap:14px; font-size:12px; color:var(--muted); font-family:var(--f-mono)}
@@ -380,7 +380,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 
 /* LV4 cases */
 .track{display:grid; gap:26px}
-.card{position:relative; width:100%; max-width:1060px; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); border-radius:20px; background:var(--ink2); color:var(--white); border:1.5px solid rgba(255,255,255,.55); box-shadow:0 6px 0 rgba(255,255,255,.55); overflow:hidden}
+.card{position:relative; width:100%; max-width:1060px; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); border-radius:20px; background:var(--ink2); color:var(--white); border:1.5px solid rgba(255,255,255,.55); box-shadow:var(--sh-1); overflow:hidden}
 .card > .node{left:calc(var(--railpad) / -2 - 1px); top:28px}
 .shot{position:relative; min-height:320px; border-right:1.5px solid rgba(255,255,255,.3)}
 .shot .ph{position:absolute; inset:0}
@@ -399,7 +399,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .swp{font-size:15px; color:#e6e7f6; min-height:3.2em}
 .swp p{animation:fadeup .35s both}
 .res{display:flex; flex-wrap:wrap; gap:10px; margin-top:auto}
-.res div{flex:1 1 120px; border-radius:14px; background:var(--lime); color:var(--ink); padding:12px 14px; border:1.5px solid var(--ink)}
+.res div{flex:1 1 120px; border-radius:14px; background:var(--lime); color:var(--ink); padding:12px 14px; border:1px solid var(--edge)}
 .res b{display:block; font-family:var(--f-head); font-weight:800; font-size:clamp(22px,2.4vw,30px); line-height:1; letter-spacing:-.04em}
 .res span{display:block; margin-top:4px; font-size:12px; font-weight:600}
 .res div.empty{background:transparent; border:1.5px dashed var(--muted-d); color:var(--muted-d)}
@@ -428,7 +428,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .tier .win-body{display:flex; flex-direction:column; gap:12px; flex:1}
 .tier .who{display:flex; align-items:center; gap:8px; font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
 .tier .who .av{display:inline-flex}
-.tier .who .av i{width:26px; height:26px; border-radius:50%; border:1.5px solid var(--ink); background:var(--holo); margin-left:-8px; display:grid; place-items:center; font-style:normal; font-family:var(--f-head); font-weight:800; font-size:10px; color:var(--ink)}
+.tier .who .av i{width:26px; height:26px; border-radius:50%; border:1px solid var(--edge); background:var(--holo); margin-left:-8px; display:grid; place-items:center; font-style:normal; font-family:var(--f-head); font-weight:800; font-size:10px; color:var(--ink)}
 .tier .who .av i:first-child{margin-left:0; background:var(--lime)}
 .tier h3{font-size:clamp(22px,2.4vw,30px); line-height:1.02; letter-spacing:-.045em}
 .tier h3 em{font-style:normal; color:var(--pink)}
@@ -437,11 +437,11 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .tier .fitfor b{font-family:var(--f-mono); font-size:10px; letter-spacing:.08em; color:var(--blue); text-transform:uppercase; display:block}
 .tier ul{margin:0; padding:0; list-style:none; display:grid; gap:8px}
 .tier li{display:grid; grid-template-columns:22px minmax(0,1fr); gap:8px; font-size:14px; font-weight:500}
-.tier li::before{content:"✓"; width:20px; height:20px; border-radius:50%; display:grid; place-items:center; background:var(--lime); border:1.5px solid var(--ink); font-size:11px; font-weight:800}
+.tier li::before{content:"✓"; width:20px; height:20px; border-radius:50%; display:grid; place-items:center; background:var(--lime); border:1px solid var(--edge); font-size:11px; font-weight:800}
 .squad{display:grid; gap:10px}
 .squad .opts{display:flex; flex-wrap:wrap; gap:6px}
 .crew{display:flex; flex-wrap:wrap; gap:6px; min-height:72px; align-content:flex-start}
-.crew span{padding:6px 11px; border-radius:12px; background:var(--paper); border:1.5px solid var(--ink); font-size:13px; font-weight:600; animation:fadeup .35s both}
+.crew span{padding:6px 11px; border-radius:12px; background:var(--paper); border:1px solid var(--edge); font-size:13px; font-weight:600; animation:fadeup .35s both}
 .crew span.lead{background:var(--ink); color:var(--lime)}
 .tier.t2{transform:translateY(-14px)}
 .tier.t2 .win-bar{background:linear-gradient(90deg,var(--pink),#ff8cc6)}
@@ -494,8 +494,8 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .wt .cap .tg{font-family:var(--f-mono); font-size:10px; color:var(--muted-d); text-align:right; flex:none; max-width:45%}
 .wt .cap .big-n{display:block; font-family:var(--f-head); font-weight:800; font-size:17px; color:var(--lime)}
 .wt.dim{opacity:.15; filter:grayscale(1); pointer-events:none}
-.stamp{margin-top:clamp(36px,5vw,60px); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; padding:20px 22px; border-radius:20px; border:1.5px solid var(--ink); background:var(--white); box-shadow:0 5px 0 var(--ink)}
-.qv-night .stamp{background:var(--ink2); border-color:rgba(255,255,255,.5); box-shadow:0 5px 0 rgba(255,255,255,.5)}
+.stamp{margin-top:clamp(36px,5vw,60px); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; padding:20px 22px; border-radius:20px; border:1px solid var(--edge); background:var(--white); box-shadow:var(--sh-1)}
+.qv-night .stamp{background:var(--ink2); border-color:rgba(255,255,255,.5); box-shadow:var(--sh-1)}
 .stamp p{font-family:var(--f-head); font-weight:800; font-size:clamp(18px,2vw,24px); letter-spacing:-.03em}
 .mrow{display:flex; flex-wrap:wrap; gap:8px}
 /* desk (quick mode) */
@@ -508,7 +508,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .tl-h{font-size:clamp(22px,2.8vw,36px); line-height:1.08; letter-spacing:-.04em}
 .tl-h span span{color:var(--blue)}
 .tl-stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:18px}
-.tl-stats div{border-radius:16px; background:var(--paper); border:1.5px solid var(--ink); padding:14px 16px; min-width:0}
+.tl-stats div{border-radius:16px; background:var(--paper); border:1px solid var(--edge); padding:14px 16px; min-width:0}
 .tl-stats b{display:block; font-family:var(--f-head); font-weight:900; font-size:clamp(30px,3.6vw,46px); line-height:1; letter-spacing:-.05em}
 .tl-stats div:nth-child(1){background:var(--lime)} .tl-stats div:nth-child(2){background:var(--pink2)} .tl-stats div:nth-child(3){background:var(--sky)}
 .tl-stats span{display:block; margin-top:6px; font-size:13px; line-height:1.35}
@@ -523,7 +523,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .feat{display:grid; gap:8px}
 .feat a{display:grid; grid-template-columns:44px minmax(0,1fr); gap:10px; align-items:center; padding:8px; border-radius:12px; text-decoration:none; color:inherit; border:1.5px solid transparent}
 .feat a:hover{border-color:var(--ink); background:var(--paper)}
-.feat i{width:44px; height:44px; border-radius:10px; display:grid; place-items:center; font-style:normal; font-family:var(--f-head); font-weight:900; font-size:11px; border:1.5px solid var(--ink)}
+.feat i{width:44px; height:44px; border-radius:10px; display:grid; place-items:center; font-style:normal; font-family:var(--f-head); font-weight:900; font-size:11px; border:1px solid var(--edge)}
 .feat b{display:block; font-family:var(--f-head); font-weight:600; font-size:13px; line-height:1.2}
 .feat small{display:block; font-family:var(--f-mono); font-size:10px; color:var(--muted)}
 /* sheets */
@@ -572,20 +572,20 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .quiz .ans b{display:block; font-family:var(--f-head); font-weight:800; font-size:22px; color:var(--lime); letter-spacing:-.03em}
 .quiz.shown .ans{display:block; animation:fadeup .35s both}
 .quiz .row{display:flex; gap:8px; flex-wrap:wrap}
-.quiz .goalq{padding:12px 14px; border-radius:14px; background:var(--holo); border:1.5px solid var(--ink); font-family:var(--f-head); font-weight:600; font-size:15px}
+.quiz .goalq{padding:12px 14px; border-radius:14px; background:var(--holo); border:1px solid var(--edge); font-family:var(--f-head); font-weight:600; font-size:15px}
 .quiz .win-bar button{border:0; background:none; color:inherit; cursor:pointer; font-size:16px; line-height:1}
 /* profile */
 .pf-grid{display:grid; grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr); gap:clamp(20px,3.4vw,48px); align-items:start}
 .pf-bio{display:grid; gap:16px}
 .pf-bio .big{font-family:var(--f-head); font-weight:600; font-size:clamp(20px,2.4vw,30px); line-height:1.2; letter-spacing:-.035em}
-.own-card{border-radius:20px; background:var(--ink); color:var(--white); padding:clamp(18px,2.6vw,28px); display:grid; gap:8px; border:1.5px solid var(--ink)}
+.own-card{border-radius:20px; background:var(--ink); color:var(--white); padding:clamp(18px,2.6vw,28px); display:grid; gap:8px; border:1px solid var(--edge)}
 .own-card .k{font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; color:var(--lime); text-transform:uppercase}
 .own-card .s{font-family:var(--f-head); font-weight:900; font-size:clamp(26px,3.2vw,40px); line-height:1; letter-spacing:-.05em}
 .own-card .s2{font-family:var(--f-head); font-weight:600; font-size:15px; color:var(--muted-d)}
 .own-card .flow{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
 .own-card .flow span{font-size:12px; font-weight:600; padding:5px 11px; border-radius:999px; border:1px solid rgba(255,255,255,.3)}
 .stats4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
-.stats4 div{border-radius:16px; background:var(--white); border:1.5px solid var(--ink); padding:12px 14px; min-width:0}
+.stats4 div{border-radius:16px; background:var(--white); border:1px solid var(--edge); padding:12px 14px; min-width:0}
 .stats4 b{display:block; font-family:var(--f-head); font-weight:900; font-size:clamp(24px,2.6vw,34px); line-height:1; letter-spacing:-.05em; color:var(--blue)}
 .stats4 span{display:block; margin-top:6px; font-size:12px; font-weight:600; color:var(--muted)}
 .sec{margin-top:clamp(40px,5.6vw,72px)}
@@ -593,7 +593,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .sec > h3 i{flex:1; height:1.5px; background:var(--ink); opacity:.2}
 .qv-night .sec > h3 i{background:var(--white)}
 .tl4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
-.tl4 article{border-radius:18px; border:1.5px solid var(--ink); background:var(--white); box-shadow:0 4px 0 var(--ink); padding:16px; display:flex; flex-direction:column; gap:8px; min-width:0}
+.tl4 article{border-radius:18px; border:1px solid var(--edge); background:var(--white); box-shadow:var(--sh-1); padding:16px; display:flex; flex-direction:column; gap:8px; min-width:0}
 .tl4 .w{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
 .tl4 h4{font-size:15px; line-height:1.15; letter-spacing:-.03em}
 .tl4 p{font-size:13px; color:var(--muted)}
@@ -610,7 +610,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .status i{width:8px; height:8px; border-radius:50%; flex:none; background:var(--grass); box-shadow:0 0 0 4px rgba(41,211,107,.25)}
 .status.off i{background:#ffb800; box-shadow:0 0 0 4px rgba(255,184,0,.25)}
 .status b{font-family:var(--f-mono); font-size:12px}
-.side .status,.csheet .status{background:var(--white); border:1.5px solid var(--ink)}
+.side .status,.csheet .status{background:var(--white); border:1px solid var(--edge)}
 .big-acts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
 .big-acts .cv{grid-column:1/-1}
 .who{display:grid; gap:10px}
@@ -620,14 +620,14 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .tpl{border-radius:14px; border:1.5px dashed rgba(255,255,255,.35); padding:14px; font-size:15px; color:#f7d6e8}
 .tpl .rec2{display:block; margin-top:8px; font-family:var(--f-mono); font-size:11px; color:var(--lime)}
 .methods{display:grid; gap:10px}
-.mth{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:14px; align-items:center; padding:12px 14px; border-radius:18px; border:1.5px solid var(--ink); background:var(--white); box-shadow:0 4px 0 var(--ink); transition:transform .2s}
+.mth{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:14px; align-items:center; padding:12px 14px; border-radius:18px; border:1px solid var(--edge); background:var(--white); box-shadow:var(--sh-1); transition:transform .2s}
 .mth:hover{transform:translateY(-2px)}
-.mth .ico2{width:46px; height:46px; border-radius:14px; display:grid; place-items:center; background:var(--c); border:1.5px solid var(--ink)}
+.mth .ico2{width:46px; height:46px; border-radius:14px; display:grid; place-items:center; background:var(--c); border:1px solid var(--edge)}
 .mth .ico2 svg{width:30px; height:30px}
 .mth b{display:block; font-family:var(--f-head); font-weight:600; font-size:16px; line-height:1.1}
 .mth span{display:block; font-family:var(--f-mono); font-size:12px; color:var(--muted); overflow-wrap:anywhere}
 .mth .go2{display:flex; gap:6px}
-.mth .go2 a,.mth .go2 button{border:1.5px solid var(--ink); background:var(--white); border-radius:999px; padding:6px 12px; font-family:var(--f-head); font-weight:600; font-size:11px; text-decoration:none; cursor:pointer; color:var(--ink)}
+.mth .go2 a,.mth .go2 button{border:1px solid var(--edge); background:var(--white); border-radius:999px; padding:6px 12px; font-family:var(--f-head); font-weight:600; font-size:11px; text-decoration:none; cursor:pointer; color:var(--ink)}
 .mth .go2 a:hover,.mth .go2 button:hover{background:var(--lime)}
 .mth.off{opacity:.5; box-shadow:none; border-style:dashed}
 .copied{font-family:var(--f-mono); font-size:13px; color:var(--pink); min-height:1.3em}
@@ -662,7 +662,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .days div:hover i{background:var(--pink)}
 .dx{display:flex; justify-content:space-between; margin-top:6px; font-family:var(--f-mono); font-size:10px; color:var(--muted-d)}
 .heat{display:grid; grid-template-columns:28px repeat(24,minmax(0,1fr)); gap:2px; font-family:var(--f-mono); font-size:9px; color:var(--muted-d)}
-.heat .c{aspect-ratio:1; border-radius:3px; background:#23233a}
+.heat .c{aspect-ratio:1; border-radius:3px; background:#eef0fb}
 .heat .lb{display:flex; align-items:center}
 .heat-x{display:grid; grid-template-columns:28px repeat(24,minmax(0,1fr)); gap:2px; margin-top:4px; font-family:var(--f-mono); font-size:9px; color:var(--muted-d)}
 .legend{display:flex; align-items:center; gap:6px; margin-top:10px; font-family:var(--f-mono); font-size:10px; color:var(--muted-d)}
@@ -670,13 +670,13 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .bl{display:grid; gap:8px}
 .bl .r{display:grid; grid-template-columns:minmax(80px,30%) minmax(0,1fr) auto; gap:10px; align-items:center; font-size:13px}
 .bl .r .lb{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:600}
-.bl .r .tr{height:12px; border-radius:4px; background:#23233a; overflow:hidden}
+.bl .r .tr{height:12px; border-radius:4px; background:#eef0fb; overflow:hidden}
 .bl .r .tr i{display:block; height:100%; border-radius:0 4px 4px 0; background:var(--sky)}
 .bl .r:hover .tr i{background:var(--pink)}
 .bl .r .v{font-family:var(--f-mono); font-size:12px; text-align:right; min-width:40px}
 .funnel{display:grid; gap:6px}
 .funnel .r{display:grid; grid-template-columns:110px minmax(0,1fr) 90px; gap:10px; align-items:center; font-size:13px}
-.funnel .r .tr{height:20px; border-radius:6px; background:#23233a; overflow:hidden}
+.funnel .r .tr{height:20px; border-radius:6px; background:#eef0fb; overflow:hidden}
 .funnel .r .tr i{display:block; height:100%; background:var(--lime); border-radius:0 6px 6px 0}
 .funnel .r .v{font-family:var(--f-mono); font-size:11px; text-align:right}
 .funnel .r .v small{display:block; color:var(--pink)}
@@ -711,7 +711,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
 @media (max-width: 1140px){ .tabs a{padding:8px 9px; font-size:12px} .clock{display:none} }
 @media (max-width: 1000px){
   .p1-grid,.tz-grid,.pf-grid,.ct-grid,.stp{grid-template-columns:minmax(0,1fr)}
-  .stp-list{border-right:0; border-bottom:1.5px solid var(--ink)}
+  .stp-list{border-right:0; border-bottom:1px solid var(--edge)}
   .rec{justify-self:center; width:min(380px,100%); margin-top:40px}
   .role-panel{grid-template-columns:minmax(0,1fr)}
   .proc,.tl4,.ach{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -760,6 +760,151 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
   .boot .bubble:not(:first-of-type){display:none}
   .boot .bubble{width:120px!important; height:120px!important; left:-30px!important}
 }
+
+/* =========== v8 · "pearl daylight": same XINH.OS concept, lighter and calmer for long reads and night viewing =========== */
+body{background:var(--paper); color:var(--ink)}
+.sc-ink{background:radial-gradient(60% 50% at 85% 0%, rgba(71,87,255,.09), transparent 70%), radial-gradient(50% 40% at 0% 100%, rgba(255,95,174,.08), transparent 70%), #f1f2fd; color:var(--ink)}
+.sc-peri{background:linear-gradient(rgba(255,255,255,.55) 1px, transparent 1px) 0 0/28px 28px, linear-gradient(90deg, rgba(255,255,255,.55) 1px, transparent 1px) 0 0/28px 28px, linear-gradient(160deg,#e3e7ff,#ece6ff 60%,#e6f6ff)}
+.sc-paper{background:linear-gradient(rgba(71,87,255,.045) 1px, transparent 1px) 0 0/28px 28px, linear-gradient(90deg, rgba(71,87,255,.045) 1px, transparent 1px) 0 0/28px 28px, var(--paper)}
+.sc-ink .lead,.sc-peri .lead{color:var(--muted)}
+.h2 em,.sc-ink .h2 em,.brk .say em,.sc-ink .brk .say em{color:var(--pink)}
+.sc-ink .tag b,.qv-night .tag b,.tag b{background:var(--ink); color:var(--lime)}
+.sc-ink .btn,.qv-night .btn{border-color:var(--edge); box-shadow:var(--sh-1)}
+.sc-ink .btn.ghost{color:var(--ink)}
+.sc-ink .doodle{color:var(--blue)}
+.bubble{opacity:.38}
+.lq text{stroke:#2a2d55}
+#liquid feFlood{flood-opacity:.16}
+.btn:active{transform:translateY(1px)}
+.btn.lime{background:var(--lime)} .btn.hot{background:var(--pink)}
+/* windows */
+.win-bar{background:linear-gradient(90deg,#e2e6ff,#efe8ff 60%,#e2f6ff); color:var(--ink); border-bottom:1px solid var(--edge)}
+.win.lime .win-bar,.tier.t3 .win-bar{background:linear-gradient(90deg,#eaffbf,#f6ffe0); color:var(--ink)}
+.win.pink .win-bar,.tier.t2 .win-bar{background:linear-gradient(90deg,#ffd9ec,#fff0f7); color:var(--ink)}
+.win.dk{background:var(--white); color:var(--ink); border-color:var(--edge); box-shadow:var(--sh-1)}
+.win.dk .win-bar{background:linear-gradient(90deg,#e2e6ff,#efe8ff 60%,#e2f6ff); border-bottom-color:var(--edge)}
+/* taskbar, progress, dock, toast */
+.nav{background:rgba(255,255,255,.78); border-color:var(--edge); box-shadow:var(--sh-1); color:var(--ink)}
+.logo{border-color:var(--edge)}
+.tabs a{color:var(--muted)} .tabs a:hover{color:var(--ink); background:rgba(29,31,61,.05)}
+.tabs a[aria-current="page"]{background:var(--ink); color:var(--white)}
+.clock{color:var(--muted)} .clock b{color:var(--blue)}
+.lang{background:rgba(29,31,61,.06)} .lang button{color:var(--muted)} .lang button[aria-pressed="true"]{background:var(--white); color:var(--ink); box-shadow:0 1px 3px rgba(29,31,61,.15)}
+.connect{box-shadow:0 6px 18px rgba(255,95,174,.3)}
+.lvbar{background:rgba(255,255,255,.88); border-color:var(--edge); box-shadow:var(--sh-2)}
+.lvbar a{color:var(--muted)} .lvbar a:hover,.lvbar a.done{color:var(--ink)} .lvbar a i{background:rgba(29,31,61,.08); color:var(--ink)}
+.lvbar a.cur{background:var(--ink); color:var(--white)}
+.dock button{background:var(--white); border-color:var(--edge); box-shadow:var(--sh-1)}
+.toast{background:var(--white); color:var(--ink); border-color:var(--edge)} .toast button.x{color:var(--muted)}
+/* boot */
+.boot{background:radial-gradient(55% 55% at 15% 15%, #ffe3f1 0%, transparent 60%), radial-gradient(55% 55% at 90% 25%, #dfe3ff 0%, transparent 60%), radial-gradient(50% 50% at 60% 95%, #efffcf 0%, transparent 60%), #f7f7fc; color:var(--ink)}
+.boot::before{background:repeating-linear-gradient(0deg, rgba(29,31,61,.025) 0 1px, transparent 1px 3px)}
+.boot-top{color:var(--muted)} .boot-top b{color:var(--blue)}
+.boot-load{color:var(--muted)} .boot-load .bar{background:rgba(29,31,61,.07); border-color:var(--edge)}
+.boot-lang{background:var(--white); border-color:var(--edge)} .boot-lang button{color:var(--muted)} .boot-lang button[aria-pressed="true"]{background:var(--ink); color:var(--white)}
+.boot-skip{color:var(--muted)}
+.boot-in{width:min(1080px,100%)}
+.boot-hero{display:grid; grid-template-columns:minmax(0,.62fr) minmax(0,1fr); gap:clamp(18px,3vw,40px); align-items:center; width:100%}
+.boot-pic{position:relative; width:min(250px,100%); justify-self:end; margin:0}
+.shot0{position:relative; background:var(--holo)}
+.shot0 .ph{position:absolute; inset:0}
+.shot0 img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 40%; transform:scale(1.18); transform-origin:50% 44%}
+.boot{padding-top:calc(48px + env(safe-area-inset-top,0px))}
+.boot-in{gap:clamp(12px,2vh,20px)}
+.boot-pic .win{transform:rotate(-3deg)}
+.boot-pic .shot0{aspect-ratio:4/5}
+.boot-pic .stk{--s:70px}
+.boot-pic .bye{position:absolute; z-index:5; right:-18px; top:-22px; padding:7px 13px; border-radius:16px 16px 16px 4px; background:var(--white); border:1px solid var(--edge); box-shadow:var(--sh-1); font-family:var(--f-head); font-weight:800; font-size:15px; rotate:6deg; animation:bob 4s ease-in-out infinite}
+.boot-hero .boot-word{width:100%}
+.mode{background:var(--white); color:var(--ink); border:1px solid var(--edge); box-shadow:var(--sh-1)}
+.mode.story{background:linear-gradient(135deg,#f3ffd6,#ffffff 65%)}
+.mode.quick{background:linear-gradient(135deg,#ffe6f2,#ffffff 65%)}
+.mode:hover,.mode:focus-visible{box-shadow:0 0 0 4px rgba(71,87,255,.14), var(--sh-2)}
+.mode .k{color:var(--muted)} .mode .k b{color:var(--ink)} .mode.quick .k b{color:var(--white)}
+.mode p{color:#4a4d70} .mode .go{color:var(--blue)} .mode.quick .go{color:#d1167a}
+/* story */
+.tz-say .then{color:var(--blue)}
+.tz-status{background:var(--white); border-color:var(--edge)}
+.tangle-z.clear .tz-status i{background:var(--grass)}
+#tgU{stroke:var(--pink); stroke-opacity:.12}
+#tUnder{stroke:var(--pink); stroke-opacity:.14}
+#player svg{filter:drop-shadow(0 3px 8px rgba(71,87,255,.35))}
+.node.cp.on{box-shadow:0 0 0 6px rgba(214,255,107,.35)}
+.notes > span{background:var(--white); color:var(--ink); border-color:var(--edge); box-shadow:var(--sh-1)}
+.band{background:#f1ffd2; border-block:1px solid var(--edge)}
+.own-big{background:linear-gradient(95deg,var(--pink),#9a5bff 50%,var(--blue)); -webkit-background-clip:text; background-clip:text; color:transparent; filter:none; padding-bottom:.06em}
+.own-sub{color:var(--ink)}
+.own-line span{background:var(--white); border-color:var(--edge)} .own-line i{color:var(--blue)}
+.how-card:nth-child(1){background:#f1ffd2} .how-card:nth-child(2){background:#ffe8f3} .how-card:nth-child(3){background:#e1f7ff} .how-card:nth-child(4){background:var(--white)}
+.how-card p{color:var(--ink3)}
+.sc-ink .how-card{border-color:var(--edge); box-shadow:var(--sh-1)}
+.quizchip,.sc-ink .quizchip{color:var(--ink); border:1.5px dashed rgba(71,87,255,.4); background:var(--white)}
+.quizchip b{color:var(--blue)}
+.badge .medal{background:var(--chrome); border:1px solid var(--edge)}
+.badge:nth-child(2) .medal{background:#e9ffb3} .badge:nth-child(3) .medal{background:var(--pink2); color:var(--ink)} .badge:nth-child(4) .medal{background:#d6f5ff}
+.badge .lock{background:var(--blue); color:var(--white)}
+.stp-detail{background:#f7f8ff}
+.stat .nm{font-size:14px}
+.stat{grid-template-columns:auto minmax(0,1fr) auto}
+.stat .ix{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
+.stat .go{font-family:var(--f-mono); font-size:12px; color:var(--muted); opacity:0; transition:opacity .2s}
+.stat:hover .go,.stat[aria-pressed="true"] .go{opacity:1}
+.stat[aria-pressed="true"] .ix,.stat[aria-pressed="true"] .go{color:var(--lime)}
+.card{background:var(--white); color:var(--ink); border-color:var(--edge); box-shadow:var(--sh-1)}
+.shot{border-right-color:var(--edge)}
+.cbody .meta{color:var(--muted)} .ask p{color:var(--ink3)}
+.sw{background:var(--mist); border-color:var(--edge)} .sw button[aria-pressed="true"]{background:var(--ink); color:var(--white)}
+.swp{color:var(--ink2)}
+.res div{background:#f1ffd2; border-color:var(--edge)} .res div.empty{border-color:var(--muted-d)}
+.open-case{color:var(--blue)} .src{color:var(--muted)}
+.end .dlg p{color:var(--ink3)}
+.end .saved span{background:#f1ffd2; color:var(--ink); border-color:var(--edge)}
+.restart{color:var(--muted)} .restart:hover{color:var(--pink)}
+.foot,.notice{color:var(--muted)}
+.sc-ink.end{background:radial-gradient(50% 60% at 20% 30%, #ffe3f1, transparent 65%), radial-gradient(50% 60% at 85% 70%, #dfe3ff, transparent 65%), radial-gradient(40% 40% at 50% 100%, #efffcf, transparent 65%), #f7f7fc}
+/* quick views */
+.qv-night{background:var(--paper); color:var(--ink)} .qv-night .lead{color:var(--muted)}
+.qv-night .chip,.sheet .chip,.cn-card .chip{background:var(--white); color:var(--ink); border-color:var(--edge)}
+.qv-night button.chip[aria-pressed="true"],.cn-card button.chip[aria-pressed="true"],button.chip[aria-pressed="true"]{background:var(--ink); color:var(--white); border-color:var(--ink)}
+.qv-night .stamp{background:var(--white); border-color:var(--edge); box-shadow:var(--sh-1)}
+.qv-night .sec > h3 i{background:var(--ink)}
+.wt .pic{border-color:var(--edge)} .wt .cap .tg{color:var(--muted)} .wt .cap .big-n{color:var(--blue)}
+.sheet{background:rgba(29,31,61,.32)}
+.sheet-in{background:var(--white); color:var(--ink); border-color:var(--edge)}
+.sheet-bar .tag{color:var(--muted)} .sheet-bar .x{border-color:var(--edge); color:var(--ink)}
+.sheet .meta span{border-color:var(--edge); color:var(--muted)}
+.facts div{background:var(--mist); border-color:var(--edge)} .facts span{color:var(--muted)}
+.gal-hero{border-color:var(--edge)}
+.blk{border-top-color:var(--edge)} .blk h4{color:var(--blue)} .blk p{color:var(--ink2)} .blk.team p{color:var(--muted)}
+.sheet-nav .btn{color:var(--ink); border-color:var(--edge)}
+.cn-card h2 em{color:var(--pink)}
+.tpl{border-color:var(--edge); color:var(--ink2)} .tpl .rec2{color:var(--blue)}
+.status{background:var(--mist); border-color:var(--edge)}
+.own-card{background:linear-gradient(135deg,#e9e6ff,#ffe8f4); color:var(--ink); border-color:var(--edge)}
+.own-card .k{color:var(--blue)} .own-card .s2{color:var(--muted)} .own-card .flow span{border-color:var(--edge); background:rgba(255,255,255,.6)}
+.tl-stats div:nth-child(1){background:#f1ffd2} .tl-stats div:nth-child(2){background:#ffe8f3} .tl-stats div:nth-child(3){background:#e1f7ff}
+.quiz .ans{background:var(--mist); color:var(--ink)} .quiz .ans b{color:var(--pink)}
+.crew span.lead{background:var(--ink); color:var(--white)}
+/* console */
+.kpi,.panel{background:var(--white); border-color:var(--edge)} .kpi span,.kpi small,.panel .sub{color:var(--muted)} .kpi b{color:var(--blue)}
+.days{border-bottom-color:var(--edge)} .days i{background:var(--blue)}
+.heat .c{background:#eef0fb} .heat,.heat-x,.legend,.dx{color:var(--muted)}
+.bl .r .tr,.funnel .r .tr{background:#eef0fb} .bl .r .tr i,.funnel .r .tr i{background:var(--blue)}
+.flows div,.miss div,.links code{background:var(--mist)} .miss span{color:var(--blue)}
+table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{border-bottom-color:var(--edge)}
+.links button{background:var(--white); color:var(--ink); border-color:var(--edge)}
+.segb{background:rgba(29,31,61,.05); border-color:var(--edge)} .segb button{color:var(--muted)} .segb button[aria-pressed="true"]{background:var(--ink); color:var(--white)}
+.rp-note{color:var(--muted); border-color:var(--edge)} .rp-note b{color:var(--ink)}
+.insight{border-color:var(--edge)} .empty-st{color:var(--muted); border-color:var(--edge)}
+#tip{background:var(--ink); border-color:transparent}
+#wipe{background:linear-gradient(180deg,#e2e6ff,#ffe6f2)}
+#wipe .w{background:linear-gradient(95deg,var(--pink),var(--blue)); -webkit-background-clip:text; background-clip:text}
+@media (max-width: 1000px){ .boot-hero{grid-template-columns:minmax(0,1fr); justify-items:center} .boot-pic{justify-self:center; width:min(160px,44vw)} .boot-pic .stk{--s:52px!important} }
+@media (max-width: 760px){
+  .tabbar{background:rgba(255,255,255,.94); border-color:var(--edge)}
+  .tabbar a{color:var(--muted)} .tabbar a[aria-current="page"]{background:var(--ink); color:var(--white)}
+  .boot-pic .bye{font-size:13px; right:-26px}
+}
 </style>
 
 <!-- Global SVG: gradients, liquid-chrome filter, one hand-built sticker/icon language -->
@@ -780,11 +925,11 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
       <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
       <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b2"/>
       <feOffset in="b2" dy="10" result="o"/>
-      <feFlood flood-color="#000000" flood-opacity=".45"/>
+      <feFlood flood-color="#2a2d55" flood-opacity=".18"/>
       <feComposite in2="o" operator="in" result="sh"/>
       <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/><feMergeNode in="s2"/></feMerge>
     </filter>
-    <linearGradient id="gThread" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6ff1f"/><stop offset=".5" stop-color="#7fe3ff"/><stop offset="1" stop-color="#ff4fa8"/></linearGradient>
+    <linearGradient id="gThread" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5fae"/><stop offset=".5" stop-color="#9a5bff"/><stop offset="1" stop-color="#4757ff"/></linearGradient>
     <linearGradient id="gC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#cfd5ee"/><stop offset=".5" stop-color="#5a6190"/><stop offset=".62" stop-color="#dfe4ff"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
     <linearGradient id="gH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc2e2"/><stop offset=".35" stop-color="#d8d3ff"/><stop offset=".65" stop-color="#b9f3ff"/><stop offset="1" stop-color="#eaffb0"/></linearGradient>
     <linearGradient id="gL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2ffc4"/><stop offset=".5" stop-color="#c6ff1f"/><stop offset="1" stop-color="#7fc400"/></linearGradient>
@@ -838,6 +983,14 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
   <span class="bubble" style="width:70px; height:70px; left:22%; bottom:8%; animation-delay:-5s" aria-hidden="true"></span>
   <div class="boot-in">
     <div class="boot-load" aria-hidden="true"><span id="bootPct">BOOTING EM XINH… 0%</span><div class="bar"><i id="bootBar"></i></div></div>
+    <div class="boot-hero">
+    <figure class="boot-pic">
+      <span class="bye" aria-hidden="true">hi hi!</span>
+      <span class="stk" data-drag style="left:-34px; bottom:40px; --d:-1s" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-flower"/></svg></span>
+      <span class="stk" data-drag style="right:-26px; bottom:-18px; --d:-2.5s; --s:54px" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-star"/></svg></span>
+      <div class="win"><div class="win-bar"><b>HELLO.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
+        <div class="shot0"><div class="ph" data-portrait="portrait.png"></div><div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">LIVE</span></div></div></div>
+    </figure>
     <h1 class="boot-word" id="bootTitle" aria-label="Em Xinh say hi">
       <svg class="lq" viewBox="0 0 1000 360" aria-hidden="true">
         <text x="500" y="150" text-anchor="middle" font-size="150" fill="url(#gIrid)" stroke-width="6" filter="url(#liquid)">Em Xinh</text>
@@ -846,6 +999,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
       <svg class="doodle" style="left:4%; top:46%" viewBox="0 0 64 64" aria-hidden="true"><use href="#s-doodle"/></svg>
       <svg class="doodle" style="right:3%; top:6%; width:40px; height:40px" viewBox="0 0 64 64" aria-hidden="true"><use href="#s-doodle"/></svg>
     </h1>
+    </div>
     <p class="boot-wel"><span class="en">Welcome on board <span class="s">✦</span> Pick a language and how you'd like to look around.</span><span class="vi">Welcome on board <span class="s">✦</span> Chọn ngôn ngữ và cách bạn muốn xem nhé.</span></p>
     <div class="boot-lang" role="group" aria-label="Language"><button type="button" data-boot-lang="en" aria-pressed="true">English</button><button type="button" data-boot-lang="vi" aria-pressed="false">Tiếng Việt</button></div>
     <div class="modes">
@@ -998,13 +1152,13 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
     <div class="head">
       <span class="node rail cp" data-node data-cp="2"></span>
       <p class="tag"><b>LV.2</b><span class="en">How</span><span class="vi">Cách làm</span></p>
-      <h2 class="own-big chrome-t"><span class="en">I own it.</span><span class="vi">Tôi thích làm chủ.</span></h2>
+      <h2 class="own-big"><span class="en">I own it.</span><span class="vi">Tôi thích làm chủ.</span></h2>
       <p class="own-sub"><span class="en">In control from the goal to the result.</span><span class="vi">Chủ động kiểm soát từ mục tiêu đến kết quả.</span></p>
       <p class="own-line en"><span>Understand the goal</span><i>→</i><span>Research &amp; propose</span><i>→</i><span>Coordinate resources</span><i>→</i><span>Control quality</span><i>→</i><span>Deliver the result</span></p>
       <p class="own-line vi"><span>Hiểu mục tiêu</span><i>→</i><span>Nghiên cứu &amp; đề xuất</span><i>→</i><span>Điều phối nguồn lực</span><i>→</i><span>Kiểm soát chất lượng</span><i>→</i><span>Tạo kết quả</span></p>
     </div>
     <div class="proc" id="proc"></div>
-    <button class="quizchip" type="button" data-quiz><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg><span><b>XINH_QUIZ.EXE</b><span class="en">Got 30 seconds? 3 little questions</span><span class="vi">Rảnh 30 giây? 3 câu hỏi nhỏ</span></span><em><span class="en">Open</span><span class="vi">Mở</span></em></button>
+    <button class="quizchip" type="button" data-quiz><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg><span><b>XINH_QUIZ.EXE</b><span class="en">Got 30 seconds? 3 quick ones with Xinh</span><span class="vi">Rảnh 30 giây? Chơi 3 câu với Xinh</span></span><em><span class="en">Open</span><span class="vi">Mở</span></em></button>
     <div class="wpt" style="margin-top:10px"><span class="node rail wp" data-node></span></div>
   </div>
 </section>
@@ -1016,7 +1170,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
       <span class="node rail cp" data-node data-cp="3"></span>
       <p class="tag"><b>LV.3</b><span class="en">Proof</span><span class="vi">Bằng chứng</span></p>
       <h2 class="h2"><span class="en">Stats, <em>with receipts.</em></span><span class="vi">Chỉ số, <em>có bằng chứng.</em></span></h2>
-      <p class="lead"><span class="en">What I earned myself, then what I can run, scored on the same 10 things JDs ask for. Tap a stat for the projects behind it.</span><span class="vi">Trước là những gì Xinh tự tay giành được, sau là những việc Xinh làm được, chấm trên cùng 10 tiêu chí JD hay hỏi. Bấm một chỉ số để xem dự án đứng sau.</span></p>
+      <p class="lead"><span class="en">First what I earned myself, then the 10 things JDs ask for most. Tap any of them to see the projects behind it.</span><span class="vi">Trước là những gì Xinh tự tay giành được, sau là 10 đầu việc JD hay hỏi nhất. Bấm vào từng mục để xem dự án đứng sau.</span></p>
     </div>
     <div class="ach">
       <div class="badge"><span class="lock">UNLOCKED</span><span class="medal">×3</span><span><b><span class="en">3 promotions in 4 years</span><span class="vi">3 lần lên vị trí trong 4 năm</span></b><small>Planning Assistant → Associate AM</small></span></div>
@@ -1218,7 +1372,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
           <div><b>4</b><span><span class="en">roles, one agency</span><span class="vi">vai trò, một agency</span></span></div>
           <div><b>1–2</b><span><span class="en">juniors mentored</span><span class="vi">junior đã kèm</span></span></div>
         </div>
-        <button class="quizchip" type="button" data-quiz style="margin-top:4px"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg><span><b>XINH_QUIZ.EXE</b><span class="en">3 little questions about me</span><span class="vi">3 câu hỏi nhỏ về Xinh</span></span><em><span class="en">Open</span><span class="vi">Mở</span></em></button>
+        <button class="quizchip" type="button" data-quiz style="margin-top:4px"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg><span><b>XINH_QUIZ.EXE</b><span class="en">3 quick ones with Xinh</span><span class="vi">Chơi 3 câu với Xinh</span></span><em><span class="en">Open</span><span class="vi">Mở</span></em></button>
       </div>
     </div>
     <div class="sec"><h3><span class="en">Career path</span><span class="vi">Lộ trình nghề nghiệp</span><i></i></h3><div class="tl4" id="tl4"></div></div>
@@ -1239,7 +1393,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
     <div class="qhead">
       <p class="tag"><b>03</b><span class="en">Skills</span><span class="vi">Năng lực</span></p>
       <svg class="lq" viewBox="0 0 1000 230" aria-label="Skills"><text x="8" y="186" font-size="200" fill="url(#gIrid)" stroke-width="6" filter="url(#liquid)">SKILLS</text></svg>
-      <p class="lead"><span class="en">One benchmark for every project: five project types and five levels of ownership, named the way market JDs name them.</span><span class="vi">Một thước đo cho mọi dự án: năm loại dự án và năm mức độ đảm nhận, gọi tên theo cách JD trên thị trường đang dùng.</span></p>
+      <p class="lead"><span class="en">Ten things market JDs ask for: five types of project and five parts of owning one. Each links to the projects where I did it.</span><span class="vi">Mười đầu việc JD trên thị trường hay hỏi: năm loại dự án và năm phần việc khi làm chủ dự án. Mỗi mục dẫn tới dự án Xinh đã làm.</span></p>
     </div>
     <div data-mx></div>
     <div class="sec"><h3><span class="en">Each capability, with proof</span><span class="vi">Từng năng lực, kèm bằng chứng</span><i></i></h3><div class="capg" id="skGrid"></div></div>
@@ -1264,7 +1418,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
           <div class="status" id="ctStatus"></div>
           <div class="big-acts" id="bigActs"></div>
           <div class="who">
-            <p class="mono" style="color:var(--lime)"><span class="en">Who's saying hi?</span><span class="vi">Bạn là ai?</span></p>
+            <p class="mono" style="color:var(--blue)"><span class="en">Who's saying hi?</span><span class="vi">Bạn là ai?</span></p>
             <div class="opts" id="whoOpts" role="group"></div>
             <div class="tpl" id="tpl"></div>
           </div>
@@ -1490,8 +1644,8 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
      res:[{empty:true, l:{en:'add a result', vi:'thêm kết quả'}}], imgs:['cindy_bloom_kv.jpg','cindy_02.jpg','cindy_03.jpg','cindy_04.jpg']}
   ];
   /* Cover colours when there is no photo yet */
-  var LOOK = {vib:['#3448ff','#c6ff1f'], msb:['#ff4fa8','#ffffff'], cake:['#d8d3ff','#ff4fa8'], poca:['#c6ff1f','#07070d'],
-              digimi:['#07070d','#c6ff1f'], duytan:['#7fe3ff','#07070d'], cindy:['#ffc2e2','#3448ff']};
+  var LOOK = {vib:['#dfe3ff','#4757ff'], msb:['#ffd6ea','#c2186f'], cake:['#e6e2ff','#d1167a'], poca:['#eaffbf','#1d1f3d'],
+              digimi:['#dcf5ff','#1d1f3d'], duytan:['#fff0c4','#c2186f'], cindy:['#ffe3f1','#4757ff']};
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {
@@ -1605,31 +1759,28 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
     if (v === 2) return '<span class="d2" role="img" aria-label="' + (vi ? 'Cùng team' : 'With the team') + '"></span>';
     return '<span class="d0" role="img" aria-label="–"></span>';
   }
-  function grpName(col){ var vi = lang === 'vi'; return col.g === 'type' ? (vi ? 'Loại dự án' : 'Project type') : (vi ? 'Mức độ đảm nhận' : 'How far I took it'); }
+  function grpName(col){ var vi = lang === 'vi'; return col.g === 'type' ? (vi ? 'Loại dự án' : 'Project type') : (vi ? 'Phần việc khi làm chủ' : 'Part of owning it'); }
   function proofChips(i){
-    return CASES.filter(function(c){ return (MX[c.id] || [])[i]; }).sort(function(a, b){ return MX[a.id][i] - MX[b.id][i]; })
-      .map(function(c){ return '<a class="chip" href="#case-' + c.id + '">' + dotHTML(MX[c.id][i]) + esc(c.brand) + '</a>'; }).join('');
+    return CASES.filter(function(c){ return (MX[c.id] || [])[i]; }).map(function(c){ return '<a class="chip" href="#case-' + c.id + '">' + esc(c.brand) + ' ↗</a>'; }).join('');
   }
   function capCard(col, n){
-    var i = colIdx(col.k), vi = lang === 'vi', ct = mxCount(i);
+    var i = colIdx(col.k), vi = lang === 'vi';
     return '<article class="win"><div class="win-bar"><b>' + ('0' + (n + 1)).slice(-2) + ' · ' + esc(L(col.t)).toUpperCase() + '</b><span class="ctl"><i></i><i></i><i></i></span></div><div class="win-body">' +
-      '<p class="mono" style="color:var(--pink)">' + grpName(col) + ' · ' + ct[0] + (vi ? ' dẫn dắt · ' : ' led · ') + ct[1] + (vi ? ' cùng team' : ' with team') + '</p>' +
+      '<p class="mono" style="color:var(--blue)">' + grpName(col) + '</p>' +
       '<p>' + esc(L(col.d)) + '</p><div class="fit"><b>' + (vi ? 'JD thường ghi' : 'How JDs say it') + '</b>' + esc(L(col.jd)) + '</div><div class="proof">' + proofChips(i) + '</div></div></article>';
   }
   function statBtn(col){
-    var i = colIdx(col.k), ct = mxCount(i), seg = '';
-    for (var k = 0; k < CASES.length; k++) seg += '<i class="' + (k < ct[0] ? 'l' : k < ct[0] + ct[1] ? 't' : '') + '"></i>';
-    return '<button class="stat" type="button" data-col="' + col.k + '" aria-pressed="' + (col.k === mxSel ? 'true' : 'false') + '"><span class="nm">' + esc(L(col.t)) + '</span><span class="seg" aria-label="' + ct[0] + ' led, ' + ct[1] + ' with team">' + seg + '</span></button>';
+    var n = colIdx(col.k) + 1;
+    return '<button class="stat" type="button" data-col="' + col.k + '" aria-pressed="' + (col.k === mxSel ? 'true' : 'false') + '"><span class="ix">' + ('0' + n).slice(-2) + '</span><span class="nm">' + esc(L(col.t)) + '</span><span class="go">→</span></button>';
   }
   function renderMatrix(){
-    var vi = lang === 'vi', ci = colIdx(mxSel), col = COLS[ci], ct = mxCount(ci);
+    var vi = lang === 'vi', ci = colIdx(mxSel), col = COLS[ci];
     var list = '<h4>' + (vi ? 'Loại dự án' : 'Project type') + '</h4>' + COLS.filter(function(c){ return c.g === 'type'; }).map(statBtn).join('') +
-      '<h4>' + (vi ? 'Mức độ đảm nhận' : 'How far I took it') + '</h4>' + COLS.filter(function(c){ return c.g === 'own'; }).map(statBtn).join('') +
-      '<div class="legend2" style="margin-top:12px"><span><i style="background:var(--pink)"></i>' + (vi ? 'Xinh dẫn dắt' : 'I led it') + '</span><span><i style="background:var(--blue)"></i>' + (vi ? 'Làm cùng team' : 'With the team') + '</span><span>' + (vi ? 'mỗi ô = 1 dự án' : '1 cell = 1 project') + '</span></div>';
-    var detail = '<p class="mono" style="color:var(--pink)">' + grpName(col) + '</p><h3>' + esc(L(col.t)) + '</h3><p>' + esc(L(col.d)) + '</p>' +
+      '<h4>' + (vi ? 'Phần việc khi làm chủ' : 'Part of owning it') + '</h4>' + COLS.filter(function(c){ return c.g === 'own'; }).map(statBtn).join('');
+    var detail = '<p class="mono" style="color:var(--blue)">' + grpName(col) + '</p><h3>' + esc(L(col.t)) + '</h3><p>' + esc(L(col.d)) + '</p>' +
       '<div class="fit"><b>' + (vi ? 'JD thường ghi' : 'How JDs say it') + '</b>' + esc(L(col.jd)) + '</div>' +
-      '<p class="mono">' + ct[0] + '/7 ' + (vi ? 'dẫn dắt' : 'led') + ' · ' + ct[1] + '/7 ' + (vi ? 'cùng team' : 'with team') + '</p><div class="proof">' + proofChips(ci) + '</div>';
-    var html = '<div class="win"><div class="win-bar"><b>STATS.SYS · 7 ' + (vi ? 'DỰ ÁN × 10 TIÊU CHÍ' : 'PROJECTS × 10 STATS') + '</b><span class="ctl"><i></i><i></i><i></i></span></div><div class="stp"><div class="stp-list">' + list + '</div><div class="stp-detail" aria-live="polite">' + detail + '</div></div></div>';
+      '<p class="mono">' + (vi ? 'Đã làm ở' : 'Done in') + '</p><div class="proof">' + proofChips(ci) + '</div>';
+    var html = '<div class="win"><div class="win-bar"><b>SKILLS.SYS · ' + (vi ? '10 ĐẦU VIỆC · 7 DỰ ÁN' : '10 CAPABILITIES · 7 PROJECTS') + '</b><span class="ctl"><i></i><i></i><i></i></span></div><div class="stp"><div class="stp-list">' + list + '</div><div class="stp-detail" aria-live="polite">' + detail + '</div></div></div>';
     $$('[data-mx]').forEach(function(h){ h.innerHTML = html; });
     var g = $('#skGrid'); if (g) g.innerHTML = COLS.map(capCard).join('');
   }
@@ -2153,7 +2304,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
       if (!c.scope.length) add(sec, vi ? 'Quy mô: team, ngân sách, số deliverable' : 'Scope: team, budget, deliverables');
       if (c.res.some(function(r){ return r.empty; })) add(sec, vi ? 'Một số liệu kết quả gắn với phần bạn làm' : 'One result tied to your part');
     });
-    add(vi ? 'Năng lực' : 'Skills', vi ? 'Xác nhận bảng chấm 10 cột cho 7 dự án (● dẫn dắt / ■ cùng team)' : 'Confirm the 10-column scoring for the 7 projects (● led / ■ with team)');
+    add(vi ? 'Năng lực' : 'Skills', vi ? 'Xác nhận dự án nào có từng đầu việc trong 10 đầu việc' : 'Confirm which projects include each of the 10 capabilities');
     return m;
   }
   function missingHTML(){
@@ -2184,7 +2335,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
     dayBars = dk.map(function(x){ return '<div data-tip="' + x[0].getDate() + '/' + (x[0].getMonth() + 1) + ': ' + x[1] + (vi ? ' lượt' : ' visits') + '"><i style="height:' + (x[1] / mxd * 100).toFixed(1) + '%"></i></div>'; }).join('');
     var mxh = 1; A.heat.forEach(function(r){ r.forEach(function(v){ if (v > mxh) mxh = v; }); });
     var dn = vi ? ['T2','T3','T4','T5','T6','T7','CN'] : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    var heat = A.heat.map(function(r, d){ return '<span class="lb">' + dn[d] + '</span>' + r.map(function(v, h){ var k = v / mxh; return '<span class="c" style="background:' + (v ? 'color-mix(in srgb, var(--lime) ' + Math.round(15 + k * 85) + '%, #23233a)' : '#23233a') + '" data-tip="' + dn[d] + ' ' + h + 'h: ' + v + '"></span>'; }).join(''); }).join('');
+    var heat = A.heat.map(function(r, d){ return '<span class="lb">' + dn[d] + '</span>' + r.map(function(v, h){ var k = v / mxh; return '<span class="c" style="background:' + (v ? 'color-mix(in srgb, var(--blue) ' + Math.round(15 + k * 85) + '%, #eef0fb)' : '#eef0fb') + '" data-tip="' + dn[d] + ' ' + h + 'h: ' + v + '"></span>'; }).join(''); }).join('');
     var fl = vi ? ['Vào story','LV.1 Ai làm','LV.2 Cách làm','LV.3 Bằng chứng','LV.4 Kết quả','LV.5 Bạn nhận','Kết · liên hệ'] : ['Story start','LV.1 Who','LV.2 How','LV.3 Proof','LV.4 Results','LV.5 You get','End · contact'];
     var funnel = A.n ? A.funnel.map(function(v, i){ var prev = i ? A.funnel[i - 1] : v; return '<div class="r" data-tip="' + fl[i] + ': ' + v + '"><span>' + fl[i] + '</span><span class="tr"><i style="width:' + (v / (A.funnel[0] || 1) * 100).toFixed(1) + '%"></i></span><span class="v">' + v + ' · ' + pct(v, A.funnel[0]) + (i && prev ? '<small>−' + pct(prev - v, prev) + '</small>' : '') + '</span></div>'; }).join('') : '<div class="empty-st">' + (vi ? 'Chưa có dữ liệu' : 'No data yet') + '</div>';
     var tk = Object.keys(A.trans).sort(function(a, b){ return A.trans[b] - A.trans[a]; }).slice(0, 6);
@@ -2219,7 +2370,7 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
       '<div class="panels">' + missingHTML() +
         '<div class="panel wide"><h3>' + (vi ? 'Lượt xem theo ngày' : 'Visits per day') + '</h3><p class="sub">' + (vi ? 'Tần suất trong ' : 'Frequency over ') + days + (vi ? ' ngày gần nhất' : ' days') + '</p><div class="body"><div class="days">' + dayBars + '</div><div class="dx"><span>' + dk[0][0].getDate() + '/' + (dk[0][0].getMonth() + 1) + '</span><span>' + (vi ? 'hôm nay' : 'today') + '</span></div></div></div>' +
         '<div class="panel"><h3>' + (vi ? 'Nguồn xem' : 'Sources') + '</h3><p class="sub">' + (vi ? 'Từ link #from-… hoặc trang giới thiệu' : 'From #from-… links or the referring site') + '</p><div class="body">' + barList(A.src) + '</div></div>' +
-        '<div class="panel"><h3>' + (vi ? 'Giờ xem trong tuần' : 'When people visit') + '</h3><p class="sub">' + (vi ? 'Theo giờ địa phương của người xem' : 'Viewer local time') + '</p><div class="body"><div class="heat">' + heat + '</div><div class="heat-x"><span></span>' + Array.apply(null, Array(24)).map(function(_, h){ return '<span>' + (h % 6 === 0 ? h : '') + '</span>'; }).join('') + '</div><div class="legend"><span>' + (vi ? 'ít' : 'fewer') + '</span><i style="background:#23233a"></i><i style="background:color-mix(in srgb, var(--lime) 40%, #23233a)"></i><i style="background:color-mix(in srgb, var(--lime) 70%, #23233a)"></i><i style="background:var(--lime)"></i><span>' + (vi ? 'nhiều' : 'more') + '</span></div></div></div>' +
+        '<div class="panel"><h3>' + (vi ? 'Giờ xem trong tuần' : 'When people visit') + '</h3><p class="sub">' + (vi ? 'Theo giờ địa phương của người xem' : 'Viewer local time') + '</p><div class="body"><div class="heat">' + heat + '</div><div class="heat-x"><span></span>' + Array.apply(null, Array(24)).map(function(_, h){ return '<span>' + (h % 6 === 0 ? h : '') + '</span>'; }).join('') + '</div><div class="legend"><span>' + (vi ? 'ít' : 'fewer') + '</span><i style="background:#eef0fb"></i><i style="background:color-mix(in srgb, var(--blue) 40%, #eef0fb)"></i><i style="background:color-mix(in srgb, var(--blue) 70%, #eef0fb)"></i><i style="background:var(--blue)"></i><span>' + (vi ? 'nhiều' : 'more') + '</span></div></div></div>' +
         '<div class="panel"><h3>' + (vi ? 'Flow story: đi được tới đâu' : 'Story flow: how far people get') + '</h3><p class="sub">' + (vi ? 'Số lượt chạm từng level, kèm tỉ lệ rơi' : 'Visits reaching each level, with drop-off') + '</p><div class="body"><div class="funnel">' + funnel + '</div></div></div>' +
         '<div class="panel"><h3>' + (vi ? 'Flow giữa các tab' : 'Flow between tabs') + '</h3><p class="sub">' + (vi ? 'Đường đi phổ biến nhất' : 'Most common moves') + '</p><div class="body"><div class="flows">' + flows + '</div></div></div>' +
         '<div class="panel"><h3>' + (vi ? 'Thời gian ở mỗi tab' : 'Time on each tab') + '</h3><p class="sub">' + (vi ? 'Trung bình mỗi lượt có ghé tab đó' : 'Average per visit that opened it') + '</p><div class="body">' + barList(dwellAvg, mmss) + '</div></div>' +
@@ -2276,25 +2427,25 @@ table.ses td{padding:7px 8px; border-bottom:1px solid rgba(255,255,255,.1)}
 
   /* QUIZ: a small corner for people with time */
   var QUIZ = [
-    {ic:'i-bag', q:{en:'You spot a buy-one-get-one sign. Would you walk in, ask for the fine print, note when it starts, and come back right on time?', vi:'Thấy biển khuyến mãi 1+1, bạn có dám vào hỏi rõ thể lệ, hẹn đúng giờ áp dụng rồi quay lại mua không?'},
-     a:{en:'Ask until it’s clear, show up on time. Same with a brief: I ask until I get the real goal, and a deadline is a promise.', vi:'Hỏi cho rõ, hẹn là giữ. Đọc brief cũng vậy: hỏi đến khi hiểu mục tiêu thật, đã hẹn deadline là về đúng giờ.'}},
-    {ic:'i-bubbles', q:{en:'On a project, do you add every partner, client and teammate, and actually keep in touch after it ends?', vi:'Chạy một dự án, bạn có kết bạn và giữ liên lạc với tất cả đối tác, khách hàng lẫn team nội bộ không?'},
-     a:{en:'Projects end, relationships stay. When something’s urgent, I always have someone to call, and they pick up.', vi:'Dự án nào rồi cũng xong, mối quan hệ thì ở lại. Lúc cần gấp, Xinh luôn có người để gọi, và người ta bắt máy.'}},
-    {ic:'s-flower', q:{en:'On your last day, did the company post your goodbye on its fanpage as a thank-you?', vi:'Ngày chia tay công ty, lời tạm biệt của bạn có được đăng lên fanpage như một lời ghi nhận không?'},
-     a:{en:'Give it everything while you’re there, leave on a high note. That’s ownership, even on the last day.', vi:'Đến thì làm hết mình, đi thì để lại ấn tượng đẹp. Làm chủ là vậy, kể cả ngày cuối cùng.'}}
+    {ic:'i-bag', q:{en:'A buy-1-get-1 deal, but it only starts at 5pm. Would you come back right on time?', vi:'Thấy biển 1+1 mà 5 giờ chiều mới áp dụng. Bạn có canh đúng giờ quay lại mua hông?'},
+     a:{en:'I would, and I’d ask for the fine print first. Same with briefs: ask till it’s clear, show up on time.', vi:'Xinh thì có, còn hỏi kỹ thể lệ trước nữa. Brief cũng vậy: hỏi cho rõ, hẹn là tới.'}},
+    {ic:'i-bubbles', q:{en:'Project’s done. Still texting the partners and the client, or is it “job over, bye”?', vi:'Xong dự án rồi, bạn còn nhắn tin với đối tác, khách hàng không, hay “hết job là hết thân”?'},
+     a:{en:'I keep everyone. So when something’s urgent, someone always picks up.', vi:'Xinh giữ hết. Nên lúc cần gấp, gọi là có người bắt máy.'}},
+    {ic:'s-flower', q:{en:'Your last day at a job. Did the company post your goodbye on its page?', vi:'Ngày nghỉ việc, công ty có đăng lời tạm biệt của bạn lên fanpage hông?'},
+     a:{en:'Mine did. Leave as well as you arrived.', vi:'Của Xinh thì có. Đi cũng phải đẹp như lúc đến.'}}
   ];
   var qi = 0, qPick = null, quizEl = $('#quiz');
   function renderQuiz(){
     var vi = lang === 'vi', b = $('#quizBody');
     if (qi >= QUIZ.length){
-      b.innerHTML = '<svg class="ico q" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-coin"/></svg><p class="goalq">' + (vi ? 'Bonus: mục tiêu đi làm của Xinh, nói thật nha: làm cho trọn vẹn, và kiếm tiềnnn.' : 'Bonus: my work goal, honestly: finish things properly, and earn moneyyy.') + '</p>' +
+      b.innerHTML = '<svg class="ico q" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-coin"/></svg><p class="goalq">' + (vi ? 'Bonus nè: mục tiêu đi làm của Xinh là làm cho trọn vẹn, và kiếm tiềnnn.' : 'Bonus: my work goal is to finish things properly, and earn moneyyy.') + '</p>' +
         '<div class="row"><button class="btn hot" type="button" data-connect>' + (vi ? 'Say hi với Xinh' : 'Say hi to Xinh') + '</button><button class="btn" type="button" data-qrestart>' + (vi ? 'Chơi lại' : 'Replay') + '</button></div>';
       return;
     }
     var q = QUIZ[qi];
     b.innerHTML = '<p class="qn">' + (vi ? 'CÂU ' : 'QUESTION ') + (qi + 1) + '/' + QUIZ.length + '</p><svg class="ico q" viewBox="0 0 64 64" aria-hidden="true"><use href="#' + q.ic + '"/></svg><p class="q">' + esc(L(q.q)) + '</p>' +
-      (qPick === null ? '<div class="row"><button class="btn lime" type="button" data-qa="1">' + (vi ? 'Có chứ!' : 'Sure!') + '</button><button class="btn" type="button" data-qa="0">' + (vi ? 'Hông dám' : 'Nope') + '</button></div>'
-        : '<div class="ans"><b>' + (qPick ? (vi ? 'Hợp nhau rồi! Xinh cũng có.' : 'Same here!') : (vi ? 'Không sao, Xinh có!' : 'No worries, I do!')) + '</b>' + esc(L(q.a)) + '</div><div class="row"><button class="btn lime" type="button" data-qnext>' + (qi < QUIZ.length - 1 ? (vi ? 'Câu tiếp →' : 'Next →') : (vi ? 'Xem bonus →' : 'Bonus →')) + '</button></div>');
+      (qPick === null ? '<div class="row"><button class="btn lime" type="button" data-qa="1">' + (vi ? 'Có nha' : 'Yep') + '</button><button class="btn" type="button" data-qa="0">' + (vi ? 'Hông luôn' : 'Nope') + '</button></div>'
+        : '<div class="ans"><b>' + (qPick ? (vi ? 'Ủa giống Xinh!' : 'Twins!') : (vi ? 'Không sao, có Xinh lo!' : 'No worries, I\u2019ve got it.')) + '</b>' + esc(L(q.a)) + '</div><div class="row"><button class="btn lime" type="button" data-qnext>' + (qi < QUIZ.length - 1 ? (vi ? 'Câu tiếp →' : 'Next →') : (vi ? 'Xem bonus →' : 'Bonus →')) + '</button></div>');
     quizEl.classList.toggle('shown', qPick !== null);
   }
   document.addEventListener('click', function(e){
