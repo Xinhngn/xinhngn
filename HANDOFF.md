@@ -13,6 +13,7 @@
 ## Còn lại
 - Phiên Claude Code trên web của tài khoản này bị chặn kho npm (registry.npmjs.org 403). Trong phiên như vậy: không chạy được `npm run dev` / build / test tại chỗ, và MCP CodeGraph không kết nối (chưa cài được). Dựa vào CI của PR để build + test. Nếu admin mở registry.npmjs.org trong cài đặt mạng, hook sẽ tự cài hết.
 - Đã dọn code + CSS "mini mascot" (người dùng đã bỏ mascot). `KNOWN_MISSING` trong unit test giờ rỗng.
+- Chỉ còn một `@keyframes blink` (nhấp nháy bằng opacity) cho chấm REC; bản co dẹt của mắt mascot đã bỏ.
 - Cloudflare: người dùng tự nối repo (Workers & Pages → Create → Import Git repo `EmXinhSayHi`, build command `npm run build`, deploy command `npx wrangler deploy`).
 - Chưa thử trên điện thoại thật (iPhone / Safari).
 
