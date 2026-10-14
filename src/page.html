@@ -897,6 +897,89 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
   .tabbar a{color:var(--muted)} .tabbar a[aria-current="page"]{background:var(--ink); color:var(--white)}
   .boot-pic .bye{font-size:13px; right:-26px}
 }
+
+/* =========== v9 · the open as a key-visual poster (ref: pink room, checker floor, type layered over the person) =========== */
+.boot{display:block; padding:calc(40px + env(safe-area-inset-top,0px)) 16px 24px; background:radial-gradient(70% 50% at 50% 35%, #ffffff 0%, rgba(255,255,255,0) 70%), linear-gradient(180deg,#ffeef6 0%,#ffe0ee 55%,#ffd3e7 100%); color:var(--ink); overflow-x:hidden}
+.boot::before{display:none}
+.room{position:absolute; inset:0; pointer-events:none; z-index:0}
+.room i{position:absolute; top:8%; width:26%; height:56%; border-radius:28px; background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.25)); border:1px solid rgba(255,255,255,.9); box-shadow:inset 0 0 40px rgba(255,255,255,.7)}
+.room i:first-child{left:3%; transform:perspective(900px) rotateY(28deg)}
+.room i:last-child{right:3%; transform:perspective(900px) rotateY(-28deg)}
+.floor{position:absolute; left:-30%; right:-30%; bottom:-8%; height:52%; z-index:0; pointer-events:none; background:conic-gradient(#ffc4df 25%, #ffffff 0 50%, #ffc4df 0 75%, #ffffff 0) 0 0/90px 90px; transform:perspective(520px) rotateX(64deg); transform-origin:50% 100%; -webkit-mask-image:linear-gradient(to top, #000 45%, transparent 100%); mask-image:linear-gradient(to top, #000 45%, transparent 100%); opacity:.9}
+.boot-top{color:#9a4f74} .boot-top b{color:#e5177f}
+.bh{position:relative; z-index:2; max-width:1100px; margin:0 auto; min-height:calc(100vh - 64px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(8px,1.6vh,16px); text-align:center}
+.boot-load{width:min(260px,70%); color:#9a4f74}
+.boot-load .bar{background:rgba(229,23,127,.1); border-color:rgba(229,23,127,.2)}
+.bh-w1{width:min(820px,96vw); margin:0; position:relative; z-index:1}
+.bh-w1 svg,.bh-w2 svg{display:block; width:100%; height:auto; overflow:visible}
+.bh-w1 text,.bh-w2 text{font-family:var(--f-head); font-weight:900; paint-order:stroke; stroke-linejoin:round; letter-spacing:-6px}
+.bh-stage{position:relative; width:100%; display:grid; justify-items:center; margin-top:calc(-1 * clamp(34px,6vh,64px))}
+.bh-pic{position:relative; z-index:2; margin:0; width:clamp(200px,31vh,300px); aspect-ratio:3/4; transform:rotate(-2deg)}
+.bh-pic .ph-frame{position:absolute; inset:0; border-radius:150px 150px 26px 26px; overflow:hidden; border:7px solid var(--white); box-shadow:0 30px 60px rgba(229,23,127,.22), 0 4px 10px rgba(29,31,61,.08); background:var(--holo)}
+.bh-pic .ph-frame .ph{position:absolute; inset:0}
+.bh-pic .ph-frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%}
+.bh-pic .bye{position:absolute; z-index:5; right:-34px; top:14%; padding:8px 14px; border-radius:18px 18px 18px 4px; background:var(--white); box-shadow:var(--sh-1); font-family:var(--f-head); font-weight:800; font-size:16px; rotate:8deg; animation:bob 4s ease-in-out infinite}
+.bh-w2{position:relative; z-index:3; width:min(640px,94vw); margin-top:calc(-1 * clamp(64px,11vh,120px))}
+.bh-tag{position:absolute; z-index:3; top:22%; font-family:var(--f-head); font-weight:900; font-size:clamp(16px,2.2vw,28px); line-height:1.02; letter-spacing:-.03em; color:#7cc400; transform:skewX(-10deg) rotate(-4deg); text-shadow:2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff, 0 3px 0 #fff, 0 10px 18px rgba(229,23,127,.18)}
+.bh-tag.l{right:calc(50% + clamp(150px,22vh,215px))}
+.bh-tag.r{left:calc(50% + clamp(150px,22vh,215px)); color:#e5177f; transform:skewX(-10deg) rotate(4deg); top:48%}
+.spark4{position:absolute; z-index:3; width:clamp(34px,5vh,54px); height:auto; fill:#c6ff1f; stroke:#ffffff; stroke-width:4; stroke-linejoin:round; filter:drop-shadow(0 6px 10px rgba(124,196,0,.3)); animation:bob 5s ease-in-out infinite}
+.spark4.s1{left:calc(50% - clamp(190px,27vh,260px)); top:58%}
+.spark4.s2{left:calc(50% + clamp(120px,18vh,180px)); top:4%; width:clamp(24px,3.5vh,38px); fill:#ff5fae; animation-delay:-2s}
+.bh-line{position:relative; z-index:3; font-family:var(--f-head); font-weight:600; font-size:clamp(14px,1.6vw,18px); letter-spacing:-.02em; color:#6b3a59; margin-top:-4px}
+.bh-line b{color:var(--ink); font-weight:800}
+.bh-cta{position:relative; z-index:3; display:flex; flex-wrap:wrap; justify-content:center; align-items:stretch; gap:10px; margin-top:4px}
+.bh-cta .boot-lang{align-self:center; flex-direction:column; gap:4px; padding:4px; border-radius:16px}
+.bh-cta .boot-lang button{padding:7px 12px; font-family:var(--f-mono); font-size:11px}
+.bh .modes,.bh .mode{width:auto}
+.bh .mode{min-width:250px; padding:14px 64px 14px 18px; gap:4px; border-radius:20px; background:rgba(255,255,255,.88); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px)}
+.bh .mode h2{font-size:clamp(16px,1.6vw,19px); padding-right:0}
+.bh .mode .ico.big{top:50%; right:14px; width:42px; height:42px; transform:translateY(-50%)}
+.bh .mode.story{background:linear-gradient(135deg,#f3ffd2,rgba(255,255,255,.92) 70%)}
+.bh .mode.quick{background:linear-gradient(135deg,#ffe0ef,rgba(255,255,255,.92) 70%)}
+.bh .boot-skip{color:#9a4f74}
+@media (max-width: 760px){
+  .room{display:none}
+  .bh{min-height:auto; padding-top:8px}
+  .bh-pic{width:min(210px,56vw)}
+  .bh-stage{margin-top:-10px}
+  .bh-tag{font-size:14px; top:6%}
+  .bh-tag.l{right:auto; left:0} .bh-tag.r{left:auto; right:0; top:6%}
+  .spark4.s1{left:8%; top:70%} .spark4.s2{left:auto; right:16%; top:0}
+  .bh-pic .bye{right:auto; left:-26px; top:58%; font-size:13px; rotate:-8deg}
+  .bh .mode{width:100%}
+  .bh-cta{flex-direction:column; align-items:stretch; width:100%}
+  .bh-cta .boot-lang{flex-direction:row; align-self:center}
+  .bh .mode{min-width:0}
+}
+/* personalities: four photos, four modes */
+.modes4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px}
+.modes4 figure{margin:0; position:relative}
+.modes4 .pf{position:relative; aspect-ratio:3/4; border-radius:18px; overflow:hidden; border:6px solid var(--white); box-shadow:var(--sh-1); background:var(--holo); transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+.modes4 figure:nth-child(odd) .pf{transform:rotate(-2deg)} .modes4 figure:nth-child(even) .pf{transform:rotate(2deg)}
+.modes4 figure:hover .pf{transform:rotate(0) translateY(-6px)}
+.modes4 .pf .ph{position:absolute; inset:0}
+.modes4 .pf img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%}
+.modes4 figcaption{margin-top:12px; font-family:var(--f-head); font-weight:800; font-size:15px; letter-spacing:-.02em}
+.modes4 figcaption small{display:block; font-family:var(--f-body); font-weight:500; font-size:13px; color:var(--muted); letter-spacing:0}
+@media (max-width: 760px){ .modes4{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.end-top{display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; gap:clamp(16px,3vw,40px); width:min(980px,100%)}
+.end-pic{margin:0; width:clamp(150px,18vw,220px); transform:rotate(-5deg)}
+.end-pic .pf{position:relative; aspect-ratio:3/4; border-radius:16px; overflow:hidden; border:7px solid var(--white); box-shadow:var(--sh-2); background:var(--holo)}
+.end-pic .pf .ph{position:absolute; inset:0}
+.end-pic .pf img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 25%}
+.end-pic figcaption{margin-top:10px; font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; color:var(--muted); text-align:center}
+@media (max-width: 760px){ .end-top{grid-template-columns:minmax(0,1fr); justify-items:center} }
+.quiz .qpic{position:relative; height:120px; margin:-18px -18px 0; overflow:hidden; background:var(--holo)}
+.quiz .qpic .ph{position:absolute; inset:0}
+.quiz .qpic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 38%}
+
+/* the end mirrors the open: same pink room, checker floor and poster type */
+.sc-ink.end.end-pink{background:radial-gradient(70% 50% at 50% 30%, #ffffff 0%, rgba(255,255,255,0) 70%), linear-gradient(180deg,#ffeef6 0%,#ffe0ee 55%,#ffd3e7 100%)}
+.end-pink .floor{height:40%}
+.end-pink .wrap{position:relative; z-index:3}
+.endlq text{font-family:var(--f-head); font-weight:900; paint-order:stroke; stroke-linejoin:round}
+.end-pink .foot,.end-pink .notice,.end-pink .restart{color:#8a4a6c}
 </style>
 
 <!-- Global SVG: gradients, liquid-chrome filter, one hand-built sticker/icon language -->
@@ -919,6 +1002,15 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
       <feOffset in="b2" dy="10" result="o"/>
       <feFlood flood-color="#2a2d55" flood-opacity=".18"/>
       <feComposite in2="o" operator="in" result="sh"/>
+      <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/><feMergeNode in="s2"/></feMerge>
+    </filter>
+    <linearGradient id="gPinkC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3f1"/><stop offset=".38" stop-color="#ff8cc4"/><stop offset=".52" stop-color="#e5177f"/><stop offset=".66" stop-color="#ff9ccb"/><stop offset="1" stop-color="#ffe9f4"/></linearGradient>
+    <filter id="liquidP" x="-10%" y="-25%" width="120%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/>
+      <feSpecularLighting in="b" surfaceScale="6" specularConstant="1.1" specularExponent="26" lighting-color="#ffffff" result="s"><fePointLight x="300" y="-160" z="300"/></feSpecularLighting>
+      <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="b2"/><feOffset in="b2" dy="10" result="o"/>
+      <feFlood flood-color="#e5177f" flood-opacity=".28"/><feComposite in2="o" operator="in" result="sh"/>
       <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/><feMergeNode in="s2"/></feMerge>
     </filter>
     <linearGradient id="gThread" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5fae"/><stop offset=".5" stop-color="#9a5bff"/><stop offset="1" stop-color="#4757ff"/></linearGradient>
@@ -967,50 +1059,43 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
 <div class="shutdown" id="shutdown" aria-hidden="true"></div>
 <div id="tip" hidden></div>
 
-<!-- ================= BOOT: the open ================= -->
+<!-- ================= BOOT: the open, composed like a key-visual poster ================= -->
 <div class="boot" id="boot" role="dialog" aria-modal="true" aria-labelledby="bootTitle">
   <div class="boot-top"><span>XINH.OS <b>v2026</b> · HO CHI MINH CITY</span><span id="bootClock"></span></div>
-  <span class="bubble" style="width:220px; height:220px; left:6%; top:12%" aria-hidden="true"></span>
-  <span class="bubble" style="width:120px; height:120px; right:9%; top:58%; animation-delay:-3s" aria-hidden="true"></span>
-  <span class="bubble" style="width:70px; height:70px; left:22%; bottom:8%; animation-delay:-5s" aria-hidden="true"></span>
-  <div class="boot-in">
+  <div class="room" aria-hidden="true"><i></i><i></i></div>
+  <div class="floor" aria-hidden="true"></div>
+  <div class="bh">
     <div class="boot-load" aria-hidden="true"><span id="bootPct">BOOTING EM XINH… 0%</span><div class="bar"><i id="bootBar"></i></div></div>
-    <div class="boot-hero">
-    <figure class="boot-pic">
-      <span class="bye" aria-hidden="true">hi hi!</span>
-      <span class="stk" data-drag style="left:-34px; bottom:40px; --d:-1s" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-flower"/></svg></span>
-      <span class="stk" data-drag style="right:-26px; bottom:-18px; --d:-2.5s; --s:54px" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-star"/></svg></span>
-      <div class="win"><div class="win-bar"><b>HELLO.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
-        <div class="shot0"><div class="ph" data-portrait="portrait.png"></div><div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">LIVE</span></div></div></div>
-    </figure>
-    <h1 class="boot-word" id="bootTitle" aria-label="Em Xinh say hi">
-      <svg class="lq" viewBox="0 0 1000 360" aria-hidden="true">
-        <text x="500" y="150" text-anchor="middle" font-size="150" fill="url(#gIrid)" stroke-width="6" filter="url(#liquid)">Em Xinh</text>
-        <text x="500" y="320" text-anchor="middle" font-size="170" fill="url(#gLime)" stroke-width="6" filter="url(#liquid)">say hi</text>
-      </svg>
-      <svg class="doodle" style="left:4%; top:46%" viewBox="0 0 64 64" aria-hidden="true"><use href="#s-doodle"/></svg>
-      <svg class="doodle" style="right:3%; top:6%; width:40px; height:40px" viewBox="0 0 64 64" aria-hidden="true"><use href="#s-doodle"/></svg>
+    <h1 class="bh-w1" id="bootTitle" aria-label="Em Xinh say hi">
+      <svg viewBox="0 0 1000 200" aria-hidden="true"><text x="500" y="168" text-anchor="middle" font-size="176" fill="url(#gPinkC)" stroke="#ffffff" stroke-width="16" filter="url(#liquidP)">Em Xinh</text></svg>
     </h1>
+    <div class="bh-stage">
+      <span class="bh-tag l"><span class="en">5 YEARS<br>AGENCY</span><span class="vi">5 NĂM<br>AGENCY</span></span>
+      <span class="bh-tag r"><span class="en">OPEN TO<br>WORK 2026</span><span class="vi">SẴN SÀNG<br>NHẬN VIỆC</span></span>
+      <svg class="spark4 s1" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z"/></svg>
+      <svg class="spark4 s2" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z"/></svg>
+      <figure class="bh-pic">
+        <span class="bye" aria-hidden="true">hi hi!</span>
+        <span class="stk" data-drag style="--s:64px; left:-40px; top:34%; --d:-1s" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-flower"/></svg></span>
+        <div class="ph-frame" data-portrait="hi.png"></div>
+      </figure>
+      <div class="bh-w2" aria-hidden="true"><svg viewBox="0 0 1000 230"><text x="500" y="190" text-anchor="middle" font-size="210" fill="url(#gLime)" stroke="#ffffff" stroke-width="16" filter="url(#liquidP)">say hi</text></svg></div>
     </div>
-    <p class="boot-wel"><span class="en">Welcome on board <span class="s">✦</span> Pick a language and how you'd like to look around.</span><span class="vi">Welcome on board <span class="s">✦</span> Chọn ngôn ngữ và cách bạn muốn xem nhé.</span></p>
-    <div class="boot-lang" role="group" aria-label="Language"><button type="button" data-boot-lang="en" aria-pressed="true">English</button><button type="button" data-boot-lang="vi" aria-pressed="false">Tiếng Việt</button></div>
-    <div class="modes">
+    <p class="bh-line"><span class="en">Every project is a game. <b>I play it to the last level.</b></span><span class="vi">Dự án nào cũng là một game. <b>Xinh chơi tới level cuối.</b></span></p>
+    <div class="bh-cta">
+      <div class="boot-lang" role="group" aria-label="Language"><button type="button" data-boot-lang="en" aria-pressed="true">EN</button><button type="button" data-boot-lang="vi" aria-pressed="false">VI</button></div>
       <button class="mode story" type="button" data-mode="story">
-        <span class="k"><b>STORY MODE</b><span>~3 MIN</span></span>
         <svg class="ico big" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-play"/></svg>
+        <span class="k"><b>STORY</b><span>~3 MIN</span></span>
         <h2><span class="en">Play the journey</span><span class="vi">Xem trọn hành trình</span></h2>
-        <p><span class="en">From a tangled brief to a result, level by level.</span><span class="vi">Từ một brief rối đến kết quả, qua từng level.</span></p>
-        <span class="go"><span class="en">Press start ▶</span><span class="vi">Bắt đầu ▶</span></span>
       </button>
       <button class="mode quick" type="button" data-mode="quick">
-        <span class="k"><b>QUICK MODE</b><span>30 SEC</span></span>
         <svg class="ico big" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-grid"/></svg>
+        <span class="k"><b>QUICK</b><span>30 SEC</span></span>
         <h2><span class="en">Just the essentials</span><span class="vi">Xem nhanh đầu mục</span></h2>
-        <p><span class="en">For busy people: summary, projects, CV, contact.</span><span class="vi">Cho người bận: tóm tắt, dự án, CV, liên hệ.</span></p>
-        <span class="go"><span class="en">Open desktop →</span><span class="vi">Mở desktop →</span></span>
       </button>
     </div>
-    <button class="boot-skip" type="button" data-mode="story"><span class="en">Press Enter to start story mode</span><span class="vi">Nhấn Enter để vào Story mode</span></button>
+    <button class="boot-skip" type="button" data-mode="story"><span class="en">Welcome on board ✦ press Enter to start</span><span class="vi">Welcome on board ✦ nhấn Enter để bắt đầu</span></button>
   </div>
 </div>
 
@@ -1080,8 +1165,8 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
       <span class="stk" data-drag style="--s:62px; right:-30px; bottom:150px; --d:-3s" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-star"/></svg></span>
       <svg class="doodle" style="left:-30px; top:16%; width:44px; height:44px" viewBox="0 0 64 64" aria-hidden="true"><use href="#s-doodle"/></svg>
       <div class="win">
-        <div class="win-bar"><b>XINH_2026.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
-        <div class="shot0"><div class="ph" data-portrait="portrait.png"></div>
+        <div class="win-bar"><b>WORK_MODE.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
+        <div class="shot0"><div class="ph" data-portrait="work.png"></div>
           <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span><span class="tc" id="recTc">00:00:00</span><span class="av"><span class="en">Open to roles &amp; projects</span><span class="vi">Sẵn sàng nhận việc</span></span></div>
         </div>
         <figcaption><span class="en">Business goal first. <em>Deliverables second.</em></span><span class="vi">Mục tiêu kinh doanh trước. <em>Đầu việc theo sau.</em></span></figcaption>
@@ -1239,19 +1324,23 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
   </div>
 </section>
 
-<section class="sc sc-ink end goal-z" id="finish">
+<section class="sc sc-ink end goal-z end-pink" id="finish">
+  <div class="floor" aria-hidden="true"></div>
   <span class="bubble" style="width:260px; height:260px; left:-60px; top:10%" aria-hidden="true"></span>
   <span class="bubble" style="width:120px; height:120px; right:8%; bottom:14%; animation-delay:-4s" aria-hidden="true"></span>
   <div class="flagwrap" data-reach><span class="node cp" data-node data-cp="6"></span></div>
   <div class="wrap plain">
     <p class="tag"><b>END</b><span class="en">Session complete</span><span class="vi">Kết thúc phiên</span></p>
+    <div class="end-top">
+      <figure class="end-pic"><div class="pf" data-portrait="chill.png"></div><figcaption><span class="en">see you soon ♡</span><span class="vi">hẹn gặp bạn nha ♡</span></figcaption></figure>
     <h2 class="end-word" aria-label="Your turn to say hi">
-      <svg class="lq" viewBox="0 0 1000 340" aria-hidden="true">
-        <text class="en" x="500" y="140" text-anchor="middle" font-size="118" fill="url(#gIrid)" stroke-width="6" filter="url(#liquid)">Your turn</text>
-        <text class="vi" x="500" y="140" text-anchor="middle" font-size="104" fill="url(#gIrid)" stroke-width="6" filter="url(#liquid)">Đến lượt bạn</text>
-        <text x="500" y="300" text-anchor="middle" font-size="150" fill="url(#gLime)" stroke-width="6" filter="url(#liquid)">say hi!</text>
+      <svg class="lq endlq" viewBox="0 0 1000 380" aria-hidden="true">
+        <text class="en" x="500" y="150" text-anchor="middle" font-size="150" textLength="900" lengthAdjust="spacingAndGlyphs" fill="url(#gPinkC)" stroke="#ffffff" stroke-width="14" filter="url(#liquidP)">Your turn</text>
+        <text class="vi" x="500" y="150" text-anchor="middle" font-size="130" textLength="940" lengthAdjust="spacingAndGlyphs" fill="url(#gPinkC)" stroke="#ffffff" stroke-width="14" filter="url(#liquidP)">Đến lượt bạn</text>
+        <text x="500" y="345" text-anchor="middle" font-size="200" textLength="820" lengthAdjust="spacingAndGlyphs" fill="url(#gLime)" stroke="#ffffff" stroke-width="14" filter="url(#liquidP)">say hi!</text>
       </svg>
     </h2>
+    </div>
     <div class="win dk dlg">
       <div class="win-bar"><b><span class="en">XINH.OS · END OF SESSION</span><span class="vi">XINH.OS · KẾT THÚC PHIÊN</span></b><span class="ctl"><i></i><i></i><i></i></span></div>
       <div class="win-body">
@@ -1345,7 +1434,7 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
     <div class="pf-grid">
       <figure class="rec" style="justify-self:start; width:min(360px,100%); margin-top:0">
         <div class="win"><div class="win-bar"><b>XINH_02.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
-          <div class="shot0"><div class="ph" data-portrait="portrait_2.png"></div><div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span></div></div>
+          <div class="shot0"><div class="ph" data-portrait="portrait.png"></div><div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span></div></div>
           <figcaption><span class="en">Business goal first. <em>Deliverables second.</em></span><span class="vi">Mục tiêu kinh doanh trước. <em>Đầu việc theo sau.</em></span></figcaption></div>
       </figure>
       <div class="pf-bio">
@@ -1365,6 +1454,14 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
           <div><b>1–2</b><span><span class="en">juniors mentored</span><span class="vi">junior đã kèm</span></span></div>
         </div>
         <button class="quizchip" type="button" data-quiz style="margin-top:4px"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg><span><b>XINH_QUIZ.EXE</b><span class="en">3 quick ones with Xinh</span><span class="vi">Chơi 3 câu với Xinh</span></span><em><span class="en">Open</span><span class="vi">Mở</span></em></button>
+      </div>
+    </div>
+    <div class="sec"><h3><span class="en">One Xinh, many modes</span><span class="vi">Một Xinh, nhiều chế độ</span><i></i></h3>
+      <div class="modes4">
+        <figure><div class="pf" data-portrait="hi.png"></div><figcaption>Say-hi mode<small><span class="en">First meeting, warm and curious</span><span class="vi">Gặp lần đầu, thân thiện và tò mò</span></small></figcaption></figure>
+        <figure><div class="pf" data-portrait="work.png"></div><figcaption>Work mode<small><span class="en">Brief open, thinking it through</span><span class="vi">Mở brief ra, nghĩ cho thấu</span></small></figcaption></figure>
+        <figure><div class="pf" data-portrait="go.png"></div><figcaption>On-the-go mode<small><span class="en">Between client, shoot and event</span><span class="vi">Chạy giữa khách, set quay và sự kiện</span></small></figcaption></figure>
+        <figure><div class="pf" data-portrait="chill.png"></div><figcaption>Chill mode<small><span class="en">Recharging for the next level</span><span class="vi">Sạc pin cho level tiếp theo</span></small></figcaption></figure>
       </div>
     </div>
     <div class="sec"><h3><span class="en">Career path</span><span class="vi">Lộ trình nghề nghiệp</span><i></i></h3><div class="tl4" id="tl4"></div></div>
@@ -1473,6 +1570,7 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
   // Image slots: map a slot file name to an image URL to replace the placeholder.
   var IMAGES = {
     'portrait.png': 'assets/portrait.webp',
+    'hi.png': 'assets/xinh-hi.webp', 'work.png': 'assets/xinh-work.webp', 'go.png': 'assets/xinh-go.webp', 'chill.png': 'assets/xinh-chill.webp',
   };
   // Link to your CV (PDF on Google Drive / Canva / any public URL). Empty = button hidden.
   var CV_URL = 'assets/XinhNguyen-CV.pdf';
@@ -2435,7 +2533,7 @@ table.ses th{color:var(--muted); border-bottom-color:var(--edge)} table.ses td{b
       return;
     }
     var q = QUIZ[qi];
-    b.innerHTML = '<p class="qn">' + (vi ? 'CÂU ' : 'QUESTION ') + (qi + 1) + '/' + QUIZ.length + '</p><svg class="ico q" viewBox="0 0 64 64" aria-hidden="true"><use href="#' + q.ic + '"/></svg><p class="q">' + esc(L(q.q)) + '</p>' +
+    b.innerHTML = (qi === 0 && qPick === null ? '<div class="qpic"><div class="ph"><img src="' + esc(IMAGES['go.png']) + '" alt=""></div></div>' : '') + '<p class="qn">' + (vi ? 'CÂU ' : 'QUESTION ') + (qi + 1) + '/' + QUIZ.length + '</p><svg class="ico q" viewBox="0 0 64 64" aria-hidden="true"><use href="#' + q.ic + '"/></svg><p class="q">' + esc(L(q.q)) + '</p>' +
       (qPick === null ? '<div class="row"><button class="btn lime" type="button" data-qa="1">' + (vi ? 'Có nha' : 'Yep') + '</button><button class="btn" type="button" data-qa="0">' + (vi ? 'Hông luôn' : 'Nope') + '</button></div>'
         : '<div class="ans"><b>' + (qPick ? (vi ? 'Ủa giống Xinh!' : 'Twins!') : (vi ? 'Không sao, có Xinh lo!' : 'No worries, I\u2019ve got it.')) + '</b>' + esc(L(q.a)) + '</div><div class="row"><button class="btn lime" type="button" data-qnext>' + (qi < QUIZ.length - 1 ? (vi ? 'Câu tiếp →' : 'Next →') : (vi ? 'Xem bonus →' : 'Bonus →')) + '</button></div>');
     quizEl.classList.toggle('shown', qPick !== null);
