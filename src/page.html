@@ -1065,6 +1065,187 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 .lang button{font-size:16px} .foot{font-size:15px} .restart{font-size:16px} .tabbar a{font-size:13px} .quizchip b{font-size:15px} .scope span,.tl4 .w,.wt .cap .tg{font-size:14px} .chip .ct{font-size:13px} .rolechips > b{font-size:15px} .copied{font-size:17px} .tpl .rec2{font-size:15px} .mth span{font-size:16px}
 .lvbar a i{font-family:var(--f-pixel); font-size:15px}
 .msay{font-family:var(--f-head); font-weight:600}
+
+/* =========== v12 interactions: hanging role badges · 3D curved carousel · masonry + shared-element open · lanyard ID · fanned stack =========== */
+/* hanging role badges */
+.roles{padding-top:54px; gap:16px}
+.roles::before{top:12px; transform:none; height:4px; left:0; right:0; opacity:1; background:linear-gradient(90deg,#ffb3d6,#ff5fae 50%,#d4f75a); box-shadow:0 2px 6px rgba(194,24,122,.2)}
+.role{transform-origin:50% -42px; overflow:visible; border-radius:18px; padding-top:22px}
+.role .string{position:absolute; left:50%; top:-42px; width:2px; height:42px; background:linear-gradient(#c2187a,#ff8cc4); transform:translateX(-50%)}
+.role .string::after{content:""; position:absolute; left:50%; bottom:-6px; width:18px; height:9px; transform:translateX(-50%); border-radius:4px; background:var(--chrome); border:1px solid var(--edge)}
+.role .shine{position:absolute; inset:0; border-radius:inherit; overflow:hidden; pointer-events:none}
+.role .shine::before{content:""; position:absolute; top:-50%; bottom:-50%; width:40%; left:-60%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.75), transparent); transform:skewX(-18deg)}
+.role:hover .shine::before{animation:shimmer2 1.1s ease}
+@keyframes shimmer2{to{left:130%}}
+.role:hover{animation:swing 1.4s ease-in-out; transform:none}
+@keyframes swing{0%{rotate:0deg} 18%{rotate:7deg} 38%{rotate:-5deg} 58%{rotate:3deg} 78%{rotate:-1.5deg} 100%{rotate:0deg}}
+.role.flip{animation:flipin .7s cubic-bezier(.3,1.4,.5,1)}
+@keyframes flipin{from{transform:perspective(600px) rotateY(-180deg)} to{transform:perspective(600px) rotateY(0)}}
+.role[aria-selected="true"]{background:linear-gradient(160deg,#3d2a3a,#2b1d2a); box-shadow:0 14px 30px rgba(194,24,122,.25)}
+/* curved carousel */
+.pin{overflow:visible}
+.car{position:relative; height:clamp(420px,46vw,500px); perspective:1500px; perspective-origin:50% 35%; margin-top:10px; touch-action:pan-y; cursor:grab; user-select:none; -webkit-user-select:none}
+.car:active{cursor:grabbing}
+.car-ring{position:absolute; left:50%; top:10px; width:0; height:100%; transform-style:preserve-3d; transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.cc{position:absolute; top:0; left:0; transform-style:preserve-3d; transition:opacity .5s; backface-visibility:hidden}
+.cc-in{border-radius:22px; overflow:hidden; background:rgba(255,255,255,.92); border:1px solid var(--edge); box-shadow:var(--sh-2); transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+.cc.front .cc-in{transform:translateY(-8px) scale(1.04); box-shadow:0 30px 60px rgba(194,24,122,.22)}
+.cc-pic{position:relative; aspect-ratio:4/3}
+.cc-pic .cov,.cc-pic .ph{position:absolute; inset:0}
+.cc-n{position:absolute; left:12px; top:12px; z-index:2; font-family:var(--f-pixel); font-size:15px; padding:1px 9px; border-radius:999px; background:var(--ink); color:var(--lime)}
+.cc-body{padding:14px 16px 16px; display:grid; gap:6px; text-align:left}
+.cc-meta{font-family:var(--f-pixel); font-size:14px; color:var(--muted); letter-spacing:.04em}
+.cc-body h3{font-size:18px; line-height:1.15}
+.cc-key{justify-self:start; font-family:var(--f-head); font-weight:700; font-size:13px; padding:4px 10px; border-radius:10px; background:#f4ffd6; border:1px solid var(--edge)}
+.cc-open{justify-self:start; border:0; background:none; padding:0; font-family:var(--f-head); font-weight:700; font-size:14px; color:var(--pink); cursor:pointer; border-bottom:2px solid currentColor; opacity:0; transition:opacity .3s}
+.cc.front .cc-open{opacity:1}
+.car-ctl{display:flex; justify-content:center; align-items:center; gap:14px; margin-top:8px}
+.car-btn{width:48px; height:48px; border-radius:50%; border:1px solid var(--edge); background:var(--white); box-shadow:var(--sh-1); font-size:24px; line-height:1; cursor:pointer; color:var(--ink); transition:transform .2s}
+.car-btn:hover{transform:scale(1.08); background:#ffe6f2}
+.car-dots{display:flex; gap:6px}
+.car-dots i{width:9px; height:9px; border-radius:999px; background:#f2c7dc; cursor:pointer; transition:width .3s, background-color .3s}
+.car-dots i.on{width:26px; background:var(--pink)}
+.lv4-foot{justify-content:center}
+/* masonry work grid */
+#workGrid.grid{display:block; columns:3 280px; column-gap:18px}
+#workGrid .wt{display:inline-block; width:100%; margin:0 0 24px; break-inside:avoid}
+#workGrid .wt .pic,#workGrid .wt.big .pic{aspect-ratio:4/3}
+#workGrid .wt:nth-child(3n+1) .pic{aspect-ratio:4/5}
+#workGrid .wt:nth-child(4n+2) .pic{aspect-ratio:1/1}
+::view-transition-group(case-hero){animation-duration:.55s; animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+/* lanyard ID badge */
+.lanyard{position:relative; justify-self:center; width:min(300px,100%); padding-top:120px; --sw:0deg}
+.lanyard .strap{position:absolute; left:50%; top:-40px; width:26px; height:170px; transform:translateX(-50%) rotate(var(--sw)); transform-origin:50% 0; background:repeating-linear-gradient(180deg,#ff5fae 0 16px,#ff8cc4 16px 32px); border-radius:4px; box-shadow:inset 0 0 0 1px rgba(194,24,122,.25)}
+.lanyard .clip{position:absolute; left:50%; top:118px; width:34px; height:20px; transform:translateX(-50%); border-radius:6px; background:var(--chrome); border:1px solid var(--edge); z-index:3; display:none}
+.badge3d{position:relative; display:block; width:100%; aspect-ratio:5/7.4; padding:0; border:0; background:none; cursor:grab; transform-origin:50% -110px; transform:rotate(var(--sw)); transform-style:preserve-3d; touch-action:none; perspective:1200px}
+.badge3d .bf{position:absolute; inset:0; border-radius:22px; overflow:hidden; backface-visibility:hidden; -webkit-backface-visibility:hidden; display:flex; flex-direction:column; align-items:stretch; gap:8px; padding:16px 16px 14px; text-align:left; background:linear-gradient(160deg,#ffffff,#fff0f7 60%,#f4ffd6); border:1px solid var(--edge); box-shadow:0 30px 60px rgba(194,24,122,.22), 0 4px 10px rgba(43,29,42,.08); transition:transform .8s cubic-bezier(.3,1.3,.4,1)}
+.badge3d .bf::before{content:""; position:absolute; left:50%; top:10px; width:46px; height:9px; transform:translateX(-50%); border-radius:999px; background:#f2d4e3; box-shadow:inset 0 1px 2px rgba(0,0,0,.12)}
+.badge3d .back{transform:rotateY(180deg); background:linear-gradient(160deg,#2b1d2a,#4a2b44); color:#fff}
+.badge3d.flipped .front{transform:rotateY(-180deg)} .badge3d.flipped .back{transform:rotateY(0)}
+.bf-top{display:flex; justify-content:space-between; margin-top:12px; font-family:var(--f-pixel); font-size:16px; letter-spacing:.06em}
+.bf-top b{font-weight:400; color:var(--pink)} .bf-top i{font-style:normal; color:var(--muted)}
+.back .bf-top b{color:var(--lime)} .back .bf-top i{color:#d9b8cb}
+.bf-pic{position:relative; flex:1; border-radius:14px; overflow:hidden; background:var(--holo)}
+.bf-pic .ph{position:absolute; inset:0} .bf-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 28%}
+.bf-name{font-family:var(--f-head); font-weight:900; font-size:26px; line-height:1; letter-spacing:-.01em; color:var(--ink)}
+.bf-role{font-size:13px; font-weight:600; color:var(--muted)}
+.bf-bar{height:22px; border-radius:4px; background:repeating-linear-gradient(90deg,#2b1d2a 0 2px,transparent 2px 4px,#2b1d2a 4px 5px,transparent 5px 9px); opacity:.7}
+.bf-list{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px}
+.bf-list > span{padding:10px; border-radius:14px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); font-size:12px; color:#f0d9e6}
+.bf-list b{display:block; font-family:var(--f-head); font-weight:900; font-size:30px; line-height:1; color:var(--lime)}
+.bf-run{margin-top:auto; font-family:var(--f-pixel); font-size:16px; color:#ffc2e2; letter-spacing:.04em}
+.bf-hint{font-family:var(--f-head); font-weight:700; font-size:14px; color:#fff}
+.holo{position:absolute; inset:0; pointer-events:none; mix-blend-mode:color-dodge; opacity:.0; transition:opacity .4s; background:radial-gradient(circle at var(--hx,50%) var(--hy,30%), rgba(255,255,255,.65), transparent 40%), linear-gradient(115deg, transparent 20%, rgba(255,140,196,.45) 35%, rgba(212,247,90,.45) 48%, rgba(127,227,255,.45) 60%, transparent 75%); background-size:100% 100%, 250% 250%; background-position:center, var(--hx,50%) var(--hy,50%)}
+.badge3d:hover .holo{opacity:.85}
+.lan-tip{margin-top:14px; text-align:center; font-family:var(--f-pixel); font-size:15px; color:var(--muted); letter-spacing:.06em}
+/* fanned photo stack */
+.fan{position:relative; height:clamp(380px,40vw,500px); margin-top:10px}
+.fc{position:absolute; left:50%; top:10px; width:clamp(180px,20vw,250px); margin:0 0 0 calc(clamp(180px,20vw,250px) / -2); cursor:pointer; --k:0; z-index:calc(10 - var(--k)); transform-origin:50% 120%; transform:rotate(calc((var(--k) - 1.5) * 9deg)) translateX(calc((var(--k) - 1.5) * 42px)) translateY(calc(var(--k) * 6px)); transition:transform .6s cubic-bezier(.3,1.3,.4,1), filter .4s}
+.fan:hover .fc{transform:rotate(calc((var(--k) - 1.5) * 10deg)) translateX(calc((var(--k) - 1.5) * 95px)) translateY(calc(var(--k) * 8px))}
+.fc.top{transform:rotate(-3deg) translateX(-150px) translateY(-6px) scale(1.06)}
+.fan:hover .fc.top{transform:rotate(-4deg) translateX(-200px) translateY(-14px) scale(1.08)}
+.fc:not(.top){filter:saturate(.85)}
+.fc .pf{position:relative; aspect-ratio:3/4; border-radius:18px; overflow:hidden; border:7px solid var(--white); box-shadow:var(--sh-2); background:var(--holo)}
+.fc .pf .ph{position:absolute; inset:0} .fc .pf img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%}
+.fan-cap{position:relative; z-index:20; text-align:center; font-size:15px; color:var(--muted); margin-top:6px}
+.fan-cap b{font-family:var(--f-head); font-weight:800; color:var(--ink); font-size:18px; margin-right:6px}
+.fan-cap span{display:block; margin-top:4px; font-family:var(--f-pixel); font-size:15px; letter-spacing:.06em; color:var(--pink)}
+@media (max-width: 760px){
+  .fc{width:150px; margin-left:-75px} .fc.top,.fan:hover .fc.top{transform:rotate(-3deg) translateX(-60px) scale(1.04)}
+  .fan:hover .fc{transform:rotate(calc((var(--k) - 1.5) * 9deg)) translateX(calc((var(--k) - 1.5) * 42px))}
+  .roles{padding-top:50px}
+  .lanyard{width:min(240px,80%)}
+}
+@media (prefers-reduced-motion: reduce){ .car-ring{transition:none} .role:hover{animation:none} }
+
+/* =========== v12b · tuned to the reference pack =========== */
+/* hanging ID cards (ref: "Meet the people behind the work") */
+.hang{position:relative; padding-top:24px}
+.wire{position:absolute; left:4%; right:4%; top:0; width:92%; height:80px; overflow:visible}
+.hcards{position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(14px,2.4vw,34px); padding:0 2%}
+.hc{position:relative; padding-top:calc(var(--drop) + var(--str)); --sw:0deg; perspective:1100px}
+.hc-str{position:absolute; left:50%; top:var(--drop); width:1.5px; height:calc(var(--str) + 6px); background:#b8a0ae; transform-origin:50% 0; transform:rotate(calc(var(--sw) + var(--tilt)))}
+.hc-str::before{content:""; position:absolute; left:50%; top:-5px; width:9px; height:9px; margin-left:-4.5px; border-radius:50%; background:#d9c6d0}
+.hc-clip{display:none}
+.hc-card{position:relative; display:block; width:100%; aspect-ratio:3/4.15; padding:0; border:0; background:none; cursor:pointer; transform-origin:50% calc(-1 * var(--str)); transform:rotate(calc(var(--sw) + var(--tilt))); transform-style:preserve-3d}
+.hc-card::before{content:""; position:absolute; left:50%; top:-12px; width:22px; height:22px; margin-left:-11px; border-radius:50%; background:radial-gradient(circle at 50% 40%, #fff 0 3px, #cdbcc6 3px 5px, #e8dde3 5px); box-shadow:0 2px 4px rgba(43,29,42,.2); z-index:4}
+.hc-face{position:absolute; inset:0; display:flex; flex-direction:column; gap:8px; padding:14px 14px 12px; border-radius:18px; text-align:left; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden; background:#f4f1f3; border:1px solid rgba(43,29,42,.06); box-shadow:0 18px 40px rgba(43,29,42,.10), 0 2px 6px rgba(43,29,42,.06); transition:transform .9s cubic-bezier(.3,1.3,.35,1)}
+.hc-back{transform:rotateY(180deg); background:linear-gradient(160deg,#fff6fb,#f1ecff 55%,#f2ffdc)}
+.hc.flipped .hc-front{transform:rotateY(-180deg)} .hc.flipped .hc-back{transform:rotateY(0)}
+.hc-top{display:flex; justify-content:space-between; font-family:var(--f-pixel); font-size:13px; letter-spacing:.06em; color:#8e7d88}
+.hc-pic{position:relative; flex:1; min-height:0; border-radius:12px; overflow:hidden; background:var(--holo)}
+.hc-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%}
+.hc-name{font-family:var(--f-head); font-weight:700; font-size:clamp(15px,1.3vw,18px); line-height:1.1; letter-spacing:-.01em; color:var(--ink)}
+.hc-role{font-size:12px; color:#8e7d88; margin-top:-4px}
+.hc-row{display:flex; justify-content:space-between; align-items:center; padding-top:8px; border-top:1px solid rgba(43,29,42,.08); font-family:var(--f-pixel); font-size:13px; letter-spacing:.06em; color:var(--ink)}
+.hc-row i{width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:var(--ink); color:#fff; font-style:normal; font-size:12px}
+.hc-t{font-family:var(--f-head); font-weight:800; font-size:15px; line-height:1.15; color:var(--ink)}
+.hc-d{font-size:12px; line-height:1.45; color:#5a4456; overflow:hidden; display:-webkit-box; -webkit-line-clamp:9; -webkit-box-orient:vertical}
+.hc-v{margin-top:auto; font-family:var(--f-head); font-weight:700; font-size:12.5px; line-height:1.3; color:var(--pink)}
+.hc-scope{height:6px; border-radius:999px; background:rgba(43,29,42,.08); overflow:hidden}
+.hc-scope i{display:block; height:100%; background:linear-gradient(90deg,#ff8cc4,#ff3d97,#c6f24e)}
+.hc-holo{position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .35s; mix-blend-mode:color-dodge; border-radius:inherit; background:radial-gradient(circle at var(--hx,50%) var(--hy,40%), rgba(255,255,255,.7), transparent 38%), linear-gradient(115deg, transparent 15%, rgba(255,140,196,.55) 32%, rgba(198,242,78,.5) 46%, rgba(127,227,255,.55) 60%, rgba(179,140,255,.5) 72%, transparent 88%); background-size:100% 100%, 260% 260%; background-position:center, var(--hx,50%) var(--hy,50%)}
+.hc-card:hover .hc-holo{opacity:.9}
+.hang-foot{display:flex; justify-content:space-between; gap:12px; margin-top:26px; color:#8e7d88}
+.hang-foot .mono{font-size:14px}
+@media (max-width: 760px){
+  .wire{display:none}
+  .hcards{grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 12px}
+  .hc{padding-top:calc(var(--str) * .7)} .hc-str{top:0; height:calc(var(--str) * .7 + 6px)}
+  .hc-d{-webkit-line-clamp:6; font-size:11px} .hc-t{font-size:13px} .hc-face{padding:12px 10px 10px; gap:6px}
+  .hang-foot{flex-direction:column}
+}
+/* curved carousel: vivid mesh stat cards on a light stage (ref: 95th / 25% / 2.0v) */
+#deliver.sc-ink{background:#f1f0f2}
+#pin{position:relative}
+.car-glow{position:absolute; left:50%; top:clamp(430px,47vw,520px); width:min(420px,60%); height:46px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(closest-side, rgba(255,95,174,.55), rgba(127,227,255,.35) 60%, transparent); filter:blur(14px); pointer-events:none}
+.cc-in{position:relative; aspect-ratio:3/4; display:flex; flex-direction:column; gap:8px; padding:18px 18px 16px; border:0; border-radius:20px; color:#fff; text-align:left; background:radial-gradient(70% 60% at 30% 25%, var(--m2), transparent 70%), radial-gradient(80% 70% at 80% 85%, var(--m1), transparent 70%), var(--m3); box-shadow:0 30px 60px rgba(43,29,42,.18)}
+.cc-in::after{content:""; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(160deg, rgba(255,255,255,.28), rgba(255,255,255,0) 40%); pointer-events:none}
+.cc.front .cc-in{box-shadow:0 40px 80px rgba(43,29,42,.25), 0 0 0 1px rgba(255,255,255,.4) inset}
+.cc-top{display:flex; justify-content:space-between; font-family:var(--f-pixel); font-size:15px; letter-spacing:.05em; opacity:.9}
+.cc-big{margin-top:auto; font-family:var(--f-head); font-weight:900; font-size:clamp(54px,6vw,82px); line-height:.9; letter-spacing:-.03em; text-shadow:0 4px 30px rgba(0,0,0,.18)}
+.cc-bl{font-size:13px; font-weight:600; opacity:.92}
+.cc-bar{height:3px; border-radius:3px; background:rgba(255,255,255,.3); margin:6px 0 2px}
+.cc-bar i{display:block; width:62%; height:100%; border-radius:inherit; background:#fff}
+.cc-t{font-family:var(--f-head); font-weight:700; font-size:15px; line-height:1.2}
+.cc-open{color:#fff; border-bottom-color:rgba(255,255,255,.8)}
+.cc:not(.front) .cc-in{filter:saturate(1.1) brightness(.95)}
+/* fanned stacks (ref: Aave values) */
+.stackx{display:flex!important; align-items:stretch; gap:0; padding:10px 0 18px}
+.stackx > *{flex:1 1 0; min-width:0; margin-left:-7%; transition:flex-grow .5s cubic-bezier(.3,1.2,.4,1), transform .5s cubic-bezier(.3,1.3,.4,1), box-shadow .4s; transform:rotate(calc(var(--r,0) * 1deg)); cursor:pointer}
+.stackx > *:first-child{margin-left:0}
+.stackx > *:nth-child(1){--r:-3; z-index:1} .stackx > *:nth-child(2){--r:-1; z-index:2} .stackx > *:nth-child(3){--r:1.5; z-index:3} .stackx > *:nth-child(4){--r:3; z-index:4}
+.stackx > *:hover,.stackx > *.on{flex-grow:1.9; z-index:9; transform:translateY(-14px) rotate(0deg); box-shadow:0 30px 60px rgba(194,24,122,.22)}
+.stackx:hover > *:not(:hover):not(.on){transform:rotate(calc(var(--r,0) * 1deg)) scale(.97)}
+#proc.stackx .how-card{min-height:260px}
+.fan.stackx{height:auto; margin-top:6px}
+.fan.stackx .fc{position:relative; left:auto; top:auto; width:auto; margin:0 0 0 -7%; transform-origin:50% 100%}
+.fan.stackx .fc:first-child{margin-left:0}
+.fan.stackx .fc .pf{aspect-ratio:3/4}
+.fan.stackx figcaption{margin-top:10px; font-size:13px; color:var(--muted); opacity:0; transition:opacity .3s}
+.fan.stackx figcaption b{display:block; font-family:var(--f-head); font-weight:800; font-size:15px; color:var(--ink)}
+.fan.stackx .fc:hover figcaption,.fan.stackx .fc.on figcaption{opacity:1}
+.fan-cap{display:none}
+@media (max-width: 760px){ .stackx{flex-direction:column; gap:10px} .stackx > *{margin-left:0!important; transform:none!important} .fan.stackx{display:grid!important; grid-template-columns:1fr 1fr} .fan.stackx figcaption{opacity:1} }
+/* work: sticky meta column + masonry (ref: Jason Yuan) */
+.wk{display:grid; grid-template-columns:minmax(220px,.32fr) minmax(0,1fr); column-gap:clamp(20px,3vw,44px)}
+.wk > .qhead,.wk > .stamp{grid-column:1/-1}
+.wk-meta{position:sticky; top:calc(var(--hud) + 24px); align-self:start; display:grid; gap:10px; padding-top:4px}
+.wk-meta .mono{font-size:15px; color:var(--muted)}
+.wk-t{font-family:var(--f-head); font-weight:800; font-size:22px; line-height:1.15; color:var(--ink)}
+.wk-d{font-size:14px; color:var(--muted); line-height:1.5}
+.wk-l{margin:0; padding:0; list-style:none; display:grid; gap:2px; font-family:var(--f-pixel); font-size:15px; letter-spacing:.04em; color:#8e7d88}
+#workGrid.grid{columns:2 260px}
+@media (max-width: 900px){ .wk{grid-template-columns:minmax(0,1fr)} .wk-meta{display:none} }
+/* mascot in a pocket device on a cord (ref: plush in device) */
+.mascot{width:84px; height:96px}
+.mdev{position:absolute; left:4px; top:0; width:76px; height:76px; border-radius:24px; background:linear-gradient(160deg,#3a2a37,#140c13); box-shadow:inset 0 0 0 3px #4d3a49, 0 10px 22px rgba(43,29,42,.3)}
+.mdev::before{content:""; position:absolute; left:50%; top:5px; width:6px; height:6px; margin-left:-3px; border-radius:50%; background:#2a1e28; box-shadow:inset 0 0 0 1.5px #5a4456}
+.mcord{position:absolute; left:41px; top:74px; width:2px; height:22px; background:#4757ff}
+.mascot svg{position:absolute; left:10px; top:8px; width:64px; height:64px}
+.mascot .mbody{transition:transform .2s ease-out; transform-origin:50% 70%}
+.msay{left:92px; bottom:56px}
+@media (max-width: 760px){ .mascot{width:64px; height:74px} .mdev{width:58px; height:58px; border-radius:18px} .mcord{left:32px; top:56px; height:18px} .mascot svg{left:7px; top:6px; width:48px; height:48px} .msay{left:70px; bottom:44px} }
 </style>
 
 <!-- Global SVG: gradients, liquid-chrome filter, one hand-built sticker/icon language -->
@@ -1223,7 +1404,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   <a href="#contact" data-tab="contact"><svg class="ico" viewBox="0 0 64 64"><use href="#i-chat"/></svg><span class="en">SAY HI</span><span class="vi">LIÊN HỆ</span></a>
   <a href="#report" data-tab="report" hidden><svg class="ico" viewBox="0 0 64 64"><use href="#i-chart"/></svg>CONSOLE</a>
 </nav>
-<button class="mascot" id="mascot" type="button" data-quiz aria-label="Mini Xinh: tap to play 3 quick questions">
+<button class="mascot" id="mascot" type="button" data-quiz aria-label="Mini Xinh: tap to play 3 quick questions"><span class="mdev" aria-hidden="true"></span><span class="mcord" aria-hidden="true"></span>
   <span class="msay" id="msay" aria-live="polite"></span>
   <svg viewBox="0 0 100 100" aria-hidden="true">
     <ellipse cx="50" cy="94" rx="24" ry="4" fill="rgba(194,24,122,.15)"/>
@@ -1310,12 +1491,12 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       <span class="node rail cp" data-node data-cp="1"></span>
       <p class="tag"><b>LV.1</b><span class="en">Who</span><span class="vi">Ai làm</span></p>
       <h2 class="h2"><span class="en">Four roles, <em>one climb.</em></span><span class="vi">Bốn vai trò, <em>một đường lên.</em></span></h2>
-      <p class="lead"><span class="en">It started with an assistant reading the numbers. Four years later, she runs the whole project. Tap each level.</span><span class="vi">Bắt đầu từ cô trợ lý ngồi đọc số liệu, bốn năm sau đã là người cầm trịch cả dự án. Bấm từng level để xem.</span></p>
+      <p class="lead"><span class="en">It started with an assistant reading the numbers. Four years later, she runs the whole project. Flip each card to see what changed.</span><span class="vi">Bắt đầu từ cô trợ lý ngồi đọc số liệu, bốn năm sau đã là người cầm trịch cả dự án. Lật từng thẻ để xem Xinh lên cấp thế nào.</span></p>
     </div>
-    <div class="roles-wrap">
-      <div class="log-top"><p class="mono">Xanh Marketing · 2022 – 2026</p><span class="chip"><span class="en">Tap a level</span><span class="vi">Bấm từng level</span></span></div>
-      <div class="roles" role="tablist" aria-label="Roles" id="roleTabs"></div>
-      <div class="win"><div class="win-bar"><b id="roleBar">ROLE.TXT</b><span class="ctl"><i></i><i></i><i></i></span></div><div class="win-body role-panel" role="tabpanel" aria-live="polite" id="rolePanel"></div></div>
+    <div class="hang" id="hang">
+      <svg class="wire" viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 Q500 74 1000 14" fill="none" stroke="#b8a0ae" stroke-width="2"/></svg>
+      <div class="hcards" id="roleTabs"></div>
+      <div class="hang-foot"><span class="mono">Xanh Marketing · 2022 – 2026</span><span class="mono"><span class="en">Hover to shimmer · click / tap to flip</span><span class="vi">Rê để lấp lánh · chạm để lật</span></span></div>
     </div>
   </div>
 </section>
@@ -1375,8 +1556,8 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     <div class="head">
       <span class="node rail cp" data-node data-cp="4"></span>
       <p class="tag"><b>LV.4</b><span class="en">Results</span><span class="vi">Kết quả</span></p>
-      <h2 class="h2"><span class="en">Three projects, <em>start to finish.</em></span><span class="vi">Ba dự án, <em>từ đầu đến cuối.</em></span></h2>
-      <p class="lead"><span class="en">Each project has a switch: flip it to see my part and the team's. No credit-stealing here.</span><span class="vi">Mỗi dự án có một công tắc: gạt để xem phần Xinh làm và phần của team. Không nhận vơ đâu nha.</span></p>
+      <h2 class="h2"><span class="en">Seven projects, <em>one spin.</em></span><span class="vi">Bảy dự án, <em>xoay là thấy.</em></span></h2>
+      <p class="lead"><span class="en">Spin through all seven. Open any case to see my part and the team's, side by side. No credit-stealing here.</span><span class="vi">Xoay qua cả bảy dự án. Mở từng dự án để xem phần Xinh làm và phần của team. Không nhận vơ đâu nha.</span></p>
     </div>
     <div class="pin" id="pin"><div class="pin-inner" id="pinView"><div class="track" id="track"></div><div class="route" aria-hidden="true"><span id="routeLbl"></span><div id="routeLine"><span id="routeDone"></span><span id="routeMini"></span></div></div></div></div>
     <div class="lv4-foot"><a class="btn lime" href="#work"><span class="en">All 7 projects</span><span class="vi">Xem cả 7 dự án</span> →</a></div>
@@ -1515,13 +1696,14 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 
 <!-- =========================================================== WORK =========================================================== -->
 <section class="view qv qv-night" data-view="work" id="v-work" hidden>
-  <div class="wrap plain">
+  <div class="wrap plain wk">
     <div class="qhead">
       <p class="tag"><b>01</b><span class="en">Work</span><span class="vi">Dự án</span></p>
       <svg class="lq" viewBox="0 0 1000 230" aria-label="Work"><text x="8" y="186" font-size="200" fill="url(#gLime)" filter="url(#liquidP)">WORK</text></svg>
       <div class="row"><p class="lead"><span class="en">Seven projects, filtered by the same benchmark as Skills. Each case separates my part from the team's.</span><span class="vi">Bảy dự án, lọc theo cùng thước đo với tab Năng lực. Mỗi dự án tách rõ phần Xinh làm và phần của team.</span></p></div>
       <div class="filters" id="filters" role="group" aria-label="Filter"></div>
     </div>
+    <aside class="wk-meta" id="wkMeta" aria-live="polite"></aside>
     <div class="grid" id="workGrid"></div>
     <div class="stamp">
       <p><span class="en">Want the whole story, in order?</span><span class="vi">Muốn xem trọn câu chuyện theo thứ tự?</span></p>
@@ -1538,11 +1720,32 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       <svg class="lq" viewBox="0 0 1200 230" aria-label="Profile"><text x="8" y="186" font-size="190" fill="url(#gPinkC)" filter="url(#liquidP)">PROFILE</text></svg>
     </div>
     <div class="pf-grid">
-      <figure class="rec" style="justify-self:start; width:min(360px,100%); margin-top:0">
-        <div class="win"><div class="win-bar"><b>XINH_02.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
-          <div class="shot0"><div class="ph" data-portrait="portrait.png"></div><div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span></div></div>
-          <figcaption><span class="en">Right goal first. <em>Right work follows.</em></span><span class="vi">Đúng mục tiêu trước, <em>trúng đầu việc sau.</em></span></figcaption></div>
-      </figure>
+      <div class="lanyard" id="lanyard">
+        <span class="strap" aria-hidden="true"></span><span class="clip" aria-hidden="true"></span>
+        <button class="badge3d" id="badge3d" type="button" aria-label="Xinh's ID card. Tap to flip">
+          <span class="bf front">
+            <span class="bf-top"><b>XINH.OS</b><i>ID · 2026</i></span>
+            <span class="bf-pic" data-portrait="hi.png"></span>
+            <span class="bf-name">Xinh Nguyễn</span>
+            <span class="bf-role"><span class="en">Project Owner · Brand &amp; Comms</span><span class="vi">Người làm chủ dự án · Brand &amp; Truyền thông</span></span>
+            <span class="bf-bar" aria-hidden="true"></span>
+            <span class="holo" aria-hidden="true"></span>
+          </span>
+          <span class="bf back">
+            <span class="bf-top"><b>PLAYER STATS</b><i>↻</i></span>
+            <span class="bf-list">
+              <span><b>5</b><span class="en">years agency-side</span><span class="vi">năm agency</span></span>
+              <span><b>12</b><span class="en">brands</span><span class="vi">thương hiệu</span></span>
+              <span><b>4</b><span class="en">roles, one climb</span><span class="vi">vai trò, một đường lên</span></span>
+              <span><b>4</b><span class="en">pitches won</span><span class="vi">pitch thắng</span></span>
+            </span>
+            <span class="bf-run"><span class="en">IMC · Social · Activation · Production</span><span class="vi">IMC · Social · Activation · Sản xuất</span></span>
+            <span class="bf-hint"><span class="en">Right goal first. Right work follows.</span><span class="vi">Đúng mục tiêu trước, trúng đầu việc sau.</span></span>
+            <span class="holo" aria-hidden="true"></span>
+          </span>
+        </button>
+        <p class="lan-tip"><span class="en">Drag to swing · tap to flip</span><span class="vi">Kéo để lắc · chạm để lật</span></p>
+      </div>
       <div class="pf-bio">
         <p class="big"><span class="en">I work best where the brief isn't fully clear, people need alignment, and someone has to own the outcome.</span><span class="vi">Xinh làm tốt nhất ở nơi brief chưa rõ, nhiều bên cần thống nhất, và cần một người làm chủ kết quả.</span></p>
         <p class="lead"><span class="en">Five years agency-side at Xanh Marketing, Ho Chi Minh City: planning, account, business development and project management.</span><span class="vi">5 năm phía agency tại Xanh Marketing, TP.HCM: planning, account, business development và quản lý dự án.</span></p>
@@ -1563,12 +1766,13 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       </div>
     </div>
     <div class="sec"><h3><span class="en">One Xinh, many modes</span><span class="vi">Một Xinh, nhiều chế độ</span><i></i></h3>
-      <div class="modes4">
-        <figure data-tilt><div class="pf" data-portrait="hi.png"></div><figcaption>Say-hi mode<small><span class="en">First meeting, warm and curious</span><span class="vi">Gặp lần đầu, thân thiện và tò mò</span></small></figcaption></figure>
-        <figure data-tilt><div class="pf" data-portrait="work.png"></div><figcaption>Work mode<small><span class="en">Brief open, thinking it through</span><span class="vi">Mở brief ra, nghĩ cho thấu</span></small></figcaption></figure>
-        <figure data-tilt><div class="pf" data-portrait="go.png"></div><figcaption>On-the-go mode<small><span class="en">Between client, shoot and event</span><span class="vi">Chạy giữa khách, set quay và sự kiện</span></small></figcaption></figure>
-        <figure data-tilt><div class="pf" data-portrait="chill.png"></div><figcaption>Chill mode<small><span class="en">Recharging for the next level</span><span class="vi">Sạc pin cho level tiếp theo</span></small></figcaption></figure>
+      <div class="fan stackx" id="fan">
+        <figure class="fc" data-fc="0"><div class="pf" data-portrait="hi.png"></div><figcaption><b>Say-hi mode</b><span class="en">First meeting, warm and curious.</span><span class="vi">Gặp lần đầu, thân thiện và tò mò.</span></figcaption></figure>
+        <figure class="fc" data-fc="1"><div class="pf" data-portrait="work.png"></div><figcaption><b>Work mode</b><span class="en">Brief open, thinking it through.</span><span class="vi">Mở brief ra, nghĩ cho thấu.</span></figcaption></figure>
+        <figure class="fc" data-fc="2"><div class="pf" data-portrait="go.png"></div><figcaption><b>On-the-go mode</b><span class="en">Between client, shoot and event.</span><span class="vi">Chạy giữa khách, set quay và sự kiện.</span></figcaption></figure>
+        <figure class="fc" data-fc="3"><div class="pf" data-portrait="chill.png"></div><figcaption><b>Chill mode</b><span class="en">Recharging for the next level.</span><span class="vi">Sạc pin cho level tiếp theo.</span></figcaption></figure>
       </div>
+      <p class="fan-cap" id="fanCap" aria-live="polite"></p>
     </div>
     <div class="sec"><h3><span class="en">Career path</span><span class="vi">Lộ trình nghề nghiệp</span><i></i></h3><div class="tl4" id="tl4"></div></div>
     <div class="sec"><h3><span class="en">How I work</span><span class="vi">Cách tôi làm việc</span><i></i></h3><div class="proc" id="steps4"></div></div>
@@ -1883,19 +2087,53 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     });
   }
 
+  var carIdx = 0, carRot = 0, carAuto = 0;
   function renderStoryCases(){
-    var n = MAIN.length;
-    var html = MAIN.map(function(c, i){
-      return '<article class="card" id="story-' + c.id + '"><span class="node" data-node></span>' +
-        '<div class="shot">' + cover(c) + '<div class="subs">' + c.subs.map(function(s){ return '<span>' + esc(s) + '</span>'; }).join('') + '</div><span class="stopn">' + (i + 1) + ' / ' + n + '</span></div>' +
-        '<div class="cbody"><p class="meta">' + esc(c.meta) + (c.period && c.meta.indexOf(c.period) < 0 && c.meta.indexOf(c.period.toUpperCase()) < 0 ? ' · ' + esc(c.period) : '') + '</p><h3>' + both(c.t) + '</h3>' +
-        (c.ask ? '<div class="ask"><b>' + both({en:'THE ASK', vi:'ĐỀ BÀI'}) + '</b><p>' + both(c.ask) + '</p></div>' : '') +
-        switchHTML(c) + resHTML(c.res) + (c.src ? '<p class="src">' + c.src + '</p>' : '') +
-        '<button class="open-case" type="button" data-case="' + c.id + '">' + both({en:'Open case', vi:'Xem chi tiết'}) + ' ↗</button></div></article>';
+    var vi = lang === 'vi';
+    var MESH = {vib:['#ff7a18','#c6f24e','#ff3d8b'], msb:['#2c4bff','#7fe3ff','#0b1a6b'], cake:['#ff2e93','#9b5bff','#2a0a3d'], poca:['#ffcf3f','#ff5f6d','#c6f24e'], digimi:['#00c2a8','#c6f24e','#0a3d3a'], duytan:['#ff3d3d','#ffb43f','#7a0a2e'], cindy:['#ff8cc4','#b38cff','#ff3d97']};
+    var BIG = {vib:['4', {en:'projects from one pitch', vi:'dự án từ một lần pitch'}], msb:['3→5', {en:'years of partnership', vi:'năm hợp tác'}], cake:['WIN', {en:'social retainer', vi:'giành social retainer'}], poca:['266K', {en:'Facebook engagements', vi:'tương tác Facebook'}], digimi:['268', {en:'app sign-ups', vi:'lượt đăng ký app'}], duytan:['TẾT', {en:'2025 campaign', vi:'chiến dịch 2025'}], cindy:['NEW', {en:'product launch', vi:'ra mắt sản phẩm'}]};
+    var items = CASES.map(function(c, i){
+      var m = MESH[c.id] || ['#ff5fae','#c6f24e','#2b1d2a'], bg = BIG[c.id] || ['', {en:'', vi:''}];
+      return '<article class="cc" data-ci="' + i + '" tabindex="-1" style="--m1:' + m[0] + '; --m2:' + m[1] + '; --m3:' + m[2] + '"><div class="cc-in">' +
+        '<span class="cc-top"><span>' + esc(c.brand) + '</span><span>' + ('0' + (i + 1)).slice(-2) + '/0' + CASES.length + '</span></span>' +
+        '<span class="cc-big">' + esc(bg[0]) + '</span><span class="cc-bl">' + esc(L(bg[1])) + '</span>' +
+        '<span class="cc-bar"><i></i></span>' +
+        '<span class="cc-t">' + both(c.t) + '</span>' +
+        '<button class="cc-open" type="button" data-case="' + c.id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</button></div></article>';
     }).join('');
-    $('#track').innerHTML = html;
-    bindSwitches($('#track'));
+    $('#track').innerHTML = '<div class="car-glow" aria-hidden="true"></div><div class="car" id="car" role="group" aria-roledescription="carousel" aria-label="' + (vi ? 'Bảy dự án' : 'Seven projects') + '"><div class="car-ring" id="carRing">' + items + '</div></div>' +
+      '<div class="car-ctl"><button type="button" class="car-btn" data-car="-1" aria-label="' + (vi ? 'Dự án trước' : 'Previous project') + '">‹</button><span class="car-dots" id="carDots">' + CASES.map(function(c, i){ return '<i data-cgo="' + i + '"></i>'; }).join('') + '</span><button type="button" class="car-btn" data-car="1" aria-label="' + (vi ? 'Dự án tiếp' : 'Next project') + '">›</button></div>';
+    layoutCar();
   }
+  function carGeom(){ var w = window.innerWidth < 760 ? 230 : 300, n = CASES.length, step = 360 / n; return {w:w, step:step, R:Math.round((w / 2 + 26) / Math.tan(Math.PI / n))}; }
+  function layoutCar(){
+    var ring = $('#carRing'); if (!ring) return; var g = carGeom();
+    $$('.cc', ring).forEach(function(el, i){ el.style.width = g.w + 'px'; el.style.marginLeft = (-g.w / 2) + 'px'; el.style.transform = 'rotateY(' + (i * g.step) + 'deg) translateZ(' + g.R + 'px)'; });
+    ring.style.transform = 'translateZ(' + (-g.R) + 'px) rotateY(' + carRot + 'deg)';
+    var front = ((Math.round(-carRot / g.step) % CASES.length) + CASES.length) % CASES.length; carIdx = front;
+    $$('.cc', ring).forEach(function(el, i){ var d = Math.abs(((i - front) % CASES.length + CASES.length) % CASES.length); d = Math.min(d, CASES.length - d); el.classList.toggle('front', d === 0); el.style.opacity = d > 2 ? .18 : d === 2 ? .45 : 1; el.setAttribute('aria-hidden', d === 0 ? 'false' : 'true'); });
+    $$('#carDots i').forEach(function(d, i){ d.classList.toggle('on', i === front); });
+  }
+  function carGo(i){ var g = carGeom(); var target = -i * g.step, cur = carRot; var diff = ((target - cur) % 360 + 540) % 360 - 180; carRot = cur + diff; layoutCar(); }
+  function carStep(d){ var g = carGeom(); carRot = Math.round(carRot / g.step) * g.step - d * g.step; layoutCar(); }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-car]'); if (b){ carStep(+b.dataset.car); stopAuto(); return; }
+    var d = e.target.closest('[data-cgo]'); if (d){ carGo(+d.dataset.cgo); stopAuto(); return; }
+    var cc = e.target.closest('.cc'); if (cc && !cc.classList.contains('front') && !e.target.closest('[data-case]')){ e.preventDefault(); carGo(+cc.dataset.ci); stopAuto(); }
+  }, true);
+  (function(){
+    var sx = null, sr = 0, moved = false;
+    document.addEventListener('pointerdown', function(e){ var c = e.target.closest('#car'); if (!c || e.target.closest('button')) return; sx = e.clientX; sr = carRot; moved = false; stopAuto(); });
+    document.addEventListener('pointermove', function(e){ if (sx === null) return; var dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; carRot = sr + dx * .35; var ring = $('#carRing'); if (ring){ ring.style.transition = 'none'; layoutCar(); } }, {passive:true});
+    document.addEventListener('pointerup', function(){ if (sx === null) return; sx = null; var ring = $('#carRing'); if (ring) ring.style.transition = ''; if (moved){ var g = carGeom(); carRot = Math.round(carRot / g.step) * g.step; layoutCar(); } });
+    document.addEventListener('keydown', function(e){ if (!document.activeElement || !document.activeElement.closest || !document.activeElement.closest('.car-ctl,#car')) return; if (e.key === 'ArrowLeft'){ carStep(-1); stopAuto(); } if (e.key === 'ArrowRight'){ carStep(1); stopAuto(); } });
+  })();
+  function stopAuto(){ clearInterval(carAuto); carAuto = 0; }
+  if (!reduce && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting && !carAuto && !en.target.dataset.touched){ carAuto = setInterval(function(){ carStep(1); }, 3600); } else if (!en.isIntersecting){ stopAuto(); } }); }, {threshold:.4}).observe($('#pin'));
+  }
+  document.addEventListener('pointerdown', function(e){ if (e.target.closest && e.target.closest('#pin')) $('#pin').dataset.touched = '1'; });
+  window.addEventListener('resize', function(){ layoutCar(); });
   function tileHTML(c){
     return '<a class="wt ' + (c.size || '') + '" href="#case-' + c.id + '" data-case="' + c.id + '" data-cats="' + c.cats.join(' ') + '" data-cursor="OPEN">' +
       '<div class="pic">' + cover(c) + (IMAGES[c.imgs[0]] ? '<span class="bt"><span>' + esc(c.brand) + '</span></span>' : '') + '<span class="ov">' + (lang === 'vi' ? 'XEM CHI TIẾT ↗' : 'OPEN CASE ↗') + '</span></div>' +
@@ -1907,9 +2145,16 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       var n = f.k === 'all' ? CASES.length : CASES.filter(function(c){ return c.cats.indexOf(f.k) > -1; }).length;
       return '<button class="chip" type="button" data-f="' + f.k + '" aria-pressed="' + (f.k === filterK ? 'true' : 'false') + '">' + esc(L(f.t)) + ' <span class="ct">' + n + '</span></button>';
     }).join('');
-    $('#workGrid').innerHTML = CASES.map(tileHTML).join('');
+    $('#workGrid').innerHTML = CASES.map(tileHTML).join(''); wkMeta(null);
     applyFilter();
   }
+  function wkMeta(c){
+    var el = $('#wkMeta'); if (!el) return; var vi = lang === 'vi';
+    if (!c){ el.innerHTML = '<p class="mono">' + (vi ? 'Rê chuột lên dự án' : 'Hover a project') + '</p><p class="wk-t">' + (vi ? '7 dự án · 2022–2026' : '7 projects · 2022–2026') + '</p><p class="wk-d">' + (vi ? 'Ngân hàng, fintech, tiêu dùng. IMC · Social · Activation · Sản xuất.' : 'Banking, fintech, consumer. IMC · Social · Activation · Production.') + '</p>'; return; }
+    el.innerHTML = '<p class="mono">' + esc(c.brand) + (c.period ? ' · ' + esc(c.period) : '') + '</p><p class="wk-t">' + esc(L(c.t)) + '</p>' + (c.ask ? '<p class="wk-d">' + esc(L(c.ask)) + '</p>' : '') +
+      '<ul class="wk-l">' + c.subs.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + (c.role ? '<li>' + esc(c.role) + '</li>' : '') + '</ul><p class="mono" style="color:var(--pink)">' + (vi ? 'Bấm để mở ↗' : 'Click to open ↗') + '</p>';
+  }
+  document.addEventListener('pointerover', function(e){ var t = e.target.closest && e.target.closest('#workGrid .wt'); if (t) wkMeta(CASES.filter(function(c){ return c.id === t.dataset.case; })[0]); });
   function applyFilter(){
     $$('#filters .chip').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.f === filterK ? 'true' : 'false'); });
     $$('#workGrid .wt').forEach(function(t){ t.classList.toggle('dim', filterK !== 'all' && t.dataset.cats.split(' ').indexOf(filterK) < 0); });
@@ -1922,16 +2167,26 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   var roleIdx = 3, seenRoles = {3:1};
   function renderRoles(){
     var vi = lang === 'vi';
-    $('#roleTabs').innerHTML = ROLES.map(function(r, i){ return '<button class="role" type="button" role="tab" data-role="' + i + '" aria-selected="' + (i === roleIdx ? 'true' : 'false') + '">' + (seenRoles[i] ? '' : '<span class="st2" aria-hidden="true"></span>') + '<span class="y">' + r.y + '</span><b>' + esc(r.short) + '</b></button>'; }).join('');
-    var r = ROLES[roleIdx];
-    var rb = $('#roleBar'); if (rb) rb.textContent = 'LV.' + (roleIdx + 1) + ' · ' + r.short.toUpperCase() + '.TXT';
-    $('#rolePanel').innerHTML = '<div><span class="lane">' + r.lane + '</span><h3>' + esc(r.t) + '</h3><p class="mono" style="margin-top:6px">' + r.w + '</p><p class="d">' + esc(L(r.d)) + '</p>' +
-      '<div class="scope"><span>' + (vi ? 'PHẠM VI' : 'SCOPE') + '</span><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div>' +
-      '<div class="role-nav"><button type="button" data-role="' + (roleIdx - 1) + '"' + (roleIdx ? '' : ' disabled') + '>‹ ' + (vi ? 'Level trước' : 'Previous') + '</button><button type="button" data-role="' + (roleIdx + 1) + '"' + (roleIdx < ROLES.length - 1 ? '' : ' disabled') + '>' + (vi ? 'Level tiếp' : 'Next') + ' ›</button></div></div><p class="val"><small>' + (vi ? 'Giá trị cho bạn' : 'What you get') + '</small>' + esc(L(r.v)).replace(/^(For you|Với bạn): (.)/, function(_, x, c){ return c.toUpperCase(); }) + '</p>';
+    var PH = ['go.png', 'chill.png', 'work.png', 'hi.png'];
+    $('#roleTabs').innerHTML = ROLES.map(function(r, i){
+      return '<div class="hc" data-hc="' + i + '" style="--drop:' + [10, 34, 34, 10][i] + 'px; --str:' + [46, 30, 62, 40][i] + 'px; --tilt:' + [-3, 2, -1.5, 3][i] + 'deg">' +
+        '<span class="hc-str" aria-hidden="true"></span><span class="hc-clip" aria-hidden="true"></span>' +
+        '<button class="hc-card" type="button" aria-label="' + esc(r.t) + (vi ? '. Chạm để lật' : '. Tap to flip') + '">' +
+          '<span class="hc-face hc-front"><span class="hc-top"><span>' + (vi ? 'LEVEL · XANH' : 'LEVEL · XANH') + '</span><span>#0' + (i + 1) + '</span></span>' +
+            '<span class="hc-pic">' + (IMAGES[PH[i]] ? '<img src="' + esc(IMAGES[PH[i]]) + '" alt="">' : '') + '</span>' +
+            '<span class="hc-name">' + esc(r.short) + '</span><span class="hc-role">' + esc(r.w) + '</span>' +
+            '<span class="hc-row"><span>' + (vi ? 'XEM VAI TRÒ' : 'VIEW ROLE') + '</span><i>↗</i></span><span class="hc-holo" aria-hidden="true"></span></span>' +
+          '<span class="hc-face hc-back"><span class="hc-top"><span>' + r.lane + '</span><span>' + r.y + '</span></span>' +
+            '<span class="hc-t">' + esc(r.t) + '</span><span class="hc-d">' + esc(L(r.d)) + '</span>' +
+            '<span class="hc-v">' + esc(L(r.v)).replace(/^(For you|Với bạn): (.)/, function(_, x, c){ return c.toUpperCase(); }) + '</span>' +
+            '<span class="hc-scope"><i style="width:' + r.s + '%"></i></span><span class="hc-holo" aria-hidden="true"></span></span>' +
+        '</button></div>';
+    }).join('');
+    initHang();
     if ($('#tl4')) $('#tl4').innerHTML = ROLES.map(function(r){ return '<article><span class="lane">' + r.lane + '</span><h4>' + esc(r.t) + '</h4><span class="w">' + r.w + '</span><p>' + esc(L(r.d)) + '</p><p style="font-weight:700; color:var(--ink)">' + esc(L(r.v)) + '</p><div class="scope"><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div></article>'; }).join('');
   }
   document.addEventListener('click', function(e){
-    var b = e.target.closest('[data-role]'); if (b && !b.disabled){ roleIdx = +b.dataset.role; seenRoles[roleIdx] = 1; renderRoles(); return; }
+    var b = e.target.closest('button[data-role]'); if (b && !b.disabled){ roleIdx = +b.dataset.role; seenRoles[roleIdx] = 1; renderRoles(); var nb = $('#roleTabs [data-role="' + roleIdx + '"]'); if (nb && !reduce){ nb.classList.add('flip'); } return; }
     var j = e.target.closest('[data-jump-role]');
     if (j){ e.preventDefault(); roleIdx = +j.dataset.jumpRole; seenRoles[roleIdx] = 1; renderRoles(); var t = $('#roleTabs'); if (curView !== 'story'){ location.hash = 'clarify'; } else if (t) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
   });
@@ -1939,7 +2194,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   function renderSteps(){
     var IC = ['i-search', 'i-blocks', 'i-nodes', 'i-target'];
     var html = STEPS.map(function(s, i){ return '<article class="how-card"><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><use href="#' + IC[i] + '"/></svg><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
-    $('#proc').innerHTML = html; $('#steps4').innerHTML = html;
+    $('#proc').innerHTML = html; $('#steps4').innerHTML = html; $('#proc').classList.add('stackx'); $('#steps4').classList.add('stackx');
   }
 
   /* LV.3 capability matrix (story + Skills tab share it) */
@@ -2097,7 +2352,15 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     if (sh.hidden) openSheet(sh); else { $('#caseIn').scrollTop = 0; }
     track('case', id); renderSaved();
   }
-  document.addEventListener('click', function(e){ var b = e.target.closest('[data-case]'); if (b){ e.preventDefault(); openCase(b.dataset.case); } });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-case]'); if (!b) return; e.preventDefault();
+    var pic = b.querySelector('.pic, .cc-pic') || (b.closest('.cc') && b.closest('.cc').querySelector('.cc-pic'));
+    if (pic && document.startViewTransition && !reduce && $('#caseSheet').hidden){
+      pic.style.viewTransitionName = 'case-hero';
+      document.startViewTransition(function(){ pic.style.viewTransitionName = ''; openCase(b.dataset.case); var gh = $('#caseIn .gal-hero'); if (gh) gh.style.viewTransitionName = 'case-hero'; })
+        .finished.then(function(){ var gh = $('#caseIn .gal-hero'); if (gh) gh.style.viewTransitionName = ''; });
+    } else openCase(b.dataset.case);
+  });
 
   /* =====================================================================
      ROUTING (views) + slime wipe
@@ -2701,15 +2964,66 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     if (t){ var q = t.getBoundingClientRect(), x = (e.clientX - q.left) / q.width - .5, y = (e.clientY - q.top) / q.height - .5; t.style.transform = 'perspective(800px) rotateX(' + (-y * 10).toFixed(2) + 'deg) rotateY(' + (x * 12).toFixed(2) + 'deg) translateY(-4px)'; }
     var m = $('#mascot');
     if (m){ var mr = m.getBoundingClientRect(), dx = e.clientX - (mr.left + mr.width / 2), dy = e.clientY - (mr.top + mr.height * .58), d = Math.max(1, Math.hypot(dx, dy)), k = Math.min(3.2, d / 60);
+      var mb = $('.mbody', m); if (mb) mb.style.transform = 'translate(' + (dx / d * Math.min(5, d / 40)).toFixed(1) + 'px,' + (dy / d * Math.min(3, d / 60)).toFixed(1) + 'px) rotate(' + (dx / d * 8).toFixed(1) + 'deg)';
       $$('.pupil', m).forEach(function(p){ p.style.transform = 'translate(' + (dx / d * k).toFixed(2) + 'px,' + (dy / d * k).toFixed(2) + 'px)'; }); }
   }
   document.addEventListener('pointerout', function(e){ var t = e.target.closest && e.target.closest('[data-tilt]'); if (t && !t.contains(e.relatedTarget)) t.style.transform = ''; });
+  /* hanging ID cards: wire + clip + pendulum, holo shimmer, 3D flip */
+  function initHang(){
+    $$('#roleTabs .hc').forEach(function(h){
+      if (h._init) return; h._init = 1;
+      var card = $('.hc-card', h), ang = 0, vel = 0, raf = 0, lastX = null;
+      function loop(){ vel += -ang * .05; vel *= .93; ang += vel; h.style.setProperty('--sw', ang.toFixed(2) + 'deg'); raf = (Math.abs(vel) > .01 || Math.abs(ang) > .02) ? requestAnimationFrame(loop) : 0; }
+      function push(v){ if (reduce) return; vel += v; if (!raf) raf = requestAnimationFrame(loop); }
+      card.addEventListener('pointerenter', function(e){ lastX = e.clientX; push(e.movementX ? Math.max(-3, Math.min(3, e.movementX * .4)) : 1.6); });
+      card.addEventListener('pointermove', function(e){
+        var r = card.getBoundingClientRect(); card.style.setProperty('--hx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%'); card.style.setProperty('--hy', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+        if (lastX !== null){ var dx = e.clientX - lastX; if (Math.abs(dx) > 2) push(Math.max(-.6, Math.min(.6, dx * .03))); } lastX = e.clientX;
+      });
+      card.addEventListener('pointerleave', function(){ lastX = null; });
+      card.addEventListener('click', function(){ var on = h.classList.toggle('flipped'); push(on ? 2.4 : -2.4); seenRoles[+h.dataset.hc] = 1; track('role', h.dataset.hc); });
+    });
+    if (!reduce && 'IntersectionObserver' in window && !$('#hang')._io){
+      $('#hang')._io = new IntersectionObserver(function(es){ if (es[0].isIntersecting){ $$('#roleTabs .hc-card').forEach(function(c, i){ setTimeout(function(){ c.dispatchEvent(new PointerEvent('pointerenter')); }, i * 140); }); } }, {threshold:.45});
+      $('#hang')._io.observe($('#hang'));
+    }
+  }
+  /* lanyard badge: spring pendulum you can drag, holo shimmer, flip */
+  (function(){
+    var lan = $('#lanyard'), card = $('#badge3d'); if (!lan || !card) return;
+    var ang = 0, vel = 0, target = 0, drag = null, raf = 0, flipped = false, moved = false;
+    function loop(){ vel += (target - ang) * .06; vel *= .9; ang += vel; lan.style.setProperty('--sw', ang.toFixed(2) + 'deg'); if (Math.abs(vel) > .02 || Math.abs(target - ang) > .05 || drag) raf = requestAnimationFrame(loop); else raf = 0; }
+    function kick(){ if (!raf) raf = requestAnimationFrame(loop); }
+    card.addEventListener('pointerdown', function(e){ drag = e.clientX; moved = false; card.setPointerCapture(e.pointerId); kick(); });
+    card.addEventListener('pointermove', function(e){
+      var r = card.getBoundingClientRect(); card.style.setProperty('--hx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%'); card.style.setProperty('--hy', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+      if (drag !== null){ var dx = e.clientX - drag; if (Math.abs(dx) > 5) moved = true; target = Math.max(-28, Math.min(28, dx * .25)); kick(); }
+    });
+    function up(){ if (drag === null) return; drag = null; target = 0; kick(); }
+    card.addEventListener('pointerup', up); card.addEventListener('pointercancel', up);
+    card.addEventListener('click', function(){ if (moved) return; flipped = !flipped; card.classList.toggle('flipped', flipped); vel += 2.5; kick(); track('badge', flipped ? 'back' : 'front'); });
+    if (!reduce && 'IntersectionObserver' in window) new IntersectionObserver(function(es){ if (es[0].isIntersecting){ vel = 3.2; kick(); } }, {threshold:.5}).observe(lan);
+  })();
+  /* fanned photo stack: hover spreads, tap brings one to the front */
+  var FAN = [
+    {t:'Say-hi mode', d:{en:'First meeting, warm and curious.', vi:'Gặp lần đầu, thân thiện và tò mò.'}},
+    {t:'Work mode', d:{en:'Brief open, thinking it through.', vi:'Mở brief ra, nghĩ cho thấu.'}},
+    {t:'On-the-go mode', d:{en:'Between client, shoot and event.', vi:'Chạy giữa khách, set quay và sự kiện.'}},
+    {t:'Chill mode', d:{en:'Recharging for the next level.', vi:'Sạc pin cho level tiếp theo.'}}
+  ], fanTop = 0;
+  function renderFan(){
+    return;
+    var cards = $$('#fan .fc'); if (!cards.length) return;
+    cards.forEach(function(c){ var i = +c.dataset.fc, k = (i - fanTop + 4) % 4; c.style.setProperty('--k', k); c.classList.toggle('top', k === 0); });
+    var f = FAN[fanTop]; $('#fanCap').innerHTML = '<b>' + f.t + '</b> ' + esc(L(f.d)) + ' <span>' + (lang === 'vi' ? 'Chạm ảnh để đổi' : 'Tap a photo to shuffle') + '</span>';
+  }
+  document.addEventListener('click', function(e){ var c = e.target.closest('.stackx > *'); if (c){ var p = c.parentElement; $$(':scope > *', p).forEach(function(x){ x.classList.toggle('on', x === c && !c.classList.contains('on')); }); track('stack', 1); } });
   var TIPS = {
     0:{en:'Hi! I’m mini Xinh. Scroll down to play!', vi:'Hi! Mình là Xinh mini. Kéo xuống chơi nha!'},
-    1:{en:'Tap each level to watch me level up.', vi:'Bấm từng level để xem Xinh lên cấp nè.'},
-    2:{en:'Got a sec? Tap me for 3 quick questions!', vi:'Rảnh hông? Bấm vào mình chơi 3 câu nè!'},
+    1:{en:'Hover a card to shimmer, tap to flip it!', vi:'Rê vào thẻ cho lấp lánh, chạm để lật nha!'},
+    2:{en:'Hover a card to open it up. Tap me for a quiz!', vi:'Rê vào từng thẻ để mở ra. Bấm mình chơi quiz nha!'},
     3:{en:'Tap any skill to see the real project.', vi:'Bấm một đầu việc là ra dự án thật.'},
-    4:{en:'Flip the switch to see my part.', vi:'Gạt công tắc để xem phần Xinh làm nha.'},
+    4:{en:'Drag or tap the arrows to spin!', vi:'Kéo hoặc bấm mũi tên để xoay nè!'},
     5:{en:'Pick a project type to see the crew.', vi:'Chọn mảng dự án để xem đội hình nè.'},
     6:{en:'Your turn to say hi!', vi:'Tới lượt bạn say hi đó!'},
     view:{en:'Need anything? Tap Say hi up top.', vi:'Cần gì cứ bấm Liên hệ ở trên nha.'}
@@ -2765,7 +3079,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   /* =====================================================================
      LANGUAGE + BOOT
      ===================================================================== */
-  function renderAll(){ renderRoles(); renderSteps(); renderMatrix(); renderStoryCases(); setupStops(); renderWork(); renderContact(); renderSquad(); renderSaved(); if (!quizEl.hidden) renderQuiz(); if (curView === 'report') renderReport(); hydrateImgs(); }
+  function renderAll(){ if (typeof renderFan === 'function') renderFan(); renderRoles(); renderSteps(); renderMatrix(); renderStoryCases(); setupStops(); renderWork(); renderContact(); renderSquad(); renderSaved(); if (!quizEl.hidden) renderQuiz(); if (curView === 'report') renderReport(); hydrateImgs(); }
   function setLang(l){
     lang = l; S.lang = l;
     root.setAttribute('data-lang', l); root.setAttribute('lang', l);
