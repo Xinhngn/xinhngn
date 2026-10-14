@@ -1,6 +1,6 @@
 # XINH.OS — website cá nhân của Xinh Nguyễn
 
-Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng: trang là một "hệ điều hành" XINH.OS. Mở đầu bằng màn khởi động "Em Xinh say hi", chọn Story hoặc Quick, mọi nội dung nằm trong các cửa sổ OS. Phong cách Y2K tech: chrome, xanh lime, hồng, tím periwinkle.
+Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng: trang là một "hệ điều hành" XINH.OS. Mở đầu bằng màn khởi động "Em Xinh say hi", chọn Story hoặc Quick, mọi nội dung nằm trong các cửa sổ OS. Phong cách (v15, bám moodboard): nền sáng / đen / xanh cobalt, lime là màu nhấn duy nhất, chữ chrome cho "say hi". Chữ: Inter Tight + Newsreader nghiêng (từ nhấn) + JetBrains Mono (lớp OS). Không dùng sticker, hồng và hiệu ứng bóng kẹo nữa: người dùng thấy bản trước "diêm dúa". CSS: lớp v15 ở cuối `src/styles.css` đè lên các lớp v7–v14 cũ.
 
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
@@ -20,7 +20,7 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 | Build + xem bản build | `npm run build && npm run preview` → http://localhost:5175 |
 | Kiểm tra kiểu | `npm run lint` |
 | Unit test | `npm test` (Vitest, `tests/unit/`) |
-| Test trình duyệt | `npm run e2e` (Playwright, máy tính 1366x860 + Pixel 7, chạy trên bản build) |
+| Test trình duyệt | `npm run e2e` (Playwright, máy tính 1366x860 + Pixel 7, chạy trên bản build). Thiếu Chromium đi kèm thì đặt `PW_CHROMIUM=<đường dẫn chrome>` (dùng cho cả `tools/`) |
 | Kiểm tra trang | `npm run check:shots` / `check:jumps` / `check:fit` / `check:perf` / `check:idle` (cần bản build đang chạy ở cổng 5175; ảnh ra `tools/out/`) |
 
 Các script trong `tools/` tự bấm "Story" để qua màn khởi động. `START=''` để giữ màn khởi động, `BASE_URL=...` để kiểm tra server khác.

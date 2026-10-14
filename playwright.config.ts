@@ -8,7 +8,8 @@ export default defineConfig({
   fullyParallel: true,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? 'github' : 'list',
-  use: { baseURL: `http://localhost:${PORT}`, trace: 'retain-on-failure' },
+  // PW_CHROMIUM: path to a pre-installed Chromium when the bundled one is missing (e.g. cloud sessions).
+  use: { baseURL: `http://localhost:${PORT}`, trace: 'retain-on-failure', launchOptions: { executablePath: process.env.PW_CHROMIUM || undefined } },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1366, height: 860 } } },
     { name: 'mobile', use: { ...devices['Pixel 7'] } },

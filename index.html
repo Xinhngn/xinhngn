@@ -7,7 +7,7 @@
 <title>XINH.OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wght@500;600;700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700&family=VT323&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <script type="module" src="/src/main.ts"></script>
 </head>
 <body>
@@ -43,13 +43,13 @@
       <feFlood flood-color="#e5177f" flood-opacity=".28"/><feComposite in2="o" operator="in" result="sh"/>
       <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/><feMergeNode in="s2"/></feMerge>
     </filter>
-    <linearGradient id="gThread" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8cc4"/><stop offset=".5" stop-color="#ff4fa8"/><stop offset="1" stop-color="#c2187a"/></linearGradient>
+    <linearGradient id="gThread" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa6ff"/><stop offset=".5" stop-color="#3d4bff"/><stop offset="1" stop-color="#0e0f14"/></linearGradient>
     <linearGradient id="gC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#cfd5ee"/><stop offset=".5" stop-color="#5a6190"/><stop offset=".62" stop-color="#dfe4ff"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
-    <linearGradient id="gH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc2e2"/><stop offset=".35" stop-color="#d8d3ff"/><stop offset=".65" stop-color="#b9f3ff"/><stop offset="1" stop-color="#eaffb0"/></linearGradient>
+    <linearGradient id="gH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#d9ddea"/><stop offset=".55" stop-color="#a9b0c6"/><stop offset="1" stop-color="#eef0f6"/></linearGradient>
     <linearGradient id="gL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2ffc4"/><stop offset=".5" stop-color="#c6ff1f"/><stop offset="1" stop-color="#7fc400"/></linearGradient>
-    <linearGradient id="gP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd3ea"/><stop offset=".5" stop-color="#ff4fa8"/><stop offset="1" stop-color="#d1167a"/></linearGradient>
-    <linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3dcff"/><stop offset=".5" stop-color="#c58cff"/><stop offset="1" stop-color="#9a52e6"/></linearGradient>
-    <linearGradient id="gS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6fbff"/><stop offset=".5" stop-color="#7fe3ff"/><stop offset="1" stop-color="#3fb6e0"/></linearGradient>
+    <linearGradient id="gP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9d0ff"/><stop offset=".5" stop-color="#5b68ff"/><stop offset="1" stop-color="#2f3be0"/></linearGradient>
+    <linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3e7ff"/><stop offset=".5" stop-color="#9aa6ff"/><stop offset="1" stop-color="#6d7bff"/></linearGradient>
+    <linearGradient id="gS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#c3c8d6"/><stop offset="1" stop-color="#8d94a8"/></linearGradient>
   </defs>
   <g id="hl"><ellipse cx="22" cy="18" rx="7" ry="4" fill="#fff" opacity=".85" transform="rotate(-30 22 18)"/></g>
   <symbol id="s-flower" viewBox="0 0 64 64"><g stroke="#07070d" stroke-width="2.5"><circle cx="32" cy="15" r="12" fill="url(#gP)"/><circle cx="48.2" cy="26.8" r="12" fill="url(#gP)"/><circle cx="42" cy="46" r="12" fill="url(#gP)"/><circle cx="22" cy="46" r="12" fill="url(#gP)"/><circle cx="15.8" cy="26.8" r="12" fill="url(#gP)"/><circle cx="32" cy="32" r="9.5" fill="url(#gL)"/></g><ellipse cx="28" cy="11" rx="5" ry="3" fill="#fff" opacity=".8" transform="rotate(-25 28 11)"/></symbol>
@@ -92,41 +92,40 @@
 <div class="shutdown" id="shutdown" aria-hidden="true"></div>
 <div id="tip" hidden></div>
 
-<!-- ================= BOOT: the open, composed like a key-visual poster ================= -->
+<!-- ================= BOOT: an OS desktop with one big wordmark (moodboard: Y2K OS windows, chrome type, cobalt + lime) ================= -->
 <div class="boot" id="boot" role="dialog" aria-modal="true" aria-labelledby="bootTitle">
-  <div class="boot-top"><span>XINH.OS <b>v2026</b> · HO CHI MINH CITY</span><span id="bootClock"></span></div>
-  <div class="room" aria-hidden="true"><i></i><i></i></div>
-  <div class="floor" aria-hidden="true"></div>
-  <div class="bh">
-    <div class="boot-load" aria-hidden="true"><span id="bootPct">BOOTING EM XINH… 0%</span><div class="bar"><i id="bootBar"></i></div></div>
-    <h1 class="bh-w1" id="bootTitle" aria-label="Em Xinh say hi">
-      <svg viewBox="0 0 1000 200" aria-hidden="true"><text x="500" y="168" text-anchor="middle" font-size="176" fill="url(#gPinkC)" stroke="#ffffff" stroke-width="16" filter="url(#liquidP)">Em Xinh</text></svg>
+  <div class="boot-top"><span>XINH.OS <b>v2026</b> · HO CHI MINH CITY</span><span class="boot-load" aria-hidden="true"><span id="bootPct">BOOTING EM XINH… 0%</span><span class="bar"><i id="bootBar"></i></span></span><span id="bootClock"></span></div>
+  <div class="bx">
+    <h1 class="bx-word" id="bootTitle" aria-label="Em Xinh say hi">
+      <span class="bx-w1" aria-hidden="true">Em Xinh</span>
+      <span class="bx-w2" aria-hidden="true">say hi</span>
     </h1>
-    <div class="bh-stage">
-      <svg class="spark4 s1" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z"/></svg>
-      <svg class="spark4 s2" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z"/></svg>
-      <figure class="bh-pic">
-        <span class="bye" aria-hidden="true">hi hi!</span>
-        <span class="stk" data-drag style="--s:64px; left:-40px; top:34%; --d:-1s" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-flower"/></svg></span>
-        <div class="ph-frame" data-portrait="hi.png"></div>
-      </figure>
-      <div class="bh-w2" aria-hidden="true"><svg viewBox="0 0 1000 230"><text x="500" y="190" text-anchor="middle" font-size="210" fill="url(#gLime)" stroke="#ffffff" stroke-width="16" filter="url(#liquidP)">say hi</text></svg></div>
+    <figure class="bx-pic">
+      <div class="win">
+        <div class="win-bar"><b>SAY_HI.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
+        <div class="bx-shot"><div class="ph-frame" data-portrait="hi.png"></div>
+          <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span></div>
+        </div>
+      </div>
+      <span class="bye" aria-hidden="true">hi hi!</span>
+    </figure>
+    <div class="bx-foot">
+      <p class="bh-line"><span class="en">Every project is a game. <b>I play it to the last level.</b></span><span class="vi">Dự án nào cũng là một game. <b>Xinh chơi tới level cuối.</b></span></p>
+      <div class="bh-cta">
+        <div class="boot-lang" role="group" aria-label="Language"><button type="button" data-boot-lang="en" aria-pressed="true">EN</button><button type="button" data-boot-lang="vi" aria-pressed="false">VI</button></div>
+        <button class="mode story" type="button" data-mode="story">
+          <span class="k"><b>STORY</b><span>~3 MIN</span></span>
+          <h2><span class="en">Play the journey</span><span class="vi">Xem trọn hành trình</span></h2>
+          <span class="go" aria-hidden="true">→</span>
+        </button>
+        <button class="mode quick" type="button" data-mode="quick">
+          <span class="k"><b>QUICK</b><span>30 SEC</span></span>
+          <h2><span class="en">Just the essentials</span><span class="vi">Xem nhanh đầu mục</span></h2>
+          <span class="go" aria-hidden="true">→</span>
+        </button>
+      </div>
+      <button class="boot-skip" type="button" data-mode="story"><span class="en">Welcome on board · press Enter to start</span><span class="vi">Welcome on board · nhấn Enter để bắt đầu</span></button>
     </div>
-    <p class="bh-line"><span class="en">Every project is a game. <b>I play it to the last level.</b></span><span class="vi">Dự án nào cũng là một game. <b>Xinh chơi tới level cuối.</b></span></p>
-    <div class="bh-cta">
-      <div class="boot-lang" role="group" aria-label="Language"><button type="button" data-boot-lang="en" aria-pressed="true">EN</button><button type="button" data-boot-lang="vi" aria-pressed="false">VI</button></div>
-      <button class="mode story" type="button" data-mode="story">
-        <svg class="ico big" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-play"/></svg>
-        <span class="k"><b>STORY</b><span>~3 MIN</span></span>
-        <h2><span class="en">Play the journey</span><span class="vi">Xem trọn hành trình</span></h2>
-      </button>
-      <button class="mode quick" type="button" data-mode="quick">
-        <svg class="ico big" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-grid"/></svg>
-        <span class="k"><b>QUICK</b><span>30 SEC</span></span>
-        <h2><span class="en">Just the essentials</span><span class="vi">Xem nhanh đầu mục</span></h2>
-      </button>
-    </div>
-    <button class="boot-skip" type="button" data-mode="story"><span class="en">Welcome on board ✦ press Enter to start</span><span class="vi">Welcome on board ✦ nhấn Enter để bắt đầu</span></button>
   </div>
 </div>
 
@@ -178,12 +177,11 @@
 <div class="view" data-view="story" id="v-story">
 
 <section class="sc sc-peri p1" id="start">
-  <span class="bubble" style="width:160px; height:160px; left:-40px; top:30%" aria-hidden="true"></span>
   <div class="wrap plain p1-grid">
     <div>
       <p class="tag"><b>P1</b><span class="en">Player ready · Brand · Communication · Project management</span><span class="vi">Người chơi đã sẵn sàng · Thương hiệu · Truyền thông · Dự án</span></p>
       <h1 class="p1name"><span class="ol">Xinh</span> <em>Nguyễn</em><small><span class="en">Class: Project Owner</span><span class="vi">Class: Người làm chủ dự án</span></small></h1>
-      <p class="hook"><span class="en"><b>You run the business.</b>I'll run the project to the finish line.</span><span class="vi"><b>Bạn lo việc kinh doanh.</b>Xinh lo dự án về đích.</span></p>
+      <p class="hook"><span class="en"><b>You run the business.</b>I'll run the project <span class="pchip" data-portrait="go.png" aria-hidden="true"></span> to the finish line.</span><span class="vi"><b>Bạn lo việc kinh doanh.</b>Xinh lo dự án <span class="pchip" data-portrait="go.png" aria-hidden="true"></span> về đích.</span></p>
       <div class="cta">
         <a class="btn lime" href="#brief"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-play"/></svg><span class="en">Start level 0</span><span class="vi">Vào level 0</span></a>
         <a class="btn" href="#desk"><span class="en">Quick mode</span><span class="vi">Xem nhanh</span> →</a>
@@ -191,10 +189,6 @@
     </div>
     <figure class="rec" data-tilt>
       <span class="hey" aria-hidden="true"><span class="en">it's me!</span><span class="vi">Xinh đây nè!</span><svg viewBox="0 0 46 38"><path d="M4 6 C22 2 38 10 40 30"/><path d="M33 25 l7 6 l4-9"/></svg></span>
-      <span class="stk" data-drag style="--s:92px; right:-34px; top:-30px" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-flower"/></svg></span>
-      <span class="stk" data-drag style="--s:100px; left:-48px; bottom:120px; --d:-1.5s; --t:6s" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-sun"/></svg></span>
-      <span class="stk" data-drag style="--s:62px; right:-30px; bottom:150px; --d:-3s" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#s-star"/></svg></span>
-      <svg class="doodle" style="left:-30px; top:16%; width:44px; height:44px" viewBox="0 0 64 64" aria-hidden="true"><use href="#s-doodle"/></svg>
       <div class="win">
         <div class="win-bar"><b>WORK_MODE.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
         <div class="shot0"><div class="ph" data-portrait="work.png"></div>
@@ -231,7 +225,6 @@
 </section>
 
 <section class="sc sc-paper zone" id="clarify">
-  <svg class="dood" style="right:8%; top:110px; --w:64px" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-cloud"/></svg>
   <div class="wrap">
     <div class="head">
       <span class="node rail cp" data-node data-cp="1"></span>
@@ -240,7 +233,7 @@
       <p class="lead"><span class="en">From research and planning to client work, business development and end-to-end project management. Each role added another part of the work I can take on.</span><span class="vi">Từ nghiên cứu và lập kế hoạch, đến làm việc với khách hàng, phát triển cơ hội kinh doanh và quản lý dự án đầu cuối. Mỗi vai trò mở rộng thêm một phần việc Xinh có thể đảm nhận.</span></p>
     </div>
     <div class="hang" id="hang">
-      <svg class="wire" viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 Q500 74 1000 14" fill="none" stroke="#b8a0ae" stroke-width="2"/></svg>
+      <svg class="wire" viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 Q500 74 1000 14" fill="none" stroke="#b9bdc9" stroke-width="1.5"/></svg>
       <div class="hcards" id="roleTabs"></div>
       <div class="hang-foot"><span class="mono">Xanh Marketing · 2022 – 2026</span><span class="mono"><span class="en">Hover to shimmer · click / tap to flip</span><span class="vi">Rê để lấp lánh · chạm để lật</span></span></div>
     </div>
@@ -248,8 +241,8 @@
 </section>
 
 <div class="band" aria-hidden="true"><div class="band-track">
-  <span>VIB <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> MSB <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> CAKE BY VPBANK <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> DIGIMI <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> BVBANK <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> TPBANK <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> NCB <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> POCA <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> LAY’S <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> HẢO HẢO <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> NHỰA DUY TÂN <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> CINDY BLOOM <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> LIVESPO COLON <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> CHANTÉ <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> WAKE-UP TÂY NGUYÊN <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> TAM THÁI TỬ <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> VIHAWA <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> MEATDELI <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> VAN GOGH <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> DƯỢC PHẨM HOA LINH <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg></span>
-  <span>VIB <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> MSB <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> CAKE BY VPBANK <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> DIGIMI <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> BVBANK <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> TPBANK <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> NCB <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> POCA <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> LAY’S <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> HẢO HẢO <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> NHỰA DUY TÂN <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> CINDY BLOOM <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> LIVESPO COLON <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> CHANTÉ <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> WAKE-UP TÂY NGUYÊN <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> TAM THÁI TỬ <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> VIHAWA <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> MEATDELI <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> VAN GOGH <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg> DƯỢC PHẨM HOA LINH <svg class="ico" viewBox="0 0 64 64"><use href="#s-spark"/></svg></span>
+  <span>VIB <i></i> MSB <i></i> CAKE BY VPBANK <i></i> DIGIMI <i></i> BVBANK <i></i> TPBANK <i></i> NCB <i></i> POCA <i></i> LAY’S <i></i> HẢO HẢO <i></i> NHỰA DUY TÂN <i></i> CINDY BLOOM <i></i> LIVESPO COLON <i></i> CHANTÉ <i></i> WAKE-UP TÂY NGUYÊN <i></i> TAM THÁI TỬ <i></i> VIHAWA <i></i> MEATDELI <i></i> VAN GOGH <i></i> DƯỢC PHẨM HOA LINH <i></i></span>
+  <span>VIB <i></i> MSB <i></i> CAKE BY VPBANK <i></i> DIGIMI <i></i> BVBANK <i></i> TPBANK <i></i> NCB <i></i> POCA <i></i> LAY’S <i></i> HẢO HẢO <i></i> NHỰA DUY TÂN <i></i> CINDY BLOOM <i></i> LIVESPO COLON <i></i> CHANTÉ <i></i> WAKE-UP TÂY NGUYÊN <i></i> TAM THÁI TỬ <i></i> VIHAWA <i></i> MEATDELI <i></i> VAN GOGH <i></i> DƯỢC PHẨM HOA LINH <i></i></span>
 </div></div>
 
 <section class="sc sc-ink" id="structure">
@@ -284,8 +277,7 @@
   </div>
 </section>
 
-<section class="sc sc-peri zone floor3d" id="align">
-  <svg class="dood" style="right:7%; top:90px; --w:60px" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-star"/></svg><svg class="dood" style="right:16%; top:40px; --w:38px; --d:-1.4s" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-heart"/></svg>
+<section class="sc sc-peri zone" id="align">
   <div class="wrap">
     <div class="head">
       <span class="node rail cp" data-node data-cp="3"></span>
@@ -322,8 +314,6 @@
 </section>
 
 <section class="sc sc-paper zone" id="value">
-  <svg class="dood" style="right:10%; top:120px; --w:56px; --d:-.8s" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-heart"/></svg>
-  <span class="bubble" style="width:140px; height:140px; right:-30px; top:40px" aria-hidden="true"></span>
   <div class="wrap">
     <div class="head">
       <span class="node rail cp" data-node data-cp="5"></span>
@@ -338,6 +328,7 @@
         <p class="of-d"><span class="en">From reading the brief and planning to managing execution, sign-off and reporting, you work directly with one point of contact the whole way.</span><span class="vi">Từ đọc brief, lên kế hoạch, quản lý triển khai đến nghiệm thu và báo cáo, bạn làm việc trực tiếp với một đầu mối xuyên suốt.</span></p>
         <p class="of-fit"><span class="en">Good for projects that need one end-to-end manager, or teams that need one more project owner.</span><span class="vi">Hợp với dự án cần một người quản lý đầu-cuối hoặc team cần thêm một project owner.</span></p>
         <button class="of-btn" type="button" data-connect><span class="en">Start a project</span><span class="vi">Bắt đầu một dự án</span> →</button>
+        <div class="of-stub" aria-hidden="true"><span>XINH.OS · SOLO · 01</span><i class="barcode"></i></div>
       </article>
       <article class="of of2">
         <p class="of-k"><span class="en">As your team</span><span class="vi">Như một đội</span><b>SQUAD</b></p>
@@ -345,6 +336,7 @@
         <p class="of-d"><span class="en">I bring in the right partners from my network for each problem, and stay responsible for managing execution. Pick a type to see the crew:</span><span class="vi">Xinh kết hợp với mạng lưới đối tác phù hợp theo từng bài toán và tiếp tục chịu trách nhiệm quản lý triển khai. Chọn mảng để xem đội hình:</span></p>
         <div class="squad"><div class="opts" id="squadOpts" role="group"></div><div class="crew" id="crew" aria-live="polite"></div></div>
         <button class="of-btn" type="button" data-connect><span class="en">Build my crew</span><span class="vi">Lắp đội cho tôi</span> →</button>
+        <div class="of-stub" aria-hidden="true"><span>XINH.OS · SQUAD · 02</span><i class="barcode"></i></div>
       </article>
     </div>
     <div class="promise">
@@ -360,22 +352,13 @@
   </div>
 </section>
 
-<section class="sc sc-ink end goal-z end-pink" id="finish">
-  <div class="floor" aria-hidden="true"></div>
-  <span class="bubble" style="width:260px; height:260px; left:-60px; top:10%" aria-hidden="true"></span>
-  <span class="bubble" style="width:120px; height:120px; right:8%; bottom:14%; animation-delay:-4s" aria-hidden="true"></span>
+<section class="sc sc-ink end goal-z" id="finish">
   <div class="flagwrap" data-reach><span class="node cp" data-node data-cp="6"></span></div>
   <div class="wrap plain">
     <p class="tag"><b>END</b><span class="en">Session complete</span><span class="vi">Kết thúc phiên</span></p>
     <div class="end-top">
       <figure class="end-pic"><div class="pf" data-portrait="chill.png"></div><figcaption><span class="en">see you soon ♡</span><span class="vi">hẹn gặp bạn nha ♡</span></figcaption></figure>
-    <h2 class="end-word" aria-label="Your turn to say hi">
-      <svg class="lq endlq" viewBox="0 0 1000 380" aria-hidden="true">
-        <text class="en" x="500" y="150" text-anchor="middle" font-size="150" textLength="900" lengthAdjust="spacingAndGlyphs" fill="url(#gPinkC)" stroke="#ffffff" stroke-width="14" filter="url(#liquidP)">Your turn</text>
-        <text class="vi" x="500" y="150" text-anchor="middle" font-size="130" textLength="940" lengthAdjust="spacingAndGlyphs" fill="url(#gPinkC)" stroke="#ffffff" stroke-width="14" filter="url(#liquidP)">Đến lượt bạn</text>
-        <text x="500" y="345" text-anchor="middle" font-size="200" textLength="820" lengthAdjust="spacingAndGlyphs" fill="url(#gLime)" stroke="#ffffff" stroke-width="14" filter="url(#liquidP)">say hi!</text>
-      </svg>
-    </h2>
+    <h2 class="end-word"><span class="en">Your turn</span><span class="vi">Đến lượt bạn</span> <em>say hi!</em></h2>
     </div>
     <div class="win dk dlg">
       <div class="win-bar"><b><span class="en">XINH.OS · END OF SESSION</span><span class="vi">XINH.OS · KẾT THÚC PHIÊN</span></b><span class="ctl"><i></i><i></i><i></i></span></div>
@@ -394,6 +377,7 @@
     <p class="foot">XINH.OS 2026 · <span class="en">Made with coffee and timelines</span><span class="vi">Làm bằng cà phê và timeline</span> · HO CHI MINH CITY</p>
     <p class="notice"><span class="en">This site counts anonymous visits (source, time on page) to improve its content.</span><span class="vi">Trang ghi nhận lượt xem ẩn danh (nguồn, thời gian xem) để cải thiện nội dung.</span></p>
   </div>
+  <div class="bigmark" aria-hidden="true"><span>XINH.OS</span></div>
 </section>
 </div>
 
@@ -448,7 +432,7 @@
   <div class="wrap plain wk">
     <div class="qhead">
       <p class="tag"><b>01</b><span class="en">Work</span><span class="vi">Dự án</span></p>
-      <svg class="lq" viewBox="0 0 1000 230" aria-label="Work"><text x="8" y="186" font-size="200" fill="url(#gLime)" filter="url(#liquidP)">WORK</text></svg>
+      <h2 class="qword">Work</h2>
       <div class="row"><p class="lead"><span class="en">Five core cases plus two other projects, filtered by the same benchmark as Skills. Each case separates my part from the team's.</span><span class="vi">Năm dự án chính và hai dự án khác, lọc theo cùng thước đo với tab Năng lực. Mỗi dự án tách rõ phần Xinh làm và phần của team.</span></p></div>
       <div class="filters" id="filters" role="group" aria-label="Filter"></div>
     </div>
@@ -466,7 +450,7 @@
   <div class="wrap plain">
     <div class="qhead">
       <p class="tag"><b>02</b><span class="en">Profile</span><span class="vi">Hồ sơ</span></p>
-      <svg class="lq" viewBox="0 0 1200 230" aria-label="Profile"><text x="8" y="186" font-size="190" fill="url(#gPinkC)" filter="url(#liquidP)">PROFILE</text></svg>
+      <h2 class="qword">Profile</h2>
     </div>
     <div class="pf-grid">
       <div class="lanyard" id="lanyard">
@@ -539,7 +523,7 @@
   <div class="wrap plain">
     <div class="qhead">
       <p class="tag"><b>03</b><span class="en">Skills</span><span class="vi">Năng lực</span></p>
-      <svg class="lq" viewBox="0 0 1000 230" aria-label="Skills"><text x="8" y="186" font-size="200" fill="url(#gPinkC)" filter="url(#liquidP)">SKILLS</text></svg>
+      <h2 class="qword">Skills</h2>
       <p class="lead"><span class="en">Nine things I do well: the four kinds of project I run, and the five parts of owning one. Each links to a real project.</span><span class="vi">Chín đầu việc Xinh làm thạo: bốn mảng dự án Xinh chạy, và năm phần việc Xinh gánh khi làm chủ. Mỗi mục dẫn tới dự án thật.</span></p>
     </div>
     <div data-mx></div>
@@ -556,7 +540,7 @@
   <div class="wrap plain">
     <div class="qhead">
       <p class="tag"><b>04</b><span class="en">Contact</span><span class="vi">Liên hệ</span></p>
-      <svg class="lq" viewBox="0 0 1000 230" aria-label="Say hi"><text x="8" y="186" font-size="200" fill="url(#gPinkC)" filter="url(#liquidP)">SAY HI</text></svg>
+      <h2 class="qword">Say hi</h2>
     </div>
     <div class="ct-grid">
       <div class="win dk"><div class="win-bar"><b>CONNECT.EXE</b><span class="ctl"><i></i><i></i><i></i></span></div>
@@ -588,7 +572,7 @@
   <div class="wrap plain">
     <div class="qhead">
       <p class="tag"><b>ADMIN</b><span class="en">Owner console · only you can see this</span><span class="vi">Bảng điều khiển · chỉ mình bạn thấy</span></p>
-      <svg class="lq" viewBox="0 0 1100 230" aria-label="Console"><text x="8" y="186" font-size="190" fill="url(#gLime)" filter="url(#liquidP)">CONSOLE</text></svg>
+      <h2 class="qword">Console</h2>
     </div>
     <div id="report"></div>
   </div>

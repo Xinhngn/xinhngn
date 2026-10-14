@@ -185,8 +185,8 @@ import './styles.css';
      res:[{empty:true, l:{en:'add a result', vi:'thêm kết quả'}}], imgs:['cindy_bloom_kv.jpg','cindy_02.jpg','cindy_03.jpg','cindy_04.jpg']}
   ];
   /* Cover colours when there is no photo yet */
-  var LOOK = {vib:['#dfe3ff','#4757ff'], msb:['#ffd6ea','#c2186f'], cake:['#e6e2ff','#d1167a'], poca:['#eaffbf','#1d1f3d'],
-              digimi:['#dcf5ff','#1d1f3d'], duytan:['#fff0c4','#c2186f'], cindy:['#ffe3f1','#4757ff']};
+  var LOOK = {vib:['#0e0f14','#c6f432'], msb:['#3d4bff','#ffffff'], cake:['#e7e9f0','#0e0f14'], poca:['#c6f432','#0e0f14'],
+              digimi:['#9aa6ff','#0e0f14'], duytan:['#e7e9f0','#3d4bff'], cindy:['#0e0f14','#ffffff']};
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {
@@ -235,10 +235,10 @@ import './styles.css';
   var carIdx = 0, carRot = 0, carAuto = 0;
   function renderStoryCases(){
     var vi = lang === 'vi';
-    var MESH = {vib:['#ff7a18','#c6f24e','#ff3d8b'], msb:['#2c4bff','#7fe3ff','#0b1a6b'], cake:['#ff2e93','#9b5bff','#2a0a3d'], poca:['#ffcf3f','#ff5f6d','#c6f24e'], digimi:['#00c2a8','#c6f24e','#0a3d3a'], duytan:['#ff3d3d','#ffb43f','#7a0a2e'], cindy:['#ff8cc4','#b38cff','#ff3d97']};
+    var MESH = {vib:['#3d4bff','#c3c8d6','#0e0f14'], msb:['#2f3be0','#9aa6ff','#0d1270'], cake:['#ff5fae','#8fd8d2','#123038'], poca:['#7fa300','#d6f75a','#26330a'], digimi:['#ffcf3f','#9aa6ff','#3a46c4'], duytan:['#3d4bff','#c6f432','#0e0f14'], cindy:['#9aa6ff','#ffffff','#3a46c4']};
     var BIG = {vib:['1', {en:'pitch, then multiple projects', vi:'lần pitch, rồi nhiều dự án tiếp theo'}], msb:['3→5', {en:'years of partnership', vi:'năm hợp tác'}], cake:['WIN', {en:'social retainer, won by the team', vi:'team giành social retainer'}], poca:['266K', {en:'Facebook engagements · campaign', vi:'tương tác Facebook · chiến dịch'}], digimi:['268', {en:'app sign-ups · Coffee Truck', vi:'lượt đăng ký app · Coffee Truck'}]};
     var items = CORE.map(function(c, i){
-      var m = MESH[c.id] || ['#ff5fae','#c6f24e','#2b1d2a'], bg = BIG[c.id] || ['', {en:'', vi:''}];
+      var m = MESH[c.id] || ['#3d4bff','#c6f432','#0e0f14'], bg = BIG[c.id] || ['', {en:'', vi:''}];
       return '<article class="cc" data-ci="' + i + '" tabindex="-1" style="--m1:' + m[0] + '; --m2:' + m[1] + '; --m3:' + m[2] + '"><div class="cc-in">' +
         '<span class="cc-top"><span>' + esc(c.brand) + '</span><span>' + ('0' + (i + 1)).slice(-2) + '/' + ('0' + CORE.length).slice(-2) + '</span></span>' +
         '<span class="cc-big">' + esc(bg[0]) + '</span><span class="cc-bl">' + esc(L(bg[1])) + '</span>' +

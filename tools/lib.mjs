@@ -15,7 +15,7 @@ export const VIEWPORTS = {
 };
 
 export async function openPage(viewport, { reducedMotion = 'no-preference' } = {}) {
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || undefined });
   const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height },
     isMobile: !!viewport.isMobile, hasTouch: !!viewport.hasTouch, deviceScaleFactor: viewport.deviceScaleFactor || 1, reducedMotion });
   const page = await context.newPage();
