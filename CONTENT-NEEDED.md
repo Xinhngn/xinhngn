@@ -3,7 +3,7 @@
 Người xem **không** thấy các chỗ còn trống: trang tự ẩn hoặc thay bằng bìa thiết kế sẵn.
 Để xem vị trí từng ô, mở link với `#edit` (thoát bằng `#edit-off`). Trang **Report** (chỉ chủ trang thấy) luôn có danh sách "Nội dung còn thiếu" cập nhật tự động.
 
-Gửi cho Claude theo từng mục bên dưới, Claude sẽ điền vào phần `CONFIG` ở đầu `<script>` trong `src/page.html`.
+Gửi cho Claude theo từng mục bên dưới, Claude sẽ điền vào phần `CONFIG` ở đầu file `src/main.ts`.
 
 ---
 
@@ -18,7 +18,7 @@ Gửi cho Claude theo từng mục bên dưới, Claude sẽ điền vào phần
 
 | Cần gì | Ghi chú |
 |---|---|
-| ~~Link CV (PDF)~~ | Đã có: `assets/XinhNguyen-CV.pdf` |
+| ~~Link CV (PDF)~~ | Đã có: `public/assets/XinhNguyen-CV.pdf` |
 | ~~LinkedIn~~ | Đã có: xinh-nguyen-exploremore |
 | Xác nhận vị trí mong muốn | Hiện ghi: Brand / Marketing Executive, ưu tiên ngân hàng & fintech, TP.HCM hoặc remote |
 | Thời gian có thể bắt đầu (tuỳ chọn) | Ví dụ: "ngay" / "từ 11/2026" |
@@ -54,7 +54,7 @@ Mỗi case cần 4 nhóm thông tin. **Ưu tiên số liệu gắn với phần 
 
 ## 5. Skills (bảng chấm 10 cột)
 
-Tab Năng lực và mục LV.3 dùng chung 10 đầu việc (5 loại dự án + 5 phần việc khi làm chủ). Không còn đánh dấu mạnh/yếu, chỉ liệt kê dự án đã làm. **Hãy rà xem mỗi đầu việc gắn đúng dự án chưa** (`MX` trong `src/page.html`, số khác 0 = có làm).
+Tab Năng lực và mục LV.3 dùng chung 10 đầu việc (5 loại dự án + 5 phần việc khi làm chủ). Không còn đánh dấu mạnh/yếu, chỉ liệt kê dự án đã làm. **Hãy rà xem mỗi đầu việc gắn đúng dự án chưa** (`MX` trong `src/main.ts`, số khác 0 = có làm).
 
 Số liệu cá nhân cần xác nhận: "4 pitch thắng cùng team" (VIB, MSB, Duy Tân, Cindy Bloom) và "3 → 5 năm MSB".
 
