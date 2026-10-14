@@ -1,0 +1,14 @@
+{
+  // Cloudflare Workers, static assets only: everything is served from the Vite build in dist/.
+  // No Worker code yet. If a path ever needs server code, add "main": "worker/index.ts" and
+  // list only those paths under assets.run_worker_first (e.g. ["/api/*"]).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "xinh-os",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  // Build a preview for every branch / pull request (Cloudflare → Settings → Builds).
+  "previews": {}
+}

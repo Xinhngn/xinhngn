@@ -1,0 +1,36 @@
+name: ci
+# Type check + unit tests + build. Runs only on pull requests that touch the site, or by hand.
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'src/**'
+      - 'public/**'
+      - 'tests/unit/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+      - 'vite.config.ts'
+      - '.github/workflows/ci.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package.json
+            package-lock.json
+      - run: if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
+      - run: npm test
+      - run: npm run build

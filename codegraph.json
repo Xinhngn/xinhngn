@@ -1,0 +1,4 @@
+{
+  "exclude": ["public/", "dist/", "dist-artifact/", "export/", "**/*.png", "**/*.jpg", "**/*.webp", "**/*.pdf", ".claude/"],
+  "deprioritize": ["tools/", "tests/"]
+}

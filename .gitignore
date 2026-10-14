@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-artifact/
+.codegraph/
+.env.local
+.env*.local
+.wrangler/
+test-results/
+playwright-report/
+tools/out/
+.DS_Store
