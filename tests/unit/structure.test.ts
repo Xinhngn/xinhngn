@@ -24,9 +24,7 @@ describe('site structure', () => {
     expect(missing).toEqual([]);
   });
 
-  // The mini mascot markup was removed from the page earlier but its code is still in main.ts.
-  // Listed here so the test stays green; remove the entries once that code is cleaned up or the markup returns.
-  const KNOWN_MISSING = ['mini', 'miniBody', 'miniSay'];
+  const KNOWN_MISSING: string[] = [];
 
   it("every id main.ts looks up with $('#id') exists in index.html or is created by the script", () => {
     const ids = [...new Set([...js.matchAll(/\$\('#([\w-]+)'\)/g)].map((m) => m[1]))];

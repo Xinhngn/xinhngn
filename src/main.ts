@@ -547,7 +547,6 @@ import './styles.css';
     if (v !== 'story'){ svg.setAttribute('width', 0); svg.setAttribute('height', 0); }
     curView = v;
     if (typeof dockUpdate === 'function') setTimeout(dockUpdate, 50);
-    if (typeof miniGo === 'function' && v !== 'story' && v !== 'report') setTimeout(function(){ miniGo(v); }, 900);
     if (v === 'report') renderReport();
     track('view', v);
     if (v === 'story') rebuild();
@@ -703,7 +702,6 @@ import './styles.css';
     pips.forEach(function(p){ var n = +p.dataset.pip; p.classList.toggle('done', n < s); p.classList.toggle('cur', n === s); });
     track('lv', s);
     if (typeof renderSaved === 'function') renderSaved();
-    if (typeof miniGo === 'function' && curView === 'story' && booted) miniGo(s);
   }
   var raf = 0, animating = false;
   function schedule(){ if (!raf) raf = requestAnimationFrame(frame); }
@@ -1118,12 +1116,6 @@ import './styles.css';
     if (c){ var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); }
     var t = !reduce && finePointer && e.target.closest && e.target.closest('[data-tilt]');
     if (t){ var q = t.getBoundingClientRect(), x = (e.clientX - q.left) / q.width - .5, y = (e.clientY - q.top) / q.height - .5; t.style.transform = 'perspective(800px) rotateX(' + (-y * 10).toFixed(2) + 'deg) rotateY(' + (x * 12).toFixed(2) + 'deg) translateY(-4px)'; }
-    var m = $('#mini');
-    if (m && !m.classList.contains('drag')){ var mr = $('#miniBody').getBoundingClientRect(), dx = e.clientX - (mr.left + mr.width * .5), dy = e.clientY - (mr.top + mr.height * .42), d = Math.max(1, Math.hypot(dx, dy)), ux = dx / d, uy = dy / d;
-      var hd = $('.mg-head', m), ey = $('.mg-eyes', m), ce = $('.mg-ceyes', m);
-      if (hd) hd.style.transform = 'translate(' + (ux * 2.5).toFixed(1) + 'px,' + (uy * 1.5).toFixed(1) + 'px) rotate(' + (ux * 6).toFixed(1) + 'deg)';
-      if (ey) ey.style.transform = 'translate(' + (ux * 2.4).toFixed(1) + 'px,' + (uy * 2).toFixed(1) + 'px)';
-      if (ce) ce.style.transform = 'translate(' + (ux * 1.6).toFixed(1) + 'px,' + (uy * 1.2).toFixed(1) + 'px)'; }
   }
   document.addEventListener('pointerout', function(e){ var t = e.target.closest && e.target.closest('[data-tilt]'); if (t && !t.contains(e.relatedTarget)) t.style.transform = ''; });
   /* hanging ID cards: wire + clip + pendulum, holo shimmer, 3D flip */
@@ -1176,58 +1168,6 @@ import './styles.css';
     var f = FAN[fanTop]; $('#fanCap').innerHTML = '<b>' + f.t + '</b> ' + esc(L(f.d)) + ' <span>' + (lang === 'vi' ? 'Chạm ảnh để đổi' : 'Tap a photo to shuffle') + '</span>';
   }
   document.addEventListener('click', function(e){ var c = e.target.closest('.stackx > *'); if (c){ var p = c.parentElement; $$(':scope > *', p).forEach(function(x){ x.classList.toggle('on', x === c && !c.classList.contains('on')); }); track('stack', 1); } });
-  /* ===== Xinh mini: a roaming guide that recaps each section and nudges to say hi ===== */
-  var RECAP = {
-    0:{t:{en:'Hi hi! I’m Xinh mini, and this is Mochi. Come along, we’ll walk you through it!', vi:'Hi hi! Em là Xinh mini, còn đây là bé Mochi. Đi cùng em hết hành trình nha!'}, c:[{l:{en:'Let’s go', vi:'Đi thôi'}, a:'#brief'}]},
-    1:{t:{en:'Recap: 4 roles in 4 years, from reading the numbers to running the whole project.', vi:'Tóm lại nè: 4 năm, 4 vai trò, từ đọc số liệu tới cầm trịch cả dự án.'}, c:[{l:{en:'View CV', vi:'Xem CV'}, a:'cv'}, {l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
-    2:{t:{en:'Recap: clarify, structure, coordinate, follow through. Want a quick quiz?', vi:'Tóm lại nè: làm rõ, cấu trúc, điều phối, theo tới kết quả. Chơi quiz 30 giây hông?'}, c:[{l:{en:'Play quiz', vi:'Chơi quiz'}, a:'quiz'}, {l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
-    3:{t:{en:'Recap: 4 kinds of project, 5 parts of owning one. Every claim has a real project behind it.', vi:'Tóm lại nè: 4 mảng dự án, 5 phần việc, mục nào cũng có dự án thật làm chứng.'}, c:[{l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
-    4:{t:{en:'7 projects, banking to consumer. Like one? Ask me about it!', vi:'7 dự án, từ ngân hàng tới tiêu dùng. Thích dự án nào, hỏi em liền nha!'}, c:[{l:{en:'All projects', vi:'Xem cả 7'}, a:'#work'}, {l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
-    5:{t:{en:'One owner, the right crew, a promise to the end. What’s your brief?', vi:'Một người, một đội, một lời cam kết. Còn brief của bạn thì sao nè?'}, c:[{l:{en:'Tell me', vi:'Kể em nghe'}, a:'connect'}]},
-    6:{t:{en:'Your turn! I’ll be waiting for your hi.', vi:'Tới lượt bạn rồi đó! Em chờ tin bạn nha.'}, c:[{l:{en:'Say hi now', vi:'Liên hệ em nha'}, a:'connect'}]},
-    work:{t:{en:'Hover a project to peek, click to open.', vi:'Rê chuột để xem nhanh, bấm để mở dự án nha.'}, c:[{l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
-    profile:{t:{en:'Drag my ID card to swing it, tap to flip!', vi:'Kéo thẻ của em cho đung đưa, chạm để lật nha!'}, c:[{l:{en:'Play quiz', vi:'Chơi quiz'}, a:'quiz'}]},
-    skills:{t:{en:'Tap any capability to see the proof.', vi:'Bấm một đầu việc là ra bằng chứng liền.'}, c:[{l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
-    desk:{t:{en:'Short on time? Everything’s on this desk.', vi:'Bận quá? Mọi thứ nằm gọn trên desktop này nè.'}, c:[{l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
-    contact:{t:{en:'Pick any channel, I reply fast!', vi:'Chọn kênh nào tiện, em trả lời liền nha!'}, c:[]}
-  };
-  var SPOTS = {0:[.86,.62], 1:[.04,.6], 2:[.86,.56], 3:[.04,.64], 4:[.86,.62], 5:[.04,.58], 6:[.84,.5]};
-  var mini = $('#mini'), miniSay = $('#miniSay'), miniKey = null, miniT = 0, miniFree = 0, miniPos = null;
-  function miniPlace(x, y, hop){
-    var w = window.innerWidth, h = window.innerHeight, mw = mini.offsetWidth || 90, mh = mini.offsetHeight || 100;
-    var px = Math.max(8, Math.min(w - mw - 8, x * w)), py = Math.max(80, Math.min(h - mh - (w < 760 ? 90 : 16), y * h));
-    miniPos = [px, py]; mini.style.transform = 'translate(' + px.toFixed(0) + 'px,' + py.toFixed(0) + 'px)';
-    mini.classList.toggle('right', px > w / 2);
-    if (hop && !reduce){ mini.classList.remove('hop'); void mini.offsetWidth; mini.classList.add('hop'); }
-  }
-  function miniTalk(key, open){
-    var r = RECAP[key]; if (!r) return; miniKey = key;
-    miniSay.innerHTML = '<button class="ms-x" type="button" data-mini-x aria-label="Close">✕</button><p>' + both(r.t) + '</p>' +
-      (r.c.length ? '<div class="ms-cta">' + r.c.map(function(c, i){ return '<button type="button" class="' + (i === r.c.length - 1 ? 'hot' : '') + '" data-mini-a="' + c.a + '">' + both(c.l) + '</button>'; }).join('') + '</div>' : '');
-    if (open !== false){ mini.classList.add('talk'); clearTimeout(miniT); miniT = setTimeout(function(){ mini.classList.remove('talk'); }, 9000); }
-  }
-  function miniGo(key){
-    if (!mini || !booted) return;
-    if (Date.now() > miniFree){ var sp = SPOTS[key] || [.86, .6]; if (window.innerWidth < 760) sp = [sp[0] > .5 ? .78 : .02, .62]; miniPlace(sp[0], sp[1], true); }
-    miniTalk(key);
-  }
-  function mascotSay(k){ miniGo(k === 'view' ? curView : k); }
-  document.addEventListener('click', function(e){
-    var a = e.target.closest('[data-mini-a]');
-    if (a){ var v = a.dataset.miniA; mini.classList.remove('talk');
-      if (v === 'connect') openSheet($('#connectSheet')); else if (v === 'quiz'){ quizEl.hidden = false; renderQuiz(); } else if (v === 'cv'){ if (CV_URL) window.open(CV_URL, '_blank', 'noopener'); } else location.hash = v.slice(1);
-      track('mini', v); return; }
-    if (e.target.closest('[data-mini-x]')){ mini.classList.remove('talk'); }
-  });
-  (function(){
-    var body = $('#miniBody'), sx, sy, ox, oy, drag = false, moved = false; if (!body) return;
-    body.addEventListener('pointerdown', function(e){ drag = true; moved = false; sx = e.clientX; sy = e.clientY; ox = miniPos ? miniPos[0] : 0; oy = miniPos ? miniPos[1] : 0; body.setPointerCapture(e.pointerId); });
-    body.addEventListener('pointermove', function(e){ if (!drag) return; var dx = e.clientX - sx, dy = e.clientY - sy; if (Math.abs(dx) + Math.abs(dy) > 6){ moved = true; mini.classList.add('drag'); miniPlace((ox + dx) / window.innerWidth, (oy + dy) / window.innerHeight, false); } });
-    body.addEventListener('pointerup', function(){ drag = false; mini.classList.remove('drag'); if (moved){ miniFree = Date.now() + 25000; } });
-    body.addEventListener('click', function(){ if (moved) return; if (mini.classList.contains('talk')) mini.classList.remove('talk'); else miniTalk(miniKey == null ? 0 : miniKey); });
-    window.addEventListener('resize', function(){ if (miniPos) miniPlace(miniPos[0] / window.innerWidth, miniPos[1] / window.innerHeight, false); });
-  })();
-
   /* =====================================================================
      BOOT (the open) · clocks · restart (the end loops back)
      ===================================================================== */
@@ -1255,7 +1195,7 @@ import './styles.css';
     bootEl.classList.add('out'); document.body.classList.remove('booting');
     if (m === 'quick'){ location.hash = 'desk'; }
     else { if (curView !== 'story') location.hash = 'story'; window.scrollTo(0, 0); setTimeout(smartStart, 900); }
-    setTimeout(function(){ bootEl.hidden = true; rebuild(); setTimeout(function(){ miniGo(m === 'story' ? 0 : 'desk'); }, 300); }, reduce ? 0 : 800);
+    setTimeout(function(){ bootEl.hidden = true; rebuild(); }, reduce ? 0 : 800);
   }
   document.addEventListener('click', function(e){
     var m = e.target.closest('[data-mode]'); if (m){ chooseMode(m.dataset.mode); return; }

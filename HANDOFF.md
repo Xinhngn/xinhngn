@@ -12,7 +12,7 @@
 
 ## Còn lại
 - Phiên Claude Code trên web của tài khoản này bị chặn kho npm (registry.npmjs.org 403). Trong phiên như vậy: không chạy được `npm run dev` / build / test tại chỗ, và MCP CodeGraph không kết nối (chưa cài được). Dựa vào CI của PR để build + test. Nếu admin mở registry.npmjs.org trong cài đặt mạng, hook sẽ tự cài hết.
-- Trong `src/main.ts` còn code "mini mascot" (`#mini`, `#miniBody`, `#miniSay`) mà `index.html` không có phần tử (bản cũ cũng vậy). `miniPlace` / `miniTalk` không kiểm tra null. Cần dọn hoặc gắn lại markup. Unit test để 3 id này trong `KNOWN_MISSING`.
+- Đã dọn code + CSS "mini mascot" (người dùng đã bỏ mascot). `KNOWN_MISSING` trong unit test giờ rỗng.
 - Cloudflare: người dùng tự nối repo (Workers & Pages → Create → Import Git repo `EmXinhSayHi`, build command `npm run build`, deploy command `npx wrangler deploy`).
 - Chưa thử trên điện thoại thật (iPhone / Safari).
 
