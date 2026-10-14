@@ -30,6 +30,8 @@ Các script trong `tools/` tự bấm "Story" để qua màn khởi động. `ST
 ## Quy trình
 Tạo nhánh → sửa → `npm test` + `npm run build` → commit → mở PR → xem bản xem trước Cloudflare của PR → merge.
 - CI (`.github/workflows/ci.yml`, `e2e.yml`) chỉ chạy khi có PR đụng đúng phần liên quan, hoặc khi bấm chạy tay. Gom nhiều sửa nhỏ vào 1 PR.
+- `deps.yml`: PR đổi `package.json` thì GitHub tự cập nhật và commit `package-lock.json`, và kiểm tra CodeGraph.
+- Nếu phiên bị chặn kho npm (không build / test tại chỗ được): đẩy nhánh, mở PR, đọc kết quả CI bằng `gh api repos/Xinhngn/EmXinhSayHi/actions/runs?branch=<nhánh>`.
 - Deploy: Cloudflare Workers static assets (`wrangler.jsonc`, header bảo mật trong `public/_headers`). Người dùng tự nối repo trong Cloudflare (Settings → Builds) và tự đặt biến môi trường. AI không làm bước này.
 
 ## An toàn
