@@ -1,0 +1,59 @@
+name: deps
+# When a pull request changes package.json: refresh package-lock.json on the PR branch,
+# and check that CodeGraph can index the repo with codegraph.json.
+on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'codegraph.json'
+      - '.github/workflows/deps.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deps-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  lockfile:
+    # Only for branches in this repo (a fork's token cannot push back).
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund --package-lock-only
+      - name: Commit package-lock.json if it changed
+        run: |
+          if [ -n "$(git status --porcelain package-lock.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "Update package-lock.json"
+            git push
+          else
+            echo "package-lock.json is up to date"
+          fi
+
+  codegraph:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DO_NOT_TRACK: '1'
+      CODEGRAPH_TELEMETRY: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i -g @colbymchenry/codegraph --no-audit --no-fund
+      - run: codegraph telemetry off
+      - run: codegraph init
+      - run: codegraph status
