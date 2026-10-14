@@ -1182,7 +1182,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 .hc.flipped .hc-front{transform:rotateY(-180deg)} .hc.flipped .hc-back{transform:rotateY(0)}
 .hc-top{display:flex; justify-content:space-between; font-family:var(--f-pixel); font-size:13px; letter-spacing:.06em; color:#8e7d88}
 .hc-pic{position:relative; flex:1; min-height:0; border-radius:12px; overflow:hidden; background:var(--holo)}
-.hc-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%}
+.hc-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 35%}
 .hc-name{font-family:var(--f-head); font-weight:700; font-size:clamp(15px,1.3vw,18px); line-height:1.1; letter-spacing:-.01em; color:var(--ink)}
 .hc-role{font-size:12px; color:#8e7d88; margin-top:-4px}
 .hc-row{display:flex; justify-content:space-between; align-items:center; padding-top:8px; border-top:1px solid rgba(43,29,42,.08); font-family:var(--f-pixel); font-size:13px; letter-spacing:.06em; color:var(--ink)}
@@ -2031,7 +2031,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   // Image slots: map a slot file name to an image URL to replace the placeholder.
   var IMAGES = {
     'portrait.png': 'assets/portrait.webp',
-    'hi.png': 'assets/xinh-hi.webp', 'work.png': 'assets/xinh-work.webp', 'go.png': 'assets/xinh-go.webp', 'chill.png': 'assets/xinh-chill.webp',
+    'hi.png': 'assets/xinh-hi.webp', 'lv1.png': 'assets/lv1.webp', 'lv2.png': 'assets/lv2.webp', 'lv3.png': 'assets/lv3.webp', 'lv4.png': 'assets/lv4.webp', 'work.png': 'assets/xinh-work.webp', 'go.png': 'assets/xinh-go.webp', 'chill.png': 'assets/xinh-chill.webp',
   };
   // Link to your CV (PDF on Google Drive / Canva / any public URL). Empty = button hidden.
   var CV_URL = 'assets/XinhNguyen-CV.pdf';
@@ -2320,7 +2320,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   var roleIdx = 3, seenRoles = {3:1};
   function renderRoles(){
     var vi = lang === 'vi';
-    var PH = ['go.png', 'chill.png', 'work.png', 'hi.png'];
+    var PH = ['lv1.png', 'lv2.png', 'lv3.png', 'lv4.png'];
     $('#roleTabs').innerHTML = ROLES.map(function(r, i){
       return '<div class="hc" data-hc="' + i + '" style="--drop:' + [10, 34, 34, 10][i] + 'px; --str:' + [46, 30, 62, 40][i] + 'px; --tilt:' + [-3, 2, -1.5, 3][i] + 'deg">' +
         '<span class="hc-str" aria-hidden="true"></span><span class="hc-clip" aria-hidden="true"></span>' +
