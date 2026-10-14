@@ -1307,6 +1307,107 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 .ms-cta button.hot{background:var(--pink); color:#fff; border-color:var(--pink); box-shadow:0 6px 14px rgba(255,95,174,.3)}
 @media (max-width: 760px){ .mini,.mini-body{width:78px} .mini-body{height:84px} .mini-say p{font-size:13px} .head[data-n]::after{font-size:110px} }
 @media (prefers-reduced-motion: reduce){ .mini,.mini .mg-all,.mini .mg-tail{transition:none; animation:none!important} }
+
+/* =========== v14 · layouts learned from the new references =========== */
+#proc[hidden]{display:none!important}
+#structure.sc{overflow:clip}
+/* LV.2 scrollytelling + isometric object (ref: studio process page) */
+.scrolly{position:relative; height:320vh; margin-top:10px}
+.sy-pin{position:sticky; top:calc(var(--hud) + 30px); height:calc(100vh - var(--hud) - 90px); min-height:420px; display:grid; grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr); align-items:center; gap:clamp(16px,3vw,40px)}
+.sy-text{position:relative; height:240px}
+.sy-step{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; gap:12px; text-align:center; opacity:0; transform:translateY(24px); filter:blur(6px); transition:opacity .6s, transform .6s, filter .6s; pointer-events:none}
+.sy-step.on{opacity:1; transform:none; filter:none}
+.sy-k{font-family:var(--f-pixel); font-size:17px; letter-spacing:.08em; color:var(--muted)}
+.sy-step h3{font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-.02em; color:var(--ink)}
+.sy-d{max-width:34ch; margin:0 auto; font-size:16px; color:var(--muted)}
+.sy-ruler{position:relative; height:70%; justify-self:center; width:14px; background:repeating-linear-gradient(180deg, rgba(43,29,42,.35) 0 1px, transparent 1px 12px) center/8px 100% no-repeat}
+.sy-ruler::before{content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:rgba(43,29,42,.25)}
+.sy-mark{position:absolute; left:-4px; width:22px; height:3px; border-radius:2px; background:var(--pink); box-shadow:0 0 12px rgba(255,95,174,.6); transition:top .15s linear}
+.sy-obj{position:relative; height:100%; display:grid; place-items:center}
+.iso{position:relative; width:min(360px,100%); aspect-ratio:1; perspective:1400px}
+.iso-scene{position:absolute; inset:0; transform-style:preserve-3d; transform:rotateX(58deg) rotateZ(-45deg)}
+.slab{position:absolute; left:50%; top:50%; width:46%; height:46%; margin:-23% 0 0 -23%; border-radius:8px; background:linear-gradient(135deg,#ffffff,#f1e7ec); box-shadow:1px 1px 0 #e7d9e1,2px 2px 0 #e7d9e1,3px 3px 0 #e2d2db,4px 4px 0 #e2d2db,5px 5px 0 #dccbd5,6px 6px 0 #dccbd5,7px 7px 0 #d6c3ce,8px 8px 0 #d6c3ce,9px 9px 0 #cfbac6,10px 10px 0 #cfbac6, 30px 30px 40px rgba(194,24,122,.18); transition:transform 1s cubic-bezier(.3,1.2,.4,1), opacity .6s, background .6s}
+.slab::after{content:""; position:absolute; inset:14%; border-radius:6px; border:1.5px solid rgba(194,24,122,.25)}
+.link{position:absolute; left:50%; top:50%; width:30%; height:2px; background:linear-gradient(90deg,#ff5fae,#c6f24e); transform-origin:0 50%; opacity:0; transition:opacity .6s, transform 1s}
+.iso[data-s="0"] .s1{transform:translateZ(0)} .iso[data-s="0"] .s2{transform:translateZ(0) scale(.6); opacity:0} .iso[data-s="0"] .s3{transform:translateZ(0) scale(.4); opacity:0}
+.iso[data-s="1"] .s1{transform:translateZ(0)} .iso[data-s="1"] .s2{transform:translateZ(46px) scale(.8); background:linear-gradient(135deg,#ffe6f2,#ffc6e0)} .iso[data-s="1"] .s3{transform:translateZ(92px) scale(.6); background:linear-gradient(135deg,#f4ffd6,#ddf59a)}
+.iso[data-s="2"] .s1{transform:translate(-62%, 0) scale(.7)} .iso[data-s="2"] .s2{transform:translate(62%, -10%) scale(.7); background:linear-gradient(135deg,#ffe6f2,#ffc6e0)} .iso[data-s="2"] .s3{transform:translate(0, 70%) scale(.7); background:linear-gradient(135deg,#f4ffd6,#ddf59a)}
+.iso[data-s="2"] .l1{opacity:1; transform:translate(-40%, 0) rotate(-8deg)} .iso[data-s="2"] .l2{opacity:1; transform:translate(-12%, 10%) rotate(70deg)}
+.iso[data-s="3"] .s1{transform:translateZ(0) scale(1.1)} .iso[data-s="3"] .s2{transform:translateZ(40px) scale(.75); background:linear-gradient(135deg,#ffe6f2,#ffc6e0)} .iso[data-s="3"] .s3{transform:translateZ(80px) scale(.45); background:linear-gradient(135deg,#ff8cc4,#ff3d97)}
+.iso-ic{position:absolute; left:50%; top:22%; width:22%; height:22%; transform:translateX(-50%); filter:drop-shadow(0 12px 14px rgba(194,24,122,.3)); animation:bob 4s ease-in-out infinite}
+@media (max-width: 760px){
+  .scrolly{height:auto} .sy-pin{position:relative; top:auto; height:auto; grid-template-columns:minmax(0,1fr); min-height:0}
+  .sy-ruler{display:none} .sy-obj{order:-1; height:260px} .iso{width:240px} .sy-text{height:220px}
+  .scrolly::after{content:"Chạm để xem bước tiếp"; display:block; text-align:center; font-family:var(--f-pixel); font-size:15px; color:var(--pink)}
+  [data-lang="en"] .scrolly::after{content:"Tap for the next step"}
+}
+/* LV.3 stat columns + hover list (ref: Lightspark) */
+#align{background:#f6f5f7}
+.statrow{display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto 1fr; align-items:stretch; gap:clamp(12px,2vw,28px); margin:10px 0 clamp(40px,6vw,80px)}
+.sr b{display:block; font-family:var(--f-head); font-weight:500; font-size:clamp(44px,5vw,72px); line-height:1; letter-spacing:-.03em; color:var(--ink)}
+.sr p{margin-top:10px; font-weight:600; font-size:14px; color:var(--ink)}
+.sr small{display:block; margin-top:4px; font-size:12px; color:var(--muted); line-height:1.4}
+.glowbar{width:10px; border-radius:10px; background:linear-gradient(180deg,transparent,rgba(127,227,255,.9) 40%,rgba(255,95,174,.9) 70%,transparent); filter:blur(5px); animation:glowp 4s ease-in-out infinite}
+.glowbar.b{background:linear-gradient(180deg,transparent,rgba(255,95,174,.9) 35%,rgba(198,242,78,.9) 70%,transparent); animation-delay:-2s}
+@keyframes glowp{50%{opacity:.45; transform:scaleY(.85)}}
+.lsp{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.9fr); gap:clamp(20px,4vw,60px); align-items:center}
+.lsp-stage{position:relative; min-height:440px; display:grid; place-items:center; border-radius:28px; overflow:hidden}
+.lsp-blob{position:absolute; width:55%; aspect-ratio:1; border-radius:50%; filter:blur(50px); opacity:.8; animation:floaty 10s ease-in-out infinite}
+.lsp-blob.a{left:2%; top:4%; background:#ff8cc4} .lsp-blob.b{right:0; top:30%; background:#c6f24e; animation-delay:-3s} .lsp-blob.c{left:24%; bottom:-6%; background:#7fe3ff; animation-delay:-6s}
+.lsp-card{position:relative; z-index:2; width:min(380px,88%); padding:22px 22px 18px; border-radius:22px; background:rgba(255,255,255,.55); -webkit-backdrop-filter:blur(20px) saturate(1.4); backdrop-filter:blur(20px) saturate(1.4); border:1px solid rgba(255,255,255,.8); box-shadow:0 30px 60px rgba(43,29,42,.12); display:grid; gap:8px; animation:fadeup .4s both}
+.lsp-card .mono{font-size:15px; color:var(--muted)}
+.lsp-big{font-family:var(--f-head); font-weight:500; font-size:58px; line-height:1; color:var(--ink)}
+.lsp-big small{font-size:18px; color:var(--muted); margin-left:4px}
+.lsp-card h3{font-size:22px; letter-spacing:-.01em}
+.lsp-d{font-size:14px; color:var(--ink3)}
+.lsp-jd{font-size:13px; color:var(--muted)} .lsp-jd b{display:block; font-family:var(--f-pixel); font-weight:400; font-size:14px; letter-spacing:.06em; color:var(--pink)}
+.lsp-list{display:grid; justify-items:end; gap:2px; text-align:right}
+.lsp-list .lg{margin:14px 0 4px; font-family:var(--f-pixel); font-size:15px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.lsp-list .lg:first-child{margin-top:0}
+.li{display:inline-flex; align-items:center; gap:10px; border:0; background:none; padding:3px 0; cursor:pointer; font-family:var(--f-head); font-weight:500; font-size:clamp(20px,2.2vw,28px); letter-spacing:-.02em; color:#b7a6b2; transition:color .25s, transform .25s}
+.li .ix{font-family:var(--f-pixel); font-size:15px; color:#cdbfc8}
+.li i{font-style:normal; width:0; overflow:hidden; color:var(--pink); transition:width .25s}
+.li:hover,.li[aria-pressed="true"]{color:var(--ink)}
+.li[aria-pressed="true"] i{width:1.1em}
+@media (max-width: 900px){ .lsp{grid-template-columns:minmax(0,1fr)} .lsp-stage{min-height:380px; order:2} .lsp-list{justify-items:start; text-align:left} .statrow{grid-template-columns:1fr 1fr} .glowbar{display:none} }
+/* LV.4 centred, tags around the front card, pill CTA (ref: Organise nothing) */
+.lv4c .head{justify-items:center; text-align:center}
+.lv4c .head .lead{margin-inline:auto}
+.lv4c .head .node{left:calc(var(--railpad) / -2)}
+.lv4c .head[data-n]::after{right:auto; left:50%; transform:translateX(-50%)}
+.car-tags{position:absolute; left:50%; top:0; width:min(560px,94%); height:clamp(420px,46vw,500px); transform:translateX(-50%); z-index:5; pointer-events:none}
+.car-tags span{position:absolute; padding:7px 14px; border-radius:999px; background:rgba(43,29,42,.78); color:#fff; font-family:var(--f-head); font-weight:600; font-size:13px; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 10px 24px rgba(43,29,42,.2); animation:tagpop .5s cubic-bezier(.3,1.6,.5,1) both; animation-delay:calc(var(--i) * 90ms + .2s)}
+.car-tags span:nth-child(1){left:2%; top:16%} .car-tags span:nth-child(2){right:0; top:34%} .car-tags span:nth-child(3){left:6%; top:60%} .car-tags span:nth-child(4){right:6%; top:74%}
+@keyframes tagpop{from{opacity:0; transform:scale(.6)}}
+.pill-cta{display:block; width:min(560px,100%); margin:0 auto; padding:18px 24px; border-radius:999px; text-align:center; text-decoration:none; font-family:var(--f-head); font-weight:700; font-size:16px; color:#fff; background:linear-gradient(90deg,#ff8cc4,#ff3d97 50%,#c2187a); box-shadow:0 18px 40px rgba(255,61,151,.3), inset 0 1px 0 rgba(255,255,255,.45); transition:transform .25s}
+.pill-cta:hover{transform:translateY(-2px)}
+@media (max-width: 760px){ .car-tags span{font-size:11px; padding:5px 10px} }
+/* LV.5 two offers + promise strip (ref: "Start with a project, or bring us on as your team") */
+.offer{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(14px,2vw,22px)}
+.of{position:relative; isolation:isolate; display:flex; flex-direction:column; gap:12px; min-height:440px; padding:clamp(22px,3vw,34px); border-radius:26px; overflow:hidden}
+.of::before{content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit}
+.of1{background:radial-gradient(80% 70% at 85% 10%, #ffd6ea, transparent 60%), radial-gradient(70% 60% at 10% 100%, #ecffc2, transparent 60%), #fbf7f9; color:var(--ink)}
+.of2{background:radial-gradient(80% 70% at 85% 0%, rgba(255,95,174,.55), transparent 60%), radial-gradient(70% 60% at 0% 100%, rgba(198,242,78,.35), transparent 60%), #2b1d2a; color:#fff}
+.of::after{content:""; position:absolute; inset:0; z-index:3; border-radius:inherit; padding:1.5px; pointer-events:none; background:conic-gradient(from var(--ang), transparent 0deg, transparent 280deg, #ff8cc4 320deg, #c6f24e 345deg, transparent 360deg); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; animation:ring 5s linear infinite}
+.of2::after{animation-delay:-2.5s}
+.of-k{display:flex; justify-content:space-between; align-items:center; font-family:var(--f-pixel); font-size:17px; letter-spacing:.06em; text-transform:uppercase; opacity:.75}
+.of-k b{font-weight:400; padding:2px 10px; border-radius:999px; background:var(--lime); color:var(--ink)}
+.of h3{font-size:clamp(26px,3vw,38px); line-height:1.05; letter-spacing:-.02em}
+.of h3 em{font-style:normal; color:var(--pink)}
+.of2 h3 em{color:var(--lime)}
+.of-d{font-size:15px; opacity:.85; max-width:44ch}
+.of-fit{font-size:14px; padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.6); border:1px solid var(--edge)}
+.of2 .chip{background:transparent; color:#fff; border-color:rgba(255,255,255,.35)} .of2 button.chip[aria-pressed="true"]{background:var(--lime); color:var(--ink); border-color:var(--lime)}
+.of2 .crew span{background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2); color:#fff} .of2 .crew span.lead{background:var(--lime); color:var(--ink)}
+.of-btn{margin-top:auto; align-self:flex-start; border:0; border-radius:999px; padding:13px 22px; font-family:var(--f-head); font-weight:700; font-size:14px; cursor:pointer; background:var(--ink); color:#fff; transition:transform .2s}
+.of2 .of-btn{background:var(--lime); color:var(--ink)}
+.of-btn:hover{transform:translateY(-2px)}
+.promise{margin-top:clamp(26px,4vw,44px); padding-top:20px; border-top:1px solid var(--edge)}
+.promise .mono{font-size:16px; color:var(--muted)}
+.promise ol{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px}
+.promise li{display:grid; gap:6px; font-size:14px; font-weight:600; color:var(--ink)}
+.promise li b{font-family:var(--f-head); font-weight:500; font-size:28px; color:var(--pink); line-height:1}
+@media (max-width: 760px){ .offer,.promise ol{grid-template-columns:minmax(0,1fr)} .of{min-height:0} }
 </style>
 
 <!-- Global SVG: gradients, liquid-chrome filter, one hand-built sticker/icon language -->
@@ -1463,62 +1564,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   <a href="#contact" data-tab="contact"><svg class="ico" viewBox="0 0 64 64"><use href="#i-chat"/></svg><span class="en">SAY HI</span><span class="vi">LIÊN HỆ</span></a>
   <a href="#report" data-tab="report" hidden><svg class="ico" viewBox="0 0 64 64"><use href="#i-chart"/></svg>CONSOLE</a>
 </nav>
-<div class="mini" id="mini" aria-live="polite">
-  <div class="mini-say" id="miniSay" role="dialog" aria-label="Xinh mini"></div>
-  <button class="mini-body" id="miniBody" type="button" aria-label="Xinh mini. Tap to chat, drag to move">
-    <svg viewBox="0 0 140 150" aria-hidden="true">
-      <defs>
-        <radialGradient id="mgSkin" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="#fff1e6"/><stop offset=".6" stop-color="#ffd6c2"/><stop offset="1" stop-color="#f0b29a"/></radialGradient>
-        <radialGradient id="mgHair" cx=".4" cy=".25" r=".85"><stop offset="0" stop-color="#8a5a48"/><stop offset=".55" stop-color="#5a3428"/><stop offset="1" stop-color="#2e1914"/></radialGradient>
-        <radialGradient id="mgBeret" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#6b5a66"/><stop offset=".5" stop-color="#2b1d2a"/><stop offset="1" stop-color="#120a11"/></radialGradient>
-        <radialGradient id="mgTop" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#fbeff4"/><stop offset="1" stop-color="#e9cfdb"/></radialGradient>
-        <radialGradient id="mgCat" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".65" stop-color="#fff3e8"/><stop offset="1" stop-color="#e8d2c2"/></radialGradient>
-        <radialGradient id="mgPatch" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffc38a"/><stop offset="1" stop-color="#e98a3c"/></radialGradient>
-        <radialGradient id="mgEye" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#5a4456"/><stop offset="1" stop-color="#140c13"/></radialGradient>
-      </defs>
-      <ellipse class="mshadow" cx="70" cy="145" rx="34" ry="5" fill="rgba(194,24,122,.18)"/>
-      <g class="mg-all">
-        <!-- cat tail -->
-        <path class="mg-tail" d="M112 128 C130 124 132 104 122 98" fill="none" stroke="#e98a3c" stroke-width="7" stroke-linecap="round"/>
-        <!-- body -->
-        <path d="M38 146 C36 120 48 104 70 104 C92 104 104 120 102 146 Z" fill="url(#mgTop)"/>
-        <circle cx="42" cy="116" r="11" fill="url(#mgTop)"/><circle cx="98" cy="116" r="11" fill="url(#mgTop)"/>
-        <path d="M64 106 L70 116 L76 106" fill="none" stroke="#ff8cc4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="70" cy="117" r="2.6" fill="#ff5fae"/>
-        <!-- waving hand -->
-        <g class="mg-hand"><circle cx="30" cy="104" r="7" fill="url(#mgSkin)"/></g>
-        <!-- hair back -->
-        <path d="M30 62 C26 96 34 116 46 118 L94 118 C106 116 114 96 110 62 Z" fill="url(#mgHair)"/>
-        <g class="mg-head">
-          <circle cx="70" cy="62" r="36" fill="url(#mgSkin)"/>
-          <!-- bangs -->
-          <path d="M34 60 C34 34 52 24 70 24 C90 24 106 34 106 60 C98 52 92 44 86 40 C82 50 72 54 60 52 C52 51 44 54 34 60Z" fill="url(#mgHair)"/>
-          <!-- beret -->
-          <g transform="rotate(-12 70 30)"><ellipse cx="68" cy="28" rx="40" ry="13" fill="url(#mgBeret)"/><ellipse cx="60" cy="23" rx="14" ry="4" fill="#fff" opacity=".18"/><circle cx="68" cy="15" r="3.5" fill="#2b1d2a"/><rect x="36" y="33" width="64" height="4" rx="2" fill="#c6f24e"/></g>
-          <!-- face -->
-          <g class="mg-eyes">
-            <ellipse cx="56" cy="66" rx="6" ry="7.5" fill="url(#mgEye)"/><ellipse cx="84" cy="66" rx="6" ry="7.5" fill="url(#mgEye)"/>
-            <g class="mg-glint"><circle cx="58" cy="63" r="2.2" fill="#fff"/><circle cx="86" cy="63" r="2.2" fill="#fff"/><circle cx="54.5" cy="69" r="1" fill="#fff" opacity=".8"/><circle cx="82.5" cy="69" r="1" fill="#fff" opacity=".8"/></g>
-          </g>
-          <ellipse cx="46" cy="78" rx="7" ry="4" fill="#ff8cc4" opacity=".55"/><ellipse cx="94" cy="78" rx="7" ry="4" fill="#ff8cc4" opacity=".55"/>
-          <path class="mg-mouth" d="M64 80 Q70 86 76 80" fill="none" stroke="#c2187a" stroke-width="2.4" stroke-linecap="round"/>
-          <ellipse cx="54" cy="46" rx="10" ry="5" fill="#fff" opacity=".22" transform="rotate(-20 54 46)"/>
-        </g>
-        <!-- cat on her shoulder -->
-        <g class="mg-cat">
-          <path d="M98 100 L101 84 L110 94 Z" fill="url(#mgPatch)"/><path d="M126 100 L124 84 L114 93 Z" fill="url(#mgCat)"/>
-          <path d="M101 88 L103 93 L106 91 Z" fill="#ffb3cf"/><path d="M123 88 L121 93 L118 91 Z" fill="#ffb3cf"/>
-          <ellipse cx="112" cy="104" rx="16" ry="14" fill="url(#mgCat)"/>
-          <path d="M98 100 C100 92 108 90 112 94 C108 98 102 100 98 104Z" fill="url(#mgPatch)"/>
-          <g class="mg-ceyes"><ellipse cx="106" cy="104" rx="2.6" ry="3.2" fill="#2b1d2a"/><ellipse cx="118" cy="104" rx="2.6" ry="3.2" fill="#2b1d2a"/><circle cx="107" cy="103" r="1" fill="#fff"/><circle cx="119" cy="103" r="1" fill="#fff"/></g>
-          <path d="M110.5 109 L113.5 109 L112 111 Z" fill="#ff8cc4"/>
-          <path d="M112 111 Q109 114 107 112 M112 111 Q115 114 117 112" fill="none" stroke="#2b1d2a" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M96 107 L103 108 M96 111 L103 110 M128 107 L121 108 M128 111 L121 110" stroke="#c9b3a6" stroke-width="1" stroke-linecap="round"/>
-        </g>
-      </g>
-    </svg>
-  </button>
-</div>
+
 <div class="dock">
   <button type="button" id="goTop" aria-label="Back to top" data-tip="Back to top" hidden><svg class="ico" viewBox="0 0 24 24"><use href="#i-up"/></svg></button>
   <button type="button" id="goEnd" aria-label="Jump to the end" data-tip="Jump to the end"><svg class="ico" viewBox="0 0 24 24"><use href="#i-down"/></svg></button>
@@ -1613,12 +1659,24 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     <div class="head">
       <span class="node rail cp" data-node data-cp="2"></span>
       <p class="tag"><b>LV.2</b><span class="en">How</span><span class="vi">Cách làm</span></p>
-      <h2 class="own-big"><span class="en">I own it.</span><span class="vi">Tôi thích làm chủ.</span></h2>
+      <h2 class="own-big"><span class="en">Xinh owns it.</span><span class="vi">Xinh thích làm chủ.</span></h2>
       <p class="own-sub"><span class="en">In control from the goal to the result.</span><span class="vi">Chủ động kiểm soát từ mục tiêu đến kết quả.</span></p>
       <p class="own-line en"><span>Understand the goal</span><i>→</i><span>Research &amp; propose</span><i>→</i><span>Coordinate resources</span><i>→</i><span>Control quality</span><i>→</i><span>Deliver the result</span></p>
       <p class="own-line vi"><span>Hiểu mục tiêu</span><i>→</i><span>Nghiên cứu &amp; đề xuất</span><i>→</i><span>Điều phối nguồn lực</span><i>→</i><span>Kiểm soát chất lượng</span><i>→</i><span>Tạo kết quả</span></p>
     </div>
-    <div class="proc" id="proc"></div>
+    <div class="scrolly" id="scrolly">
+      <div class="sy-pin">
+        <div class="sy-text" id="syText" aria-live="polite"></div>
+        <div class="sy-ruler" aria-hidden="true"><i class="sy-mark" id="syMark"></i></div>
+        <div class="sy-obj" aria-hidden="true">
+          <div class="iso" id="iso" data-s="0">
+            <div class="iso-scene"><i class="slab s1"></i><i class="slab s2"></i><i class="slab s3"></i><i class="link l1"></i><i class="link l2"></i></div>
+            <svg class="iso-ic" viewBox="0 0 64 64"><use id="isoUse" href="#i-search"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="proc" id="proc" hidden></div>
     <button class="quizchip" type="button" data-quiz><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg><span><b>XINH_QUIZ.EXE</b><span class="en">Got 30 seconds? 3 quick ones with Xinh</span><span class="vi">Rảnh 30 giây? Chơi 3 câu với Xinh</span></span><em><span class="en">Open</span><span class="vi">Mở</span></em></button>
     <div class="wpt" style="margin-top:10px"><span class="node rail wp" data-node></span></div>
   </div>
@@ -1631,13 +1689,16 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       <span class="node rail cp" data-node data-cp="3"></span>
       <p class="tag"><b>LV.3</b><span class="en">Proof</span><span class="vi">Bằng chứng</span></p>
       <h2 class="h2"><span class="en">Don't take <em>my word for it.</em></span><span class="vi">Nói có sách, <em>mách có chứng.</em></span></h2>
-      <p class="lead"><span class="en">A few wins I earned myself, and the 9 things I do well, each backed by a real project. Tap one and see.</span><span class="vi">Vài thành tích Xinh tự tay giành được, và 9 đầu việc Xinh làm thạo, việc nào cũng có dự án thật đi kèm. Bấm thử là thấy.</span></p>
+      <p class="lead"><span class="en">Four wins I earned myself. Then nine things I do well: hover any of them to see the real projects behind it.</span><span class="vi">Bốn thành tích Xinh tự tay giành được. Và chín đầu việc Xinh làm thạo: rê chuột vào từng mục là hiện dự án thật đứng sau.</span></p>
     </div>
-    <div class="ach">
-      <div class="badge" data-tilt><span class="lock">UNLOCKED</span><span class="medal">×3</span><span><b><span class="en">3 promotions in 4 years</span><span class="vi">3 lần lên vị trí trong 4 năm</span></b><small>Planning Assistant → Associate AM</small></span></div>
-      <div class="badge" data-tilt><span class="lock">UNLOCKED</span><span class="medal">×4</span><span><b><span class="en">4 pitches won with the team</span><span class="vi">4 lần pitch thắng cùng team</span></b><small>VIB · MSB · Duy Tân · Cindy Bloom</small></span></div>
-      <div class="badge" data-tilt><span class="lock">UNLOCKED</span><span class="medal">3→5</span><span><b><span class="en">MSB renewed: 3 → 5 years</span><span class="vi">MSB gia hạn: 3 → 5 năm</span></b><small>Social always-on · 2025 – 2027</small></span></div>
-      <div class="badge" data-tilt><span class="lock">UNLOCKED</span><span class="medal">12</span><span><b><span class="en">12 brands served</span><span class="vi">12 thương hiệu đã phục vụ</span></b><small><span class="en">Banking, fintech, consumer</span><span class="vi">Ngân hàng, fintech, tiêu dùng</span></small></span></div>
+    <div class="statrow">
+      <div class="sr"><b>×3</b><p><span class="en">promotions in 4 years</span><span class="vi">lần lên vị trí trong 4 năm</span></p><small>Planning Assistant → Associate AM</small></div>
+      <i class="glowbar" aria-hidden="true"></i>
+      <div class="sr"><b>×4</b><p><span class="en">pitches won with the team</span><span class="vi">lần pitch thắng cùng team</span></p><small>VIB · MSB · Duy Tân · Cindy Bloom</small></div>
+      <i class="glowbar b" aria-hidden="true"></i>
+      <div class="sr"><b>3→5</b><p><span class="en">years: MSB renewed</span><span class="vi">năm: MSB gia hạn</span></p><small>Social always-on · 2025 – 2027</small></div>
+      <i class="glowbar" aria-hidden="true"></i>
+      <div class="sr"><b>12</b><p><span class="en">brands served</span><span class="vi">thương hiệu đã phục vụ</span></p><small><span class="en">Banking, fintech, consumer</span><span class="vi">Ngân hàng, fintech, tiêu dùng</span></small></div>
     </div>
     <div data-mx></div>
     <div class="wpt" style="margin-top:8px"><span class="node rail wp" data-node></span></div>
@@ -1645,7 +1706,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   </div>
 </section>
 
-<section class="sc sc-ink zone" id="deliver">
+<section class="sc sc-ink zone lv4c" id="deliver">
   <div class="brk" data-reach style="padding-top:0">
     <span class="node" data-node></span>
     <p class="say"><span class="en">Scored. <em>Now the part everyone skips to.</em></span><span class="vi">Chấm xong rồi. <em>Giờ tới phần ai cũng thích: kết quả.</em></span></p>
@@ -1655,55 +1716,47 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       <span class="node rail cp" data-node data-cp="4"></span>
       <p class="tag"><b>LV.4</b><span class="en">Results</span><span class="vi">Kết quả</span></p>
       <h2 class="h2"><span class="en">Seven projects, <em>one spin.</em></span><span class="vi">Bảy dự án, <em>xoay là thấy.</em></span></h2>
-      <p class="lead"><span class="en">Spin through all seven. Open any case to see my part and the team's, side by side. No credit-stealing here.</span><span class="vi">Xoay qua cả bảy dự án. Mở từng dự án để xem phần Xinh làm và phần của team. Không nhận vơ đâu nha.</span></p>
+      <p class="lead"><span class="en">Drag to spin. Open a case to see my part and the team's, side by side.</span><span class="vi">Kéo để xoay. Mở từng dự án để xem phần Xinh làm và phần của team.</span></p>
     </div>
     <div class="pin" id="pin"><div class="pin-inner" id="pinView"><div class="track" id="track"></div><div class="route" aria-hidden="true"><span id="routeLbl"></span><div id="routeLine"><span id="routeDone"></span><span id="routeMini"></span></div></div></div></div>
-    <div class="lv4-foot"><a class="btn lime" href="#work"><span class="en">All 7 projects</span><span class="vi">Xem cả 7 dự án</span> →</a></div>
+    <div class="lv4-foot"><a class="pill-cta" href="#work"><span class="en">See all 7 projects</span><span class="vi">Xem cả 7 dự án</span> →</a></div>
   </div>
 </section>
 
-<section class="sc sc-paper zone floor3d" id="value">
+<section class="sc sc-paper zone" id="value">
   <svg class="dood" style="right:10%; top:120px; --w:56px; --d:-.8s" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-heart"/></svg>
   <span class="bubble" style="width:140px; height:140px; right:-30px; top:40px" aria-hidden="true"></span>
   <div class="wrap">
     <div class="head">
       <span class="node rail cp" data-node data-cp="5"></span>
       <p class="tag"><b>LV.5</b><span class="en">What you get</span><span class="vi">Bạn nhận được gì</span></p>
-      <h2 class="h2"><span class="en">Work with Xinh, <em>get all three.</em></span><span class="vi">Làm với Xinh, <em>bạn nhận cả ba.</em></span></h2>
-      <p class="lead"><span class="en">One accountable owner, the right crew for the job, and a promise to see it through.</span><span class="vi">Một người chịu trách nhiệm đến cùng, một đội đúng người cho đúng việc, và một lời cam kết đi đến cuối.</span></p>
+      <h2 class="h2"><span class="en">Start with a project, <em>or bring me on as your team.</em></span><span class="vi">Bắt đầu với một dự án, <em>hoặc cả một đội.</em></span></h2>
+      <p class="lead"><span class="en">Two ways to work together, one person accountable either way.</span><span class="vi">Hai cách hợp tác, cách nào cũng có một người chịu trách nhiệm đến cùng.</span></p>
     </div>
-    <div class="val3">
-      <article class="win tier t1" data-tilt>
-        <div class="win-bar"><b>01 · SOLO.EXE</b><span class="ctl"><i></i><i></i><i></i></span></div>
-        <div class="win-body">
-          <p class="who"><span class="av"><i>X</i></span>Xinh</p>
-          <h3><span class="en">One person, <em>the whole project.</em></span><span class="vi">Một người, <em>trọn dự án.</em></span></h3>
-          <p><span class="en">From reading the brief and planning, to running production, sign-off and the final report: you deal with one person. Nothing gets lost, nobody passes the buck.</span><span class="vi">Từ đọc brief, lên kế hoạch, điều phối sản xuất đến nghiệm thu và báo cáo, bạn chỉ làm việc với một người. Không lạc thông tin, không đùn đẩy.</span></p>
-          <p class="fitfor"><b><span class="en">Good for</span><span class="vi">Hợp với</span></b><span class="en">Small brands, lean projects, teams that need one more PM.</span><span class="vi">Brand nhỏ, dự án gọn, team cần thêm một PM.</span></p>
-        </div>
+    <div class="offer">
+      <article class="of of1">
+        <p class="of-k"><span class="en">Per project</span><span class="vi">Theo dự án</span><b>SOLO</b></p>
+        <h3><span class="en">One person, <em>the whole project.</em></span><span class="vi">Một người, <em>trọn dự án.</em></span></h3>
+        <p class="of-d"><span class="en">From the brief and the plan to production, sign-off and the final report, you deal with one person. Nothing gets lost, nobody passes the buck.</span><span class="vi">Từ đọc brief, lên kế hoạch, điều phối sản xuất đến nghiệm thu và báo cáo, bạn chỉ làm việc với một người. Không lạc thông tin, không đùn đẩy.</span></p>
+        <p class="of-fit"><span class="en">Good for small brands, lean projects, teams that need one more PM.</span><span class="vi">Hợp với brand nhỏ, dự án gọn, team cần thêm một PM.</span></p>
+        <button class="of-btn" type="button" data-connect><span class="en">Start a project</span><span class="vi">Bắt đầu một dự án</span> →</button>
       </article>
-      <article class="win tier t2" data-tilt>
-        <div class="win-bar"><b>02 · SQUAD.EXE</b><span class="ctl"><i></i><i></i><i></i></span></div>
-        <div class="win-body">
-          <p class="who"><span class="av"><i>X</i><i>+</i><i>+</i><i>+</i></span><span class="en">Xinh &amp; partners</span><span class="vi">Xinh &amp; đối tác</span></p>
-          <h3><span class="en">A quality crew, <em>built per project.</em></span><span class="vi">Một đội chất lượng, <em>lắp theo dự án.</em></span></h3>
-          <p><span class="en">A network I've worked with for years: content, design, production houses, KOL/KOC, media. I pick the right people for each job, and I stay the one accountable.</span><span class="vi">Mạng lưới đối tác Xinh làm cùng nhiều năm: content, thiết kế, production house, KOL/KOC, media. Mỗi dự án, Xinh chọn đúng người và vẫn là người chịu trách nhiệm cuối cùng.</span></p>
-          <div class="squad"><div class="opts" id="squadOpts" role="group"></div><div class="crew" id="crew" aria-live="polite"></div></div>
-        </div>
+      <article class="of of2">
+        <p class="of-k"><span class="en">As your team</span><span class="vi">Như một đội</span><b>SQUAD</b></p>
+        <h3><span class="en">A quality crew, <em>built per project.</em></span><span class="vi">Một đội chất lượng, <em>lắp theo dự án.</em></span></h3>
+        <p class="of-d"><span class="en">A network I've worked with for years. I pick the right people for each job and stay the one accountable. Pick a type to see the crew:</span><span class="vi">Mạng lưới đối tác Xinh làm cùng nhiều năm. Mỗi dự án Xinh chọn đúng người và vẫn là người chịu trách nhiệm cuối cùng. Chọn mảng để xem đội hình:</span></p>
+        <div class="squad"><div class="opts" id="squadOpts" role="group"></div><div class="crew" id="crew" aria-live="polite"></div></div>
+        <button class="of-btn" type="button" data-connect><span class="en">Build my crew</span><span class="vi">Lắp đội cho tôi</span> →</button>
       </article>
-      <article class="win tier t3" data-tilt>
-        <div class="win-bar"><b>03 · PROMISE.EXE</b><span class="ctl"><i></i><i></i><i></i></span></div>
-        <div class="win-body">
-          <p class="who"><span class="av"><i>✓</i></span><span class="en">My commitment</span><span class="vi">Cam kết của Xinh</span></p>
-          <h3><span class="en">Quality promised, <em>with you to the end.</em></span><span class="vi">Cam kết chất lượng, <em>đồng hành đến cùng.</em></span></h3>
-          <ul>
-            <li><span class="en">Scope, timeline and budget clear from day one</span><span class="vi">Phạm vi, timeline, ngân sách rõ từ ngày đầu</span></li>
-            <li><span class="en">Regular updates, problems flagged early</span><span class="vi">Cập nhật đều đặn, có vấn đề báo sớm</span></li>
-            <li><span class="en">Every asset checked by me before it goes live</span><span class="vi">Mọi sản phẩm qua tay Xinh duyệt trước khi lên sóng</span></li>
-            <li><span class="en">After launch I stay: report, lessons, a better next round</span><span class="vi">Xong vẫn ở lại: báo cáo, rút kinh nghiệm, tối ưu lần sau</span></li>
-          </ul>
-        </div>
-      </article>
+    </div>
+    <div class="promise">
+      <p class="mono"><span class="en">With both, my promise</span><span class="vi">Cả hai cách, Xinh đều cam kết</span></p>
+      <ol>
+        <li><b>01</b><span class="en">Scope, timeline and budget clear from day one</span><span class="vi">Phạm vi, timeline, ngân sách rõ từ ngày đầu</span></li>
+        <li><b>02</b><span class="en">Regular updates, problems flagged early</span><span class="vi">Cập nhật đều đặn, có vấn đề báo sớm</span></li>
+        <li><b>03</b><span class="en">Every asset checked by me before it goes live</span><span class="vi">Mọi sản phẩm qua tay Xinh duyệt trước khi lên sóng</span></li>
+        <li><b>04</b><span class="en">After launch I stay: report, lessons, a better next round</span><span class="vi">Xong vẫn ở lại: báo cáo, rút kinh nghiệm, tối ưu lần sau</span></li>
+      </ol>
     </div>
     <div class="wpt" style="margin-top:30px"><span class="node rail wp" data-node></span></div>
   </div>
@@ -1849,7 +1902,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
         <p class="lead"><span class="en">Five years agency-side at Xanh Marketing, Ho Chi Minh City: planning, account, business development and project management.</span><span class="vi">5 năm phía agency tại Xanh Marketing, TP.HCM: planning, account, business development và quản lý dự án.</span></p>
         <div class="own-card">
           <p class="k"><span class="en">How I work</span><span class="vi">Tinh thần làm việc</span></p>
-          <p class="s"><span class="en">I own it.</span><span class="vi">Tôi thích làm chủ.</span></p>
+          <p class="s"><span class="en">Xinh owns it.</span><span class="vi">Xinh thích làm chủ.</span></p>
           <p class="s2"><span class="en">In control from the goal to the result.</span><span class="vi">Chủ động kiểm soát từ mục tiêu đến kết quả.</span></p>
           <div class="flow en"><span>Understand the goal</span><span>Research &amp; propose</span><span>Coordinate resources</span><span>Control quality</span><span>Deliver the result</span></div>
           <div class="flow vi"><span>Hiểu mục tiêu</span><span>Nghiên cứu &amp; đề xuất</span><span>Điều phối nguồn lực</span><span>Kiểm soát chất lượng</span><span>Tạo kết quả</span></div>
@@ -2199,7 +2252,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
         '<span class="cc-t">' + both(c.t) + '</span>' +
         '<button class="cc-open" type="button" data-case="' + c.id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</button></div></article>';
     }).join('');
-    $('#track').innerHTML = '<div class="car-glow" aria-hidden="true"></div><div class="car" id="car" role="group" aria-roledescription="carousel" aria-label="' + (vi ? 'Bảy dự án' : 'Seven projects') + '"><div class="car-ring" id="carRing">' + items + '</div></div>' +
+    $('#track').innerHTML = '<div class="car-glow" aria-hidden="true"></div><div class="car-tags" id="carTags" aria-hidden="true"></div><div class="car" id="car" role="group" aria-roledescription="carousel" aria-label="' + (vi ? 'Bảy dự án' : 'Seven projects') + '"><div class="car-ring" id="carRing">' + items + '</div></div>' +
       '<div class="car-ctl"><button type="button" class="car-btn" data-car="-1" aria-label="' + (vi ? 'Dự án trước' : 'Previous project') + '">‹</button><span class="car-dots" id="carDots">' + CASES.map(function(c, i){ return '<i data-cgo="' + i + '"></i>'; }).join('') + '</span><button type="button" class="car-btn" data-car="1" aria-label="' + (vi ? 'Dự án tiếp' : 'Next project') + '">›</button></div>';
     layoutCar();
   }
@@ -2211,6 +2264,8 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     var front = ((Math.round(-carRot / g.step) % CASES.length) + CASES.length) % CASES.length; carIdx = front;
     $$('.cc', ring).forEach(function(el, i){ var d = Math.abs(((i - front) % CASES.length + CASES.length) % CASES.length); d = Math.min(d, CASES.length - d); el.classList.toggle('front', d === 0); el.style.opacity = d > 2 ? .18 : d === 2 ? .45 : 1; el.setAttribute('aria-hidden', d === 0 ? 'false' : 'true'); });
     $$('#carDots i').forEach(function(d, i){ d.classList.toggle('on', i === front); });
+    var tg = $('#carTags'); if (tg){ var fc = CASES[front], tags = fc.subs.concat(fc.cats.filter(function(k){ return k !== 'bank' && k !== 'fmcg'; }).map(function(k){ var c = COLS[colIdx(k)]; return L(c.t); })).slice(0, 4);
+      if (tg.dataset.f !== String(front) + lang){ tg.dataset.f = String(front) + lang; tg.innerHTML = tags.map(function(t, i){ return '<span style="--i:' + i + '">' + esc(t) + '</span>'; }).join(''); } }
   }
   function carGo(i){ var g = carGeom(); var target = -i * g.step, cur = carRot; var diff = ((target - cur) % 360 + 540) % 360 - 180; carRot = cur + diff; layoutCar(); }
   function carStep(d){ var g = carGeom(); carRot = Math.round(carRot / g.step) * g.step - d * g.step; layoutCar(); }
@@ -2289,10 +2344,24 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     if (j){ e.preventDefault(); roleIdx = +j.dataset.jumpRole; seenRoles[roleIdx] = 1; renderRoles(); var t = $('#roleTabs'); if (curView !== 'story'){ location.hash = 'clarify'; } else if (t) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
   });
   /* LV.2 accordion + profile steps */
+  var syIdx = -1, SYIC = ['i-search', 'i-blocks', 'i-nodes', 'i-target'];
+  function syUpdate(force){
+    var sc = $('#scrolly'); if (!sc || (curView !== 'story' && !force)) return;
+    var r = sc.getBoundingClientRect(), span = sc.offsetHeight - window.innerHeight * .75;
+    var p = clamp((window.innerHeight * .2 - r.top) / Math.max(1, span), 0, .999), i = window.innerWidth < 760 ? syIdx < 0 ? 0 : syIdx : Math.floor(p * 4);
+    if (window.innerWidth >= 760){ var mk = $('#syMark'); if (mk) mk.style.top = (p * 100).toFixed(1) + '%'; }
+    if (i === syIdx && !force) return; syIdx = i;
+    $$('#syText .sy-step').forEach(function(a, k){ a.classList.toggle('on', k === i); });
+    var iso = $('#iso'); if (iso){ iso.dataset.s = i; $('#isoUse').setAttribute('href', '#' + SYIC[i]); }
+  }
+  window.addEventListener('scroll', function(){ syUpdate(false); }, {passive:true});
+  document.addEventListener('click', function(e){ if (window.innerWidth < 760 && e.target.closest('#scrolly')){ syIdx = (syIdx + 1) % 4; var k = syIdx; syIdx = -9; syIdx = k; $$('#syText .sy-step').forEach(function(a, j){ a.classList.toggle('on', j === k); }); var iso = $('#iso'); iso.dataset.s = k; $('#isoUse').setAttribute('href', '#' + SYIC[k]); } });
   function renderSteps(){
     var IC = ['i-search', 'i-blocks', 'i-nodes', 'i-target'];
     var html = STEPS.map(function(s, i){ return '<article class="how-card"><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><use href="#' + IC[i] + '"/></svg><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
-    $('#proc').innerHTML = html; $('#steps4').innerHTML = html; $('#proc').classList.add('stackx'); $('#steps4').classList.add('stackx');
+    $('#proc').innerHTML = html; $('#steps4').innerHTML = html; $('#steps4').classList.add('stackx');
+    var st = $('#syText'); if (st) st.innerHTML = STEPS.map(function(s, i){ return '<article class="sy-step" data-i="' + i + '"><p class="sy-k">0' + (i + 1) + ' / 04 · ' + esc(L(s.t)) + '</p><h3>' + esc(L(s.k)) + '</h3><p class="sy-d">' + esc(L(s.d)) + '</p></article>'; }).join('');
+    syUpdate(true);
   }
 
   /* LV.3 capability matrix (story + Skills tab share it) */
@@ -2321,16 +2390,18 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   }
   function renderMatrix(){
     var vi = lang === 'vi', ci = colIdx(mxSel), col = COLS[ci];
-    var list = '<h4>' + (vi ? 'Xinh chạy gì' : 'What I run') + '</h4>' + COLS.filter(function(c){ return c.g === 'type'; }).map(statBtn).join('') +
-      '<h4>' + (vi ? 'Xinh gánh tới đâu' : 'How far I take it') + '</h4>' + COLS.filter(function(c){ return c.g === 'own'; }).map(statBtn).join('');
-    var detail = '<p class="mono" style="color:var(--blue)">' + grpName(col) + '</p><h3>' + esc(L(col.t)) + '</h3><p>' + esc(L(col.d)) + '</p>' +
-      '<div class="fit"><b>' + (vi ? 'JD thường ghi' : 'How JDs say it') + '</b>' + esc(L(col.jd)) + '</div>' +
-      '<p class="mono">' + (vi ? 'Đã làm ở' : 'Done in') + '</p><div class="proof">' + proofChips(ci) + '</div>';
-    var html = '<div class="win"><div class="win-bar"><b>SKILLS.SYS · ' + (vi ? '9 ĐẦU VIỆC · 7 DỰ ÁN' : '9 CAPABILITIES · 7 PROJECTS') + '</b><span class="ctl"><i></i><i></i><i></i></span></div><div class="stp"><div class="stp-list">' + list + '</div><div class="stp-detail" aria-live="polite">' + detail + '</div></div></div>';
+    var item = function(c){ var n = colIdx(c.k) + 1; return '<button class="li" type="button" data-col="' + c.k + '" aria-pressed="' + (c.k === mxSel ? 'true' : 'false') + '"><span class="ix">' + ('0' + n).slice(-2) + '</span>' + esc(L(c.t)) + '<i>→</i></button>'; };
+    var list = '<p class="lg">' + (vi ? 'Xinh chạy gì' : 'What I run') + '</p>' + COLS.filter(function(c){ return c.g === 'type'; }).map(item).join('') +
+      '<p class="lg">' + (vi ? 'Xinh gánh tới đâu' : 'How far I take it') + '</p>' + COLS.filter(function(c){ return c.g === 'own'; }).map(item).join('');
+    var n = CASES.filter(function(c){ return (MX[c.id] || [])[ci]; }).length;
+    var card = '<div class="lsp-card" aria-live="polite"><p class="mono">' + grpName(col) + ' · ' + ('0' + (ci + 1)).slice(-2) + '</p><p class="lsp-big">' + n + '<small>/7 ' + (vi ? 'dự án' : 'projects') + '</small></p><h3>' + esc(L(col.t)) + '</h3><p class="lsp-d">' + esc(L(col.d)) + '</p>' +
+      '<p class="lsp-jd"><b>' + (vi ? 'JD thường ghi' : 'How JDs say it') + '</b>' + esc(L(col.jd)) + '</p><div class="proof">' + proofChips(ci) + '</div></div>';
+    var html = '<div class="lsp"><div class="lsp-stage"><span class="lsp-blob a"></span><span class="lsp-blob b"></span><span class="lsp-blob c"></span>' + card + '</div><div class="lsp-list">' + list + '</div></div>';
     $$('[data-mx]').forEach(function(h){ h.innerHTML = html; });
     var g = $('#skGrid'); if (g) g.innerHTML = COLS.map(capCard).join('');
   }
-  document.addEventListener('click', function(e){ var b = e.target.closest('[data-col]'); if (b){ mxSel = b.dataset.col; renderMatrix(); rebuild(); track('skill', mxSel); } });
+  document.addEventListener('click', function(e){ var b = e.target.closest('[data-col]'); if (b){ mxSel = b.dataset.col; renderMatrix(); track('skill', mxSel); } });
+  document.addEventListener('pointerover', function(e){ var b = e.target.closest && e.target.closest('.lsp-list [data-col]'); if (b && b.dataset.col !== mxSel && finePointer){ mxSel = b.dataset.col; var keep = b.closest('[data-mx]'); renderMatrix(); } });
 
   /* =====================================================================
      CONTACT
@@ -3162,7 +3233,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     if (e.target.closest('[data-mini-x]')){ mini.classList.remove('talk'); }
   });
   (function(){
-    var body = $('#miniBody'), sx, sy, ox, oy, drag = false, moved = false;
+    var body = $('#miniBody'), sx, sy, ox, oy, drag = false, moved = false; if (!body) return;
     body.addEventListener('pointerdown', function(e){ drag = true; moved = false; sx = e.clientX; sy = e.clientY; ox = miniPos ? miniPos[0] : 0; oy = miniPos ? miniPos[1] : 0; body.setPointerCapture(e.pointerId); });
     body.addEventListener('pointermove', function(e){ if (!drag) return; var dx = e.clientX - sx, dy = e.clientY - sy; if (Math.abs(dx) + Math.abs(dy) > 6){ moved = true; mini.classList.add('drag'); miniPlace((ox + dx) / window.innerWidth, (oy + dy) / window.innerHeight, false); } });
     body.addEventListener('pointerup', function(){ drag = false; mini.classList.remove('drag'); if (moved){ miniFree = Date.now() + 25000; } });
