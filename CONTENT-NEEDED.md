@@ -20,7 +20,7 @@ Gửi cho Claude theo từng mục bên dưới, Claude sẽ điền vào phần
 |---|---|
 | ~~Link CV (PDF)~~ | Đã có: `public/assets/XinhNguyen-CV.pdf` |
 | ~~LinkedIn~~ | Đã có: xinh-nguyen-exploremore |
-| Xác nhận vị trí mong muốn | Hiện ghi: Brand / Marketing Executive, ưu tiên ngân hàng & fintech, TP.HCM hoặc remote |
+| Xác nhận vị trí mong muốn | Hiện ghi: Marketing Project Manager · Marketing Communications · Campaign Management, ưu tiên ngân hàng & fintech, TP.HCM hoặc remote |
 | Thời gian có thể bắt đầu (tuỳ chọn) | Ví dụ: "ngay" / "từ 11/2026" |
 
 ## 3. Liên hệ (Connect Now)
@@ -56,7 +56,7 @@ Mỗi case cần 4 nhóm thông tin. **Ưu tiên số liệu gắn với phần 
 
 Tab Năng lực và mục LV.3 dùng chung 10 đầu việc (5 loại dự án + 5 phần việc khi làm chủ). Không còn đánh dấu mạnh/yếu, chỉ liệt kê dự án đã làm. **Hãy rà xem mỗi đầu việc gắn đúng dự án chưa** (`MX` trong `src/main.ts`, số khác 0 = có làm).
 
-Số liệu cá nhân cần xác nhận: "4 pitch thắng cùng team" (VIB, MSB, Duy Tân, Cindy Bloom) và "3 → 5 năm MSB".
+Đã bỏ khỏi trang (không dùng lại): "4 pitch thắng", "6/7 dự án", "12 thương hiệu". Cần xác nhận: số dự án VIB từ một lần pitch (nguồn ghi 4 nhưng danh sách có 5 mục), và "3 → 5 năm MSB".
 
 ### (cũ) Thành tích từng kỹ năng
 

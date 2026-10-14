@@ -290,7 +290,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 
 /* band */
 .band{position:relative; z-index:3; overflow:hidden; white-space:nowrap; background:var(--lime); border-block:1px solid var(--edge)}
-.band-track{display:inline-flex; gap:34px; padding-block:14px; animation:marquee 36s linear infinite}
+.band-track{display:inline-flex; gap:34px; padding-block:14px; animation:marquee 66s linear infinite}
 .band-track span{display:inline-flex; gap:34px; align-items:center; font-family:var(--f-head); font-weight:800; font-size:clamp(18px,2.2vw,26px); letter-spacing:-.03em; color:var(--ink)}
 .band-track .ico{width:.9em; height:.9em}
 @keyframes marquee{to{transform:translateX(-50%)}}
@@ -1110,9 +1110,10 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 .bf-name{font-family:var(--f-head); font-weight:900; font-size:26px; line-height:1; letter-spacing:-.01em; color:var(--ink)}
 .bf-role{font-size:13px; font-weight:600; color:var(--muted)}
 .bf-bar{height:22px; border-radius:4px; background:repeating-linear-gradient(90deg,#2b1d2a 0 2px,transparent 2px 4px,#2b1d2a 4px 5px,transparent 5px 9px); opacity:.7}
-.bf-list{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px}
-.bf-list > span{padding:10px; border-radius:14px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); font-size:12px; color:#f0d9e6}
+.bf-list{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px}
+.bf-list > span{padding:8px 10px; border-radius:14px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); font-size:12px; color:#f0d9e6}
 .bf-list b{display:block; font-family:var(--f-head); font-weight:900; font-size:30px; line-height:1; color:var(--lime)}
+.bf-list > .bf-roles{grid-column:1/-1; padding:8px 10px; font-size:11px; line-height:1.35} .bf-roles i{margin-right:6px; font-style:normal; font-family:var(--f-pixel); font-size:13px; letter-spacing:.06em; color:var(--lime)}
 .bf-run{margin-top:auto; font-family:var(--f-pixel); font-size:16px; color:#ffc2e2; letter-spacing:.04em}
 .bf-hint{font-family:var(--f-head); font-weight:700; font-size:14px; color:#fff}
 .holo{position:absolute; inset:0; pointer-events:none; mix-blend-mode:color-dodge; opacity:.0; transition:opacity .4s; background:radial-gradient(circle at var(--hx,50%) var(--hy,30%), rgba(255,255,255,.65), transparent 40%), linear-gradient(115deg, transparent 20%, rgba(255,140,196,.45) 35%, rgba(212,247,90,.45) 48%, rgba(127,227,255,.45) 60%, transparent 75%); background-size:100% 100%, 250% 250%; background-position:center, var(--hx,50%) var(--hy,50%)}
@@ -1280,7 +1281,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 }
 /* LV.3 stat columns + hover list (ref: Lightspark) */
 #align{background:#f6f5f7}
-.statrow{display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto 1fr; align-items:stretch; gap:clamp(12px,2vw,28px); margin:10px 0 clamp(40px,6vw,80px)}
+.statrow{display:grid; grid-template-columns:1fr auto 1fr; align-items:stretch; gap:clamp(12px,2vw,28px); margin:10px 0 clamp(40px,6vw,80px)}
 .sr b{display:block; font-family:var(--f-head); font-weight:500; font-size:clamp(44px,5vw,72px); line-height:1; letter-spacing:-.03em; color:var(--ink)}
 .sr p{margin-top:10px; font-weight:600; font-size:14px; color:var(--ink)}
 .sr small{display:block; margin-top:4px; font-size:12px; color:var(--muted); line-height:1.4}

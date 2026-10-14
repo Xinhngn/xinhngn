@@ -77,41 +77,32 @@ import './styles.css';
      v:{en:'For you: one person who owns the project from brief to result.', vi:'Với bạn: một người làm chủ dự án từ brief đến kết quả.'}, sc:{en:'+ OWN', vi:'+ LÀM CHỦ'}}
   ];
   var STEPS = [
-    {t:{en:'Clarify', vi:'Làm rõ'}, k:{en:'Goal before tasks', vi:'Mục tiêu trước công việc'}, d:{en:'Define the goal, context, scope and what success looks like.', vi:'Xác định mục tiêu, bối cảnh, phạm vi và tiêu chí thành công.'}},
-    {t:{en:'Structure', vi:'Cấu trúc'}, k:{en:'From problem to plan', vi:'Từ bài toán thành kế hoạch'}, d:{en:'Break the work into tasks, dependencies and priorities, and agree how it will run.', vi:'Phân rã đầu việc, dependency, ưu tiên và cách vận hành.'}},
-    {t:{en:'Coordinate', vi:'Điều phối'}, k:{en:'Right people, right roles', vi:'Đúng người, đúng vai trò'}, d:{en:'Connect the team, the client and partners, and put the right resources on each part.', vi:'Kết nối team, client và partner; phân bổ nguồn lực phù hợp.'}},
-    {t:{en:'Follow through', vi:'Theo đến kết quả'}, k:{en:'From plan to outcome', vi:'Từ kế hoạch đến outcome'}, d:{en:'Track progress, control quality and optimise before small issues grow.', vi:'Theo sát tiến độ, kiểm soát chất lượng, chủ động tối ưu.'}}
+    {t:{en:'Clarify', vi:'Làm rõ'}, k:{en:'Understand it right before starting.', vi:'Hiểu đúng trước khi bắt đầu.'}, d:{en:'Clarify the goal, context, scope and what success looks like.', vi:'Làm rõ mục tiêu, bối cảnh, phạm vi và tiêu chí thành công.'}},
+    {t:{en:'Structure', vi:'Cấu trúc'}, k:{en:'Turn the problem into a plan.', vi:'Biến bài toán thành kế hoạch.'}, d:{en:'Break down the work, set priorities and build a workable way to deliver it.', vi:'Phân rã đầu việc, xác định thứ tự ưu tiên và xây dựng cách triển khai khả thi.'}},
+    {t:{en:'Manage execution', vi:'Quản lý triển khai'}, k:{en:'Turn the plan into action.', vi:'Biến kế hoạch thành hành động.'}, d:{en:'Organise the work, allocate resources and manage everyone involved so the plan runs in the right direction.', vi:'Chủ động tổ chức công việc, phân bổ nguồn lực và quản lý các bên tham gia để kế hoạch được triển khai đúng hướng.'}},
+    {t:{en:'Follow through', vi:'Theo đến kết quả'}, k:{en:'Stay on it until it is solved.', vi:'Theo sát đến khi vấn đề được xử lý.'}, d:{en:'Control timeline and quality, handle issues as they come up and adjust the approach when needed.', vi:'Kiểm soát tiến độ, chất lượng; chủ động xử lý phát sinh và điều chỉnh cách làm khi cần.'}}
   ];
-  /* One benchmark for every project. Columns follow the wording of Vietnamese agency / brand JDs
-     (Account Manager, Brand Executive, Marketing Project Manager). 1 = I led it, 2 = part of the team, 0 = not in scope. */
+  /* One benchmark for every project: four kinds of work, five parts of owning it.
+     1 = I led it, 2 = part of the team, 0 = not in scope. Not every capability applies to every project. */
   var COLS = [
     {k:'imc', g:'type', t:{en:'IMC campaign', vi:'Chiến dịch IMC'},
-     d:{en:'Integrated campaigns and launches: one big idea carried across paid, owned, earned, KOL and on-ground, from plan to report.', vi:'Chiến dịch tích hợp và ra mắt: một ý tưởng lớn chạy xuyên paid, owned, earned, KOL và on-ground, từ kế hoạch đến báo cáo.'},
-     jd:{en:'"Execute IMC campaigns", "launch plan", "KOL / KOC booking"', vi:'"Triển khai chiến dịch IMC", "kế hoạch ra mắt", "booking KOL / KOC"'}},
+     d:{en:'Integrated campaigns and launches: one big idea carried across paid, owned, earned, KOL and on-ground, from plan to report.', vi:'Chiến dịch tích hợp và ra mắt: một ý tưởng lớn chạy xuyên paid, owned, earned, KOL và on-ground, từ kế hoạch đến báo cáo.'}},
     {k:'awo', g:'type', t:{en:'Social management', vi:'Quản lý social'},
-     d:{en:'Running brand channels month after month: content pillars, calendar, production flow, community and the monthly report.', vi:'Vận hành kênh thương hiệu tháng này qua tháng khác: trụ cột nội dung, lịch đăng, quy trình sản xuất, cộng đồng và báo cáo tháng.'},
-     jd:{en:'"Manage always-on social", "content calendar", "channel performance report"', vi:'"Quản lý social always-on", "lịch nội dung", "báo cáo hiệu quả kênh"'}},
+     d:{en:'Running brand channels month after month: content pillars, calendar, production flow, community and the monthly report.', vi:'Vận hành kênh thương hiệu tháng này qua tháng khác: trụ cột nội dung, lịch đăng, quy trình sản xuất, cộng đồng và báo cáo tháng.'}},
     {k:'act', g:'type', t:{en:'Activation & event', vi:'Activation & sự kiện'},
-     d:{en:'Taking the brand offline and tying the experience to an action you can count: sign-ups, trials, sales.', vi:'Đưa thương hiệu ra đời thực và gắn trải nghiệm với hành động đếm được: đăng ký, dùng thử, mua hàng.'},
-     jd:{en:'"Activation", "on-ground event", "trade & experiential"', vi:'"Activation", "sự kiện on-ground", "trải nghiệm thương hiệu"'}},
+     d:{en:'Taking the brand offline and tying the experience to an action you can count: sign-ups, trials, sales.', vi:'Đưa thương hiệu ra đời thực và gắn trải nghiệm với hành động đếm được: đăng ký, dùng thử, mua hàng.'}},
     {k:'prod', g:'type', t:{en:'Production', vi:'Sản xuất'},
-     d:{en:'Video, key visuals and social content: script, shoot and edit with production houses and talent, every asset checked before it goes live.', vi:'Video, key visual và nội dung social: kịch bản, quay dựng cùng production house và talent, duyệt từng sản phẩm trước khi lên sóng.'},
-     jd:{en:'"Oversee asset production", "TVC / video / KV", "work with production houses"', vi:'"Giám sát sản xuất ấn phẩm", "TVC / video / KV", "làm việc với production house"'}},
-    {k:'pitch', g:'own', t:{en:'Pitch & proposal', vi:'Pitch & proposal'},
-     d:{en:'Reading the real business need, then shaping the proposal and the pitch around it.', vi:'Đọc ra nhu cầu kinh doanh thật, rồi định hình proposal và buổi pitch quanh nó.'},
-     jd:{en:'"New business", "prepare proposals", "pitch to clients"', vi:'"Phát triển khách hàng mới", "chuẩn bị proposal", "pitch với khách hàng"'}},
-    {k:'exec', g:'own', t:{en:'Plan → execution', vi:'Từ plan đến triển khai'},
-     d:{en:'Writing the plan, then running it myself through to sign-off.', vi:'Lên kế hoạch, rồi trực tiếp triển khai đến nghiệm thu.'},
-     jd:{en:'"End-to-end project management", "from planning to execution"', vi:'"Quản lý dự án đầu cuối", "từ lập kế hoạch đến triển khai"'}},
-    {k:'stake', g:'own', t:{en:'Client & stakeholders', vi:'Khách hàng & các bên'},
-     d:{en:'Main point of contact: expectations, feedback and issues, with internal teams, agencies and partners aligned.', vi:'Đầu mối chính: kỳ vọng, feedback và phát sinh, giữ team nội bộ, agency và đối tác cùng nhịp.'},
-     jd:{en:'"Client relationship", "stakeholder management", "coordinate internal teams"', vi:'"Quan hệ khách hàng", "quản lý các bên liên quan", "điều phối team nội bộ"'}},
-    {k:'ctrl', g:'own', t:{en:'Timeline · budget · quality', vi:'Timeline · ngân sách · chất lượng'},
-     d:{en:'Keeping scope, money, dates and quality under control while the work moves.', vi:'Giữ phạm vi, ngân sách, tiến độ và chất lượng trong tầm kiểm soát khi dự án chạy.'},
-     jd:{en:'"Manage timeline and budget", "ensure quality and on-time delivery"', vi:'"Quản lý timeline và ngân sách", "đảm bảo chất lượng, đúng hạn"'}},
-    {k:'paper', g:'own', t:{en:'Paperwork & reporting', vi:'Giấy tờ & báo cáo'},
-     d:{en:'Briefs, quotes, contracts, acceptance and the report that closes the loop.', vi:'Brief, báo giá, hợp đồng, nghiệm thu và báo cáo khép lại dự án.'},
-     jd:{en:'"Quotations, contracts, acceptance", "campaign reports"', vi:'"Báo giá, hợp đồng, nghiệm thu", "báo cáo chiến dịch"'}}
+     d:{en:'Video, key visuals and social content: script, shoot and edit with production houses and talent, every asset checked before it goes live.', vi:'Video, key visual và nội dung social: kịch bản, quay dựng cùng production house và talent, duyệt từng sản phẩm trước khi lên sóng.'}},
+    {k:'pitch', g:'own', t:{en:'Pitch & proposal', vi:'Pitching & proposal'},
+     d:{en:'Reading the real business need, then shaping the proposal and the pitch around it.', vi:'Đọc ra nhu cầu kinh doanh thật, rồi định hình proposal và buổi pitch quanh nó.'}},
+    {k:'exec', g:'own', t:{en:'Plan → execution', vi:'Từ kế hoạch đến triển khai'},
+     d:{en:'Writing the plan, then running it myself through to sign-off.', vi:'Lên kế hoạch, rồi trực tiếp triển khai đến nghiệm thu.'}},
+    {k:'stake', g:'own', t:{en:'Client & stakeholders', vi:'Quản lý khách hàng & các bên liên quan'},
+     d:{en:'Main point of contact: expectations, feedback and issues, with internal teams, agencies and partners aligned.', vi:'Đầu mối chính: kỳ vọng, feedback và phát sinh, giữ team nội bộ, agency và đối tác cùng nhịp.'}},
+    {k:'ctrl', g:'own', t:{en:'Timeline · budget · quality', vi:'Quản lý tiến độ · ngân sách · chất lượng'},
+     d:{en:'Keeping scope, money, dates and quality under control while the work moves.', vi:'Giữ phạm vi, ngân sách, tiến độ và chất lượng trong tầm kiểm soát khi dự án chạy.'}},
+    {k:'paper', g:'own', t:{en:'Paperwork & reporting', vi:'Hồ sơ & báo cáo'},
+     d:{en:'Briefs, quotes, contracts, acceptance and the report that closes the loop.', vi:'Brief, báo giá, hợp đồng, nghiệm thu và báo cáo khép lại dự án.'}}
   ];
   var MX = {
     vib:    [1,0,1,2, 1,1,1,1,2],
@@ -124,56 +115,71 @@ import './styles.css';
   };
   var CATS = [{k:'all', t:{en:'All', vi:'Tất cả'}}, {k:'bank', t:{en:'Banking & fintech', vi:'Ngân hàng & fintech'}}, {k:'fmcg', t:{en:'Consumer', vi:'Tiêu dùng'}}]
     .concat(COLS.filter(function(c){ return c.g === 'type' || c.k === 'pitch'; }).map(function(c){ return {k:c.k, t:c.t}; }));
+  /* Five core cases (story carousel, in this order) + other projects that stay in the Work archive.
+     title: the case-sheet heading; t: the short tagline on cards and tiles; out: the outcome line (team vs. personal stays explicit). */
   var CASES = [
-    {id:'vib', brand:'VIB', cats:['bank','pitch','act'], size:'big', grad:'linear-gradient(135deg,#ffe7a3,#ffd3ec 60%,#cfd8ff)',
+    {id:'msb', core:true, brand:'MSB', cats:['bank','awo','pitch'], size:'big', grad:'linear-gradient(135deg,#ffd9c2,#ffe45c 70%)',
+     subs:['SOCIAL AWO','2025–2027'], meta:'BANKING · ALWAYS-ON · PRODUCTION · MEDIA',
+     title:{en:'From Pitching to Multi-channel Operations', vi:'Từ pitching đến vận hành đa kênh'},
+     t:{en:'Fixing how the work works.', vi:'Sửa cách làm việc, không chỉ nội dung.'},
+     ask:{en:'A clearer long-term direction for social after three years, and fewer process pains.', vi:'Định hướng social dài hạn rõ hơn sau ba năm, và bớt điểm nghẽn quy trình.'},
+     me:{en:'Framed the proposal around the client’s real worries. After kick-off, kept checking how they saw quality and turned feedback into fixes.', vi:'Định hình proposal quanh mối lo thật của client. Sau kick-off, liên tục hỏi cảm nhận về chất lượng và biến feedback thành điều chỉnh.'},
+     team:{en:'Strategy and proposal were built with the team: channel roles, platform tone, analytical reports, an idea pipeline.', vi:'Chiến lược và proposal xây cùng team: vai trò kênh, giọng điệu theo nền tảng, báo cáo phân tích, nguồn ý tưởng.'},
+     out:{en:'The partnership was extended from 3 to 5 years. A partnership outcome, shared with the team.', vi:'Mối hợp tác được mở rộng từ 3 lên 5 năm. Đây là kết quả hợp tác chung, cùng với team.'},
+     res:[{b:'3 → 5', l:{en:'years of partnership', vi:'năm hợp tác'}}, {empty:true, l:{en:'add a channel metric', vi:'thêm chỉ số kênh'}}],
+     imgs:['msb_feed.jpg','msb_post_01.jpg','msb_post_02.jpg','msb_report.jpg']},
+    {id:'vib', core:true, brand:'VIB', cats:['bank','pitch','act'], size:'mid', grad:'linear-gradient(135deg,#ffe7a3,#ffd3ec 60%,#cfd8ff)',
      subs:['IVY CARD','ANH TRAI SAY HI','ACTIVATION'], meta:'BANKING · PITCH → EXECUTION',
+     title:{en:'One Pitch, a Long-term Partner', vi:'Một lần pitch, một đối tác dài hạn'},
      t:{en:'One pitch, a long-term partner.', vi:'Một lần pitch, một đối tác dài hạn.'},
      ask:{en:'A catchy Ivy Card message that fits the positioning and drives new card opens.', vi:'Thông điệp bắt tai cho Ivy Card, đúng định vị, kéo KPI mở thẻ.'},
      me:{en:'Found the core need, shaped the proposal, coordinated specialists. Then led pitching and management for Anh Trai Say Hi and the Ivy Card activation.', vi:'Tìm nhu cầu cốt lõi, định hướng proposal, điều phối team chuyên môn. Sau đó dẫn pitch và quản lý Anh Trai Say Hi, activation Ivy Card.'},
      team:{en:'The pitch was a team effort with specialist teams.', vi:'Pitch là nỗ lực chung với các team chuyên môn.'},
      lesson:{en:'A good proposal starts with the real objective. The product message is a means, not the goal.', vi:'Proposal tốt bắt đầu từ mục tiêu thật. Thông điệp sản phẩm là phương tiện, không phải đích đến.'},
-     journey:['VIB Ivy Card','Anh Trai Say Hi','Bộ Tứ Báo Thủ · video','Ngày hội không tiền mặt'],
-     res:[{b:'4', l:{en:'projects in the relationship', vi:'dự án trong mối hợp tác'}}, {empty:true, l:{en:'add a result', vi:'thêm kết quả'}}],
+     journey:['VIB Ivy Card','Anh Trai Say Hi','Bộ Tứ Báo Thủ · video','Ngày hội không tiền mặt','Sound Notification for MAX'],
+     out:{en:'One pitch grew into a longer-term relationship with multiple follow-on projects.', vi:'Từ một lần pitch, mối hợp tác kéo dài hơn và mở ra nhiều dự án tiếp theo.'},
+     res:[{line:true, b:{en:'Multiple projects', vi:'Nhiều dự án'}, l:{en:'from one pitch', vi:'từ một lần pitch'}}, {empty:true, l:{en:'add a result', vi:'thêm kết quả'}}],
      imgs:['vib_ivy_kv.jpg','anh_trai_say_hi.jpg','bo_tu_bao_thu.jpg','cashless_day.jpg']},
-    {id:'msb', brand:'MSB', cats:['bank','awo','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd9c2,#ffe45c 70%)',
-     subs:['SOCIAL AWO','2025–2027'], meta:'BANKING · ALWAYS-ON · PRODUCTION · MEDIA',
-     t:{en:'Fixing how the work works.', vi:'Sửa cách làm việc, không chỉ nội dung.'},
-     ask:{en:'A clearer long-term direction for social after three years, and fewer process pains.', vi:'Định hướng social dài hạn rõ hơn sau ba năm, và bớt điểm nghẽn quy trình.'},
-     me:{en:'Framed the proposal around the client’s real worries. After kick-off, kept checking how they saw quality and turned feedback into fixes.', vi:'Định hình proposal quanh mối lo thật của client. Sau kick-off, liên tục hỏi cảm nhận về chất lượng và biến feedback thành điều chỉnh.'},
-     team:{en:'Strategy and proposal were built with the team: channel roles, platform tone, analytical reports, an idea pipeline.', vi:'Chiến lược và proposal xây cùng team: vai trò kênh, giọng điệu theo nền tảng, báo cáo phân tích, nguồn ý tưởng.'},
-     res:[{b:'3 → 5', l:{en:'years of partnership', vi:'năm hợp tác'}}, {empty:true, l:{en:'add a channel metric', vi:'thêm chỉ số kênh'}}],
-     imgs:['msb_feed.jpg','msb_post_01.jpg','msb_post_02.jpg','msb_report.jpg']},
-    {id:'cake', brand:'Cake', cats:['bank','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd3ec,#ff8fc6 60%,#ddd6ff)',
+    {id:'cake', core:true, brand:'Cake', cats:['bank','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd3ec,#ff8fc6 60%,#ddd6ff)',
      subs:['BY VPBANK','NEW BUSINESS'], meta:'DIGITAL BANK · NEW BUSINESS',
+     title:{en:'Trust Opens New Doors', vi:'Niềm tin mở ra cánh cửa mới'},
      t:{en:'A relationship that opened the next door.', vi:'Một mối quan hệ mở ra cánh cửa mới.'},
      ask:{en:'Grow Gen Y without diluting a Gen Z identity.', vi:'Mở rộng Gen Y mà không làm loãng chất Gen Z.'},
      me:{en:'A client from Digimi moved to Cake and invited me into the pitch. I reconnected and contributed to pitching.', vi:'Một client cũ ở Digimi chuyển sang Cake và mời tôi vào pitch. Tôi kết nối lại và góp sức vào quá trình pitching.'},
      team:{en:'Creative (Cake AI-land, comment-led play, WeChoice photo series, Gato mascot) was agency team work.', vi:'Sáng tạo (Cake AI-land, tương tác bình luận, bộ ảnh WeChoice, mascot Gato) là của team agency.'},
+     out:{en:'The team won the social retainer.', vi:'Team giành được social retainer.'},
      res:[{line:true, b:{en:'Social retainer won', vi:'Giành social retainer'}, l:{en:'the relationship opened the door, the team won the pitch', vi:'quan hệ mở cửa, team thắng pitch'}}],
      imgs:['cake_ai_land.jpg','cake_gato.jpg','cake_wechoice.jpg','cake_comments.jpg']},
-    {id:'poca', brand:'Poca Yummy', cats:['fmcg','launch'], size:'', grad:'linear-gradient(135deg,#fff3a6,#ffe45c 50%,#ffb06b)',
+    {id:'poca', core:true, brand:'Poca Yummy', cats:['fmcg','launch'], size:'', grad:'linear-gradient(135deg,#fff3a6,#ffe45c 50%,#ffb06b)',
      subs:['QUẨY-VERSE','2023'], meta:'FMCG · INTEGRATED LAUNCH · 2023',
+     title:{en:'School Break, Now a Brand Moment', vi:'Giờ ra chơi thành khoảnh khắc thương hiệu'},
      t:{en:'School break, now a brand moment.', vi:'Giờ ra chơi thành khoảnh khắc thương hiệu.'},
      ask:{en:'Launch a new sub-brand into a crowded snacking moment.', vi:'Ra mắt sub-brand mới giữa thị trường snack đông đúc.'},
-     me:{en:'Coordinated the moving parts: hero MV, CapCut challenge, TikTok creators, community and comic pages.', vi:'Điều phối mọi phần việc: MV chính, CapCut challenge, TikToker, cộng đồng và trang comic.'},
+     me:{en:'Coordinated the key workstreams: hero MV, CapCut challenge, TikTok creators, community and comic pages.', vi:'Điều phối các hạng mục chính: MV chính, CapCut challenge, TikToker, cộng đồng và trang comic.'},
+     journey:['Thế giới vui nhộn','Poca - Thế giới pháp thuật vui nhộn','Poca Yummy - Launching campaign'],
+     out:{en:'Campaign results for the whole launch, not personal results.', vi:'Đây là kết quả của cả chiến dịch, không phải kết quả cá nhân.'},
      res:[{b:'266K+', l:{en:'FB engagements', vi:'tương tác FB'}}, {b:'45.7K+', l:{en:'website clicks', vi:'click website'}}], src:'SOURCE: XANH CREDENTIAL 2024',
      imgs:['poca_quay_verse_mv.jpg','poca_capcut.jpg','poca_tiktok.jpg','poca_comic.jpg']},
-    {id:'digimi', brand:'Digimi × BVBank', cats:['bank','act','awo'], size:'', grad:'linear-gradient(135deg,#d2fff3,#9be8b0 55%,#8ec9ff)',
-     subs:['COFFEE TRUCK','ALWAYS-ON'], meta:'DIGITAL BANKING · ACTIVATION · SOCIAL',
+    {id:'digimi', core:true, brand:'Digimi × BVBank', cats:['bank','act','awo'], size:'', grad:'linear-gradient(135deg,#d2fff3,#9be8b0 55%,#8ec9ff)',
+     subs:['SOCIAL AWO','BIRTHDAY','COFFEE TRUCK','CSR'], meta:'DIGITAL BANKING · ACTIVATION · SOCIAL',
+     title:{en:'From Account Foundations to Project Ownership', vi:'Từ nền tảng Account đến Project Ownership'},
      t:{en:'From a cup of coffee to an app sign-up.', vi:'Từ ly cà phê đến lượt đăng ký app.'},
-     ask:{en:'Introduce a digital bank at a moment people already enjoy, then keep the channel alive.', vi:'Giới thiệu ngân hàng số vào đúng khoảnh khắc người ta đang thích, rồi giữ kênh luôn sống.'},
+     ask:{en:'BVBank was one of the early clients of my career. Digimi × BVBank is where I learned digital banking work, across social always-on, a birthday campaign, activation and CSR.', vi:'BVBank là một trong những khách hàng đầu tiên trong sự nghiệp của Xinh. Digimi × BVBank là nơi Xinh làm quen với mảng ngân hàng số, qua social always-on, chiến dịch sinh nhật, activation và CSR.'},
      sw:[{k:'me', lbl:'ACTIVATION'}, {k:'team', lbl:'ALWAYS-ON'}],
      me:{en:'A coffee truck used a familiar moment to introduce Digimi: experience → engagement → sign-up.', vi:'Xe cà phê dùng khoảnh khắc quen thuộc để giới thiệu Digimi: trải nghiệm → tương tác → đăng ký.'},
      team:{en:'Content calendars, image and video production, stakeholder alignment, quality review: anticipate → coordinate → review → improve.', vi:'Lịch nội dung, sản xuất hình ảnh và video, thống nhất các bên, kiểm tra chất lượng: dự trù → điều phối → review → cải thiện.'},
-     res:[{b:'~2,000', l:{en:'booth visitors', vi:'lượt ghé booth'}}, {b:'268', l:{en:'registrations', vi:'đăng ký'}}, {b:'140', l:{en:'conversions', vi:'chuyển đổi'}}],
+     journey:['Social AWO','Tròn một tuổi – Đầy Thank Xuân','Coffee Truck','CSR · Vì một thế hệ vươn tầm'],
+     out:{en:'Campaign results, each tied to its own activity. Not personal results.', vi:'Kết quả chiến dịch, gắn với từng hoạt động. Không phải kết quả cá nhân.'},
+     res:[{b:'~2,000', l:{en:'booth visitors · Coffee Truck', vi:'lượt ghé booth · Coffee Truck'}}, {b:'268', l:{en:'sign-ups · Coffee Truck', vi:'đăng ký · Coffee Truck'}}, {b:'140', l:{en:'conversions · Coffee Truck', vi:'chuyển đổi · Coffee Truck'}},
+          {b:'500+', l:{en:'event attendees · Birthday campaign', vi:'người tham dự sự kiện · Sinh nhật'}}, {b:'450', l:{en:'Digimi accounts opened offline · Birthday campaign', vi:'tài khoản Digimi mở offline · Sinh nhật'}}, {b:'1.5M', l:{en:'online reach · Birthday campaign', vi:'reach online · Sinh nhật'}}],
      imgs:['digimi_coffee_truck.jpg','digimi_booth.jpg','bvbank_post.jpg','digimi_signup.jpg']},
     {id:'duytan', brand:'Nhựa Duy Tân', cats:['fmcg','pitch','awo'], size:'', grad:'linear-gradient(135deg,#ff9a9a,#ffe45c)', small:true,
-     subs:['TẾT 2025'], meta:'CONSUMER · TẾT 2025',
+     subs:['TẾT 2025'], meta:'OTHER PROJECT · CONSUMER · TẾT 2025',
      t:{en:'A Tết plan from pitch to media.', vi:'Kế hoạch Tết từ pitch đến media.'},
      me:{en:'Communication plan, pitching, always-on, production, booking and media.', vi:'Kế hoạch truyền thông, pitching, always-on, production, booking và media.'},
-     res:[{empty:true, l:{en:'add a result', vi:'thêm kết quả'}}], imgs:['duytan_tet_2025.jpg','duytan_02.jpg','duytan_03.jpg','duytan_04.jpg']},
+     res:[{line:true, b:{en:'Pitch won', vi:'Thắng pitch'}, l:{en:'with the team', vi:'cùng team'}}], imgs:['duytan_tet_2025.jpg','duytan_02.jpg','duytan_03.jpg','duytan_04.jpg']},
     {id:'cindy', brand:'Cindy Bloom', cats:['fmcg','pitch','launch'], size:'', grad:'linear-gradient(135deg,#ffd3ec,#ddd6ff)', small:true,
-     subs:['LAUNCH'], meta:'CONSUMER · LAUNCH CAMPAIGN',
+     subs:['LAUNCH'], meta:'OTHER PROJECT · CONSUMER · LAUNCH CAMPAIGN',
      t:{en:'A launch from pitch to execution.', vi:'Một đợt ra mắt từ pitch đến triển khai.'},
      me:{en:'Pitch to execution, production and the social campaign.', vi:'Từ pitch đến triển khai, production và social campaign.'},
      res:[{empty:true, l:{en:'add a result', vi:'thêm kết quả'}}], imgs:['cindy_bloom_kv.jpg','cindy_02.jpg','cindy_03.jpg','cindy_04.jpg']}
@@ -184,18 +190,19 @@ import './styles.css';
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {
-    vib:    {role:'Pitching → overall management', period:'', scope:[]},
-    msb:    {role:'Pitching → execution', period:'2025 – 2027', scope:['AWO · Production · Booking · Media']},
-    cake:   {role:'', period:'', scope:[]},
-    poca:   {role:'', period:'2023', scope:[]},
-    digimi: {role:'', period:'', scope:[]},
-    duytan: {role:'Communication plan · Pitching', period:'Tết 2025', scope:['AWO · Production · Booking · Media']},
-    cindy:  {role:'Pitching → execution', period:'', scope:['Production · Social campaign']}
+    vib:    {role:{en:'Pitching → overall management', vi:'Từ pitching đến quản lý chung'}, period:'', scope:[]},
+    msb:    {role:{en:'Pitching → execution', vi:'Từ pitching đến triển khai'}, period:'2025 – 2027', scope:['AWO · Production · Booking · Media']},
+    cake:   {role:{en:'Contributed to the pitch', vi:'Góp sức vào quá trình pitching'}, period:'', scope:[]},
+    poca:   {role:{en:'Coordinated the key workstreams', vi:'Điều phối các hạng mục chính'}, period:'2023', scope:[]},
+    digimi: {role:'', period:'', scope:['Social AWO · Birthday campaign · Coffee Truck · CSR', 'Production · Social content · OOH / Community / KOL / TikTok booking']},
+    duytan: {role:{en:'Communication plan · Pitching', vi:'Kế hoạch truyền thông · Pitching'}, period:'Tết 2025', scope:['AWO · Production · Booking · Media']},
+    cindy:  {role:{en:'Pitching → execution', vi:'Từ pitching đến triển khai'}, period:'', scope:['Production · Social campaign']}
   };
   CASES.forEach(function(c){ var l = LOOK[c.id] || ['var(--ink)','var(--lime)'], f = FACTS[c.id] || {}; c.bg = l[0]; c.fg = l[1]; c.role = f.role || ''; c.period = f.period || ''; c.scope = f.scope || [];
     var m = MX[c.id] || []; c.cats = [c.cats.indexOf('bank') > -1 ? 'bank' : 'fmcg'].concat(COLS.filter(function(col, i){ return (col.g === 'type' || col.k === 'pitch') && m[i]; }).map(function(col){ return col.k; })); });
-  var FEATURED = ['vib', 'msb', 'digimi'];
+  var FEATURED = ['msb', 'vib', 'digimi'];
   var MAIN = CASES.filter(function(c){ return FEATURED.indexOf(c.id) > -1; });
+  var CORE = CASES.filter(function(c){ return c.core; });
 
   /* =====================================================================
      RENDER: shared pieces
@@ -229,29 +236,29 @@ import './styles.css';
   function renderStoryCases(){
     var vi = lang === 'vi';
     var MESH = {vib:['#ff7a18','#c6f24e','#ff3d8b'], msb:['#2c4bff','#7fe3ff','#0b1a6b'], cake:['#ff2e93','#9b5bff','#2a0a3d'], poca:['#ffcf3f','#ff5f6d','#c6f24e'], digimi:['#00c2a8','#c6f24e','#0a3d3a'], duytan:['#ff3d3d','#ffb43f','#7a0a2e'], cindy:['#ff8cc4','#b38cff','#ff3d97']};
-    var BIG = {vib:['4', {en:'projects from one pitch', vi:'dự án từ một lần pitch'}], msb:['3→5', {en:'years of partnership', vi:'năm hợp tác'}], cake:['WIN', {en:'social retainer', vi:'giành social retainer'}], poca:['266K', {en:'Facebook engagements', vi:'tương tác Facebook'}], digimi:['268', {en:'app sign-ups', vi:'lượt đăng ký app'}], duytan:['TẾT', {en:'2025 campaign', vi:'chiến dịch 2025'}], cindy:['NEW', {en:'product launch', vi:'ra mắt sản phẩm'}]};
-    var items = CASES.map(function(c, i){
+    var BIG = {vib:['1', {en:'pitch, then multiple projects', vi:'lần pitch, rồi nhiều dự án tiếp theo'}], msb:['3→5', {en:'years of partnership', vi:'năm hợp tác'}], cake:['WIN', {en:'social retainer, won by the team', vi:'team giành social retainer'}], poca:['266K', {en:'Facebook engagements · campaign', vi:'tương tác Facebook · chiến dịch'}], digimi:['268', {en:'app sign-ups · Coffee Truck', vi:'lượt đăng ký app · Coffee Truck'}]};
+    var items = CORE.map(function(c, i){
       var m = MESH[c.id] || ['#ff5fae','#c6f24e','#2b1d2a'], bg = BIG[c.id] || ['', {en:'', vi:''}];
       return '<article class="cc" data-ci="' + i + '" tabindex="-1" style="--m1:' + m[0] + '; --m2:' + m[1] + '; --m3:' + m[2] + '"><div class="cc-in">' +
-        '<span class="cc-top"><span>' + esc(c.brand) + '</span><span>' + ('0' + (i + 1)).slice(-2) + '/0' + CASES.length + '</span></span>' +
+        '<span class="cc-top"><span>' + esc(c.brand) + '</span><span>' + ('0' + (i + 1)).slice(-2) + '/' + ('0' + CORE.length).slice(-2) + '</span></span>' +
         '<span class="cc-big">' + esc(bg[0]) + '</span><span class="cc-bl">' + esc(L(bg[1])) + '</span>' +
         '<span class="cc-bar"><i></i></span>' +
         '<span class="cc-t">' + both(c.t) + '</span>' +
         '<button class="cc-open" type="button" data-case="' + c.id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</button></div></article>';
     }).join('');
-    $('#track').innerHTML = '<div class="car-glow" aria-hidden="true"></div><div class="car-tags" id="carTags" aria-hidden="true"></div><div class="car" id="car" role="group" aria-roledescription="carousel" aria-label="' + (vi ? 'Bảy dự án' : 'Seven projects') + '"><div class="car-ring" id="carRing">' + items + '</div></div>' +
-      '<div class="car-ctl"><button type="button" class="car-btn" data-car="-1" aria-label="' + (vi ? 'Dự án trước' : 'Previous project') + '">‹</button><span class="car-dots" id="carDots">' + CASES.map(function(c, i){ return '<i data-cgo="' + i + '"></i>'; }).join('') + '</span><button type="button" class="car-btn" data-car="1" aria-label="' + (vi ? 'Dự án tiếp' : 'Next project') + '">›</button></div>';
+    $('#track').innerHTML = '<div class="car-glow" aria-hidden="true"></div><div class="car-tags" id="carTags" aria-hidden="true"></div><div class="car" id="car" role="group" aria-roledescription="carousel" aria-label="' + (vi ? 'Năm dự án chính' : 'Five core cases') + '"><div class="car-ring" id="carRing">' + items + '</div></div>' +
+      '<div class="car-ctl"><button type="button" class="car-btn" data-car="-1" aria-label="' + (vi ? 'Dự án trước' : 'Previous project') + '">‹</button><span class="car-dots" id="carDots">' + CORE.map(function(c, i){ return '<i data-cgo="' + i + '"></i>'; }).join('') + '</span><button type="button" class="car-btn" data-car="1" aria-label="' + (vi ? 'Dự án tiếp' : 'Next project') + '">›</button></div>';
     layoutCar();
   }
-  function carGeom(){ var w = window.innerWidth < 760 ? 230 : 300, n = CASES.length, step = 360 / n; return {w:w, step:step, R:Math.round((w / 2 + 26) / Math.tan(Math.PI / n))}; }
+  function carGeom(){ var w = window.innerWidth < 760 ? 230 : 300, n = CORE.length, step = 360 / n; return {w:w, step:step, R:Math.round((w / 2 + 26) / Math.tan(Math.PI / n))}; }
   function layoutCar(){
     var ring = $('#carRing'); if (!ring) return; var g = carGeom();
     $$('.cc', ring).forEach(function(el, i){ el.style.width = g.w + 'px'; el.style.marginLeft = (-g.w / 2) + 'px'; el.style.transform = 'rotateY(' + (i * g.step) + 'deg) translateZ(' + g.R + 'px)'; });
     ring.style.transform = 'translateZ(' + (-g.R) + 'px) rotateY(' + carRot + 'deg)';
-    var front = ((Math.round(-carRot / g.step) % CASES.length) + CASES.length) % CASES.length; carIdx = front;
-    $$('.cc', ring).forEach(function(el, i){ var d = Math.abs(((i - front) % CASES.length + CASES.length) % CASES.length); d = Math.min(d, CASES.length - d); el.classList.toggle('front', d === 0); el.style.opacity = d > 2 ? .18 : d === 2 ? .45 : 1; el.setAttribute('aria-hidden', d === 0 ? 'false' : 'true'); });
+    var front = ((Math.round(-carRot / g.step) % CORE.length) + CORE.length) % CORE.length; carIdx = front;
+    $$('.cc', ring).forEach(function(el, i){ var d = Math.abs(((i - front) % CORE.length + CORE.length) % CORE.length); d = Math.min(d, CORE.length - d); el.classList.toggle('front', d === 0); el.style.opacity = d > 2 ? .18 : d === 2 ? .45 : 1; el.setAttribute('aria-hidden', d === 0 ? 'false' : 'true'); });
     $$('#carDots i').forEach(function(d, i){ d.classList.toggle('on', i === front); });
-    var tg = $('#carTags'); if (tg){ var fc = CASES[front], tags = fc.subs.concat(fc.cats.filter(function(k){ return k !== 'bank' && k !== 'fmcg'; }).map(function(k){ var c = COLS[colIdx(k)]; return L(c.t); })).slice(0, 4);
+    var tg = $('#carTags'); if (tg){ var fc = CORE[front], tags = fc.subs.concat(fc.cats.filter(function(k){ return k !== 'bank' && k !== 'fmcg'; }).map(function(k){ var c = COLS[colIdx(k)]; return L(c.t); })).slice(0, 4);
       if (tg.dataset.f !== String(front) + lang){ tg.dataset.f = String(front) + lang; tg.innerHTML = tags.map(function(t, i){ return '<span style="--i:' + i + '">' + esc(t) + '</span>'; }).join(''); } }
   }
   function carGo(i){ var g = carGeom(); var target = -i * g.step, cur = carRot; var diff = ((target - cur) % 360 + 540) % 360 - 180; carRot = cur + diff; layoutCar(); }
@@ -290,9 +297,9 @@ import './styles.css';
   }
   function wkMeta(c){
     var el = $('#wkMeta'); if (!el) return; var vi = lang === 'vi';
-    if (!c){ el.innerHTML = '<p class="mono">' + (vi ? 'Rê chuột lên dự án' : 'Hover a project') + '</p><p class="wk-t">' + (vi ? '7 dự án · 2022–2026' : '7 projects · 2022–2026') + '</p><p class="wk-d">' + (vi ? 'Ngân hàng, fintech, tiêu dùng. IMC · Social · Activation · Sản xuất.' : 'Banking, fintech, consumer. IMC · Social · Activation · Production.') + '</p>'; return; }
+    if (!c){ el.innerHTML = '<p class="mono">' + (vi ? 'Rê chuột lên dự án' : 'Hover a project') + '</p><p class="wk-t">' + (vi ? '5 dự án chính + 2 dự án khác · 2022–2026' : '5 core cases + 2 other projects · 2022–2026') + '</p><p class="wk-d">' + (vi ? 'Ngân hàng, fintech, tiêu dùng. IMC · Social · Activation · Sản xuất.' : 'Banking, fintech, consumer. IMC · Social · Activation · Production.') + '</p>'; return; }
     el.innerHTML = '<p class="mono">' + esc(c.brand) + (c.period ? ' · ' + esc(c.period) : '') + '</p><p class="wk-t">' + esc(L(c.t)) + '</p>' + (c.ask ? '<p class="wk-d">' + esc(L(c.ask)) + '</p>' : '') +
-      '<ul class="wk-l">' + c.subs.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + (c.role ? '<li>' + esc(c.role) + '</li>' : '') + '</ul><p class="mono" style="color:var(--pink)">' + (vi ? 'Bấm để mở ↗' : 'Click to open ↗') + '</p>';
+      '<ul class="wk-l">' + c.subs.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + (c.role ? '<li>' + esc(L(c.role)) + '</li>' : '') + '</ul><p class="mono" style="color:var(--pink)">' + (vi ? 'Bấm để mở ↗' : 'Click to open ↗') + '</p>';
   }
   document.addEventListener('pointerover', function(e){ var t = e.target.closest && e.target.closest('#workGrid .wt'); if (t) wkMeta(CASES.filter(function(c){ return c.id === t.dataset.case; })[0]); });
   function applyFilter(){
@@ -369,7 +376,7 @@ import './styles.css';
     var i = colIdx(col.k), vi = lang === 'vi';
     return '<article class="win"><div class="win-bar"><b>' + ('0' + (n + 1)).slice(-2) + ' · ' + esc(L(col.t)).toUpperCase() + '</b><span class="ctl"><i></i><i></i><i></i></span></div><div class="win-body">' +
       '<p class="mono" style="color:var(--blue)">' + grpName(col) + '</p>' +
-      '<p>' + esc(L(col.d)) + '</p><div class="fit"><b>' + (vi ? 'JD thường ghi' : 'How JDs say it') + '</b>' + esc(L(col.jd)) + '</div><div class="proof">' + proofChips(i) + '</div></div></article>';
+      '<p>' + esc(L(col.d)) + '</p><div class="fit"><b>' + (vi ? 'Thể hiện qua' : 'Shown in') + '</b><div class="proof">' + proofChips(i) + '</div></div></div></article>';
   }
   function statBtn(col){
     var n = colIdx(col.k) + 1;
@@ -380,9 +387,8 @@ import './styles.css';
     var item = function(c){ var n = colIdx(c.k) + 1; return '<button class="li" type="button" data-col="' + c.k + '" aria-pressed="' + (c.k === mxSel ? 'true' : 'false') + '"><span class="ix">' + ('0' + n).slice(-2) + '</span>' + esc(L(c.t)) + '<i>→</i></button>'; };
     var list = '<p class="lg">' + (vi ? 'Xinh chạy gì' : 'What I run') + '</p>' + COLS.filter(function(c){ return c.g === 'type'; }).map(item).join('') +
       '<p class="lg">' + (vi ? 'Xinh gánh tới đâu' : 'How far I take it') + '</p>' + COLS.filter(function(c){ return c.g === 'own'; }).map(item).join('');
-    var n = CASES.filter(function(c){ return (MX[c.id] || [])[ci]; }).length;
-    var card = '<div class="lsp-card" aria-live="polite"><p class="mono">' + grpName(col) + ' · ' + ('0' + (ci + 1)).slice(-2) + '</p><p class="lsp-big">' + n + '<small>/7 ' + (vi ? 'dự án' : 'projects') + '</small></p><h3>' + esc(L(col.t)) + '</h3><p class="lsp-d">' + esc(L(col.d)) + '</p>' +
-      '<p class="lsp-jd"><b>' + (vi ? 'JD thường ghi' : 'How JDs say it') + '</b>' + esc(L(col.jd)) + '</p><div class="proof">' + proofChips(ci) + '</div></div>';
+    var card = '<div class="lsp-card" aria-live="polite"><p class="mono">' + grpName(col) + ' · ' + ('0' + (ci + 1)).slice(-2) + '</p><h3>' + esc(L(col.t)) + '</h3><p class="lsp-d">' + esc(L(col.d)) + '</p>' +
+      '<p class="lsp-jd"><b>' + (vi ? 'Dự án liên quan' : 'Related projects') + '</b></p><div class="proof">' + proofChips(ci) + '</div></div>';
     var html = '<div class="lsp"><div class="lsp-stage"><span class="lsp-blob a"></span><span class="lsp-blob b"></span><span class="lsp-blob c"></span>' + card + '</div><div class="lsp-list">' + list + '</div></div>';
     $$('[data-mx]').forEach(function(h){ h.innerHTML = html; });
     var g = $('#skGrid'); if (g) g.innerHTML = COLS.map(capCard).join('');
@@ -452,7 +458,7 @@ import './styles.css';
     $('#goalCv').innerHTML = cvBtn;
     var li = $('#deskLi'); if (li){ li.hidden = !CONTACT.linkedin; li.href = 'https://www.linkedin.com/in/' + CONTACT.linkedin; }
     var dcv = $('#deskCv'); if (dcv){ dcv.hidden = !CV_URL; dcv.href = CV_URL; }
-    $('#deskFeat').innerHTML = MAIN.map(function(c){ return '<a href="#case-' + c.id + '" data-case="' + c.id + '"><i style="background:' + c.bg + '; color:' + c.fg + '">' + esc(c.brand.split(' ')[0].slice(0, 4).toUpperCase()) + '</i><span><b>' + esc(L(c.t)) + '</b><small>' + esc(c.meta) + '</small></span></a>'; }).join('') + '<a href="#work"><i style="background:var(--white)">+4</i><span><b>' + (lang === 'vi' ? 'Xem cả 7 dự án' : 'See all 7 projects') + '</b><small>WORK/</small></span></a>';
+    $('#deskFeat').innerHTML = MAIN.map(function(c){ return '<a href="#case-' + c.id + '" data-case="' + c.id + '"><i style="background:' + c.bg + '; color:' + c.fg + '">' + esc(c.brand.split(' ')[0].slice(0, 4).toUpperCase()) + '</i><span><b>' + esc(L(c.t)) + '</b><small>' + esc(c.meta) + '</small></span></a>'; }).join('') + '<a href="#work"><i style="background:var(--white)">+' + (CASES.length - MAIN.length) + '</i><span><b>' + (lang === 'vi' ? 'Xem cả ' + CASES.length + ' dự án' : 'See all ' + CASES.length + ' projects') + '</b><small>WORK/</small></span></a>';
     $('#whoOpts').innerHTML = WHO.map(function(w, i){ return '<button class="chip" type="button" data-who="' + i + '" aria-pressed="' + (i === whoIdx ? 'true' : 'false') + '">' + esc(L(w.t)) + '</button>'; }).join('');
     var w = WHO[whoIdx];
     $('#tpl').innerHTML = '“' + esc(L(w.msg)) + '”<span class="rec2">' + esc(L(w.rec)) + '</span><div style="margin-top:10px"><button class="chip" type="button" data-copy="' + esc(L(w.msg)) + '" data-m="template">' + (lang === 'vi' ? 'Sao chép tin nhắn mẫu' : 'Copy this message') + '</button></div>';
@@ -488,21 +494,25 @@ import './styles.css';
     var c = CASES[i], prev = CASES[(i - 1 + CASES.length) % CASES.length], next = CASES[(i + 1) % CASES.length];
     var gal = c.imgs.slice(1).map(function(n){ return ph(n, lang === 'vi' ? 'CHỖ ĐẶT ẢNH' : 'IMAGE SLOT'); }).join('');
     var vi = lang === 'vi', facts = [];
-    if (c.role) facts.push('<div><span>' + (vi ? 'Vai trò' : 'My title') + '</span><b>' + esc(c.role) + '</b></div>');
     if (c.period) facts.push('<div><span>' + (vi ? 'Thời gian' : 'When') + '</span><b>' + esc(c.period) + '</b></div>');
     c.scope.forEach(function(x){ facts.push('<div><span>' + (vi ? 'Quy mô' : 'Scope') + '</span><b>' + esc(x) + '</b></div>'); });
     var needs = (!c.role ? need(vi ? 'vai trò' : 'your title') : '') + (!c.period ? need(vi ? 'thời gian' : 'period') : '') + (!c.scope.length ? need(vi ? 'quy mô: team, ngân sách, số deliverable' : 'scope: team, budget, deliverables') : '');
     var factsHTML = (facts.length || needs) ? '<div class="facts">' + facts.join('') + needs + '</div>' : '';
-    $('#caseIn').innerHTML = '<div class="sheet-bar"><span class="tag"><b>' + esc(c.brand) + '</b>CASE ' + (i + 1) + '/' + CASES.length + '</span><button class="x" type="button" data-close aria-label="Close">×</button></div>' +
-      '<h2 id="csTitle">' + both(c.t) + '</h2><div class="meta"><span>' + esc(c.meta) + '</span>' + c.subs.map(function(s){ return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' +
+    /* Shared case format: context · role · contribution (mine, then the team's) · outcome */
+    var k = 0, ci = CORE.indexOf(c);
+    function blk(lbl, body, cls){ k++; var n = ('0' + k).slice(-2) + ' · '; return '<div class="blk' + (cls || '') + '"><h4>' + both({en:n + lbl.en, vi:n + lbl.vi}) + '</h4>' + body + '</div>'; }
+    var sw = c.sw ? [{en:c.sw[0].lbl, vi:c.sw[0].lbl}, {en:c.sw[1].lbl, vi:c.sw[1].lbl}] : [{en:'Contribution', vi:'Đóng góp'}, {en:'Team contribution', vi:'Phần của team'}];
+    var cols = (c.ask ? blk({en:'Context', vi:'Bối cảnh'}, '<p>' + both(c.ask) + '</p>') : '') +
+      (c.role ? blk({en:'Role', vi:'Vai trò'}, '<p>' + both(typeof c.role === 'string' ? {en:c.role, vi:c.role} : c.role) + '</p>') : '') +
+      blk(sw[0], '<p>' + both(c.me) + '</p>') +
+      (c.team ? blk(sw[1], '<p>' + both(c.team) + '</p>', ' team') : '') +
+      (c.journey ? '<div class="blk"><h4>' + both({en:'Projects', vi:'Dự án'}) + '</h4><div class="mrow" style="margin-top:8px">' + c.journey.map(function(j){ return '<span class="chip" style="background:transparent;color:#fff;border-color:#fff">' + esc(j) + '</span>'; }).join('') + '</div></div>' : '') +
+      (c.out ? blk({en:'Outcome', vi:'Kết quả'}, '<p>' + both(c.out) + '</p>') : '') +
+      (c.lesson ? blk({en:'Lesson', vi:'Bài học'}, '<p>' + both(c.lesson) + '</p>') : '');
+    $('#caseIn').innerHTML = '<div class="sheet-bar"><span class="tag"><b>' + esc(c.brand) + '</b>' + (ci > -1 ? 'CASE ' + (ci + 1) + '/' + CORE.length : (vi ? 'DỰ ÁN KHÁC' : 'OTHER PROJECT')) + '</span><button class="x" type="button" data-close aria-label="Close">×</button></div>' +
+      '<h2 id="csTitle">' + both(c.title || c.t) + '</h2><div class="meta"><span>' + esc(c.meta) + '</span>' + c.subs.map(function(s){ return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' +
       factsHTML + '<div class="gal-hero' + (IMAGES[c.imgs[0]] ? '' : ' slim') + '">' + cover(c) + '</div>' + (gal ? '<div class="gal">' + gal + '</div>' : '') +
-      '<div class="story-cols">' +
-        (c.ask ? '<div class="blk"><h4>' + both({en:'01 · The ask', vi:'01 · Đề bài'}) + '</h4><p>' + both(c.ask) + '</p></div>' : '') +
-        '<div class="blk"><h4>' + both(c.sw ? {en:'02 · ' + c.sw[0].lbl, vi:'02 · ' + c.sw[0].lbl} : {en:'02 · My part', vi:'02 · Phần của tôi'}) + '</h4><p>' + both(c.me) + '</p></div>' +
-        (c.team ? '<div class="blk team"><h4>' + both(c.sw ? {en:'03 · ' + c.sw[1].lbl, vi:'03 · ' + c.sw[1].lbl} : {en:'03 · The team', vi:'03 · Phần của team'}) + '</h4><p>' + both(c.team) + '</p></div>' : '') +
-        (c.lesson ? '<div class="blk"><h4>' + both({en:'04 · Lesson', vi:'04 · Bài học'}) + '</h4><p>' + both(c.lesson) + '</p></div>' : '') +
-        (c.journey ? '<div class="blk"><h4>' + both({en:'Journey', vi:'Hành trình'}) + '</h4><div class="mrow" style="margin-top:8px">' + c.journey.map(function(j){ return '<span class="chip" style="background:transparent;color:#fff;border-color:#fff">' + esc(j) + '</span>'; }).join('') + '</div></div>' : '') +
-      '</div>' + resHTML(c.res) + (c.src ? '<p class="src" style="margin-top:8px">' + c.src + '</p>' : '') +
+      '<div class="story-cols">' + cols + '</div>' + resHTML(c.res) + (c.src ? '<p class="src" style="margin-top:8px">' + c.src + '</p>' : '') +
       '<div class="sheet-nav"><button class="btn" type="button" data-case="' + prev.id + '">← ' + esc(prev.brand) + '</button><button class="btn" type="button" data-case="' + next.id + '">' + esc(next.brand) + ' →</button></div>';
     var sh = $('#caseSheet');
     if (sh.hidden) openSheet(sh); else { $('#caseIn').scrollTop = 0; }
