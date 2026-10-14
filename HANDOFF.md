@@ -1,7 +1,7 @@
 # HANDOFF — 2026-10-14
 
 ## Trạng thái repo
-- Nhánh `claude/tooling-setup` (PR #1 vào `claude/xinhos-website`). Trang đã chuyển từ 1 file (`src/page.html`) sang Vite + TS: `index.html` + `src/styles.css` + `src/main.ts`, ảnh / CV ở `public/assets/`.
+- Nhánh chính `claude/xinhos-website` (PR #1 đã merge). Trang đã chuyển từ 1 file (`src/page.html`) sang Vite + TS: `index.html` + `src/styles.css` + `src/main.ts`, ảnh / CV ở `public/assets/`.
 - Bộ công cụ theo `CAI-DAT-SKILL-VA-CONG-CU.md` đã cài ở dạng file: 3 skill trong `.claude/skills/`, CodeGraph (`codegraph.json`, `.mcp.json`), hook khởi động cloud, `.claude/launch.json`, Vitest + Playwright, `tools/`, Cloudflare (`wrangler.jsonc`, `public/_headers`), GitHub Actions, `CLAUDE.md`.
 
 ## Đã kiểm chứng
