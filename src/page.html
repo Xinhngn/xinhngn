@@ -1167,7 +1167,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 .hc-str{position:absolute; left:50%; top:var(--drop); width:1.5px; height:calc(var(--str) + 6px); background:#b8a0ae; transform-origin:50% 0; transform:rotate(calc(var(--sw) + var(--tilt)))}
 .hc-str::before{content:""; position:absolute; left:50%; top:-5px; width:9px; height:9px; margin-left:-4.5px; border-radius:50%; background:#d9c6d0}
 .hc-clip{display:none}
-.hc-card{position:relative; display:block; width:100%; aspect-ratio:3/4.15; padding:0; border:0; background:none; cursor:pointer; transform-origin:50% calc(-1 * var(--str)); transform:rotate(calc(var(--sw) + var(--tilt))); transform-style:preserve-3d}
+.hc-card{position:relative; display:block; width:100%; aspect-ratio:3/4.7; padding:0; border:0; background:none; cursor:pointer; transform-origin:50% calc(-1 * var(--str)); transform:rotate(calc(var(--sw) + var(--tilt))); transform-style:preserve-3d}
 .hc-card::before{content:""; position:absolute; left:50%; top:-12px; width:22px; height:22px; margin-left:-11px; border-radius:50%; background:radial-gradient(circle at 50% 40%, #fff 0 3px, #cdbcc6 3px 5px, #e8dde3 5px); box-shadow:0 2px 4px rgba(43,29,42,.2); z-index:4}
 .hc-face{position:absolute; inset:0; display:flex; flex-direction:column; gap:8px; padding:14px 14px 12px; border-radius:18px; text-align:left; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden; background:#f4f1f3; border:1px solid rgba(43,29,42,.06); box-shadow:0 18px 40px rgba(43,29,42,.10), 0 2px 6px rgba(43,29,42,.06); transition:transform .9s cubic-bezier(.3,1.3,.35,1)}
 .hc-back{transform:rotateY(180deg); background:linear-gradient(160deg,#fff6fb,#f1ecff 55%,#f2ffdc)}
@@ -1180,7 +1180,8 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 .hc-row{display:flex; justify-content:space-between; align-items:center; padding-top:8px; border-top:1px solid rgba(43,29,42,.08); font-family:var(--f-pixel); font-size:13px; letter-spacing:.06em; color:var(--ink)}
 .hc-row i{width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:var(--ink); color:#fff; font-style:normal; font-size:12px}
 .hc-t{font-family:var(--f-head); font-weight:800; font-size:15px; line-height:1.15; color:var(--ink)}
-.hc-d{font-size:12px; line-height:1.45; color:#5a4456; overflow:hidden; display:-webkit-box; -webkit-line-clamp:9; -webkit-box-orient:vertical}
+.hc-d{flex:1; min-height:0; overflow-y:auto; font-size:12px; line-height:1.45; color:#5a4456; padding-right:4px; scrollbar-width:thin; scrollbar-color:#ffb3d6 transparent; -webkit-mask-image:linear-gradient(#000 82%,transparent); mask-image:linear-gradient(#000 82%,transparent); padding-bottom:14px}
+.hc-v{margin-top:0!important}
 .hc-v{margin-top:auto; font-family:var(--f-head); font-weight:700; font-size:12.5px; line-height:1.3; color:var(--pink)}
 .hc-scope{height:6px; border-radius:999px; background:rgba(43,29,42,.08); overflow:hidden}
 .hc-scope i{display:block; height:100%; background:linear-gradient(90deg,#ff8cc4,#ff3d97,#c6f24e)}
@@ -1192,7 +1193,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   .wire{display:none}
   .hcards{grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 12px}
   .hc{padding-top:calc(var(--str) * .7)} .hc-str{top:0; height:calc(var(--str) * .7 + 6px)}
-  .hc-d{-webkit-line-clamp:6; font-size:11px} .hc-t{font-size:13px} .hc-face{padding:12px 10px 10px; gap:6px}
+  .hc-d{font-size:11.5px} .hc-t{font-size:13px} .hc-face{padding:12px 10px 10px; gap:6px}
   .hang-foot{flex-direction:column}
 }
 /* curved carousel: vivid mesh stat cards on a light stage (ref: 95th / 25% / 2.0v) */
@@ -1246,6 +1247,58 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
 .mascot .mbody{transition:transform .2s ease-out; transform-origin:50% 70%}
 .msay{left:92px; bottom:56px}
 @media (max-width: 760px){ .mascot{width:64px; height:74px} .mdev{width:58px; height:58px; border-radius:18px} .mcord{left:32px; top:56px; height:18px} .mascot svg{left:7px; top:6px; width:48px; height:48px} .msay{left:70px; bottom:44px} }
+
+/* =========== v13 · typography play (Y2K tech), clean home, 3D floors, Xinh mini =========== */
+/* outline + chrome + italic skew + lime offset: three type voices in one headline */
+.h2 em{display:inline-block; font-style:normal; transform:skewX(-9deg); background:linear-gradient(180deg,#ffd0e6 0%,#ff7ab8 38%,#e5177f 52%,#ff9ccb 66%,#ffe4f1 100%); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(3px 3px 0 #d4f75a); padding:0 .06em}
+.h2:hover{animation:rgbsplit .5s steps(2) 1}
+@keyframes rgbsplit{0%{text-shadow:2px 0 #ff3d97,-2px 0 #7fe3ff} 50%{text-shadow:-2px 0 #ff3d97,2px 0 #7fe3ff} 100%{text-shadow:none}}
+.brk .say{color:transparent; -webkit-text-stroke:1.6px var(--ink); font-weight:900}
+.brk .say em{-webkit-text-stroke:0; color:var(--pink); display:inline-block; transform:skewX(-9deg); filter:drop-shadow(2px 2px 0 #d4f75a)}
+.p1 h1.p1name .ol{color:transparent; -webkit-text-stroke:2.2px var(--ink)}
+.p1name em{background:linear-gradient(180deg,#ffd0e6 0%,#ff7ab8 38%,#e5177f 52%,#ff9ccb 66%,#ffe4f1 100%)!important; -webkit-background-clip:text!important; background-clip:text!important; color:transparent!important; filter:drop-shadow(4px 4px 0 #d4f75a); transform:skewX(-8deg); transform-origin:0 100%; width:auto!important}
+.p1 h1 small{font-family:var(--f-pixel)!important; font-size:20px!important; letter-spacing:.08em}
+.own-big{filter:drop-shadow(4px 4px 0 #d4f75a); transform:skewX(-6deg); transform-origin:0 100%}
+/* ghost level numbers behind each head */
+.head[data-n]{isolation:isolate}
+.head[data-n]::after{content:attr(data-n); position:absolute; right:0; top:-.25em; z-index:-1; font-family:var(--f-head); font-weight:900; font-size:clamp(120px,18vw,260px); line-height:1; letter-spacing:-.04em; color:transparent; -webkit-text-stroke:1.5px rgba(194,24,122,.16); pointer-events:none}
+/* Y2K perspective floor under proof + value */
+.floor3d{overflow:hidden}
+.floor3d::after{content:""; position:absolute; left:-20%; right:-20%; bottom:0; height:300px; z-index:0; pointer-events:none; background:linear-gradient(rgba(255,95,174,.35) 1.5px, transparent 1.5px) 0 0/100% 34px, linear-gradient(90deg, rgba(255,95,174,.35) 1.5px, transparent 1.5px) 0 0/60px 100%; transform:perspective(380px) rotateX(62deg); transform-origin:50% 100%; -webkit-mask-image:linear-gradient(to top,#000 10%,transparent 90%); mask-image:linear-gradient(to top,#000 10%,transparent 90%)}
+.floor3d .wrap{z-index:3}
+/* coin-flip medals */
+.badge .medal{transition:transform .9s cubic-bezier(.3,1.3,.4,1); transform-style:preserve-3d}
+.badge:hover .medal{transform:rotateY(360deg)}
+/* home: bigger hook once the chips are gone */
+.p1 .hook{font-size:clamp(22px,2.8vw,36px); margin-top:22px}
+.p1 .cta{margin-top:30px}
+/* Xinh mini */
+.mini{position:fixed; z-index:56; left:0; top:0; width:140px; transition:transform 1.1s cubic-bezier(.45,.05,.2,1); will-change:transform}
+.mini.drag{transition:none}
+.booting .mini{display:none}
+.mini-body{display:block; width:140px; height:150px; padding:0; border:0; background:none; cursor:grab; touch-action:none; -webkit-tap-highlight-color:transparent}
+.mini-body svg{width:100%; height:100%; overflow:visible; filter:drop-shadow(0 10px 16px rgba(194,24,122,.22))}
+.mini .mg-all{animation:mbob 3s ease-in-out infinite; transform-origin:70px 140px}
+.mini.hop .mg-all{animation:mhop .9s cubic-bezier(.3,1.4,.5,1)}
+@keyframes mhop{0%{transform:translateY(0) scaleY(1)} 20%{transform:translateY(4px) scale(1.06,.9)} 50%{transform:translateY(-26px) scale(.96,1.06)} 80%{transform:translateY(2px) scale(1.04,.95)} 100%{transform:none}}
+.mini .mg-head,.mini .mg-eyes,.mini .mg-ceyes{transition:transform .25s ease-out; transform-origin:70px 70px}
+.mini .mg-eyes{animation:blink2 4.4s infinite}
+@keyframes blink2{0%,93%,100%{opacity:1} 95%{opacity:.05}}
+.mini .mg-tail{transform-origin:112px 128px; animation:tail 1.6s ease-in-out infinite}
+@keyframes tail{50%{transform:rotate(-14deg)}}
+.mini .mg-hand{transform-origin:36px 112px}
+.mini.talk .mg-hand,.mini-body:hover .mg-hand{animation:waveHand 1.1s ease-in-out 2}
+.mini.talk .mg-mouth{d:path("M63 79 Q70 89 77 79")}
+.mini-say{position:absolute; bottom:100%; left:10px; width:min(290px, calc(100vw - 32px)); padding:14px 14px 12px; border-radius:20px 20px 20px 6px; background:rgba(255,255,255,.95); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border:1px solid var(--edge); box-shadow:var(--sh-2); opacity:0; pointer-events:none; transform:translateY(10px) scale(.95); transform-origin:20px 100%; transition:opacity .3s, transform .35s cubic-bezier(.3,1.4,.5,1)}
+.mini.right .mini-say{left:auto; right:10px; border-radius:20px 20px 6px 20px; transform-origin:calc(100% - 20px) 100%}
+.mini.talk .mini-say{opacity:1; pointer-events:auto; transform:none}
+.mini-say p{margin:0 18px 0 0; font-family:var(--f-head); font-weight:600; font-size:14px; line-height:1.35; color:var(--ink)}
+.ms-x{position:absolute; top:8px; right:8px; border:0; background:none; color:var(--muted); cursor:pointer; font-size:13px}
+.ms-cta{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.ms-cta button{border:1px solid var(--edge); background:var(--white); border-radius:999px; padding:7px 13px; font-family:var(--f-head); font-weight:700; font-size:12px; cursor:pointer; color:var(--ink)}
+.ms-cta button.hot{background:var(--pink); color:#fff; border-color:var(--pink); box-shadow:0 6px 14px rgba(255,95,174,.3)}
+@media (max-width: 760px){ .mini,.mini-body{width:78px} .mini-body{height:84px} .mini-say p{font-size:13px} .head[data-n]::after{font-size:110px} }
+@media (prefers-reduced-motion: reduce){ .mini,.mini .mg-all,.mini .mg-tail{transition:none; animation:none!important} }
 </style>
 
 <!-- Global SVG: gradients, liquid-chrome filter, one hand-built sticker/icon language -->
@@ -1339,8 +1392,6 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       <svg viewBox="0 0 1000 200" aria-hidden="true"><text x="500" y="168" text-anchor="middle" font-size="176" fill="url(#gPinkC)" stroke="#ffffff" stroke-width="16" filter="url(#liquidP)">Em Xinh</text></svg>
     </h1>
     <div class="bh-stage">
-      <span class="bh-tag l"><span class="en">5 YEARS<br>AGENCY</span><span class="vi">5 NĂM<br>AGENCY</span></span>
-      <span class="bh-tag r"><span class="en">OPEN TO<br>WORK 2026</span><span class="vi">SẴN SÀNG<br>NHẬN VIỆC</span></span>
       <svg class="spark4 s1" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z"/></svg>
       <svg class="spark4 s2" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z"/></svg>
       <figure class="bh-pic">
@@ -1404,22 +1455,62 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   <a href="#contact" data-tab="contact"><svg class="ico" viewBox="0 0 64 64"><use href="#i-chat"/></svg><span class="en">SAY HI</span><span class="vi">LIÊN HỆ</span></a>
   <a href="#report" data-tab="report" hidden><svg class="ico" viewBox="0 0 64 64"><use href="#i-chart"/></svg>CONSOLE</a>
 </nav>
-<button class="mascot" id="mascot" type="button" data-quiz aria-label="Mini Xinh: tap to play 3 quick questions"><span class="mdev" aria-hidden="true"></span><span class="mcord" aria-hidden="true"></span>
-  <span class="msay" id="msay" aria-live="polite"></span>
-  <svg viewBox="0 0 100 100" aria-hidden="true">
-    <ellipse cx="50" cy="94" rx="24" ry="4" fill="rgba(194,24,122,.15)"/>
-    <g class="mbody">
-      <circle cx="50" cy="58" r="32" fill="url(#gP)" stroke="#2b1d2a" stroke-width="3"/>
-      <ellipse cx="38" cy="40" rx="9" ry="5" fill="#fff" opacity=".6" transform="rotate(-25 38 40)"/>
-      <g class="meyes"><ellipse cx="39" cy="58" rx="7" ry="8.5" fill="#fff" stroke="#2b1d2a" stroke-width="2.4"/><ellipse cx="61" cy="58" rx="7" ry="8.5" fill="#fff" stroke="#2b1d2a" stroke-width="2.4"/>
-        <circle class="pupil" cx="39" cy="59" r="3.6" fill="#2b1d2a"/><circle class="pupil" cx="61" cy="59" r="3.6" fill="#2b1d2a"/></g>
-      <ellipse cx="31" cy="70" rx="5" ry="3" fill="#ff8cc4"/><ellipse cx="69" cy="70" rx="5" ry="3" fill="#ff8cc4"/>
-      <path d="M44 73 Q50 79 56 73" fill="none" stroke="#2b1d2a" stroke-width="2.6" stroke-linecap="round"/>
-      <g transform="rotate(-14 46 30)"><ellipse cx="46" cy="30" rx="31" ry="10" fill="#2b1d2a"/><rect x="18" y="31" width="56" height="5" rx="2.5" fill="#c6f24e"/><circle cx="46" cy="19" r="3.4" fill="#2b1d2a"/></g>
-    </g>
-    <g class="mhand"><circle cx="88" cy="60" r="7" fill="url(#gP)" stroke="#2b1d2a" stroke-width="2.6"/></g>
-  </svg>
-</button>
+<div class="mini" id="mini" aria-live="polite">
+  <div class="mini-say" id="miniSay" role="dialog" aria-label="Xinh mini"></div>
+  <button class="mini-body" id="miniBody" type="button" aria-label="Xinh mini. Tap to chat, drag to move">
+    <svg viewBox="0 0 140 150" aria-hidden="true">
+      <defs>
+        <radialGradient id="mgSkin" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="#fff1e6"/><stop offset=".6" stop-color="#ffd6c2"/><stop offset="1" stop-color="#f0b29a"/></radialGradient>
+        <radialGradient id="mgHair" cx=".4" cy=".25" r=".85"><stop offset="0" stop-color="#8a5a48"/><stop offset=".55" stop-color="#5a3428"/><stop offset="1" stop-color="#2e1914"/></radialGradient>
+        <radialGradient id="mgBeret" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#6b5a66"/><stop offset=".5" stop-color="#2b1d2a"/><stop offset="1" stop-color="#120a11"/></radialGradient>
+        <radialGradient id="mgTop" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#fbeff4"/><stop offset="1" stop-color="#e9cfdb"/></radialGradient>
+        <radialGradient id="mgCat" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".65" stop-color="#fff3e8"/><stop offset="1" stop-color="#e8d2c2"/></radialGradient>
+        <radialGradient id="mgPatch" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffc38a"/><stop offset="1" stop-color="#e98a3c"/></radialGradient>
+        <radialGradient id="mgEye" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#5a4456"/><stop offset="1" stop-color="#140c13"/></radialGradient>
+      </defs>
+      <ellipse class="mshadow" cx="70" cy="145" rx="34" ry="5" fill="rgba(194,24,122,.18)"/>
+      <g class="mg-all">
+        <!-- cat tail -->
+        <path class="mg-tail" d="M112 128 C130 124 132 104 122 98" fill="none" stroke="#e98a3c" stroke-width="7" stroke-linecap="round"/>
+        <!-- body -->
+        <path d="M38 146 C36 120 48 104 70 104 C92 104 104 120 102 146 Z" fill="url(#mgTop)"/>
+        <circle cx="42" cy="116" r="11" fill="url(#mgTop)"/><circle cx="98" cy="116" r="11" fill="url(#mgTop)"/>
+        <path d="M64 106 L70 116 L76 106" fill="none" stroke="#ff8cc4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="70" cy="117" r="2.6" fill="#ff5fae"/>
+        <!-- waving hand -->
+        <g class="mg-hand"><circle cx="30" cy="104" r="7" fill="url(#mgSkin)"/></g>
+        <!-- hair back -->
+        <path d="M30 62 C26 96 34 116 46 118 L94 118 C106 116 114 96 110 62 Z" fill="url(#mgHair)"/>
+        <g class="mg-head">
+          <circle cx="70" cy="62" r="36" fill="url(#mgSkin)"/>
+          <!-- bangs -->
+          <path d="M34 60 C34 34 52 24 70 24 C90 24 106 34 106 60 C98 52 92 44 86 40 C82 50 72 54 60 52 C52 51 44 54 34 60Z" fill="url(#mgHair)"/>
+          <!-- beret -->
+          <g transform="rotate(-12 70 30)"><ellipse cx="68" cy="28" rx="40" ry="13" fill="url(#mgBeret)"/><ellipse cx="60" cy="23" rx="14" ry="4" fill="#fff" opacity=".18"/><circle cx="68" cy="15" r="3.5" fill="#2b1d2a"/><rect x="36" y="33" width="64" height="4" rx="2" fill="#c6f24e"/></g>
+          <!-- face -->
+          <g class="mg-eyes">
+            <ellipse cx="56" cy="66" rx="6" ry="7.5" fill="url(#mgEye)"/><ellipse cx="84" cy="66" rx="6" ry="7.5" fill="url(#mgEye)"/>
+            <g class="mg-glint"><circle cx="58" cy="63" r="2.2" fill="#fff"/><circle cx="86" cy="63" r="2.2" fill="#fff"/><circle cx="54.5" cy="69" r="1" fill="#fff" opacity=".8"/><circle cx="82.5" cy="69" r="1" fill="#fff" opacity=".8"/></g>
+          </g>
+          <ellipse cx="46" cy="78" rx="7" ry="4" fill="#ff8cc4" opacity=".55"/><ellipse cx="94" cy="78" rx="7" ry="4" fill="#ff8cc4" opacity=".55"/>
+          <path class="mg-mouth" d="M64 80 Q70 86 76 80" fill="none" stroke="#c2187a" stroke-width="2.4" stroke-linecap="round"/>
+          <ellipse cx="54" cy="46" rx="10" ry="5" fill="#fff" opacity=".22" transform="rotate(-20 54 46)"/>
+        </g>
+        <!-- cat on her shoulder -->
+        <g class="mg-cat">
+          <path d="M98 100 L101 84 L110 94 Z" fill="url(#mgPatch)"/><path d="M126 100 L124 84 L114 93 Z" fill="url(#mgCat)"/>
+          <path d="M101 88 L103 93 L106 91 Z" fill="#ffb3cf"/><path d="M123 88 L121 93 L118 91 Z" fill="#ffb3cf"/>
+          <ellipse cx="112" cy="104" rx="16" ry="14" fill="url(#mgCat)"/>
+          <path d="M98 100 C100 92 108 90 112 94 C108 98 102 100 98 104Z" fill="url(#mgPatch)"/>
+          <g class="mg-ceyes"><ellipse cx="106" cy="104" rx="2.6" ry="3.2" fill="#2b1d2a"/><ellipse cx="118" cy="104" rx="2.6" ry="3.2" fill="#2b1d2a"/><circle cx="107" cy="103" r="1" fill="#fff"/><circle cx="119" cy="103" r="1" fill="#fff"/></g>
+          <path d="M110.5 109 L113.5 109 L112 111 Z" fill="#ff8cc4"/>
+          <path d="M112 111 Q109 114 107 112 M112 111 Q115 114 117 112" fill="none" stroke="#2b1d2a" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M96 107 L103 108 M96 111 L103 110 M128 107 L121 108 M128 111 L121 110" stroke="#c9b3a6" stroke-width="1" stroke-linecap="round"/>
+        </g>
+      </g>
+    </svg>
+  </button>
+</div>
 <div class="dock">
   <button type="button" id="goTop" aria-label="Back to top" data-tip="Back to top" hidden><svg class="ico" viewBox="0 0 24 24"><use href="#i-up"/></svg></button>
   <button type="button" id="goEnd" aria-label="Jump to the end" data-tip="Jump to the end"><svg class="ico" viewBox="0 0 24 24"><use href="#i-down"/></svg></button>
@@ -1435,9 +1526,8 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   <div class="wrap plain p1-grid">
     <div>
       <p class="tag"><b>P1</b><span class="en">Player ready · Brand · Communication · Project management</span><span class="vi">Người chơi đã sẵn sàng · Thương hiệu · Truyền thông · Dự án</span></p>
-      <h1 class="p1name">Xinh <em>Nguyễn</em><small><span class="en">Class: Project Owner · 5 years agency-side · HCMC</span><span class="vi">Class: Người làm chủ dự án · 5 năm agency · TP.HCM</span></small></h1>
+      <h1 class="p1name"><span class="ol">Xinh</span> <em>Nguyễn</em><small><span class="en">Class: Project Owner</span><span class="vi">Class: Người làm chủ dự án</span></small></h1>
       <p class="hook"><span class="en"><b>You run the business.</b>I'll run the project to the finish line.</span><span class="vi"><b>Bạn lo việc kinh doanh.</b>Xinh lo dự án về đích.</span></p>
-      <div class="metas"><span class="chip"><span class="en">Banking · Fintech · Consumer</span><span class="vi">Ngân hàng · Fintech · Tiêu dùng</span></span><span class="chip"><span class="en">IMC · Social management · Activation · Production</span><span class="vi">IMC · Quản lý social · Activation · Sản xuất</span></span><span class="chip"><span class="en">HCMC or remote</span><span class="vi">TP.HCM hoặc từ xa</span></span></div>
       <div class="cta">
         <a class="btn lime" href="#brief"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-play"/></svg><span class="en">Start level 0</span><span class="vi">Vào level 0</span></a>
         <a class="btn" href="#desk"><span class="en">Quick mode</span><span class="vi">Xem nhanh</span> →</a>
@@ -1452,7 +1542,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       <div class="win">
         <div class="win-bar"><b>WORK_MODE.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
         <div class="shot0"><div class="ph" data-portrait="work.png"></div>
-          <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span><span class="tc" id="recTc">00:00:00</span><span class="av"><span class="en">Open to roles &amp; projects</span><span class="vi">Sẵn sàng nhận việc</span></span></div>
+          <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span><span class="tc" id="recTc">00:00:00</span></div>
         </div>
         <figcaption><span class="en">Right goal first. <em>Right work follows.</em></span><span class="vi">Đúng mục tiêu trước, <em>trúng đầu việc sau.</em></span></figcaption>
       </div>
@@ -1526,7 +1616,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   </div>
 </section>
 
-<section class="sc sc-peri zone" id="align">
+<section class="sc sc-peri zone floor3d" id="align">
   <svg class="dood" style="right:7%; top:90px; --w:60px" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-star"/></svg><svg class="dood" style="right:16%; top:40px; --w:38px; --d:-1.4s" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-heart"/></svg>
   <div class="wrap">
     <div class="head">
@@ -1536,10 +1626,10 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
       <p class="lead"><span class="en">A few wins I earned myself, and the 9 things I do well, each backed by a real project. Tap one and see.</span><span class="vi">Vài thành tích Xinh tự tay giành được, và 9 đầu việc Xinh làm thạo, việc nào cũng có dự án thật đi kèm. Bấm thử là thấy.</span></p>
     </div>
     <div class="ach">
-      <div class="badge"><span class="lock">UNLOCKED</span><span class="medal">×3</span><span><b><span class="en">3 promotions in 4 years</span><span class="vi">3 lần lên vị trí trong 4 năm</span></b><small>Planning Assistant → Associate AM</small></span></div>
-      <div class="badge"><span class="lock">UNLOCKED</span><span class="medal">×4</span><span><b><span class="en">4 pitches won with the team</span><span class="vi">4 lần pitch thắng cùng team</span></b><small>VIB · MSB · Duy Tân · Cindy Bloom</small></span></div>
-      <div class="badge"><span class="lock">UNLOCKED</span><span class="medal">3→5</span><span><b><span class="en">MSB renewed: 3 → 5 years</span><span class="vi">MSB gia hạn: 3 → 5 năm</span></b><small>Social always-on · 2025 – 2027</small></span></div>
-      <div class="badge"><span class="lock">UNLOCKED</span><span class="medal">12</span><span><b><span class="en">12 brands served</span><span class="vi">12 thương hiệu đã phục vụ</span></b><small><span class="en">Banking, fintech, consumer</span><span class="vi">Ngân hàng, fintech, tiêu dùng</span></small></span></div>
+      <div class="badge" data-tilt><span class="lock">UNLOCKED</span><span class="medal">×3</span><span><b><span class="en">3 promotions in 4 years</span><span class="vi">3 lần lên vị trí trong 4 năm</span></b><small>Planning Assistant → Associate AM</small></span></div>
+      <div class="badge" data-tilt><span class="lock">UNLOCKED</span><span class="medal">×4</span><span><b><span class="en">4 pitches won with the team</span><span class="vi">4 lần pitch thắng cùng team</span></b><small>VIB · MSB · Duy Tân · Cindy Bloom</small></span></div>
+      <div class="badge" data-tilt><span class="lock">UNLOCKED</span><span class="medal">3→5</span><span><b><span class="en">MSB renewed: 3 → 5 years</span><span class="vi">MSB gia hạn: 3 → 5 năm</span></b><small>Social always-on · 2025 – 2027</small></span></div>
+      <div class="badge" data-tilt><span class="lock">UNLOCKED</span><span class="medal">12</span><span><b><span class="en">12 brands served</span><span class="vi">12 thương hiệu đã phục vụ</span></b><small><span class="en">Banking, fintech, consumer</span><span class="vi">Ngân hàng, fintech, tiêu dùng</span></small></span></div>
     </div>
     <div data-mx></div>
     <div class="wpt" style="margin-top:8px"><span class="node rail wp" data-node></span></div>
@@ -1564,7 +1654,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   </div>
 </section>
 
-<section class="sc sc-paper zone" id="value">
+<section class="sc sc-paper zone floor3d" id="value">
   <svg class="dood" style="right:10%; top:120px; --w:56px; --d:-.8s" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-heart"/></svg>
   <span class="bubble" style="width:140px; height:140px; right:-30px; top:40px" aria-hidden="true"></span>
   <div class="wrap">
@@ -1584,7 +1674,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
           <p class="fitfor"><b><span class="en">Good for</span><span class="vi">Hợp với</span></b><span class="en">Small brands, lean projects, teams that need one more PM.</span><span class="vi">Brand nhỏ, dự án gọn, team cần thêm một PM.</span></p>
         </div>
       </article>
-      <article class="win tier t2">
+      <article class="win tier t2" data-tilt>
         <div class="win-bar"><b>02 · SQUAD.EXE</b><span class="ctl"><i></i><i></i><i></i></span></div>
         <div class="win-body">
           <p class="who"><span class="av"><i>X</i><i>+</i><i>+</i><i>+</i></span><span class="en">Xinh &amp; partners</span><span class="vi">Xinh &amp; đối tác</span></p>
@@ -2391,7 +2481,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     if (v !== 'story'){ svg.setAttribute('width', 0); svg.setAttribute('height', 0); }
     curView = v;
     if (typeof dockUpdate === 'function') setTimeout(dockUpdate, 50);
-    if (typeof mascotSay === 'function' && v !== 'story' && v !== 'report') setTimeout(function(){ mascotSay('view'); }, 900);
+    if (typeof miniGo === 'function' && v !== 'story' && v !== 'report') setTimeout(function(){ miniGo(v); }, 900);
     if (v === 'report') renderReport();
     track('view', v);
     if (v === 'story') rebuild();
@@ -2547,7 +2637,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     pips.forEach(function(p){ var n = +p.dataset.pip; p.classList.toggle('done', n < s); p.classList.toggle('cur', n === s); });
     track('lv', s);
     if (typeof renderSaved === 'function') renderSaved();
-    if (typeof mascotSay === 'function' && curView === 'story' && booted) mascotSay(s);
+    if (typeof miniGo === 'function' && curView === 'story' && booted) miniGo(s);
   }
   var raf = 0, animating = false;
   function schedule(){ if (!raf) raf = requestAnimationFrame(frame); }
@@ -2962,10 +3052,12 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     if (c){ var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); }
     var t = !reduce && finePointer && e.target.closest && e.target.closest('[data-tilt]');
     if (t){ var q = t.getBoundingClientRect(), x = (e.clientX - q.left) / q.width - .5, y = (e.clientY - q.top) / q.height - .5; t.style.transform = 'perspective(800px) rotateX(' + (-y * 10).toFixed(2) + 'deg) rotateY(' + (x * 12).toFixed(2) + 'deg) translateY(-4px)'; }
-    var m = $('#mascot');
-    if (m){ var mr = m.getBoundingClientRect(), dx = e.clientX - (mr.left + mr.width / 2), dy = e.clientY - (mr.top + mr.height * .58), d = Math.max(1, Math.hypot(dx, dy)), k = Math.min(3.2, d / 60);
-      var mb = $('.mbody', m); if (mb) mb.style.transform = 'translate(' + (dx / d * Math.min(5, d / 40)).toFixed(1) + 'px,' + (dy / d * Math.min(3, d / 60)).toFixed(1) + 'px) rotate(' + (dx / d * 8).toFixed(1) + 'deg)';
-      $$('.pupil', m).forEach(function(p){ p.style.transform = 'translate(' + (dx / d * k).toFixed(2) + 'px,' + (dy / d * k).toFixed(2) + 'px)'; }); }
+    var m = $('#mini');
+    if (m && !m.classList.contains('drag')){ var mr = $('#miniBody').getBoundingClientRect(), dx = e.clientX - (mr.left + mr.width * .5), dy = e.clientY - (mr.top + mr.height * .42), d = Math.max(1, Math.hypot(dx, dy)), ux = dx / d, uy = dy / d;
+      var hd = $('.mg-head', m), ey = $('.mg-eyes', m), ce = $('.mg-ceyes', m);
+      if (hd) hd.style.transform = 'translate(' + (ux * 2.5).toFixed(1) + 'px,' + (uy * 1.5).toFixed(1) + 'px) rotate(' + (ux * 6).toFixed(1) + 'deg)';
+      if (ey) ey.style.transform = 'translate(' + (ux * 2.4).toFixed(1) + 'px,' + (uy * 2).toFixed(1) + 'px)';
+      if (ce) ce.style.transform = 'translate(' + (ux * 1.6).toFixed(1) + 'px,' + (uy * 1.2).toFixed(1) + 'px)'; }
   }
   document.addEventListener('pointerout', function(e){ var t = e.target.closest && e.target.closest('[data-tilt]'); if (t && !t.contains(e.relatedTarget)) t.style.transform = ''; });
   /* hanging ID cards: wire + clip + pendulum, holo shimmer, 3D flip */
@@ -3018,22 +3110,57 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     var f = FAN[fanTop]; $('#fanCap').innerHTML = '<b>' + f.t + '</b> ' + esc(L(f.d)) + ' <span>' + (lang === 'vi' ? 'Chạm ảnh để đổi' : 'Tap a photo to shuffle') + '</span>';
   }
   document.addEventListener('click', function(e){ var c = e.target.closest('.stackx > *'); if (c){ var p = c.parentElement; $$(':scope > *', p).forEach(function(x){ x.classList.toggle('on', x === c && !c.classList.contains('on')); }); track('stack', 1); } });
-  var TIPS = {
-    0:{en:'Hi! I’m mini Xinh. Scroll down to play!', vi:'Hi! Mình là Xinh mini. Kéo xuống chơi nha!'},
-    1:{en:'Hover a card to shimmer, tap to flip it!', vi:'Rê vào thẻ cho lấp lánh, chạm để lật nha!'},
-    2:{en:'Hover a card to open it up. Tap me for a quiz!', vi:'Rê vào từng thẻ để mở ra. Bấm mình chơi quiz nha!'},
-    3:{en:'Tap any skill to see the real project.', vi:'Bấm một đầu việc là ra dự án thật.'},
-    4:{en:'Drag or tap the arrows to spin!', vi:'Kéo hoặc bấm mũi tên để xoay nè!'},
-    5:{en:'Pick a project type to see the crew.', vi:'Chọn mảng dự án để xem đội hình nè.'},
-    6:{en:'Your turn to say hi!', vi:'Tới lượt bạn say hi đó!'},
-    view:{en:'Need anything? Tap Say hi up top.', vi:'Cần gì cứ bấm Liên hệ ở trên nha.'}
+  /* ===== Xinh mini: a roaming guide that recaps each section and nudges to say hi ===== */
+  var RECAP = {
+    0:{t:{en:'Hi hi! I’m Xinh mini, and this is Mochi. Come along, we’ll walk you through it!', vi:'Hi hi! Em là Xinh mini, còn đây là bé Mochi. Đi cùng em hết hành trình nha!'}, c:[{l:{en:'Let’s go', vi:'Đi thôi'}, a:'#brief'}]},
+    1:{t:{en:'Recap: 4 roles in 4 years, from reading the numbers to running the whole project.', vi:'Tóm lại nè: 4 năm, 4 vai trò, từ đọc số liệu tới cầm trịch cả dự án.'}, c:[{l:{en:'View CV', vi:'Xem CV'}, a:'cv'}, {l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
+    2:{t:{en:'Recap: clarify, structure, coordinate, follow through. Want a quick quiz?', vi:'Tóm lại nè: làm rõ, cấu trúc, điều phối, theo tới kết quả. Chơi quiz 30 giây hông?'}, c:[{l:{en:'Play quiz', vi:'Chơi quiz'}, a:'quiz'}, {l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
+    3:{t:{en:'Recap: 4 kinds of project, 5 parts of owning one. Every claim has a real project behind it.', vi:'Tóm lại nè: 4 mảng dự án, 5 phần việc, mục nào cũng có dự án thật làm chứng.'}, c:[{l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
+    4:{t:{en:'7 projects, banking to consumer. Like one? Ask me about it!', vi:'7 dự án, từ ngân hàng tới tiêu dùng. Thích dự án nào, hỏi em liền nha!'}, c:[{l:{en:'All projects', vi:'Xem cả 7'}, a:'#work'}, {l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
+    5:{t:{en:'One owner, the right crew, a promise to the end. What’s your brief?', vi:'Một người, một đội, một lời cam kết. Còn brief của bạn thì sao nè?'}, c:[{l:{en:'Tell me', vi:'Kể em nghe'}, a:'connect'}]},
+    6:{t:{en:'Your turn! I’ll be waiting for your hi.', vi:'Tới lượt bạn rồi đó! Em chờ tin bạn nha.'}, c:[{l:{en:'Say hi now', vi:'Liên hệ em nha'}, a:'connect'}]},
+    work:{t:{en:'Hover a project to peek, click to open.', vi:'Rê chuột để xem nhanh, bấm để mở dự án nha.'}, c:[{l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
+    profile:{t:{en:'Drag my ID card to swing it, tap to flip!', vi:'Kéo thẻ của em cho đung đưa, chạm để lật nha!'}, c:[{l:{en:'Play quiz', vi:'Chơi quiz'}, a:'quiz'}]},
+    skills:{t:{en:'Tap any capability to see the proof.', vi:'Bấm một đầu việc là ra bằng chứng liền.'}, c:[{l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
+    desk:{t:{en:'Short on time? Everything’s on this desk.', vi:'Bận quá? Mọi thứ nằm gọn trên desktop này nè.'}, c:[{l:{en:'Say hi', vi:'Liên hệ em nha'}, a:'connect'}]},
+    contact:{t:{en:'Pick any channel, I reply fast!', vi:'Chọn kênh nào tiện, em trả lời liền nha!'}, c:[]}
   };
-  var mTalkT = 0, mLast = null;
-  function mascotSay(key){
-    var m = $('#mascot'); if (!m || !TIPS[key]) return;
-    $('#msay').innerHTML = both(TIPS[key]); m.classList.add('talk', 'wave'); mLast = key;
-    clearTimeout(mTalkT); mTalkT = setTimeout(function(){ m.classList.remove('talk', 'wave'); }, 4200);
+  var SPOTS = {0:[.86,.62], 1:[.04,.6], 2:[.86,.56], 3:[.04,.64], 4:[.86,.62], 5:[.04,.58], 6:[.84,.5]};
+  var mini = $('#mini'), miniSay = $('#miniSay'), miniKey = null, miniT = 0, miniFree = 0, miniPos = null;
+  function miniPlace(x, y, hop){
+    var w = window.innerWidth, h = window.innerHeight, mw = mini.offsetWidth || 90, mh = mini.offsetHeight || 100;
+    var px = Math.max(8, Math.min(w - mw - 8, x * w)), py = Math.max(80, Math.min(h - mh - (w < 760 ? 90 : 16), y * h));
+    miniPos = [px, py]; mini.style.transform = 'translate(' + px.toFixed(0) + 'px,' + py.toFixed(0) + 'px)';
+    mini.classList.toggle('right', px > w / 2);
+    if (hop && !reduce){ mini.classList.remove('hop'); void mini.offsetWidth; mini.classList.add('hop'); }
   }
+  function miniTalk(key, open){
+    var r = RECAP[key]; if (!r) return; miniKey = key;
+    miniSay.innerHTML = '<button class="ms-x" type="button" data-mini-x aria-label="Close">✕</button><p>' + both(r.t) + '</p>' +
+      (r.c.length ? '<div class="ms-cta">' + r.c.map(function(c, i){ return '<button type="button" class="' + (i === r.c.length - 1 ? 'hot' : '') + '" data-mini-a="' + c.a + '">' + both(c.l) + '</button>'; }).join('') + '</div>' : '');
+    if (open !== false){ mini.classList.add('talk'); clearTimeout(miniT); miniT = setTimeout(function(){ mini.classList.remove('talk'); }, 9000); }
+  }
+  function miniGo(key){
+    if (!mini || !booted) return;
+    if (Date.now() > miniFree){ var sp = SPOTS[key] || [.86, .6]; if (window.innerWidth < 760) sp = [sp[0] > .5 ? .78 : .02, .62]; miniPlace(sp[0], sp[1], true); }
+    miniTalk(key);
+  }
+  function mascotSay(k){ miniGo(k === 'view' ? curView : k); }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('[data-mini-a]');
+    if (a){ var v = a.dataset.miniA; mini.classList.remove('talk');
+      if (v === 'connect') openSheet($('#connectSheet')); else if (v === 'quiz'){ quizEl.hidden = false; renderQuiz(); } else if (v === 'cv'){ if (CV_URL) window.open(CV_URL, '_blank', 'noopener'); } else location.hash = v.slice(1);
+      track('mini', v); return; }
+    if (e.target.closest('[data-mini-x]')){ mini.classList.remove('talk'); }
+  });
+  (function(){
+    var body = $('#miniBody'), sx, sy, ox, oy, drag = false, moved = false;
+    body.addEventListener('pointerdown', function(e){ drag = true; moved = false; sx = e.clientX; sy = e.clientY; ox = miniPos ? miniPos[0] : 0; oy = miniPos ? miniPos[1] : 0; body.setPointerCapture(e.pointerId); });
+    body.addEventListener('pointermove', function(e){ if (!drag) return; var dx = e.clientX - sx, dy = e.clientY - sy; if (Math.abs(dx) + Math.abs(dy) > 6){ moved = true; mini.classList.add('drag'); miniPlace((ox + dx) / window.innerWidth, (oy + dy) / window.innerHeight, false); } });
+    body.addEventListener('pointerup', function(){ drag = false; mini.classList.remove('drag'); if (moved){ miniFree = Date.now() + 25000; } });
+    body.addEventListener('click', function(){ if (moved) return; if (mini.classList.contains('talk')) mini.classList.remove('talk'); else miniTalk(miniKey == null ? 0 : miniKey); });
+    window.addEventListener('resize', function(){ if (miniPos) miniPlace(miniPos[0] / window.innerWidth, miniPos[1] / window.innerHeight, false); });
+  })();
 
   /* =====================================================================
      BOOT (the open) · clocks · restart (the end loops back)
@@ -3062,7 +3189,7 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
     bootEl.classList.add('out'); document.body.classList.remove('booting');
     if (m === 'quick'){ location.hash = 'desk'; }
     else { if (curView !== 'story') location.hash = 'story'; window.scrollTo(0, 0); setTimeout(smartStart, 900); }
-    setTimeout(function(){ bootEl.hidden = true; rebuild(); if (m === 'story') mascotSay(0); }, reduce ? 0 : 800);
+    setTimeout(function(){ bootEl.hidden = true; rebuild(); setTimeout(function(){ miniGo(m === 'story' ? 0 : 'desk'); }, 300); }, reduce ? 0 : 800);
   }
   document.addEventListener('click', function(e){
     var m = e.target.closest('[data-mode]'); if (m){ chooseMode(m.dataset.mode); return; }
@@ -3079,6 +3206,15 @@ h1,h2,h3,h4,.h2,.tz-say,.own-big,.own-sub,.brk .say,.hook,.tl-h,.p1 h1.p1name,.r
   /* =====================================================================
      LANGUAGE + BOOT
      ===================================================================== */
+  $$('.zone .head, #structure .head').forEach(function(h){ var b = $('.tag b', h); if (b) h.setAttribute('data-n', b.textContent.replace('LV.', '0')); });
+  if (!reduce && 'IntersectionObserver' in window){
+    var GL = '!<>-_\\/[]{}=+*^?#01';
+    var sio = new IntersectionObserver(function(es){ es.forEach(function(en){ if (!en.isIntersecting) return; sio.unobserve(en.target);
+      $$('.en, .vi', en.target).concat([en.target]).forEach(function(el){ if (el.children.length) return; var fin = el.textContent, f = 0, n = fin.length;
+        (function tick(){ f++; el.textContent = fin.split('').map(function(ch, i){ return (i < f * n / 14 || ch === ' ') ? ch : GL[Math.floor(Math.random() * GL.length)]; }).join(''); if (f < 14) setTimeout(tick, 38); else el.textContent = fin; })(); });
+    }); }, {threshold:.6});
+    $$('.head .tag > span:not(:first-child), .head .tag > span').forEach(function(el){ if (!el.querySelector('b')) sio.observe(el); });
+  }
   function renderAll(){ if (typeof renderFan === 'function') renderFan(); renderRoles(); renderSteps(); renderMatrix(); renderStoryCases(); setupStops(); renderWork(); renderContact(); renderSquad(); renderSaved(); if (!quizEl.hidden) renderQuiz(); if (curView === 'report') renderReport(); hydrateImgs(); }
   function setLang(l){
     lang = l; S.lang = l;
