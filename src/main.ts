@@ -433,17 +433,20 @@ import './styles.css';
   var HW_END = {k:{en:'Problem solved.', vi:'Vấn đề đã được giải quyết.'}, d:{en:'Then the loop starts again on the next brief.', vi:'Rồi vòng lặp bắt đầu lại với đề bài tiếp theo.'}};
   var hw = $('#hw'), hwStage = $('#hwStage'), hwP = 0, hwIdx = -2, hwDone = -1, hwAnim = false;
   function renderSteps(){
-    var chev = [45, 135, 225, 315].map(function(a){ return '<path class="cy-chev" d="M-3.4 -3.6 L1.6 0 L-3.4 3.6" transform="rotate(' + a + ') translate(90 0) rotate(90)"/>'; }).join('');
-    hwStage.innerHTML = '<span class="hw-glow" aria-hidden="true"><i></i><i></i><i></i></span>' +
-      '<div class="cy">' +
-        '<svg class="cy-svg" viewBox="-100 -100 200 200" aria-hidden="true"><circle class="cy-track" r="90"/>' +
-        '<circle class="cy-arc" r="90" pathLength="100" transform="rotate(-90)"/>' + chev +
-        '<g class="cy-head"><circle r="5.5"/><circle class="cy-head-in" r="2.2"/></g></svg>' +
-        STEPS.map(function(st, i){ return '<button class="cy-st" type="button" data-s="' + i + '" style="--a:' + (i * 90 - 90) + 'deg"><i></i><b>0' + (i + 1) + '</b><span>' + esc(L(st.t)) + '</span><em>✓ ' + esc(L(HW_TAG[i])) + '</em></button>'; }).join('') +
-        '<div class="cy-mid">' + STEPS.map(function(st, i){ return '<article data-s="' + i + '"><p class="hw-n"><b>0' + (i + 1) + '</b> / 04 · ' + esc(L(st.t)) + '</p><h3>' + esc(L(st.k)) + '</h3><p class="hw-d">' + esc(L(st.d)) + '</p></article>'; }).join('') +
-          '<article data-s="4" class="cy-end"><p class="hw-n"><b>↻</b> 04 / 04</p><h3>' + esc(L(HW_END.k)) + '</h3><p class="hw-d">' + esc(L(HW_END.d)) + '</p></article>' +
+    var ticks = '', k;
+    for (k = 0; k < 72; k++){ if (k % 18) ticks += '<line class="cy-tick' + (k % 6 ? '' : ' m') + '" x1="0" y1="-95.5" x2="0" y2="' + (k % 6 ? -93.5 : -92.5) + '" transform="rotate(' + (k * 5) + ')"/>'; }
+    var chev = [45, 135, 225, 315].map(function(a){ return '<path class="cy-chev" d="M-2.6 -2.8 L1.2 0 L-2.6 2.8" transform="rotate(' + a + ') translate(90 0) rotate(90)"/>'; }).join('');
+    var side = ['t', 'r', 'b', 'l'];
+    hwStage.innerHTML = '<div class="cy">' +
+        '<svg class="cy-svg" viewBox="-100 -100 200 200" aria-hidden="true"><circle class="cy-disc" r="90"/><circle class="cy-in" r="66"/>' + ticks +
+        '<circle class="cy-track" r="90"/><circle class="cy-arc" r="90" pathLength="100" transform="rotate(-90)"/>' + chev +
+        '<g class="cy-head"><circle r="3.6"/></g></svg>' +
+        STEPS.map(function(st, i){ return '<button class="cy-st ' + side[i] + '" type="button" data-s="' + i + '" style="--a:' + (i * 90 - 90) + 'deg"><i></i><span class="cy-lb"><b>0' + (i + 1) + '</b>' + esc(L(st.t)) + '<em>' + esc(L(HW_TAG[i])) + '</em></span></button>'; }).join('') +
+        '<div class="cy-mid">' + STEPS.map(function(st, i){ return '<article data-s="' + i + '"><p class="hw-n"><b>0' + (i + 1) + '</b> / 04<span class="hw-nm"> · ' + esc(L(st.t)) + '</span></p><h3>' + esc(L(st.k)) + '</h3><p class="hw-d">' + esc(L(st.d)) + '</p></article>'; }).join('') +
+          '<article data-s="4" class="cy-end"><p class="hw-n"><b>↻</b></p><h3>' + esc(L(HW_END.k)) + '</h3><p class="hw-d">' + esc(L(HW_END.d)) + '</p></article>' +
         '</div>' +
       '</div>';
+    $('#hwNow').innerHTML = STEPS.map(function(st, i){ return '<i style="--i:' + i + '"></i>'; }).join('') + '<span>' + (lang === 'vi' ? 'Một vòng, bốn bước' : 'One loop, four steps') + '</span>';
     hwIdx = -2; hwDone = -1; drawHow(true);
     $('#steps4').innerHTML = STEPS.map(function(s, i){ return '<article class="how-card"><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
     $('#steps4').classList.add('stackx');
@@ -466,8 +469,8 @@ import './styles.css';
     var target = reduce ? 1 : clamp(-r.top / Math.max(1, r.height - vh) * 1.1, 0, 1);
     hwP += (target - hwP) * (reduce || force ? 1 : 0.14);
     if (Math.abs(target - hwP) < 0.0005) hwP = target; else if (!hwAnim){ hwAnim = true; requestAnimationFrame(hwFrame); }
-    hwStage.style.setProperty('--p', hwP.toFixed(4));
-    hwStage.style.setProperty('--ha', (hwP * 360 - 90).toFixed(2) + 'deg');
+    hw.style.setProperty('--p', hwP.toFixed(4));
+    hw.style.setProperty('--ha', (hwP * 360 - 90).toFixed(2) + 'deg');
     var idx = hwP >= 0.985 ? 4 : Math.min(3, Math.floor(hwP * 4 + 0.02));
     var done = Math.min(4, Math.floor(hwP * 4 + 0.015));
     if (idx !== hwIdx || done !== hwDone){ hwIdx = idx; hwDone = done;
