@@ -425,30 +425,34 @@ import './styles.css';
     if (j){ e.preventDefault(); roleIdx = +j.dataset.jumpRole; seenRoles[roleIdx] = 1; renderRoles(); var t = $('#roleTabs'); if (curView !== 'story'){ location.hash = 'clarify'; } else if (t) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
   });
   /* LV.2 accordion + profile steps */
-  /* LV.2 · four steps as one orbit (refs: a hero card ringed by orbit lines and labelled pills).
-     Xinh's photo card sits in the centre; the four steps are the pills on the ring. Scrolling turns
-     the ring a quarter at a time, so each step swings to the top, its photo, outcome tag and caption
-     take over, and the colour field drifts with it. Tapping a pill jumps to that step. */
-  var HW_PH = ['work.png', 'hi.png', 'go.png', 'chill.png'];
+  /* LV.2 · the four steps as one loop. A ring with the four steps at 12, 3, 6 and 9 o'clock;
+     scrolling draws a pink arc clockwise round it. When the arc reaches a step, that step takes
+     the centre; when it passes, the step leaves its outcome behind ("Priorities set").
+     When the arc closes the circle the problem is solved and the loop starts again. */
   var HW_TAG = [{en:'Real goal found', vi:'Đã rõ mục tiêu thật'}, {en:'Priorities set', vi:'Đã chốt thứ tự ưu tiên'}, {en:'Everyone aligned', vi:'Các bên đã khớp'}, {en:'Issue handled', vi:'Đã xử lý phát sinh'}];
-  var hw = $('#hw'), hwStage = $('#hwStage'), hwS = 0, hwT = 0, hwIdx = -1, hwAnim = false;
+  var HW_END = {k:{en:'Problem solved.', vi:'Vấn đề đã được giải quyết.'}, d:{en:'Then the loop starts again on the next brief.', vi:'Rồi vòng lặp bắt đầu lại với đề bài tiếp theo.'}};
+  var hw = $('#hw'), hwStage = $('#hwStage'), hwP = 0, hwIdx = -2, hwDone = -1, hwAnim = false;
   function renderSteps(){
+    var chev = [45, 135, 225, 315].map(function(a){ return '<path class="cy-chev" d="M-3.4 -3.6 L1.6 0 L-3.4 3.6" transform="rotate(' + a + ') translate(90 0) rotate(90)"/>'; }).join('');
     hwStage.innerHTML = '<span class="hw-glow" aria-hidden="true"><i></i><i></i><i></i></span>' +
-      '<span class="hw-ring r1" aria-hidden="true"></span><span class="hw-ring r2" aria-hidden="true"></span><span class="hw-ring r3" aria-hidden="true"></span>' +
-      '<div class="hw-card" aria-hidden="true">' + HW_PH.map(function(p, i){ return '<span class="hw-ph" data-s="' + i + '" data-portrait="' + p + '"></span>'; }).join('') + '</div>' +
-      HW_TAG.map(function(g, i){ return '<p class="hw-tag" data-s="' + i + '" aria-hidden="true">' + esc(L(g)) + ' <span>↗</span></p>'; }).join('') +
-      '<div class="wrap hw-capwrap"><div class="hw-cap">' + STEPS.map(function(st, i){ return '<article data-s="' + i + '"><p class="hw-n"><b>0' + (i + 1) + '</b> / 04 · ' + esc(L(st.t)) + '</p><h3>' + esc(L(st.k)) + '</h3><p class="hw-d">' + esc(L(st.d)) + '</p></article>'; }).join('') + '</div></div>' +
-      '<div class="hw-orbit">' + STEPS.map(function(st, i){ return '<button class="hw-pill" type="button" data-s="' + i + '"><i></i><b>0' + (i + 1) + '</b><span>' + esc(L(st.t)) + '</span></button>'; }).join('') + '</div>';
-    $$('[data-portrait]', hwStage).forEach(function(el){ el.innerHTML = portrait(el.dataset.portrait); });
-    hwIdx = -1; drawHow(true);
+      '<div class="cy">' +
+        '<svg class="cy-svg" viewBox="-100 -100 200 200" aria-hidden="true"><circle class="cy-track" r="90"/>' +
+        '<circle class="cy-arc" r="90" pathLength="100" transform="rotate(-90)"/>' + chev +
+        '<g class="cy-head"><circle r="5.5"/><circle class="cy-head-in" r="2.2"/></g></svg>' +
+        STEPS.map(function(st, i){ return '<button class="cy-st" type="button" data-s="' + i + '" style="--a:' + (i * 90 - 90) + 'deg"><i></i><b>0' + (i + 1) + '</b><span>' + esc(L(st.t)) + '</span><em>✓ ' + esc(L(HW_TAG[i])) + '</em></button>'; }).join('') +
+        '<div class="cy-mid">' + STEPS.map(function(st, i){ return '<article data-s="' + i + '"><p class="hw-n"><b>0' + (i + 1) + '</b> / 04 · ' + esc(L(st.t)) + '</p><h3>' + esc(L(st.k)) + '</h3><p class="hw-d">' + esc(L(st.d)) + '</p></article>'; }).join('') +
+          '<article data-s="4" class="cy-end"><p class="hw-n"><b>↻</b> 04 / 04</p><h3>' + esc(L(HW_END.k)) + '</h3><p class="hw-d">' + esc(L(HW_END.d)) + '</p></article>' +
+        '</div>' +
+      '</div>';
+    hwIdx = -2; hwDone = -1; drawHow(true);
     $('#steps4').innerHTML = STEPS.map(function(s, i){ return '<article class="how-card"><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
     $('#steps4').classList.add('stackx');
     if (!hwStage._wired){
       hwStage._wired = true;
       hwStage.addEventListener('click', function(e){
-        var b = e.target.closest('.hw-pill'); if (!b) return;
+        var b = e.target.closest('.cy-st'); if (!b) return;
         var i = +b.dataset.s, top = hw.getBoundingClientRect().top + window.scrollY, span = hw.offsetHeight - window.innerHeight;
-        window.scrollTo({top: top + span * (i + 0.2) / 3.6, behavior: reduce ? 'auto' : 'smooth'});
+        window.scrollTo({top: top + span * (i * 0.25 + 0.1) / 1.1, behavior: reduce ? 'auto' : 'smooth'});
       });
       window.addEventListener('scroll', function(){ drawHow(); }, {passive:true});
       window.addEventListener('resize', function(){ drawHow(true); });
@@ -459,24 +463,18 @@ import './styles.css';
     if (curView !== 'story' && !force) return;
     var r = hw.getBoundingClientRect(), vh = window.innerHeight;
     if (!force && (r.bottom < -50 || r.top > vh + 50)) return;
-    var t = reduce ? 0 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-    var raw = clamp(t * 3.6, 0, 3), base = Math.min(2, Math.floor(raw)), f = raw - base;
-    var target = raw >= 3 ? 3 : base + sm((f - 0.5) / 0.5);
-    hwT = target; hwS += (hwT - hwS) * (reduce || force ? 1 : 0.16);
-    if (Math.abs(hwT - hwS) < 0.001) hwS = hwT; else if (!hwAnim){ hwAnim = true; requestAnimationFrame(hwFrame); }
-    var W = hwStage.clientWidth, H = hwStage.clientHeight, small = W < 700;
-    var R = small ? Math.min(W * 0.4, H * 0.25) : Math.min(H * 0.4, 330), rot = -60 - hwS * 90;
-    hwStage.style.setProperty('--rot', rot.toFixed(2) + 'deg');
-    hwStage.style.setProperty('--s', hwS.toFixed(3));
-    $$('.hw-pill', hwStage).forEach(function(p, i){
-      var a = (i * 90 + rot) * Math.PI / 180, d = Math.abs(hwS - i);
-      p.style.transform = 'translate(-50%,-50%) translate(' + (Math.cos(a) * R).toFixed(1) + 'px,' + (Math.sin(a) * R).toFixed(1) + 'px)';
-      p.style.opacity = (1 - Math.min(d, 2) * 0.28).toFixed(2);
-    });
-    var idx = Math.round(hwS);
-    if (idx !== hwIdx){ hwIdx = idx;
-      $$('[data-s]', hwStage).forEach(function(el){ el.classList.toggle('on', +el.dataset.s === idx); });
+    var target = reduce ? 1 : clamp(-r.top / Math.max(1, r.height - vh) * 1.1, 0, 1);
+    hwP += (target - hwP) * (reduce || force ? 1 : 0.14);
+    if (Math.abs(target - hwP) < 0.0005) hwP = target; else if (!hwAnim){ hwAnim = true; requestAnimationFrame(hwFrame); }
+    hwStage.style.setProperty('--p', hwP.toFixed(4));
+    hwStage.style.setProperty('--ha', (hwP * 360 - 90).toFixed(2) + 'deg');
+    var idx = hwP >= 0.985 ? 4 : Math.min(3, Math.floor(hwP * 4 + 0.02));
+    var done = Math.min(4, Math.floor(hwP * 4 + 0.015));
+    if (idx !== hwIdx || done !== hwDone){ hwIdx = idx; hwDone = done;
+      $$('.cy-mid [data-s]', hwStage).forEach(function(el){ el.classList.toggle('on', +el.dataset.s === idx); });
+      $$('.cy-st', hwStage).forEach(function(el, i){ el.classList.toggle('on', i === idx); el.classList.toggle('done', i < done); });
       hw.setAttribute('data-step', idx);
+      hw.classList.toggle('solved', idx === 4);
     }
   }
 
@@ -701,28 +699,45 @@ import './styles.css';
   /* =====================================================================
      STORY: tangle, pin, thread
      ===================================================================== */
-  /* LV.0 · the brief as one search. Scroll types the question into the bar, the five starting
-     points drop down and get ticked one by one, then the top hit slides in: Xinh, with her answer.
-     Tapping a row ticks it; once all five are ticked the top hit shows. */
+  /* LV.0 · the brief as one search. When the section pins, the question types itself into the bar
+     (by time, so it reads at a steady pace), the results drop down with the top hit still
+     "searching", scroll ticks the five starting points one at a time, and once all five are
+     ticked the top hit resolves to Xinh, with her answer. Tapping a row ticks it. */
   var tzCount = $('#tzCount'), tz = $('#brief'), bfAskT = $('#bfAskT'), bfRows = $$('#brief .sp-row');
   var BF_Q = {en:'A goal. A budget. But where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
-  var bfFix = [0,0,0,0,0], bfT = reduce ? 1 : 0, briefAnim = false, lastT = -1, tangleVis = true, bfTxt = '';
+  var bfFix = [0,0,0,0,0], bfOk = [0,0,0,0,0], briefAnim = false, lastT = -1, tangleVis = true, bfTxt = '';
+  var bfTypeAt = 0, bfListAt = 0, bfTickAt = 0;
   bfRows.forEach(function(el){ el.addEventListener('click', function(){ bfFix[+el.dataset.r] = 1; schedule(); }); });
   function drawTangle(){
     var r = tz.getBoundingClientRect(), vh = window.innerHeight;
+    if (r.top > vh && bfTypeAt && !reduce){ bfTypeAt = bfListAt = 0; bfOk = [0,0,0,0,0]; }
     tangleVis = r.bottom > 0 && r.top < vh;
     if (!tangleVis && lastT >= 0 && !briefAnim) return;
     var t = reduce ? 1 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+    var now = performance.now(), q = BF_Q[lang], i;
     lastT = t; briefAnim = false;
-    bfT += (t - bfT) * (reduce ? 1 : 0.2);
-    if (Math.abs(t - bfT) < 0.0005) bfT = t; else briefAnim = true;
-    var u = bfT, q = BF_Q[lang], open = 0;
-    var typed = q.slice(0, Math.round(q.length * clamp((u + 0.04) / 0.22, 0, 1)));
+    if (!bfTypeAt && (reduce || r.top < vh * 0.45)) bfTypeAt = now;
+    var n = !bfTypeAt ? 0 : reduce ? q.length : Math.min(q.length, Math.floor((now - bfTypeAt) / 34));
+    if (bfTypeAt && n < q.length) briefAnim = true;
+    var typed = q.slice(0, n);
     if (typed !== bfTxt){ bfTxt = typed; bfAskT.textContent = typed; }
-    var listed = u > 0.24 || bfFix.some(Boolean);
-    bfRows.forEach(function(el, i){ var ok = !!bfFix[i] || u > 0.36 + i * 0.08; el.classList.toggle('ok', ok); if (!ok) open++; });
-    var cl = !open && (u > 0.8 || bfFix.every(Boolean));
-    tz.classList.toggle('listed', listed); tz.classList.toggle('clear', cl);
+    if (n >= q.length && !bfListAt) bfListAt = now + (reduce ? 0 : 280);
+    var listed = (bfListAt && now >= bfListAt) || bfFix.some(Boolean);
+    if (bfListAt && now < bfListAt) briefAnim = true;
+    /* scroll says how many should be ticked; they land one at a time so the list never jumps */
+    for (i = 0; i < 5; i++){
+      var want = !!bfFix[i] || (listed && t > 0.3 + i * 0.1);
+      if (!want){ bfOk[i] = 0; continue; }
+      if (bfOk[i]) continue;
+      if (reduce || (now - bfTickAt >= 170 && now - bfListAt >= 450)){ bfOk[i] = 1; bfTickAt = now; }
+      else briefAnim = true;
+      break;
+    }
+    var open = 0;
+    bfRows.forEach(function(el, j){ el.classList.toggle('ok', !!bfOk[j]); if (!bfOk[j]) open++; });
+    var cl = !open && (t > 0.8 || bfFix.every(Boolean));
+    if (cl && !reduce && now - bfTickAt < 380){ cl = false; briefAnim = true; }
+    tz.classList.toggle('listed', !!listed); tz.classList.toggle('clear', cl);
     var key = lang + open + cl;
     if (tzCount.dataset.k !== key){ tzCount.dataset.k = key; var vi = lang === 'vi';
       tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All untangled! · <b>plan locked</b>')
