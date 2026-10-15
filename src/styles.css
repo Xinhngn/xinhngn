@@ -2336,124 +2336,118 @@ body{background:var(--cream)}
 #pfSkills{scroll-margin-top:calc(var(--hud, 60px) + 20px)}
 #pfSkills .lead{margin-bottom:28px}
 
+
 /* =====================================================================
-   v16 · LV.0 "The brief" as a keyboard (refs: typewriter paper feed, Enter-key door, esc ladder).
-   The section pins while you scroll: five loose keys drop into their sockets one by one, each types
-   its line on the paper, then Enter opens a lit door and the little figure walks in.
-   JS only sets --m per key (1 = loose, 0 = seated), --open and --px/--py on #brief.
+   v16 · LV.0 "The brief" as an OS desktop (refs: floating glass windows with depth of field,
+   a search/prompt bar, a design-canvas cursor that selects and drags assets).
+   One story, one actor: the brief's five loose files float out of focus around the question;
+   as you scroll, Xinh's cursor picks each one up, it sharpens and is dragged into a tidy plan
+   board, then the cursor presses "Plan" in the bar. JS sets --k per window, positions the cursor
+   and types the bar; everything else is CSS.
    ===================================================================== */
-#brief.bf0{--a:54deg; --b:-16deg; --px:0; --py:0; --open:0; --ra:calc(var(--a) - var(--py) * 5deg); --rb:calc(var(--b) + var(--px) * 6deg);
-  height:260vh; padding:0; overflow:clip}
-.bf0-pin{position:sticky; top:0; height:100vh; height:100svh; padding-top:var(--hud)}
-.bf0-grid{height:100%; display:grid; grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr); gap:clamp(16px,3vw,48px); align-items:center}
-.bf0-copy{position:relative; z-index:2}
-.bf0-h{margin:18px 0 0; font-family:var(--f-head); font-weight:700; font-size:clamp(32px,3.9vw,56px); line-height:1.02; letter-spacing:-.035em; color:#fff; text-shadow:0 2px 18px rgba(40,80,140,.22)}
-.bf0-h em{display:block; font-family:var(--f-serif); font-style:italic; font-weight:400; letter-spacing:-.02em; color:var(--ink); text-shadow:none}
-.bf0-then{margin:22px 0 0; max-width:34ch; font-size:clamp(15px,1.25vw,18px); line-height:1.5; color:var(--ink); opacity:.22; transform:translateY(10px); transition:opacity .7s, transform .7s}
+#brief.bf0{height:300vh; padding:0; overflow:clip; color:var(--ink);
+  background:radial-gradient(42% 38% at 12% 18%,rgba(255,211,228,.95),transparent 70%),
+    radial-gradient(40% 42% at 88% 30%,rgba(217,212,245,.95),transparent 70%),
+    radial-gradient(46% 40% at 60% 96%,rgba(255,226,236,.9),transparent 72%),
+    linear-gradient(180deg,#f3eee6 0%,#f6eef0 55%,#f3eee6 100%)!important}
+#brief.bf0::before{content:""; position:absolute; inset:0; height:auto; pointer-events:none;
+  background:radial-gradient(circle,rgba(29,31,61,.13) 1px,transparent 1.4px) 0 0/24px 24px;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent); mask-image:linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent)}
+.bf0-pin{position:sticky; top:0; height:100vh; height:100svh; padding-top:calc(var(--hud) + 14px); display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:auto minmax(0,1fr) auto}
+.bf0-top{display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%}
+#brief .tag{color:var(--muted)} #brief .tag b{background:var(--ink); color:#fff}
+#brief .tz-status{margin:0; background:rgba(255,255,255,.72); color:var(--ink); border:1px solid #fff; box-shadow:0 8px 20px rgba(120,90,140,.1); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+#brief .tz-status i{background:var(--lime)} #brief.clear .tz-status i{animation:none; background:var(--rose)}
+.bf0-then{margin:0 auto; padding-bottom:clamp(18px,4vh,40px); max-width:620px; text-align:center; font-size:clamp(15px,1.3vw,18px); line-height:1.5; color:var(--ink);
+  opacity:0; transform:translateY(12px); transition:opacity .7s, transform .7s}
 #brief.clear .bf0-then{opacity:1; transform:none}
-#brief .tz-status{margin-top:22px}
-#brief.solved .tz-status i{background:var(--lime); animation:ping 1.2s infinite}
-#brief.clear .tz-status i{animation:none}
-.bf0-stage{position:relative; height:min(560px,76vh); z-index:1}
-.bf0-hint{position:absolute; left:0; right:0; bottom:4px; margin:0; text-align:center; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:rgba(29,31,61,.55); transition:opacity .5s}
-#brief.clear .bf0-hint{opacity:0}
-.bf-node{left:64%; top:auto; bottom:36px}
+.bf-node{left:50%; top:auto; bottom:30px}
 
-/* camera: fit to the stage, then dolly toward the Enter door as it opens */
-.kb-fit{position:absolute; left:50%; top:50%; width:660px; height:470px; margin:-235px 0 0 -330px; transform:scale(var(--s,1))}
-.kb-cam{position:absolute; inset:0; perspective:1300px; perspective-origin:60% 30%; transform-origin:88% 62%; transform:scale(calc(1 + var(--open) * .16))}
-.kb{position:absolute; left:53%; top:58%; width:560px; height:330px; margin:-165px 0 0 -280px; transform-style:preserve-3d;
-  transform:rotateX(var(--ra)) rotateZ(var(--rb)); transition:transform .5s cubic-bezier(.2,.8,.2,1);
-  border-radius:26px; background:linear-gradient(150deg,#fbfcfe 0%,#e3e7ee 45%,#c3c9d5 100%);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.9), inset 0 -10px 24px rgba(90,100,130,.18), 0 50px 70px rgba(30,60,120,.28)}
-.kb::before{content:""; position:absolute; left:32px; top:7px; width:230px; height:7px; border-radius:6px; background:#20232d; box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
-.kb::after{content:""; position:absolute; left:14px; right:14px; bottom:0; height:22px; border-radius:0 0 22px 22px; transform-origin:bottom; transform:rotateX(-90deg);
-  background:linear-gradient(180deg,#d9dde6,#9aa2b3)}
-.kgrid{position:absolute; inset:20px; display:grid; grid-template-columns:1fr 1fr 1fr .85fr 1.25fr; grid-template-rows:repeat(3,1fr); gap:10px; transform-style:preserve-3d}
-.slot{position:relative; border-radius:10px; background:#3a3f4d; box-shadow:inset 0 3px 8px rgba(0,0,0,.55); transform-style:preserve-3d}
+.bf0-stage{position:relative; width:min(1120px,100% - 32px); margin-inline:auto; min-height:0}
 
-/* a key = footprint + float layer + top face (.cap) + front face (.fr) */
-.kk{--h:15px; --m:0; --dx:0px; --dy:0px; --dz:0px; --rz:0deg; --rx:0deg; position:absolute; inset:0; display:block; padding:0; border:0; margin:0; background:none; color:inherit; font:inherit; cursor:default; transform-style:preserve-3d;
-  transform:translate3d(calc(var(--dx) * var(--m)), calc(var(--dy) * var(--m)), calc(var(--dz) * var(--m))) rotateZ(calc(var(--rz) * var(--m))) rotateX(calc(var(--rx) * var(--m)))}
-button.kk{cursor:pointer}
-.kk:focus-visible{outline:none}
-.kk:focus-visible .cap{outline:2px solid var(--lime); outline-offset:3px}
-.kk .fl{position:absolute; inset:0; transform-style:preserve-3d; animation:kfloat 3.4s ease-in-out infinite}
-.kk .cap{position:absolute; inset:0; transform:translateZ(var(--h)); border-radius:9px; display:flex; flex-direction:column; justify-content:space-between; padding:9px 11px; text-align:left;
-  background:linear-gradient(160deg,#4a4f5e 0%,#2b2f3a 55%,#21242d 100%); box-shadow:inset 0 1px 0 rgba(255,255,255,.18), inset 0 -3px 6px rgba(0,0,0,.35); color:#e8eaf0}
-.kk .cap b{font-family:var(--f-head); font-weight:600; font-size:15px; line-height:1.05; letter-spacing:-.01em}
-.kk .cap i{font-style:normal; font-family:var(--f-mono); font-size:10px; letter-spacing:.08em; color:rgba(255,255,255,.4); transition:color .4s, text-shadow .4s}
-.kk .fl::after{content:""; position:absolute; top:0; bottom:0; right:0; width:var(--h); transform-origin:right center; transform:rotateY(90deg); border-radius:0 9px 9px 0; background:linear-gradient(90deg,#1a1c23,#262a34)}
-.ek .fl::after{background:linear-gradient(90deg,#d6d0c3,#ebe7de)}
-.kk .fr{position:absolute; left:0; right:0; bottom:0; height:var(--h); transform-origin:bottom; transform:rotateX(-90deg); border-radius:0 0 9px 9px; background:linear-gradient(180deg,#1d2028,#14161c)}
-.dk .cap{justify-content:flex-end} .dk .cap b{font-family:var(--f-mono); font-weight:400; font-size:12px; color:rgba(255,255,255,.62)}
-.bk .cap b{font-size:16px; color:#fff}
-.bk.ok .cap i{color:var(--lime); text-shadow:0 0 10px rgba(255,143,192,.8)}
-.bk:hover .cap{background:linear-gradient(160deg,#575d6e 0%,#323745 55%,#262a34 100%)}
-.kk.hit .fl{animation:kpress .32s cubic-bezier(.3,.7,.3,1)}
-.kk.nope .fl{animation:knope .45s ease}
-@keyframes kfloat{50%{transform:translateZ(calc(var(--m) * 18px)) rotateZ(calc(var(--m) * 7deg))}}
-@keyframes kpress{40%{transform:translateZ(-9px)}}
-@keyframes knope{20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)}}
+/* far-away windows: only there for depth */
+.bf-ghost{position:absolute; left:var(--x); top:var(--y); width:var(--w); aspect-ratio:1.45; transform:translate(-50%,-50%); border-radius:14px;
+  background:rgba(255,255,255,.55); border:1px solid #fff; filter:blur(7px); opacity:.75; animation:bfdrift 9s ease-in-out infinite; animation-delay:var(--d); transition:opacity .8s}
+#brief.clear .bf-ghost{opacity:.3}
+@keyframes bfdrift{50%{transform:translate(-50%,calc(-50% - 12px))}}
 
-/* the five loose keys: where each one floats while the brief is still a tangle */
-.bk[data-k="0"]{--dx:-70px; --dy:-150px; --dz:130px; --rz:-32deg; --rx:28deg}
-.bk[data-k="1"]{--dx:-20px; --dy:-200px; --dz:170px; --rz:24deg; --rx:-22deg}
-.bk[data-k="2"]{--dx:-170px; --dy:40px; --dz:100px; --rz:38deg; --rx:24deg}
-.bk[data-k="3"]{--dx:80px; --dy:-140px; --dz:210px; --rz:-20deg; --rx:-30deg}
-.bk[data-k="4"]{--dx:-30px; --dy:150px; --dz:120px; --rz:44deg; --rx:18deg}
-.bk[data-k="1"] .fl{animation-delay:-.7s} .bk[data-k="2"] .fl{animation-delay:-1.4s} .bk[data-k="3"] .fl{animation-delay:-2.1s} .bk[data-k="4"] .fl{animation-delay:-2.8s}
+/* the question bar */
+.bf-ask{position:absolute; left:50%; top:var(--ay,12%); z-index:6; width:min(640px,92%); transform:translate(-50%,-50%); margin:0; display:flex; align-items:center; gap:12px;
+  padding:12px 12px 12px 20px; border-radius:999px; font-family:var(--f-head); font-weight:500; font-size:clamp(17px,1.7vw,24px); letter-spacing:-.02em; line-height:1.2; color:var(--ink);
+  background:linear-gradient(rgba(255,255,255,.86),rgba(255,255,255,.86)) padding-box, linear-gradient(100deg,#ffb3d2,#c9c2f2 55%,#ffffff) border-box; border:2px solid transparent;
+  box-shadow:0 18px 50px rgba(150,100,160,.2); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px)}
+.bf-ask-ico{flex:none; width:22px; height:22px; fill:none; stroke:var(--rose); stroke-width:2.2; stroke-linecap:round}
+.bf-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.bf-ask-t{min-width:0; white-space:nowrap; overflow:hidden; text-overflow:clip}
+.bf-ask u{flex:none; width:2px; height:1.1em; margin-left:-9px; background:var(--rose); text-decoration:none; animation:blink 1s steps(1) infinite}
+.bf-go{flex:none; margin-left:auto; padding:9px 16px; border:0; border-radius:999px; font:600 13px/1 var(--f-mono); letter-spacing:.04em; cursor:pointer; color:var(--ink);
+  background:rgba(29,31,61,.06); transition:background-color .35s, color .35s, transform .15s, box-shadow .35s}
+#brief.solved .bf-go{background:var(--lime); box-shadow:0 0 0 6px rgba(255,143,192,.22)}
+#brief.clear .bf-go{background:var(--ink); color:#fff; box-shadow:none}
+.bf-go.down{transform:scale(.92)}
 
-/* Enter: the tall cream key with a door in its front face */
-.ek{--h:72px}
-.ek .cap{background:linear-gradient(165deg,#ffffff 0%,#f1eee8 60%,#e2ded5 100%); box-shadow:inset 0 1px 0 #fff, inset 0 -4px 10px rgba(120,110,90,.18); color:var(--ink); align-items:flex-end; justify-content:flex-start; padding:14px}
-.ek .cap b{font-family:var(--f-head); font-weight:500; font-size:19px; color:var(--ink); display:flex; flex-direction:column; align-items:flex-end; gap:2px}
-.ek .cap b s{text-decoration:none; font-size:16px}
-#brief.solved .ek .cap{box-shadow:inset 0 1px 0 #fff, 0 0 0 2px var(--lime), 0 0 26px rgba(255,143,192,.55)}
-.ek .fr{background:linear-gradient(180deg,#e7e3da,#cfc9bd); transform-style:preserve-3d}
-.door{position:absolute; left:50%; bottom:0; width:42px; height:56px; margin-left:-21px; transform-style:preserve-3d}
-.door .glow{position:absolute; inset:0; background:linear-gradient(180deg,#fffaf0 0%,#ffe2c2 55%,#ffc4dc 100%); box-shadow:0 0 calc(var(--open) * 30px) rgba(255,200,170,.95); opacity:calc(.35 + var(--open) * .65)}
-.door .sign{position:absolute; left:8px; top:6px; writing-mode:vertical-rl; font-family:var(--f-mono); font-weight:600; font-size:8px; letter-spacing:.32em; color:var(--rose); opacity:var(--open)}
-.door .leaf{position:absolute; inset:0; transform-origin:right center; transform:rotateY(calc(var(--open) * -112deg)); background:linear-gradient(90deg,#f6f3ec,#e6e1d6); border:1px solid rgba(0,0,0,.08)}
-.door .leaf::after{content:""; position:absolute; left:4px; top:50%; width:3px; height:3px; border-radius:50%; background:#9a937f}
-/* Enter sits at column 5, rows 1-2: its front face is at x≈481px, y≈210px on the keyboard */
-.spill{position:absolute; left:421px; top:210px; width:120px; height:112px; transform:translateZ(.6px); clip-path:polygon(34% 0,66% 0,100% 100%,0 100%);
-  background:linear-gradient(180deg,rgba(255,236,205,.95),rgba(255,196,220,.35) 60%,rgba(255,196,220,0)); opacity:var(--open)}
-.bf-who{position:absolute; left:481px; top:calc(228px + (1 - var(--open)) * 78px); width:18px; height:46px; margin:-46px 0 0 -9px; transform-origin:50% 100%;
-  transform:rotateZ(calc(var(--rb) * -1)) rotateX(calc(var(--ra) * -1))}
-.bf-who svg{display:block; width:100%; height:100%; fill:var(--ink)}
-.bf-who .sh{position:absolute; left:-4px; right:-4px; bottom:-3px; height:5px; border-radius:50%; background:rgba(20,25,40,.28); filter:blur(1.5px)}
+/* the five brief files */
+.bw{--k:0; position:absolute; z-index:3; width:var(--ww,23%); padding:0; border:1px solid rgba(255,255,255,.95); border-radius:14px; text-align:left; font:inherit; color:var(--ink); cursor:pointer;
+  background:rgba(255,255,255,.66); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 24px 50px rgba(120,90,150,.16);
+  transform:translate(-50%,-50%); will-change:transform,filter,left,top}
+.bw:hover{box-shadow:0 30px 60px rgba(120,90,150,.24)}
+.bw:focus-visible{outline:2px solid var(--rose); outline-offset:4px}
+.bw-bar{display:flex; align-items:center; gap:7px; padding:8px 11px; border-bottom:1px solid rgba(29,31,61,.07); font:500 10.5px/1 var(--f-mono); letter-spacing:.04em; color:rgba(29,31,61,.62)}
+.bw-bar i{width:7px; height:7px; border-radius:2px; background:var(--lime)}
+.bw-bar b{margin-left:auto; width:16px; height:16px; display:grid; place-items:center; border-radius:50%; font-size:9px; color:#fff; background:var(--rose); transform:scale(0); transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.bw.ok .bw-bar b{transform:scale(1)}
+.bw-body{display:grid; gap:10px; padding:12px 12px 13px}
+.bw-t{font-size:clamp(12px,1vw,14px); font-weight:600; line-height:1.3; letter-spacing:-.005em}
+.bw-body > span:first-child{display:block; height:54px; border-radius:8px; background:rgba(243,238,230,.8); position:relative; overflow:hidden}
+.v-doc{padding:9px 10px; display:grid !important; align-content:start; gap:7px}
+.v-doc i{display:block; height:5px; border-radius:3px; background:rgba(29,31,61,.14)} .v-doc i.sh{width:60%} .v-doc i.hl{background:var(--lime); width:84%}
+.v-list{padding:7px 10px; display:grid !important; gap:5px}
+.v-list i{display:block; height:9px; border-radius:3px; background:rgba(29,31,61,.1); position:relative; margin-left:16px}
+.v-list i::before{content:""; position:absolute; left:-16px; top:-1px; width:9px; height:9px; border-radius:3px; border:1.5px solid rgba(29,31,61,.35)}
+.v-list i.on::before{background:var(--rose); border-color:var(--rose)}
+.v-bars{display:flex !important; align-items:flex-end; gap:6px; padding:8px 12px 0}
+.v-bars i{flex:1; height:calc(var(--h) * 100%); border-radius:3px 3px 0 0; background:#c9c2f2} .v-bars i:nth-child(4){background:var(--lime)}
+.v-donut{display:grid !important; place-items:center}
+.v-donut i{width:40px; height:40px; border-radius:50%; background:conic-gradient(var(--rose) 0 68%,#c9c2f2 68% 88%,rgba(29,31,61,.12) 88%); -webkit-mask:radial-gradient(circle,transparent 11px,#000 12px); mask:radial-gradient(circle,transparent 11px,#000 12px)}
+.v-gantt{display:grid !important; align-content:center; gap:7px; padding:0 10px}
+.v-gantt i{display:block; height:8px; border-radius:4px; margin-left:calc(var(--a) * 100%); width:calc(var(--w) * 100%); background:#c9c2f2} .v-gantt i:nth-child(2){background:var(--lime)}
 
-/* the brief, typed on paper that feeds out of the slot at the back of the keyboard */
-.paper{position:absolute; left:40px; bottom:calc(100% - 10px); width:214px; padding:12px 14px 12px; transform-origin:50% 100%; transform:rotateZ(calc(var(--rb) * -1)) rotateX(calc(var(--ra) * -1));
-  font-family:var(--f-mono); font-size:10.5px; line-height:1.45; color:var(--ink); background:#fbf8f1 repeating-linear-gradient(180deg,transparent 0 18px,rgba(29,31,61,.05) 18px 19px);
-  border-radius:3px 3px 0 0; box-shadow:0 18px 30px rgba(30,60,120,.18), 0 1px 0 rgba(0,0,0,.05)}
-.paper p{margin:0}
-.paper .bf-ph{display:flex; justify-content:space-between; padding-bottom:6px; margin-bottom:6px; border-bottom:1px dashed rgba(29,31,61,.25); font-size:9.5px; letter-spacing:.12em; color:rgba(29,31,61,.6)}
-.paper .pg{color:rgba(29,31,61,.55)}
-.paper .pq{font-weight:600; transition:color .4s}
-.paper .pq u{display:inline-block; width:6px; height:11px; margin-left:3px; vertical-align:-2px; background:var(--lime); text-decoration:none; animation:blink 1s steps(1) infinite}
-#brief.solved .paper .pq{color:var(--rose)} #brief.solved .paper .pq u{display:none}
-.paper .pl{display:grid; grid-template-columns:20px 1fr; max-height:0; opacity:0; overflow:hidden; transition:max-height .5s, opacity .4s, background-color .3s, margin .5s; border-radius:3px}
-.paper .pl i{font-style:normal; color:var(--rose)}
-.paper .pl.on{max-height:3.2em; opacity:1; margin-top:4px}
-.paper .pl.hl{background:rgba(255,143,192,.22)}
-.paper .pr{font-weight:600; color:var(--rose)}
+/* selection frame (canvas style) */
+.bw-sel{position:absolute; inset:-7px; border:1.5px solid var(--rose); border-radius:18px; opacity:0; transform:scale(.97); transition:opacity .25s, transform .25s; pointer-events:none}
+.bw.sel .bw-sel{opacity:1; transform:none}
+.bw-sel em{position:absolute; left:-2px; top:-24px; padding:3px 8px; border-radius:6px; font:600 10px/1.2 var(--f-mono); font-style:normal; color:#fff; background:var(--rose)}
+.bw-sel s{position:absolute; width:8px; height:8px; border:1.5px solid var(--rose); border-radius:2px; background:#fff}
+.bw-sel s:nth-of-type(1){left:-5px; top:-5px} .bw-sel s:nth-of-type(2){right:-5px; top:-5px} .bw-sel s:nth-of-type(3){left:-5px; bottom:-5px} .bw-sel s:nth-of-type(4){right:-5px; bottom:-5px}
+.bw.sel{z-index:5}
+
+/* Xinh's cursor */
+.bf-cur{position:absolute; left:0; top:0; z-index:8; pointer-events:none; display:flex; align-items:flex-start; transition:opacity .4s; will-change:transform}
+.bf-cur svg{width:24px; height:24px; fill:var(--ink); stroke:#fff; stroke-width:1.6; stroke-linejoin:round; filter:drop-shadow(0 3px 5px rgba(0,0,0,.25)); transition:transform .15s}
+.bf-cur b{margin:16px 0 0 -4px; padding:3px 9px; border-radius:999px; font:600 11px/1.3 var(--f-mono); color:var(--ink); background:var(--lime); box-shadow:0 4px 12px rgba(255,143,192,.4)}
+.bf-cur.down svg{transform:scale(.82)}
 
 @media (max-width:760px){
-  #brief.bf0{height:240vh; --a:50deg; --b:-12deg}
-  .bf0-pin{padding-bottom:92px}
-  .bf0-grid{grid-template-columns:minmax(0,1fr); grid-template-rows:auto minmax(0,1fr); align-items:stretch; gap:0; padding-top:14px}
-  .bf0-h{font-size:clamp(26px,7.4vw,34px); margin-top:12px}
-  .bf0-then{margin-top:10px; font-size:14px}
-  #brief .tz-status{margin-top:12px}
-  .bf0-stage{height:auto; min-height:0}
-  .bf0-hint{display:none}
-  .bf-node{left:50%}
+  #brief.bf0{height:280vh}
+  .bf0-pin{padding-bottom:84px}
+  .bf0-top .tz-status{font-size:9.5px; padding:7px 11px; gap:7px; min-width:0; overflow:hidden; text-overflow:ellipsis}
+  .bf0-stage{width:calc(100% - 24px)}
+  .bf-ask{--ay:9%; padding:8px 8px 8px 14px; gap:8px; font-size:15px; width:100%; border-radius:22px}
+  .bf-ask-t{white-space:normal; overflow:visible} .bf-ask u{display:none}
+  .bf0-top .tag,.bf0-top .tz-status{white-space:nowrap}
+  .bf-ask-ico{width:18px; height:18px}
+  .bf-go{padding:8px 11px; font-size:11px}
+  .bw{--ww:44%; border-radius:12px}
+  .bw-bar{padding:7px 9px; font-size:9.5px}
+  .bw-body{gap:7px; padding:9px}
+  .bw-body > span:first-child{height:34px}
+  .bw-t{font-size:11.5px}
+  .bf-ghost{display:none}
+  .bf0-then{font-size:14px; text-align:left; padding:0 72px 8px 20px}
 }
 @media (prefers-reduced-motion:reduce){
   #brief.bf0{height:auto}
-  .bf0-pin{position:relative; height:auto; padding-block:calc(var(--hud) + 40px) 80px}
-  .bf0-stage{height:480px}
-  .kk .fl{animation:none}
+  .bf0-pin{position:relative; height:auto; min-height:100vh}
+  .bf0-stage{min-height:620px}
+  .bf-ghost{animation:none}
+  .bf-cur{display:none}
 }

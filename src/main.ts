@@ -686,64 +686,105 @@ import './styles.css';
   /* =====================================================================
      STORY: tangle, pin, thread
      ===================================================================== */
-  /* LV.0 · the brief as a keyboard: scrolling (or tapping) drops the five loose keys into place,
-     each one types its line on the paper, then Enter opens a lit door and the plan walks in. */
-  var tzCount = $('#tzCount'), tz = $('#brief'), bfKeys = $$('#kb .bk'), bfEnter = $('#kEnter'), bfLines = $$('#bfPaper [data-l]');
-  var bfStage = $('#bfStage'), bfFit = $('#kbFit');
-  var bfFix = [0,0,0,0,0], bfK = [0,0,0,0,0], bfOpenT = 0, bfOpen = 0, briefAnim = false, lastT = -1, tangleVis = true;
-  function fitKb(){ var w = bfStage.clientWidth, h = bfStage.clientHeight; bfFit.style.setProperty('--s', Math.min(1.15, w / 600, h / 470).toFixed(3)); }
-  fitKb(); window.addEventListener('resize', fitKb);
-  function bfPress(el){ el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); }
-  bfKeys.forEach(function(el){
-    var i = +el.dataset.k;
-    el.addEventListener('click', function(){ bfFix[i] = 1; bfPress(el); schedule(); });
-    el.addEventListener('pointerenter', function(){ bfLines[i].classList.add('hl'); });
-    el.addEventListener('pointerleave', function(){ bfLines[i].classList.remove('hl'); });
+  /* LV.0 · the brief as an OS desktop. One actor (Xinh's cursor) tells the whole story on scroll:
+     the question types itself, then the cursor picks up each loose file (blurred, tilted), it sharpens
+     and is dragged into the plan board, and finally the cursor presses "Plan" in the bar.
+     Tapping a file sorts it on the spot; tapping "Plan" once all five are in locks the plan. */
+  var tzCount = $('#tzCount'), tz = $('#brief'), bfStage = $('#bfStage'), bfWins = $$('#bfStage .bw'), bfCur = $('#bfCur');
+  var bfAskT = $('#bfAskT'), bfGo = $('#bfGo'), bfAsk = $('#bfAsk');
+  /* m = loose spot (x%, y%, rotate, scale, blur px) · n = slot on the plan board (x%, y%) */
+  var BF_D = [
+    {m:[17,36,-6,1.02,0], n:[17,46]}, {m:[80,64,6,.8,4], n:[50,46]}, {m:[31,80,-4,1.06,1], n:[83,46]},
+    {m:[85,31,8,.9,2.5], n:[33.5,79]}, {m:[57,62,-9,.76,5.5], n:[66.5,79]}];
+  var BF_M = [
+    {m:[26,30,-8,.98,0], n:[26,33]}, {m:[78,44,7,.84,3.5], n:[74,33]}, {m:[30,62,-5,1,1], n:[26,57]},
+    {m:[74,74,10,.9,2.5], n:[74,57]}, {m:[44,88,-9,.82,4.5], n:[50,81]}];
+  var BF_Q = {en:'A goal. A budget. But where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
+  var BF_A = {en:'Turn the brief into a plan that runs.', vi:'Biến đề bài thành kế hoạch chạy được.'};
+  var bfFix = [0,0,0,0,0], bfK = [0,0,0,0,0], bfT = reduce ? 1 : 0, bfDone = reduce ? 1 : 0, bfDoneT = 0, briefAnim = false, lastT = -1, tangleVis = true;
+  var bfW = 1, bfH = 1, bfPx = 0, bfPy = 0, bfTxt = '';
+  function bfSize(){ bfW = bfStage.clientWidth || 1; bfH = bfStage.clientHeight || 1; }
+  bfSize(); window.addEventListener('resize', function(){ bfSize(); schedule(); });
+  function bfData(){ return bfW < 640 ? BF_M : BF_D; }
+  function lerp(a, b, k){ return a + (b - a) * k; }
+  function sm(k){ k = clamp(k, 0, 1); return k * k * (3 - 2 * k); }
+  bfWins.forEach(function(el){
+    var i = +el.dataset.w;
+    el.addEventListener('click', function(){ bfFix[i] = 1; schedule(); });
   });
-  function bfSolved(){ return bfK.every(function(k){ return k > 0.98; }); }
-  bfEnter.addEventListener('click', function(){
-    bfPress(bfEnter);
-    if (!bfSolved()){ bfEnter.classList.remove('nope'); void bfEnter.offsetWidth; bfEnter.classList.add('nope'); return; }
-    bfOpenT = 1; schedule();
-  });
-  document.addEventListener('keydown', function(e){
-    if (e.key !== 'Enter' || curView !== 'story' || !tangleVis || document.activeElement !== document.body) return;
-    var r = tz.getBoundingClientRect(); if (r.top > window.innerHeight * 0.5 || r.bottom < window.innerHeight * 0.5) return;
-    bfEnter.click();
+  bfGo.addEventListener('click', function(){
+    if (bfK.some(function(k){ return k < 0.98; })){ bfFix = [1,1,1,1,1]; }
+    bfDoneT = 1; schedule();
   });
   if (finePointer && !reduce){
-    bfStage.addEventListener('pointermove', function(e){ var r = bfStage.getBoundingClientRect();
-      tz.style.setProperty('--px', ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3)); tz.style.setProperty('--py', ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3)); }, {passive:true});
-    bfStage.addEventListener('pointerleave', function(){ tz.style.setProperty('--px', 0); tz.style.setProperty('--py', 0); });
+    tz.addEventListener('pointermove', function(e){ bfPx = e.clientX / window.innerWidth * 2 - 1; bfPy = e.clientY / window.innerHeight * 2 - 1; schedule(); }, {passive:true});
   }
+  /* where the cursor is at scroll time u: rests by the bar, then visits file i (approach → grab → drag) */
+  function winXY(i, k){ var d = bfData()[i]; return [lerp(d.m[0], d.n[0], k) / 100 * bfW, lerp(d.m[1], d.n[1], k) / 100 * bfH]; }
   function drawTangle(){
     var r = tz.getBoundingClientRect(), vh = window.innerHeight;
     tangleVis = r.bottom > 0 && r.top < vh;
     if (!tangleVis && lastT >= 0 && !briefAnim) return;
     var t = reduce ? 1 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
     lastT = t; briefAnim = false;
-    var ease = reduce ? 1 : 0.16, open = 0;
-    bfKeys.forEach(function(el, i){
-      var target = Math.max(bfFix[i], clamp((t - 0.08 - i * 0.11) / 0.09, 0, 1));
-      bfK[i] += (target - bfK[i]) * ease;
+    bfT += (t - bfT) * (reduce ? 1 : 0.14);
+    if (Math.abs(t - bfT) < 0.0005) bfT = t; else briefAnim = true;
+    var u = bfT, D = bfData(), open = 0, sel = -1;
+    /* files: slice i runs from S+i*G; the cursor approaches for 40%, grabs, then drags */
+    var S = 0.12, G = 0.12;
+    bfWins.forEach(function(el, i){
+      var s0 = S + i * G, kScroll = sm((u - s0 - 0.05) / 0.065);
+      var target = Math.max(bfFix[i], kScroll);
+      bfK[i] += (target - bfK[i]) * (reduce ? 1 : (bfFix[i] ? 0.12 : 0.5));
       if (Math.abs(target - bfK[i]) < 0.002) bfK[i] = target; else briefAnim = true;
-      el.style.setProperty('--m', (1 - bfK[i]).toFixed(3));
-      var ok = bfK[i] > 0.98;
-      el.classList.toggle('ok', ok); el.setAttribute('aria-pressed', ok ? 'true' : 'false');
-      bfLines[i].classList.toggle('on', ok);
-      if (!ok) open++;
+      var k = bfK[i], d = D[i], depth = 1 - k;
+      var x = lerp(d.m[0], d.n[0], k), y = lerp(d.m[1], d.n[1], k);
+      el.style.left = x + '%'; el.style.top = y + '%';
+      var lift = (u > s0 + 0.04 && u < s0 + G && !bfFix[i]) ? 1.04 : 1;
+      el.style.transform = 'translate(-50%,-50%) translate(' + (bfPx * -14 * depth).toFixed(1) + 'px,' + (bfPy * -10 * depth).toFixed(1) + 'px) rotate(' + (d.m[2] * depth).toFixed(2) + 'deg) scale(' + (lerp(d.m[3], 1, k) * lift).toFixed(3) + ')';
+      var focus = 1 - Math.max(k, bfFix[i] ? 0 : sm((u - s0 - 0.02) / 0.03));
+      el.style.filter = focus * d.m[4] > 0.05 ? 'blur(' + (d.m[4] * focus).toFixed(2) + 'px)' : 'none';
+      el.style.opacity = (1 - d.m[4] * 0.05 * focus).toFixed(3);
+      var ok = k > 0.98; el.classList.toggle('ok', ok); if (!ok) open++;
+      if (u > s0 + 0.035 && u < s0 + G + 0.005 && !bfFix[i]) sel = i;
     });
-    var oT = open ? 0 : Math.max(bfOpenT, clamp((t - 0.68) / 0.14, 0, 1));
-    bfOpen += (oT - bfOpen) * (reduce ? 1 : 0.1);
-    if (Math.abs(oT - bfOpen) < 0.002) bfOpen = oT; else briefAnim = true;
-    tz.style.setProperty('--open', bfOpen.toFixed(3));
-    var cl = bfOpen > 0.6;
+    bfWins.forEach(function(el, i){ el.classList.toggle('sel', i === sel); });
+    /* finale: the cursor goes to "Plan" and presses it */
+    var end = S + 5 * G, scrollDone = !open && u > end + 0.13 ? 1 : 0;
+    var doneTarget = Math.max(scrollDone, bfDoneT && !open ? 1 : 0);
+    bfDone += (doneTarget - bfDone) * (reduce ? 1 : 0.2);
+    if (Math.abs(doneTarget - bfDone) < 0.01) bfDone = doneTarget; else briefAnim = true;
+    var cl = bfDone > 0.5;
     tz.classList.toggle('clear', cl); tz.classList.toggle('solved', !open);
-    bfLines[5].classList.toggle('on', cl);
+    /* cursor path */
+    var rest = [bfW * (bfW < 640 ? 0.7 : 0.66), bfH * (bfW < 640 ? 0.17 : 0.22)], cx = rest[0], cy = rest[1], down = false;
+    var goR = bfGo.getBoundingClientRect(), stR = bfStage.getBoundingClientRect();
+    var go = [goR.left - stR.left + goR.width * 0.35, goR.top - stR.top + goR.height * 0.6];
+    if (u >= S && u < end){
+      var i = Math.min(4, Math.floor((u - S) / G)), p = (u - S - i * G) / G;
+      var from = i === 0 ? rest : winXY(i - 1, bfK[i - 1]), w = winXY(i, bfK[i]);
+      if (p < 0.4){ var e = sm(p / 0.4); cx = lerp(from[0], w[0] + 18, e); cy = lerp(from[1], w[1] + 14, e); }
+      else { cx = w[0] + 18; cy = w[1] + 14; down = p > 0.42; }
+    } else if (u >= end){
+      var last = winXY(4, bfK[4]), e2 = sm((u - end) / 0.1);
+      cx = lerp(last[0] + 18, go[0], e2); cy = lerp(last[1] + 14, go[1], e2);
+      down = u > end + 0.11 && u < end + 0.15;
+    }
+    if (bfDoneT && !scrollDone){ cx = go[0]; cy = go[1]; }
+    bfCur.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
+    bfCur.classList.toggle('down', down); bfGo.classList.toggle('down', down && u >= end);
+    bfCur.style.opacity = (reduce || (cl && u > end + 0.24)) ? '0' : '1';
+    /* the bar types the question, then retypes the answer */
+    var txt, q = BF_Q[lang], a = BF_A[lang];
+    if (cl) txt = a.slice(0, Math.max(1, Math.round(a.length * (bfDoneT && !scrollDone ? 1 : clamp((u - end - 0.13) / 0.06, 0, 1)))));
+    else if (u < end + 0.02) txt = q.slice(0, Math.round(q.length * clamp(u / 0.1, 0, 1)));
+    else txt = q.slice(0, Math.round(q.length * (1 - clamp((u - end - 0.02) / 0.06, 0, 1))));
+    if (reduce) txt = cl ? a : q;
+    if (txt !== bfTxt){ bfTxt = txt; bfAskT.textContent = txt; }
     var key = lang + open + cl;
     if (tzCount.dataset.k !== key){ tzCount.dataset.k = key; var vi = lang === 'vi';
       tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All untangled! · <b>plan locked</b>')
-        : !open ? (vi ? 'Đề bài đã rõ · <b>bấm Enter</b>' : 'Brief sorted · <b>press Enter</b>')
+        : !open ? (vi ? 'Đề bài đã rõ · <b>bấm Lên plan</b>' : 'Brief sorted · <b>press Plan</b>')
         : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'open question' : 'open questions')); }
   }
 
