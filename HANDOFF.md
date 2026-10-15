@@ -2,7 +2,7 @@
 
 ## Đang ở đâu
 - **Repo chính từ 2026-10-15: `Xinhngn/xinhngn`, nhánh `main`.** Code lấy từ nhánh `claude/moodboard-redesign-hf110l` (PR #7) của repo cũ `Xinhngn/EmXinhSayHi` (đã gồm nội dung PR #6). Repo cũ không làm tiếp nữa.
-- Cloudflare: Worker mới tên `xinhngn` (`wrangler.jsonc`), Xinh tự nối repo trong Cloudflare (Workers & Pages → Create → Import a repository → `Xinhngn/xinhngn`, build `npm run build`, deploy `npx wrangler deploy`). Link sẽ có dạng `https://xinhngn.<tài khoản>.workers.dev`; ghi lại link thật vào đây khi có.
+- Cloudflare: Worker mới tên `xinhngn` (`wrangler.jsonc`), Xinh tự nối repo trong Cloudflare (Workers & Pages → Create → Import a repository → `Xinhngn/xinhngn`, build `npm run build`, deploy `npx wrangler deploy`). Đã deploy 2026-10-15: **https://xinhngn.ngnxinhh.workers.dev** (Workers Builds tự build lại mỗi lần push lên `main`).
 - Bản xem trước cũ (repo cũ): https://claude-moodboard-redesign-hf110l-emxinhsayhi.ngnxinhh.workers.dev
 - Thư mục trên máy Xinh: `/Users/macbookpro/Documents/projects/xinhngn` (clone của repo này). Thư mục cũ `Porfolio-EmXinhSayHi` không dùng nữa.
 - Bàn giao đầy đủ portfolio + website: `docs/HANDOFF-du-an.md`.
