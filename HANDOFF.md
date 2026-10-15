@@ -3,7 +3,7 @@
 ## Đang ở đâu
 - Repo `Xinhngn/XinhNguyenSayHi` (upstream `Xinhngn/EmXinhSayHi`). Nhánh `claude/moodboard-redesign-hf110l`, **PR #7, chưa merge**. CI (build, e2e, Cloudflare) xanh ở commit 83cd9bb.
 - Bản xem trước: https://claude-moodboard-redesign-hf110l-emxinhsayhi.ngnxinhh.workers.dev
-- Thư mục trên máy Xinh: `/Users/macbookpro/Documents/Porfolio-EmXinhSayHi`. Đã chép đủ code và `.git` ở nhánh trên, nhưng chưa có `node_modules`. Còn file tạm `.repo.tgz` mà phiên trước không có quyền xoá; file này đã được ghi vào `.git/info/exclude`. Xinh muốn phiên sau làm việc trong thư mục này. Sau khi push lên GitHub, nhớ đồng bộ lại thư mục máy.
+- Thư mục trên máy Xinh: `/Users/macbookpro/Documents/Porfolio-EmXinhSayHi`. Đã chép đủ code và `.git` ở nhánh trên, nhưng chưa có `node_modules`. Đã cho phép xoá file trong thư mục này, nên git chạy bình thường. Xinh muốn phiên sau làm việc trong thư mục này. Sau khi push lên GitHub, nhớ đồng bộ lại thư mục máy.
 - Ảnh kiểm tra và báo cáo: `/mnt/project-files/reports/moodboard-redesign/`, số từ 01 đến 37. Các ảnh 31–37 là của vòng 7.
 
 ## Đã làm qua 7 vòng (chi tiết trong CLAUDE.md)
