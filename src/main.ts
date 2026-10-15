@@ -297,15 +297,15 @@ import './styles.css';
      ctx / me / team: from the brief (null = to fill) · res: results tied to this campaign only · out: outcome line */
   var CS = {}; CASES.forEach(function(c){ CS[c.id] = c; });
   var JOBS = [
-    {id:'msb-awo', c:'msb', cs:'msb', n:{en:'Social Always On', vi:'Social Always On'}, y:'2025–2027', ty:['awo','pitch','prod'],
+    {id:'msb-awo', sc:'pe', c:'msb', cs:'msb', n:{en:'Social Always On', vi:'Social Always On'}, y:'2025–2027', ty:['awo','pitch','prod'],
      ctx:CS.msb.ask, role:FACTS.msb.role, me:CS.msb.me, team:CS.msb.team, out:CS.msb.out, res:[{b:'3 → 5', l:{en:'years of partnership', vi:'năm hợp tác'}}]},
-    {id:'vib-ivy', c:'vib', cs:'vib', n:{en:'VIB Ivy Card', vi:'VIB Ivy Card'}, y:'', ty:['pitch','imc'], ctx:CS.vib.ask, role:FACTS.vib.role, me:CS.vib.me, team:CS.vib.team, out:CS.vib.out},
-    {id:'vib-ats', c:'vib', cs:'vib', n:{en:'Anh Trai Say Hi', vi:'Anh Trai Say Hi'}, y:'', ty:['act'],
+    {id:'vib-ivy', sc:'pe', c:'vib', cs:'vib', n:{en:'VIB Ivy Card', vi:'VIB Ivy Card'}, y:'', ty:['pitch','imc'], ctx:CS.vib.ask, role:FACTS.vib.role, me:CS.vib.me, team:CS.vib.team, out:CS.vib.out},
+    {id:'vib-ats', sc:'pe', c:'vib', cs:'vib', n:{en:'Anh Trai Say Hi', vi:'Anh Trai Say Hi'}, y:'', ty:['act'],
      me:{en:'Led pitching and management for Anh Trai Say Hi.', vi:'Dẫn pitch và quản lý Anh Trai Say Hi.'}},
     {id:'vib-btbt', c:'vib', cs:'vib', n:{en:'Bộ Tứ Báo Thủ · video', vi:'Bộ Tứ Báo Thủ · video'}, y:'', ty:['prod']},
     {id:'vib-cashless', c:'vib', cs:'vib', n:{en:'Ngày hội không tiền mặt', vi:'Ngày hội không tiền mặt'}, y:'', ty:['act']},
     {id:'vib-max', c:'vib', cs:'vib', n:{en:'Sound Notification for MAX', vi:'Sound Notification for MAX'}, y:'', ty:['tbd']},
-    {id:'cake-social', c:'cake', cs:'cake', n:{en:'Social retainer pitch', vi:'Pitch social retainer'}, y:'', ty:['pitch','awo'],
+    {id:'cake-social', sc:'p', c:'cake', cs:'cake', n:{en:'Social retainer pitch', vi:'Pitch social retainer'}, y:'', ty:['pitch','awo'],
      ctx:CS.cake.ask, role:FACTS.cake.role, me:CS.cake.me, team:CS.cake.team, out:CS.cake.out},
     {id:'digimi-awo', c:'digimi', cs:'digimi', n:{en:'Social AWO', vi:'Social AWO'}, y:'', ty:['awo','prod'], ctx:CS.digimi.ask, team:CS.digimi.team},
     {id:'digimi-bday', c:'digimi', cs:'digimi', n:{en:'Tròn một tuổi – Đầy Thank Xuân', vi:'Tròn một tuổi – Đầy Thank Xuân'}, y:'', ty:['act','imc'],
@@ -313,7 +313,7 @@ import './styles.css';
     {id:'digimi-truck', c:'digimi', cs:'digimi', n:{en:'Coffee Truck', vi:'Coffee Truck'}, y:'', ty:['act'], me:CS.digimi.me,
      res:[{b:'~2,000', l:{en:'booth visitors', vi:'lượt ghé booth'}}, {b:'268', l:{en:'sign-ups', vi:'đăng ký'}}, {b:'140', l:{en:'conversions', vi:'chuyển đổi'}}]},
     {id:'digimi-csr', c:'digimi', cs:'digimi', n:{en:'CSR · Vì một thế hệ vươn tầm', vi:'CSR · Vì một thế hệ vươn tầm'}, y:'', ty:['tbd']},
-    {id:'tpbank-concert', c:'tpbank', n:{en:'Em Xinh Say Hi Concert 1', vi:'Em Xinh Say Hi Concert 1'}, y:'', ty:['pitch','act'],
+    {id:'tpbank-concert', sc:'pe', c:'tpbank', n:{en:'Em Xinh Say Hi Concert 1', vi:'Em Xinh Say Hi Concert 1'}, y:'', ty:['pitch','act'],
      role:{en:'Pitching → execution', vi:'Từ pitching đến triển khai'}},
     {id:'ncb-awo', c:'ncb', n:{en:'Social Always On 2025', vi:'Social Always On 2025'}, y:'2025', ty:['awo'],
      me:{en:'Ran the initial phase. Saw the client’s problem had not been clarified, stepped in to clarify it, brought the project back on track, then handed it back to Account.', vi:'Chạy giai đoạn đầu. Nhận ra vấn đề của khách hàng chưa được làm rõ, vào cuộc làm rõ, đưa dự án về đúng hướng rồi bàn giao lại cho Account.'}},
@@ -324,11 +324,11 @@ import './styles.css';
     {id:'masan-chante', c:'masan', n:{en:'Chanté · Social Always On', vi:'Chanté · Social Always On'}, y:'', ty:['awo']},
     {id:'masan-vihawa', c:'masan', n:{en:'Vihawa · Social Campaign 2025', vi:'Vihawa · Social Campaign 2025'}, y:'2025', ty:['awo']},
     {id:'masan-wakeup', c:'masan', n:{en:'Wake-Up Tây Nguyên · Social Campaign', vi:'Wake-Up Tây Nguyên · Social Campaign'}, y:'', ty:['awo']},
-    {id:'meatdeli-q4', c:'meatdeli', n:{en:'Social Campaign Q4.2025', vi:'Social Campaign Q4.2025'}, y:'2025', ty:['pitch','awo'],
+    {id:'meatdeli-q4', sc:'p', c:'meatdeli', n:{en:'Social Campaign Q4.2025', vi:'Social Campaign Q4.2025'}, y:'2025', ty:['pitch','awo'],
      role:{en:'Pitching, then handed to Account', vi:'Pitching, sau đó bàn giao cho Account'}},
-    {id:'duytan-tet', c:'duytan', cs:'duytan', n:{en:'Tết 2025', vi:'Tết 2025'}, y:'2025', ty:['pitch','awo','prod'],
+    {id:'duytan-tet', sc:'p', c:'duytan', cs:'duytan', n:{en:'Tết 2025', vi:'Tết 2025'}, y:'2025', ty:['pitch','awo','prod'],
      role:FACTS.duytan.role, me:CS.duytan.me, out:{en:'Pitch won, with the team.', vi:'Thắng pitch, cùng team.'}},
-    {id:'cindy-launch', c:'cindy', cs:'cindy', n:{en:'Launch campaign', vi:'Chiến dịch ra mắt'}, y:'', ty:['imc','pitch','prod'], role:FACTS.cindy.role, me:CS.cindy.me}
+    {id:'cindy-launch', sc:'pe', c:'cindy', cs:'cindy', n:{en:'Launch campaign', vi:'Chiến dịch ra mắt'}, y:'', ty:['imc','pitch','prod'], role:FACTS.cindy.role, me:CS.cindy.me}
   ];
   var CL = {}; CLIENTS.forEach(function(c){ CL[c.k] = c; });
   var TYK = {}; TY.forEach(function(t){ TYK[t.k] = t; });
@@ -342,16 +342,20 @@ import './styles.css';
   function wkTone(j){ return j.ty[0] || 'tbd'; }
   function wkFil(){
     var vi = lang === 'vi';
-    return [{k:'feat', n:vi ? 'Nổi bật' : 'Featured'}, {k:'all', n:vi ? 'Tất cả' : 'All'}].concat(TY.map(function(t){ return {k:t.k, n:L(t.t)}; }))
+    return [{k:'feat', n:vi ? 'Nổi bật' : 'Featured'}, {k:'all', n:vi ? 'Tất cả' : 'All'}].concat(TY.filter(function(t){ return t.k !== 'pitch' && t.k !== 'tbd'; }).map(function(t){ return {k:t.k, n:L(t.t)}; }))
       .map(function(f){ f.list = wkList(f.k); return f; });
   }
   function wkList(k){ k = k || wxF; return JOBS.filter(function(j){ return k === 'all' || (k === 'feat' ? !!(j.cs && (j.ctx || j.me)) : j.ty.indexOf(k) > -1); }); }
   function wkName(k){ var f = wkFil().filter(function(x){ return x.k === k; })[0]; return f ? f.n : ''; }
   var TF_SZ = [[200,150],[150,190],[230,140],[170,170],[210,180],[140,150],[250,160]];
+  /* scope tag from the brief: pitched only, or pitched and then ran it */
+  function wkScope(j){ var vi = lang === 'vi'; return j.sc === 'pe' ? 'Pitching & execution' : j.sc === 'p' ? 'Pitching' : ''; }
+  function wkProj(j){ var n = L(j.n), c = CL[j.c].n; return n.indexOf(c + ' ') === 0 ? n.slice(c.length + 1) : n; }
   function tfTile(j, i, dup){
-    var c = CL[j.c], z = TF_SZ[JOBS.indexOf(j) % TF_SZ.length];
+    var c = CL[j.c], z = TF_SZ[JOBS.indexOf(j) % TF_SZ.length], sc = wkScope(j);
     return '<button class="tf-t t-' + wkTone(j) + '" type="button" data-job="' + j.id + '" style="--w:' + z[0] + 'px;--h:' + z[1] + 'px;--wi:' + i + '"' + (dup ? ' tabindex="-1" aria-hidden="true"' : '') + '>' +
-      '<b>' + esc(c.n) + '</b><span class="tf-lb">' + esc(L(j.n)) + '</span></button>';
+      (sc ? '<span class="tf-sc' + (j.sc === 'pe' ? ' pe' : '') + '">' + sc + '</span>' : '') +
+      '<span class="tf-nm"><b>' + esc(c.n) + '</b><span>' + esc(wkProj(j)) + '</span></span></button>';
   }
   function renderWork(){
     var host = $('#wxIndex'); if (!host) return; var vi = lang === 'vi';
@@ -406,7 +410,7 @@ import './styles.css';
     setTimeout(function(){ w.classList.remove('in', 'load'); w.classList.add('out'); }, 1050);
     setTimeout(function(){ w.hidden = true; w.className = 'tf-wipe'; }, 1650);
   }
-  function jobChips(j){ return j.ty.map(function(k){ return '<span class="tf-pill sm">' + esc(L(TYK[k].t)) + '</span>'; }).join(''); }
+  function jobChips(j){ return j.ty.filter(function(k){ return k !== 'pitch' && k !== 'tbd'; }).map(function(k){ return '<span class="tf-pill sm">' + esc(L(TYK[k].t)) + '</span>'; }).join(''); }
   function jobRes(j){ return (j.res || []).map(function(r){ return '<div class="jr"><b>' + esc(r.b) + '</b><span>' + both(r.l) + '</span></div>'; }).join(''); }
   function jxHtml(j){
     var vi = lang === 'vi', c = CL[j.c], n = wxList.length, nx = wxList[(jxIdx + 1) % n];
@@ -419,20 +423,20 @@ import './styles.css';
       '<aside class="tfp-l"><div class="tfp-top"><button type="button" class="tfp-back" data-jxclose aria-label="' + (vi ? 'Về danh sách dự án' : 'Back to all projects') + '">←</button>' +
         '<span class="tfp-ct">' + ('0' + (jxIdx + 1)).slice(-2) + ' / ' + ('0' + n).slice(-2) + '</span>' +
         '<span class="tfp-ar"><button type="button" data-jxgo="-1" aria-label="' + (vi ? 'Dự án trước' : 'Previous project') + '">←</button><button type="button" data-jxgo="1" aria-label="' + (vi ? 'Dự án kế tiếp' : 'Next project') + '">→</button></span></div>' +
-        '<h2 class="tf-pill big" id="jdTitle">' + esc(c.n) + '</h2><p class="tf-pill">' + esc(L(j.n)) + '</p>' +
-        '<div class="tfp-tags">' + jobChips(j) + '<span class="tf-pill sm">' + (j.y ? esc(j.y) : (vi ? '+ năm' : '+ year')) + '</span><span class="tf-pill sm">' + esc(L(c.ind)) + '</span></div>' +
+        '<h2 class="tf-pill big" id="jdTitle">' + esc(c.n) + '</h2><p class="tf-pill">' + esc(wkProj(j)) + '</p>' +
+        '<div class="tfp-tags">' + (wkScope(j) ? '<span class="tf-sc' + (j.sc === 'pe' ? ' pe' : '') + '">' + wkScope(j) + '</span>' : '') + jobChips(j) + '<span class="tf-pill sm">' + (j.y ? esc(j.y) : (vi ? '+ năm' : '+ year')) + '</span><span class="tf-pill sm">' + esc(L(c.ind)) + '</span></div>' +
         '<div class="tfp-txt">' + sec(vi ? 'Bối cảnh' : 'Context', j.ctx, vi ? 'bối cảnh & bài toán' : 'context & problem') +
           sec(vi ? 'Vai trò' : 'Role', role, vi ? 'vai trò của Xinh' : 'Xinh’s role') +
           sec(vi ? 'Xinh đã làm' : 'What Xinh did', j.me, vi ? 'phần Xinh trực tiếp làm' : 'what Xinh did directly') +
           (j.team ? sec(vi ? 'Phần của team' : 'Team’s part', j.team) : '') +
           sec(vi ? 'Kết quả' : 'Outcome', j.out, vi ? 'kết quả đã xác nhận' : 'confirmed result') + '</div>' +
         (j.cs && CS[j.cs] ? '<button class="tfp-cta" type="button" data-case="' + j.cs + '"><i>→</i>' + (vi ? 'Xem case study' : 'Open case study') + '</button>' : '') + '</aside>' +
-      '<div class="tfp-r"><div class="tfp-hero t-' + wkTone(j) + '"><b>' + esc(c.n) + '</b><em>' + esc(L(j.n)) + '</em></div>' +
+      '<div class="tfp-r"><div class="tfp-hero t-' + wkTone(j) + '"><b>' + esc(c.n) + '</b><em>' + esc(wkProj(j)) + '</em></div>' +
         (j.res ? '<div class="tfp-res">' + jobRes(j) + (j.src ? '<p class="src">' + esc(j.src) + '</p>' : '') + '</div>' : '') +
         '<div class="jd-gal">' + slots + '</div>' +
         (n > 1 ? '<section class="tfp-up"><p class="tfp-uk">' + (vi ? 'Xem tiếp' : 'Up next') + ' · <b>' + esc(fname) + '</b> <span>(' + n + ')</span></p>' +
-          '<div class="tfp-ul">' + ups.map(function(x){ return '<button type="button" class="tfp-u" data-jxto="' + x.id + '"><span class="tfp-uc t-' + wkTone(x) + '"><b>' + esc(CL[x.c].n) + '</b></span><span class="tfp-un">' + esc(L(x.n)) + '</span></button>'; }).join('') + '</div>' +
-          '<button type="button" class="jx-next t-' + wkTone(nx) + '" data-jxgo="1"><span class="jx-bar2"><i></i></span><span class="jx-nk">' + (vi ? 'Dự án kế tiếp' : 'Next project') + '</span><b>' + esc(CL[nx.c].n) + '</b><em>' + esc(L(nx.n)) + '</em>' +
+          '<div class="tfp-ul">' + ups.map(function(x){ return '<button type="button" class="tfp-u" data-jxto="' + x.id + '"><span class="tfp-uc t-' + wkTone(x) + '"><b>' + esc(CL[x.c].n) + '</b></span><span class="tfp-un">' + esc(wkProj(x)) + '</span></button>'; }).join('') + '</div>' +
+          '<button type="button" class="jx-next t-' + wkTone(nx) + '" data-jxgo="1"><span class="jx-bar2"><i></i></span><span class="jx-nk">' + (vi ? 'Dự án kế tiếp' : 'Next project') + '</span><b>' + esc(CL[nx.c].n) + '</b><em>' + esc(wkProj(nx)) + '</em>' +
           '<span class="jx-nh">' + (vi ? 'Cuộn tiếp để sang luôn ↓' : 'Keep scrolling to go straight there ↓') + '</span></button></section>' : '') +
       '</div></div>';
   }
