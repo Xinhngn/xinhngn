@@ -2453,7 +2453,7 @@ body{background:var(--cream)}
 
 .hw-stage{position:relative; height:100%}
 /* the deck: paper cards, ink type, one pink outcome line; cards behind fan out slightly */
-.dk{position:absolute; left:50%; top:46%; width:min(400px,100%); aspect-ratio:4/5; max-height:70%; transform:translate(-50%,-50%)}
+.hw .dk{position:absolute; left:50%; top:46%; width:min(400px,100%); aspect-ratio:4/5; max-height:70%; transform:translate(-50%,-50%)}
 .dk-c{position:absolute; inset:0; margin:0; display:flex; flex-direction:column; padding:26px 28px 24px; border-radius:22px; background:#fbf8f4; color:var(--ink);
   border:1px solid rgba(29,31,61,.1); box-shadow:0 1px 0 #fff inset, 0 24px 50px rgba(90,60,90,.14), 0 4px 10px rgba(90,60,90,.06);
   transform-origin:50% 100%; will-change:transform; touch-action:pan-y; user-select:none; -webkit-user-select:none}
@@ -2480,7 +2480,7 @@ body{background:var(--cream)}
   .hw-head .own-big{font-size:44px}
   .hw-head .own-sub{margin-top:8px; font-size:16px; max-width:none}
   .hw-now{margin-top:14px} .hw-now i{width:30px}
-  .dk{width:min(300px,100%); max-height:80%; top:46%}
+  .hw .dk{width:min(300px,100%); max-height:80%; top:46%}
   .dk-c{padding:18px 18px 16px; border-radius:18px}
   .dk-c h3{font-size:24px} .dk-d{font-size:13px; margin-top:10px} .dk-out,.dk-outs{margin-top:14px; padding-top:10px; font-size:10px}
   .dk-end h3{font-size:30px}
@@ -2981,120 +2981,6 @@ body{background:transparent!important}
 @media (max-width:860px){ .tf-sc{font-size:8.5px; padding:3px 6px} }
 .tf-sc{border-radius:8px}
 
-/* ===== v17 · THE OPEN (ref Millascope: a person in a field of clickable 3D objects; refs: glossy bubbles,
-   glass cards, pink studio light). Cut-out portrait stands in front of a giant "Em Xinh", objects float on
-   two depth layers that lean with the pointer. Transform / opacity only, so phones stay smooth. ===== */
-.boot:has(.bx17){background:#ffd3e6; overflow:hidden}
-.bx17{position:relative; isolation:isolate}
-.bx17 .o-bg{position:fixed; inset:0; z-index:-2; background:radial-gradient(75% 65% at 18% 8%, #fff 0%, #ffe6f1 26%, rgba(255,230,241,0) 58%), radial-gradient(60% 55% at 92% 96%, #ff5fa5 0%, rgba(255,95,165,0) 70%), linear-gradient(162deg, #ffe1ee 0%, #ffaed2 46%, #ff7fb8 100%)}
-.bx17 .o-glow{position:absolute; border-radius:50%; pointer-events:none}
-.bx17 .o-glow.g1{left:50%; bottom:-22vh; width:90vw; height:60vh; translate:-50% 0; background:radial-gradient(closest-side, rgba(255,255,255,.75), rgba(255,255,255,0))}
-.bx17 .o-glow.g2{left:50%; top:50%; width:60vmin; height:60vmin; translate:-50% -60%; background:radial-gradient(closest-side, rgba(255,255,255,.55), rgba(255,255,255,0))}
-/* giant word behind the portrait */
-.boot .bx17 .bx-word{position:absolute; inset:auto 0 auto 0; top:clamp(40px,11vh,120px); z-index:0; text-align:center; pointer-events:none}
-.bx17 .bx-w1{display:block; font-family:var(--f-head); font-weight:900; font-size:clamp(96px,20vw,330px); line-height:.8; letter-spacing:-.075em; color:#fff; text-shadow:0 1px 0 rgba(255,255,255,.9), 0 40px 80px rgba(190,40,110,.22); white-space:nowrap}
-/* the stage fills the screen */
-.boot .bx17 .stage{position:absolute; inset:0; left:0; top:0; bottom:0; width:auto; height:auto; transform:none; z-index:1; pointer-events:none}
-.bx17 .o-layer{position:absolute; inset:0; transition:translate .6s cubic-bezier(.2,.8,.2,1)}
-.bx17 .o-back{z-index:1; translate:calc(var(--px,0) * -26px) calc(var(--py,0) * -18px)}
-.bx17 .o-front{z-index:4; translate:calc(var(--px,0) * 46px) calc(var(--py,0) * 32px)}
-.bx17 .bx-pic{position:absolute; z-index:2; left:50%; bottom:0; translate:-50% 0; margin:0; width:min(46vw, calc((100svh - 120px) * .885), 620px); pointer-events:auto; cursor:pointer; transform:none; transition:translate .6s cubic-bezier(.2,.8,.2,1)}
-.bx17 .o-me{display:block; width:100%; height:auto; -webkit-user-drag:none; user-select:none}
-.bx17 .bx-pic .bye{position:absolute; left:18%; top:6%; right:auto}
-.bx17 .bx-w2{position:absolute; z-index:3; left:calc(50% - min(23vw, 300px)); top:clamp(150px,34vh,330px); font-family:var(--f-script); font-size:clamp(64px,8.4vw,136px); line-height:1; rotate:-8deg; background:var(--chrome-pk); -webkit-background-clip:text; background-clip:text; color:transparent; pointer-events:none; text-shadow:none; filter:none}
-/* objects: position from --x/--y, size --s, a slow float (transform), click bounce (scale) */
-.boot .bx17 .ob{position:absolute; left:var(--x); top:var(--y); width:var(--s,80px); height:auto; transform:none; filter:none; pointer-events:auto; cursor:pointer; animation:oFloat var(--f,7s) ease-in-out infinite alternate; translate:-50% -50%}
-.boot .bx17 .ob.hit{animation:oFloat var(--f,7s) ease-in-out infinite alternate, oHit .7s cubic-bezier(.3,1.6,.5,1)}
-.boot .bx17 .ob.hit > *{animation:none}
-@keyframes oFloat{from{transform:translate3d(0,-10px,0) rotate(var(--r,0deg))} to{transform:translate3d(0,12px,0) rotate(calc(var(--r,0deg) + 4deg))}}
-@keyframes oHit{0%{scale:1} 30%{scale:1.25} 60%{scale:.92} 100%{scale:1}}
-/* glossy spheres */
-.bx17 .o-sph{aspect-ratio:1; border-radius:50%; box-shadow:inset -10px -14px 28px rgba(150,20,80,.25), 0 24px 40px -18px rgba(150,30,90,.45)}
-.bx17 .o-sph.pearl{background:radial-gradient(circle at 32% 26%, #fff 0 7%, #fff6e6 18%, #ffd27a 52%, #f0a83c 82%, #d98a26 100%)}
-.bx17 .o-sph.peach{background:radial-gradient(circle at 34% 28%, #fff 0 6%, #ffd1a6 20%, #ff8a5c 58%, #ff3d6e 100%)}
-.bx17 .o-sph.pink{background:radial-gradient(circle at 32% 28%, #fff 0 8%, #ffd0e6 22%, #ff74b4 62%, #e0408c 100%)}
-.bx17 .o-sph.lilac{background:radial-gradient(circle at 32% 28%, #fff 0 8%, #e9e3ff 22%, #a8b8ff 60%, #6f7fd8 100%)}
-.bx17 .o-sph.blur{filter:blur(6px); opacity:.85}
-/* soap bubbles: clear centre, iridescent rim, two highlights */
-.bx17 .o-bub{aspect-ratio:1; border-radius:50%; display:grid; place-items:center; background:radial-gradient(circle at 30% 24%, rgba(255,255,255,.95) 0 5%, rgba(255,255,255,0) 12%), radial-gradient(circle at 72% 80%, rgba(255,255,255,.55) 0 4%, rgba(255,255,255,0) 10%), radial-gradient(circle, rgba(255,255,255,.06) 52%, rgba(255,214,240,.45) 64%, rgba(196,180,255,.55) 72%, rgba(255,236,190,.55) 79%, rgba(255,140,200,.65) 86%, rgba(255,255,255,.2) 92%, rgba(255,255,255,0) 100%); box-shadow:inset 0 0 22px rgba(255,255,255,.55), 0 20px 40px -20px rgba(160,40,100,.35)}
-.bx17 .o-bub > svg{width:52%; height:auto; display:block}
-.bx17 .o-fold{display:block; width:46%; aspect-ratio:1.2; border-radius:6px 10px 10px 10px; background:linear-gradient(160deg,#fff 0%,#ffc4de 40%,#ff7fb8 100%); box-shadow:inset 0 2px 0 rgba(255,255,255,.9), 0 10px 18px -8px rgba(150,30,90,.5); position:relative}
-.bx17 .o-fold::before{content:""; position:absolute; left:0; top:-12%; width:44%; height:20%; border-radius:6px 6px 0 0; background:#ffd6e8}
-/* glossy pass cards (ref: shareholder-letter cards) */
-.bx17 .o-card{width:clamp(180px,19vw,300px); aspect-ratio:1.586; perspective:900px}
-.bx17 .o-cardin{position:absolute; inset:0; border-radius:14px; padding:8% 9%; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(135deg,#3a3a42 0%,#16161b 55%,#2b2b33 100%); color:#fff; transform:rotateX(52deg) rotateZ(-6deg); transform-origin:50% 60%; box-shadow:0 30px 40px -20px rgba(80,10,50,.55), inset 0 1px 0 rgba(255,255,255,.25)}
-.bx17 .o-cardin::after{content:""; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(115deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.22) 45%, rgba(255,255,255,0) 60%)}
-.bx17 .o-card b{font-family:var(--f-head); font-weight:800; font-size:clamp(16px,1.6vw,24px); letter-spacing:-.04em}
-.bx17 .o-card em{font-style:normal; font-family:var(--f-mono); font-size:9px; letter-spacing:.12em; opacity:.75}
-.bx17 .o-chip{width:18%; aspect-ratio:1.3; border-radius:4px; background:linear-gradient(135deg,#f5f5f7,#b9bdc9 50%,#eceef3)}
-.bx17 .o-card.pk .o-cardin{background:linear-gradient(135deg,#fff 0%,#ffe0ee 45%,#ffb6d6 100%); color:var(--ink); transform:rotateX(50deg) rotateZ(4deg)}
-.bx17 .o-tag{width:auto}
-.bx17 .o-tag b{display:block; font-family:var(--f-mono); font-size:11px; padding:8px 14px; border-radius:999px; background:#fff; color:var(--ink); box-shadow:0 10px 24px -10px rgba(150,30,90,.45)}
-/* foot: line left, glossy buttons right */
-.boot .bx17 .bx-foot{z-index:6}
-.boot .bx17 .bh-line{color:var(--ink)}
-.bx17 .mode{-webkit-backdrop-filter:none!important; backdrop-filter:none!important; background:rgba(255,255,255,.92)!important; border:0!important; box-shadow:0 18px 40px -18px rgba(150,30,90,.45), inset 0 1px 0 #fff!important}
-.bx17 .mode.story{background:linear-gradient(180deg,#2a2a31,#111114)!important; color:#fff!important}
-.bx17 .mode.story h2,.bx17 .mode.story .go{color:#fff!important}
-.bx17 .mode.story .k span{color:rgba(255,255,255,.6)!important}
-@media (max-width:760px){
-  .boot .bx17 .bx-word{top:clamp(40px,8vh,80px)}
-  .bx17 .bx-w1{font-size:25vw}
-  .bx17 .bx-pic{width:min(92vw, 420px); bottom:auto; top:clamp(110px,17vh,170px)}
-  .bx17 .bx-w2{left:4vw; top:calc(clamp(110px,17vh,170px) + 46vw); font-size:18vw}
-  .bx17 .o-card{width:42vw}
-  .bx17 .o-card.pk{display:none}
-  .bx17 .o-bub{width:calc(var(--s) * .6)} .bx17 .o-sph{width:calc(var(--s) * .55)}
-  .bx17 .o-tag{display:none}
-  .bx17 .o-sph.blur{filter:none}
-  .boot .bx17 .bx-foot{position:absolute; left:0; right:0; bottom:0; padding:60px 0 calc(8px + env(safe-area-inset-bottom,0px)); background:linear-gradient(rgba(255,214,232,0), #ffd3e6 30%)}
-}
-@media (prefers-reduced-motion:reduce){ .boot .bx17 .ob{animation:none} }
-.boot .bx17 .bx-pic{width:min(50vw, calc((100svh - 70px) * .885), 700px)}
-.boot .bx17 .bx-w1{background:none!important; -webkit-background-clip:border-box!important; background-clip:border-box!important; -webkit-text-fill-color:#fff!important; color:#fff!important; -webkit-text-stroke:0!important; filter:none!important}
-.boot .bx17 .bx-w1 *{display:inline}
-.bx17 .mode.story .k b{color:var(--lime)!important}
-@media (max-width:760px){
-  .boot .bx17 .bx-pic{width:min(100vw, 440px); top:auto; bottom:clamp(170px,26svh,230px)}
-  .bx17 .bx-w2{left:3vw; top:auto; bottom:calc(clamp(170px,26svh,230px) + 52vw)}
-}
-.boot .bx17 .bx-pic{width:min(42vw, calc((100svh - 150px) * .885), 640px); bottom:-24px}
-.boot .bx17 .bx-w1{letter-spacing:-.05em!important; background:linear-gradient(180deg,#fff 0%,#fff 50%,#ffd9ea 100%)!important; -webkit-background-clip:text!important; background-clip:text!important; -webkit-text-fill-color:transparent!important; color:transparent!important; text-shadow:none!important}
-.bx17 .bx-word::after{content:""; position:absolute; left:20%; right:20%; top:30%; bottom:-10%; z-index:-1; background:radial-gradient(closest-side, rgba(190,40,110,.16), rgba(190,40,110,0)); pointer-events:none}
-.bx17 .bx-w2{left:calc(50% + min(10vw,150px)); top:clamp(200px,40vh,380px); rotate:-6deg}
-@media (max-width:760px){
-  .boot .bx17 .bx-pic{width:min(84vw, 380px); bottom:clamp(250px,33svh,290px)}
-  .bx17 .bx-w2{left:auto; right:4vw; bottom:calc(clamp(250px,33svh,290px) + 70vw); top:auto; font-size:16vw}
-  .boot .bx17 .bx-foot{padding-top:24px; background:linear-gradient(rgba(255,214,232,0), #ffcfe4 18%)}
-}
-.boot .bx17 .bx-pic{height:auto!important; max-height:none!important; aspect-ratio:auto!important; overflow:visible!important; background:none!important; border:0!important; box-shadow:none!important; padding:0!important; rotate:0deg!important}
-@media (min-width:761px){ .boot .bx17 .bx-pic{top:auto!important} }
-@media (max-width:760px){
-  .bx17 .o-sph.pearl{left:86%!important; top:44%!important}
-  .bx17 .o-back .o-bub{left:10%!important; top:46%!important}
-  .bx17 .bx-w2{right:auto; left:56vw; bottom:calc(clamp(250px,33svh,290px) + 40vw); font-size:15vw}
-  .bx17 .o-card{left:80%!important; top:30%!important; width:34vw}
-}
-/* v17 open: photo swap + phone layout (the cut-out stands on top of the foot, measured as --fh) */
-.bx17 .o-me{cursor:pointer}
-.bx17 .o-me.swap{animation:meSwap .55s cubic-bezier(.3,1.4,.5,1)}
-@keyframes meSwap{0%{scale:.94; opacity:.4} 100%{scale:1; opacity:1}}
-@media (max-width:760px){
-  .boot .bx17 .bx-word{top:calc(14px + env(safe-area-inset-top,0px))}
-  .boot .bx17 .bx-pic{width:min(88vw, 400px); bottom:calc(var(--fh,300px) - 40px)}
-  .bx17 .bx-w2{left:auto!important; right:3vw; top:calc(26vw + 20px); bottom:auto!important; font-size:15vw; z-index:4}
-  .bx17 .o-card{display:none}
-  .bx17 .o-front .o-bub.sm{left:10%!important; top:40%!important}
-  .bx17 .o-sph.pearl{left:90%!important; top:48%!important}
-  .boot .bx17 .bx-foot{padding-top:16px; background:none}
-  .bx17 .o-bg::after{content:""; position:absolute; left:0; right:0; bottom:0; height:calc(var(--fh,300px) + 40px); background:linear-gradient(rgba(255,207,228,0), #ffd1e6 40%)}
-}
-@media (max-width:760px){
-  .bx17 .o-front .o-bub:not(.sm){left:86%!important; top:58%!important}
-  .bx17 .o-sph.peach{left:6%!important; top:56%!important}
-  .bx17 .bx-w2{font-size:17vw}
-}
-@media (max-width:760px){ .bx17 .o-front .o-bub:not(.sm){display:none} }
 /* v17 LV.3 inside the tile: capabilities first (no brand split). Glossy cards + one chrome rail. No backdrop-filter: this layer is scaled. */
 .pz-cin.sk{max-width:1120px}
 .sk-k{margin:0 0 8px; font:500 11px/1 var(--f-mono); letter-spacing:.12em; text-transform:uppercase; color:var(--rose)}
@@ -3151,7 +3037,6 @@ body{background:transparent!important}
   .sp-bar,.sp-drop,.tz-status,.vx-pr,.end-card,.ac.a-ink,.pk-c,.win{background-color:rgba(255,255,255,.9)!important}
   .ac-name,.sp-hit,.sp-av,.vx-say{filter:none!important}
   .holo{display:none!important}
-  .bx17 .o-sph.blur{filter:none}
   .dk-c,.rec{will-change:auto!important}
 }
 @media (max-width:860px), (hover:none) and (pointer:coarse){ .ac.a-ink{background-color:rgba(255,255,255,.72)!important} }
@@ -3180,3 +3065,107 @@ body{background:transparent!important}
 .btn.ink{background:linear-gradient(180deg,#34343c,#111114)!important; box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 14px 26px -14px rgba(0,0,0,.6)!important}
 .dk-c,.vx-t,.end-card,.lsp-card{box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 1px 2px rgba(80,20,60,.06), 0 30px 60px -30px rgba(150,30,90,.35)!important}
 #start,#finish{position:relative}
+/* ===== v18 · THE OPEN (ref video: millascope.pages.dev). One small scene in the middle of a sky:
+   glossy wordmark on top, Xinh's head and shoulders resting on a cloud, a few 3D objects popping in
+   around her one by one, a pixel "CLICK ME" bubble. Click her: the face changes, a bubble and two hearts.
+   Everything else is quiet: one line, two buttons. Nothing spreads to the edges. */
+.boot:has(.b18){background:linear-gradient(180deg,#5d9de3 0%,#8fbff0 40%,#cfe4f8 78%,#f3eee6 100%)}
+.b18{position:relative; z-index:2; min-height:calc(100svh - 76px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(6px,1.4vh,14px); text-align:center; -webkit-user-select:none; user-select:none}
+.b18-sky{position:fixed; inset:0; pointer-events:none; z-index:-1}
+.b18-word{position:relative; z-index:3; margin:0; line-height:.9}
+.b18-w1{display:block; font-family:var(--f-head); font-weight:900; font-style:italic; font-size:clamp(58px,8.4vw,124px); letter-spacing:-.05em; padding:0 .08em .06em;
+  background:linear-gradient(180deg,#fff4f9 0%,#ffc2dc 30%,#ff8fc0 52%,#e2508c 64%,#ffb3d4 86%,#ffe7f1 100%); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 2px 0 #b8336f) drop-shadow(0 3px 0 #9c2a5f) drop-shadow(0 14px 18px rgba(40,70,140,.32))}
+.b18-w2{position:absolute; right:-.4em; bottom:-.42em; font-family:var(--f-script); font-weight:400; font-size:clamp(30px,3.6vw,52px); line-height:1; rotate:-8deg;
+  background:var(--chrome-pk); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 2px 6px rgba(120,40,80,.25))}
+.b18-stage{position:relative; width:min(500px,86vw); aspect-ratio:1/.82; margin-top:clamp(4px,1vh,12px)}
+.b18-pic{position:absolute; left:50%; bottom:8%; width:76%; margin:0; translate:-50% 0; z-index:2; cursor:pointer}
+.b18-pic img{display:block; width:100%; height:auto; transition:scale .3s}
+.b18-pic:hover img{scale:1.02}
+.b18-pic img.swap{animation:b18Swap .5s cubic-bezier(.3,1.5,.5,1)}
+@keyframes b18Swap{0%{scale:.92; opacity:.3} 100%{scale:1; opacity:1}}
+/* pixel speech bubble */
+.b18-say{position:absolute; z-index:4; right:-2%; top:2%; padding:5px 11px 6px; background:#fff; color:#111; border:2.5px solid #111; border-radius:4px; box-shadow:3px 3px 0 #111;
+  font:700 13px/1 var(--f-mono); letter-spacing:.04em; text-transform:uppercase; white-space:nowrap; animation:b18In .5s cubic-bezier(.3,1.6,.5,1) 2.6s both}
+.b18-say::after{content:""; position:absolute; left:14px; bottom:-9px; width:10px; height:10px; background:#fff; border-right:2.5px solid #111; border-bottom:2.5px solid #111; rotate:45deg}
+.b18-say.pop{animation:b18Say .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes b18Say{0%{scale:.6} 100%{scale:1}}
+.b18-love{position:absolute; right:6%; top:-4%; width:60px; height:60px; pointer-events:none}
+.b18-love svg{position:absolute; width:26px; opacity:0} .b18-love svg+svg{width:18px; left:28px; top:-6px}
+.b18-pic.love .b18-love svg{animation:b18Love 1.1s ease-out both} .b18-pic.love .b18-love svg+svg{animation-delay:.12s}
+@keyframes b18Love{0%{opacity:0; transform:translateY(10px) scale(.5)} 25%{opacity:1; transform:none} 100%{opacity:0; transform:translateY(-36px) scale(1.1)}}
+/* the cloud she rests on */
+.b18-cloud{position:absolute; left:50%; bottom:-6%; width:120%; height:34%; translate:-50% 0; z-index:3; pointer-events:none}
+.b18-cloud i{position:absolute; bottom:0; border-radius:50%; background:radial-gradient(closest-side,#fff 0%,#fff 55%,rgba(255,255,255,.85) 72%,rgba(255,255,255,0) 100%)}
+.b18-cloud i:nth-child(1){left:0; width:52%; height:80%} .b18-cloud i:nth-child(2){left:26%; width:52%; height:100%} .b18-cloud i:nth-child(3){right:0; width:50%; height:78%}
+/* objects: pop in one by one (scale), drift (transform), wiggle on click (rotate) */
+.b18-o{position:absolute; z-index:4; left:var(--x); top:var(--y); width:var(--s); aspect-ratio:1; translate:-50% -50%; cursor:pointer;
+  animation:b18In .55s cubic-bezier(.3,1.7,.5,1) calc(.4s + var(--i) * .3s) both, b18F 5.5s ease-in-out calc(1s + var(--i) * .3s) infinite alternate}
+.b18-o svg{display:block; width:100%; height:100%; filter:drop-shadow(0 8px 10px rgba(40,70,140,.25))}
+@keyframes b18In{0%{scale:0; opacity:0} 100%{scale:1; opacity:1}}
+@keyframes b18F{from{transform:translateY(-5px)} to{transform:translateY(6px)}}
+.b18-o.hit{animation:b18In .55s both, b18Hit .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes b18Hit{0%{rotate:0deg; scale:1} 40%{rotate:-14deg; scale:1.25} 100%{rotate:0deg; scale:1}}
+.b18-o.sph{border-radius:50%}
+.b18-o.sph.pink{background:radial-gradient(circle at 32% 28%,#fff 0 7%,#ffb3d4 30%,#ff6fae 70%,#d9407f 100%); box-shadow:0 10px 16px -8px rgba(217,64,127,.6)}
+.b18-o.sph.peach{background:radial-gradient(circle at 32% 28%,#fff 0 7%,#ffd7b3 30%,#ff9f6e 70%,#e2674a 100%); box-shadow:0 10px 16px -8px rgba(226,103,74,.55)}
+.b18-o.sph.lilac{background:radial-gradient(circle at 32% 28%,#fff 0 7%,#e6d9ff 30%,#b79cf2 70%,#8a6ad6 100%); box-shadow:0 10px 16px -8px rgba(138,106,214,.55)}
+.b18-o.fold i{position:absolute; inset:18% 6% 10%; border-radius:6px 9px 9px 9px; background:linear-gradient(180deg,#ffd2e6,#ff8fc0); box-shadow:inset 0 1px 0 #fff, 0 10px 16px -8px rgba(217,64,127,.6)}
+.b18-o.fold i::before{content:""; position:absolute; left:0; top:-14%; width:44%; height:20%; border-radius:5px 5px 0 0; background:#ffc2dc}
+.b18-o.card{aspect-ratio:1.55; display:flex; flex-direction:column; justify-content:space-between; padding:7px 8px; border-radius:8px; text-align:left; rotate:-10deg;
+  background:linear-gradient(145deg,#3a3a42,#111114 60%); color:#fff; box-shadow:inset 0 1px 0 rgba(255,255,255,.25), 0 12px 18px -10px rgba(0,0,0,.55)}
+.b18-o.card b{font:800 10px/1 var(--f-head); letter-spacing:-.01em} .b18-o.card em{font:500 6.5px/1 var(--f-mono); font-style:normal; color:var(--lime); letter-spacing:.08em}
+/* foot: one line, two buttons, small meta */
+.b18-foot{position:relative; z-index:3; display:grid; justify-items:center; gap:10px; margin-top:clamp(2px,1vh,10px)}
+.b18-line{margin:0; font:500 clamp(14px,1.2vw,16px)/1.35 var(--f-head); color:var(--ink); letter-spacing:-.01em} .b18-line b{font-weight:800}
+.b18-cta{display:flex; flex-wrap:wrap; justify-content:center; gap:10px}
+.boot .b18-go{all:unset; box-sizing:border-box; display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:0 18px 0 20px; border-radius:999px; cursor:pointer;
+  font:600 15px/1 var(--f-head); letter-spacing:-.01em; transition:transform .2s, box-shadow .2s}
+.boot .b18-go b{font:700 10.5px/1 var(--f-mono); letter-spacing:.1em}
+.boot .b18-go i{font-style:normal}
+.boot .b18-go.story{background:linear-gradient(180deg,#34343c,#111114); color:#fff; box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 14px 26px -14px rgba(0,0,0,.6)}
+.boot .b18-go.story b{color:var(--lime)}
+.boot .b18-go.quick{background:#fff; color:var(--ink); box-shadow:inset 0 1px 0 #fff, 0 12px 24px -14px rgba(40,70,140,.45)}
+.boot .b18-go.quick b{color:var(--rose)}
+.boot .b18-go:hover{transform:translateY(-2px)}
+.boot .b18-go:focus-visible{outline:2px solid var(--ink); outline-offset:3px}
+.b18-meta{display:flex; align-items:center; gap:12px}
+.b18-meta .boot-skip{all:unset; cursor:pointer; font:500 11px/1 var(--f-mono); letter-spacing:.06em; color:rgba(43,29,42,.55)}
+.boot .b18 .boot-lang{margin:0}
+.b18 .cl{filter:none}
+@media (max-width:760px){
+  .b18{justify-content:flex-start; padding-top:clamp(10px,3vh,30px); min-height:calc(100svh - 70px)}
+  .b18-w1{font-size:17vw} .b18-w2{font-size:9vw; right:-.2em}
+  .b18-stage{width:92vw}
+  .b18-say{font-size:11px; right:0}
+  .b18-foot{margin-top:auto; padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}
+  .b18-cta{display:grid; grid-template-columns:1fr 1fr; width:calc(100vw - 32px)}
+  .boot .b18-go{justify-content:center; padding:0 12px; font-size:14px; gap:7px}
+}
+@media (prefers-reduced-motion:reduce){ .b18-o,.b18-say{animation:none} .b18 .cl{animation:none} }
+.b18-w2{font-size:clamp(40px,4.6vw,68px); right:-.55em; bottom:-.5em}
+.boot .b18 .boot-lang button{min-height:30px; padding:0 12px; font-size:11px}
+@media (max-width:760px){
+  .b18{justify-content:center; gap:4px}
+  .b18-foot{margin-top:4px}
+  .b18-stage{aspect-ratio:1/.92}
+  .b18-pic{width:88%}
+  .b18-w2{font-size:12vw; right:-.3em}
+  .boot .b18-go{font-size:13px; white-space:nowrap; padding:0 10px}
+  .boot .b18-go b{font-size:9.5px}
+}
+.b18-say{top:-4%; right:4%}
+.b18-w2{filter:drop-shadow(0 1.5px 0 #9c2a5f) drop-shadow(0 6px 10px rgba(40,70,140,.3))}
+/* v18 About me: the same skills layout as LV.3, revealed on scroll */
+.sk-pf .sk-c,.sk-pf .sk-s{opacity:0}
+.sk-pf.in .sk-c,.sk-pf.in .sk-s{opacity:1; transform:none}
+.sk-pf.in .sk-rail::after{transform:scaleX(1)}
+@media (max-width:760px){ .sk-pf.in .sk-rail::after{transform:scaleY(1)} .sk-pf .sk-c .sk-d{display:block; font-size:12px} .sk-pf .sk-c{min-height:0} .sk-pf .sk-c b{margin-top:30px} }
+.sk-pf .sk-c{cursor:default}
+#v-profile,#v-contact{position:relative}
+#v-profile>.wrap,#v-contact>.wrap{position:relative; z-index:1}
+@media (prefers-reduced-motion:no-preference){
+  .qv .sec.rv{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .8s cubic-bezier(.2,.9,.2,1)}
+  .qv .sec.rv.in{opacity:1; transform:none}
+}
+@media (max-width:760px){ .b18-o.card{left:78%; width:60px} }

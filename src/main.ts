@@ -649,21 +649,13 @@ import './styles.css';
     $('#pfGrid').innerHTML = tiles.join('');
     /* inside the tile: the nine capabilities on their own, not split by brand (Xinh: every one is a strength).
        What I run = four glossy cards; how far I take it = one chrome rail from pitch to sign-off. */
-    var SPH = ['pearl', 'pink', 'peach', 'lilac'];
-    var cards = COLS.filter(function(c){ return c.g === 'type'; }).map(function(col, j){
-      var i = colIdx(col.k);
-      return '<a class="sk-c" href="#skills" data-skill="' + col.k + '" style="--j:' + j + '"><i class="sk-o ' + SPH[j % 4] + '" aria-hidden="true"></i><span class="sk-n">' + ('0' + (i + 1)).slice(-2) + '</span><b>' + esc(L(col.t)) + '</b><span class="sk-d">' + esc(L(col.d)) + '</span></a>';
-    }).join('');
-    var rail = COLS.filter(function(c){ return c.g === 'own'; }).map(function(col, j){
-      var i = colIdx(col.k);
-      return '<li class="sk-s" style="--j:' + j + '"><i class="sk-dot" aria-hidden="true"></i><span class="sk-n">' + ('0' + (i + 1)).slice(-2) + '</span><b>' + esc(L(col.t)) + '</b><span class="sk-d">' + esc(L(col.d)) + '</span></li>';
-    }).join('');
+    var cards = skCards(true), rail = skRail();
     pfC.innerHTML = '<div class="wrap pz-cin sk">' +
       '<p class="sk-k">LV.3 · ' + (vi ? 'Năng lực' : 'Capabilities') + '</p>' +
       '<h3 class="sk-h">' + (vi ? 'Xinh chạy gì, <em>gánh tới đâu.</em>' : 'What I run, <em>how far I take it.</em>') + '</h3>' +
       '<p class="sk-g">' + (vi ? 'Xinh chạy gì' : 'What I run') + '</p><div class="sk-cards">' + cards + '</div>' +
       '<p class="sk-g">' + (vi ? 'Xinh gánh tới đâu · từ pitch đến nghiệm thu' : 'How far I take it · from pitch to sign-off') + '</p><ol class="sk-rail">' + rail + '</ol>' +
-      '<p class="sk-f"><a class="more-link" href="#skills">' + (vi ? 'Xem từng năng lực, kèm dự án' : 'Every capability, with projects') + ' →</a></p></div>';
+      '<p class="sk-f"><a class="more-link" href="#profile">' + (vi ? 'Thêm về Xinh' : 'More about Xinh') + ' →</a></p></div>';
     pfGeo = null; drawProof(true);
   }
   function pfMeasure(){
@@ -770,6 +762,22 @@ import './styles.css';
   onScrollFrame(drawAtmo);
   window.addEventListener('resize', function(){ drawAtmo(); });
 
+  /* the nine capabilities on their own (Xinh: every one is a strength, so no split by brand).
+     Shared by LV.3 and About me: four glossy cards + one rail from pitch to sign-off. */
+  var SK_SPH = ['pearl', 'pink', 'peach', 'lilac'];
+  function skCards(link){
+    var tag = link ? 'a' : 'div';
+    return COLS.filter(function(c){ return c.g === 'type'; }).map(function(col, j){
+      var i = colIdx(col.k);
+      return '<' + tag + ' class="sk-c"' + (link ? ' href="#skills"' : '') + ' style="--j:' + j + '"><i class="sk-o ' + SK_SPH[j % 4] + '" aria-hidden="true"></i><span class="sk-n">' + ('0' + (i + 1)).slice(-2) + '</span><b>' + esc(L(col.t)) + '</b><span class="sk-d">' + esc(L(col.d)) + '</span></' + tag + '>';
+    }).join('');
+  }
+  function skRail(){
+    return COLS.filter(function(c){ return c.g === 'own'; }).map(function(col, j){
+      var i = colIdx(col.k);
+      return '<li class="sk-s" style="--j:' + j + '"><i class="sk-dot" aria-hidden="true"></i><span class="sk-n">' + ('0' + (i + 1)).slice(-2) + '</span><b>' + esc(L(col.t)) + '</b><span class="sk-d">' + esc(L(col.d)) + '</span></li>';
+    }).join('');
+  }
   function renderMatrix(){
     var vi = lang === 'vi', ci = colIdx(mxSel), col = COLS[ci];
     var item = function(c){ var n = colIdx(c.k) + 1; return '<button class="li" type="button" data-col="' + c.k + '" aria-pressed="' + (c.k === mxSel ? 'true' : 'false') + '"><span class="ix">' + ('0' + n).slice(-2) + '</span>' + esc(L(c.t)) + '<i>→</i></button>'; };
@@ -779,7 +787,9 @@ import './styles.css';
       '<p class="lsp-jd"><b>' + (vi ? 'Dự án liên quan' : 'Related projects') + '</b></p><div class="proof">' + proofChips(ci) + '</div></div>';
     var html = '<div class="lsp"><div class="lsp-list">' + list + '</div><div class="lsp-stage">' + card + '</div></div>';
     $$('[data-mx]').forEach(function(h){ h.innerHTML = html; });
-    var g = $('#skGrid'); if (g) g.innerHTML = COLS.map(capCard).join('');
+    var g = $('#skGrid'), vi = lang === 'vi';
+    if (g) g.innerHTML = '<p class="sk-g">' + (vi ? 'Xinh chạy gì' : 'What I run') + '</p><div class="sk-cards">' + skCards(false) + '</div>' +
+      '<p class="sk-g">' + (vi ? 'Xinh gánh tới đâu · từ pitch đến nghiệm thu' : 'How far I take it · from pitch to sign-off') + '</p><ol class="sk-rail">' + skRail() + '</ol>';
   }
   document.addEventListener('click', function(e){ var b = e.target.closest('[data-col]'); if (b){ mxSel = b.dataset.col; renderMatrix(); track('skill', mxSel); } });
   document.addEventListener('pointerover', function(e){ var b = e.target.closest && e.target.closest('.lsp-list [data-col]'); if (b && b.dataset.col !== mxSel && finePointer){ mxSel = b.dataset.col; var keep = b.closest('[data-mx]'); renderMatrix(); } });
@@ -1318,7 +1328,7 @@ import './styles.css';
     var body = Object.keys(groups).map(function(g){ return '<div><span>' + esc(g) + '</span><b>' + groups[g].map(esc).join(' · ') + '</b></div>'; }).join('');
     return '<div class="panel wide"><h3>' + (vi ? 'Nội dung còn thiếu' : 'Missing content') + ' · ' + m.length + '</h3><p class="sub">' + (vi ? 'Người xem không thấy các chỗ trống này. Mở link với #edit để thấy vị trí từng ô.' : 'Visitors never see these gaps. Open the link with #edit to see where each one goes.') + '</p><div class="body miss">' + (body || '<div>✓</div>') + '</div></div>';
   }
-  var VIEW_LBL = {story:'Story', desk:'Quick', work:'Work', profile:'Profile', skills:'Skills', contact:'Contact', report:'Report'};
+  var VIEW_LBL = {story:'Story', desk:'Quick', work:'Work', profile:'About me', skills:'Skills', contact:'Contact', report:'Report'};
   function renderReport(){
     var host = $('#report'), vi = lang === 'vi';
     if (runtimeHere && !isOwner){
@@ -1585,17 +1595,16 @@ import './styles.css';
   bootEl.addEventListener('pointermove', function(e){ if (reduce || !finePointer) return; var st = $('#stage'); if (!st) return;
     st.style.setProperty('--px', ((e.clientX / window.innerWidth) - .5).toFixed(3)); st.style.setProperty('--py', ((e.clientY / window.innerHeight) - .5).toFixed(3)); });
   /* every object reacts; the portrait cycles through Xinh's photos like changing expressions */
-  var FACES = [['assets/xinh-cut-hi.webp', 'hi hi!'], ['assets/xinh-cut-work.webp', 'on it!']], face = 0;
+  var FACES = [['assets/xinh-head-hi.webp', 'hi hi!'], ['assets/xinh-head-work.webp', 'on it!']], face = 0, loveT = 0;
   bootEl.addEventListener('click', function(e){
     var ob = e.target.closest('.ob');
     if (ob){ ob.classList.remove('hit'); void ob.offsetWidth; ob.classList.add('hit'); }
-    var pic = e.target.closest('.bx-pic');
-    if (pic){ face = (face + 1) % FACES.length; var me = $('.bx-pic .o-me'); if (me){ me.classList.remove('swap'); void me.offsetWidth; me.src = FACES[face][0]; me.classList.add('swap'); } }
-    if (pic || (ob && ob.classList.contains('tagx'))){ var by = $('.bx-pic .bye'); if (by){ by.textContent = FACES[face][1]; by.classList.remove('pop'); void by.offsetWidth; by.classList.add('pop'); } }
+    var pic = e.target.closest('.b18-pic');
+    if (pic){ face = (face + 1) % FACES.length; var me = $('.b18-pic .o-me'); if (me){ me.classList.remove('swap'); void me.offsetWidth; me.src = FACES[face][0]; me.classList.add('swap'); }
+      pic.classList.remove('love'); void pic.offsetWidth; pic.classList.add('love'); clearTimeout(loveT); loveT = setTimeout(function(){ pic.classList.remove('love'); }, 1300); }
+    if (pic){ var by = $('.b18-pic .bye'); if (by){ by.textContent = FACES[face][1]; by.classList.remove('pop'); void by.offsetWidth; by.classList.add('pop'); } }
   });
   /* the foot height decides where the cut-out stands on phones */
-  function bootFoot(){ var f = $('.bx17 .bx-foot'), b = $('.bx17'); if (f && b) b.style.setProperty('--fh', f.offsetHeight + 'px'); }
-  bootFoot(); window.addEventListener('resize', bootFoot);
   setTimeout(function(){ var im = new Image(); im.src = FACES[1][0]; }, 2500);
 
   function chooseMode(m){
