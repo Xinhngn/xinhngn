@@ -686,51 +686,64 @@ import './styles.css';
   /* =====================================================================
      STORY: tangle, pin, thread
      ===================================================================== */
-  var tzCount = $('#tzCount'), tz = $('#brief'), tg = $('#tg'), tgU = $('#tgU'), tgS = $('#tgS'), notes = $$('.notes > span');
-  var N = 40, END = {x:300, y:440}, messy = [], neat = [];
-  for (var i = 0; i < N; i++){
-    var a = i * 0.88, rr = 92 + 70 * Math.sin(i * 1.6);
-    var mx = 300 + rr * Math.cos(a) * 1.25 + 40 * Math.sin(i * 0.45);
-    var my = 190 + i * 1.6 + rr * 0.9 * Math.sin(a * 1.3);
-    if (i === 0){ mx = 60; my = 40; }
-    if (i >= N - 5){ var w = (i - (N - 6)) / 5; mx += (END.x - mx) * w; my += (END.y - my) * w; }
-    messy.push({x:mx, y:my});
-    var u = i / (N - 1);
-    neat.push({x:60 + 240 * (1 - Math.pow(1 - u, 3)), y:40 + (END.y - 40) * u});
+  /* LV.0 · the brief as a keyboard: scrolling (or tapping) drops the five loose keys into place,
+     each one types its line on the paper, then Enter opens a lit door and the plan walks in. */
+  var tzCount = $('#tzCount'), tz = $('#brief'), bfKeys = $$('#kb .bk'), bfEnter = $('#kEnter'), bfLines = $$('#bfPaper [data-l]');
+  var bfStage = $('#bfStage'), bfFit = $('#kbFit');
+  var bfFix = [0,0,0,0,0], bfK = [0,0,0,0,0], bfOpenT = 0, bfOpen = 0, briefAnim = false, lastT = -1, tangleVis = true;
+  function fitKb(){ var w = bfStage.clientWidth, h = bfStage.clientHeight; bfFit.style.setProperty('--s', Math.min(1.15, w / 600, h / 470).toFixed(3)); }
+  fitKb(); window.addEventListener('resize', fitKb);
+  function bfPress(el){ el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); }
+  bfKeys.forEach(function(el){
+    var i = +el.dataset.k;
+    el.addEventListener('click', function(){ bfFix[i] = 1; bfPress(el); schedule(); });
+    el.addEventListener('pointerenter', function(){ bfLines[i].classList.add('hl'); });
+    el.addEventListener('pointerleave', function(){ bfLines[i].classList.remove('hl'); });
+  });
+  function bfSolved(){ return bfK.every(function(k){ return k > 0.98; }); }
+  bfEnter.addEventListener('click', function(){
+    bfPress(bfEnter);
+    if (!bfSolved()){ bfEnter.classList.remove('nope'); void bfEnter.offsetWidth; bfEnter.classList.add('nope'); return; }
+    bfOpenT = 1; schedule();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter' || curView !== 'story' || !tangleVis || document.activeElement !== document.body) return;
+    var r = tz.getBoundingClientRect(); if (r.top > window.innerHeight * 0.5 || r.bottom < window.innerHeight * 0.5) return;
+    bfEnter.click();
+  });
+  if (finePointer && !reduce){
+    bfStage.addEventListener('pointermove', function(e){ var r = bfStage.getBoundingClientRect();
+      tz.style.setProperty('--px', ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3)); tz.style.setProperty('--py', ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3)); }, {passive:true});
+    bfStage.addEventListener('pointerleave', function(){ tz.style.setProperty('--px', 0); tz.style.setProperty('--py', 0); });
   }
-  function smooth(pts){
-    var d = 'M' + pts[0].x.toFixed(1) + ',' + pts[0].y.toFixed(1);
-    for (var i = 0; i < pts.length - 1; i++){
-      var p0 = pts[i-1] || pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2] || p2;
-      d += ' C' + (p1.x + (p2.x - p0.x) / 6).toFixed(1) + ',' + (p1.y + (p2.y - p0.y) / 6).toFixed(1) + ' ' +
-           (p2.x - (p3.x - p1.x) / 6).toFixed(1) + ',' + (p2.y - (p3.y - p1.y) / 6).toFixed(1) + ' ' + p2.x.toFixed(1) + ',' + p2.y.toFixed(1);
-    }
-    return d;
-  }
-  function ease(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2; }
-  var lastT = -1, tangleVis = true;
-  function drawTangle(now){
+  function drawTangle(){
     var r = tz.getBoundingClientRect(), vh = window.innerHeight;
     tangleVis = r.bottom > 0 && r.top < vh;
-    if (!tangleVis && lastT >= 0) return;
-    var t = reduce ? 1 : clamp((vh * 0.62 - r.top) / (r.height * 0.75), 0, 1);
-    var wob = reduce ? 0 : 1 - t;
-    if (Math.abs(t - lastT) < 0.0005 && wob === 0) return;
-    lastT = t;
-    var pts = [];
-    for (var i = 0; i < N; i++){
-      var k = ease(clamp(t * 1.7 - ((N - 1 - i) / N) * 0.7, 0, 1));
-      var j = (i > 0 && i < N - 1) ? Math.sin(now / 560 + i * 1.3) * 4 * wob : 0;
-      pts.push({x: messy[i].x + (neat[i].x - messy[i].x) * k + j, y: messy[i].y + (neat[i].y - messy[i].y) * k + j * .6});
-    }
-    var d = smooth(pts);
-    tg.setAttribute('d', d); tgU.setAttribute('d', d); tgS.setAttribute('d', d);
-    var open = 0;
-    notes.forEach(function(n, i){ var ok = t > 0.3 + i * 0.14; n.classList.toggle('ok', ok); if (!ok) open++; });
-    var cl = t > 0.94; tz.classList.toggle('clear', cl);
+    if (!tangleVis && lastT >= 0 && !briefAnim) return;
+    var t = reduce ? 1 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+    lastT = t; briefAnim = false;
+    var ease = reduce ? 1 : 0.16, open = 0;
+    bfKeys.forEach(function(el, i){
+      var target = Math.max(bfFix[i], clamp((t - 0.08 - i * 0.11) / 0.09, 0, 1));
+      bfK[i] += (target - bfK[i]) * ease;
+      if (Math.abs(target - bfK[i]) < 0.002) bfK[i] = target; else briefAnim = true;
+      el.style.setProperty('--m', (1 - bfK[i]).toFixed(3));
+      var ok = bfK[i] > 0.98;
+      el.classList.toggle('ok', ok); el.setAttribute('aria-pressed', ok ? 'true' : 'false');
+      bfLines[i].classList.toggle('on', ok);
+      if (!ok) open++;
+    });
+    var oT = open ? 0 : Math.max(bfOpenT, clamp((t - 0.68) / 0.14, 0, 1));
+    bfOpen += (oT - bfOpen) * (reduce ? 1 : 0.1);
+    if (Math.abs(oT - bfOpen) < 0.002) bfOpen = oT; else briefAnim = true;
+    tz.style.setProperty('--open', bfOpen.toFixed(3));
+    var cl = bfOpen > 0.6;
+    tz.classList.toggle('clear', cl); tz.classList.toggle('solved', !open);
+    bfLines[5].classList.toggle('on', cl);
     var key = lang + open + cl;
     if (tzCount.dataset.k !== key){ tzCount.dataset.k = key; var vi = lang === 'vi';
       tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All untangled! · <b>plan locked</b>')
+        : !open ? (vi ? 'Đề bài đã rõ · <b>bấm Enter</b>' : 'Brief sorted · <b>press Enter</b>')
         : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'open question' : 'open questions')); }
   }
 
@@ -823,7 +836,7 @@ import './styles.css';
   function frame(now){
     raf = 0;
     if (curView !== 'story') return;
-    drawTangle(now || 0);
+    drawTangle();
     updatePin();
     if (ready){
       var target = reduce ? total : lenForY(window.scrollY + window.innerHeight * 0.62);
@@ -846,7 +859,7 @@ import './styles.css';
       fill.style.width = (total ? drawn / total * 100 : 0) + '%';
       animating = drawn !== target;
     }
-    if (animating || (!reduce && tangleVis && lastT < 0.999)) schedule();
+    if (animating || briefAnim) schedule();
   }
   window.addEventListener('scroll', schedule, {passive:true});
   var rt = 0;

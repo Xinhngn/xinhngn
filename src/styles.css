@@ -601,7 +601,7 @@ html[data-stage]:not([data-stage="0"]) .lvbar{transform:translate(-50%,0)}
 .side .status,.csheet .status{background:var(--white); border:1px solid var(--edge)}
 .big-acts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
 .big-acts .cv{grid-column:1/-1}
-.who{display:grid; gap:10px}
+.bf-who{display:grid; gap:10px}
 .who .opts{display:flex; flex-wrap:wrap; gap:6px}
 .cn-card .chip{background:transparent; color:var(--white); border-color:rgba(255,255,255,.4)}
 .cn-card button.chip[aria-pressed="true"]{background:var(--lime); color:var(--ink); border-color:var(--lime)}
@@ -1495,13 +1495,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:#fff}
 /* ---------- LV.0 brief: the one ink scene in the first half ---------- */
 #brief{background:var(--ink); color:#fff}
 #brief .tag{color:#9a9ead} #brief .tag b{background:var(--lime); color:var(--ink)}
-#brief .tz-say{color:#fff; font-weight:800}
-#brief .tz-say .then{color:var(--lime)}
 #brief .tz-status{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.18); color:#fff}
-#brief .notes > span{background:var(--ink2); color:#fff; border:1px solid rgba(255,255,255,.14); box-shadow:none; border-radius:8px}
-#brief .notes > span::before{background:var(--blue); border-radius:3px}
-#brief .notes > span.ok{color:#9a9ead}
-#brief .notes > span.ok::before{background:var(--lime); color:var(--ink)}
 #tg{stroke:var(--lime)} #tgU{stroke:var(--lime); stroke-opacity:.12}
 
 /* ---------- LV.1 roles: neutral ID cards ---------- */
@@ -1662,13 +1656,8 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:#fff}
 .p1-sub{max-width:50ch; margin:18px 0 0; font-size:clamp(15px,1.25vw,18px); line-height:1.5; color:var(--ink3)}
 
 /* LV.0: resolved notes turn lime and stay readable */
-#brief .tz-say .then{opacity:.5}
 #brief.clear .tz-say .then{opacity:1}
-#brief .notes > span{color:#fff; border-color:rgba(255,255,255,.24); transition:background-color .4s, color .4s, border-color .4s, transform .4s}
-#brief .notes > span::before{background:rgba(255,255,255,.16); color:#fff}
 #brief .tz-status i{background:#fff} #brief.clear .tz-status i{background:var(--lime)}
-#brief .notes > span.ok{background:var(--lime); color:var(--ink); border-color:var(--lime); text-decoration:none; opacity:1; box-shadow:0 8px 24px rgba(255,143,192,.22)}
-#brief .notes > span.ok::before{content:"✓"; background:var(--ink); color:var(--lime)}
 
 
 /* capability list: list left, card right, every row readable and aligned to one grid */
@@ -2049,13 +2038,8 @@ body{background:var(--cream)}
 /* LV.0 brief: sky */
 #brief{background:var(--g-sky)!important; color:var(--ink)}
 #brief::before{content:""; position:absolute; inset:auto 0 0 0; height:40%; background:radial-gradient(40% 60% at 20% 100%,rgba(255,255,255,.9),transparent 70%),radial-gradient(35% 50% at 75% 100%,rgba(255,255,255,.8),transparent 70%); pointer-events:none}
-#brief .tz-say{color:#fff!important; text-shadow:0 2px 18px rgba(40,80,140,.25)}
-#brief .tz-say .then{color:var(--ink)!important; text-shadow:none}
 #brief .tag{color:rgba(255,255,255,.9)} #brief .tag b{background:#fff; color:var(--ink)}
 #brief .tz-status{background:rgba(255,255,255,.7); color:var(--ink); border-color:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
-#brief .notes > span{background:rgba(255,255,255,.82)!important; color:var(--ink)!important; border:1px solid rgba(255,255,255,.95)!important; box-shadow:0 10px 24px rgba(40,80,140,.18)!important; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
-#brief .tangle svg path{stroke:#fff}
-#brief .tangle svg #tg{stroke:var(--lime)}
 
 /* LV.1 who: sky fades into cream */
 #clarify{background:linear-gradient(180deg,#eef3f8 0%,var(--cream) 26%)!important}
@@ -2351,3 +2335,125 @@ body{background:var(--cream)}
 /* Profile · Skills section (was its own tab) */
 #pfSkills{scroll-margin-top:calc(var(--hud, 60px) + 20px)}
 #pfSkills .lead{margin-bottom:28px}
+
+/* =====================================================================
+   v16 · LV.0 "The brief" as a keyboard (refs: typewriter paper feed, Enter-key door, esc ladder).
+   The section pins while you scroll: five loose keys drop into their sockets one by one, each types
+   its line on the paper, then Enter opens a lit door and the little figure walks in.
+   JS only sets --m per key (1 = loose, 0 = seated), --open and --px/--py on #brief.
+   ===================================================================== */
+#brief.bf0{--a:54deg; --b:-16deg; --px:0; --py:0; --open:0; --ra:calc(var(--a) - var(--py) * 5deg); --rb:calc(var(--b) + var(--px) * 6deg);
+  height:260vh; padding:0; overflow:clip}
+.bf0-pin{position:sticky; top:0; height:100vh; height:100svh; padding-top:var(--hud)}
+.bf0-grid{height:100%; display:grid; grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr); gap:clamp(16px,3vw,48px); align-items:center}
+.bf0-copy{position:relative; z-index:2}
+.bf0-h{margin:18px 0 0; font-family:var(--f-head); font-weight:700; font-size:clamp(32px,3.9vw,56px); line-height:1.02; letter-spacing:-.035em; color:#fff; text-shadow:0 2px 18px rgba(40,80,140,.22)}
+.bf0-h em{display:block; font-family:var(--f-serif); font-style:italic; font-weight:400; letter-spacing:-.02em; color:var(--ink); text-shadow:none}
+.bf0-then{margin:22px 0 0; max-width:34ch; font-size:clamp(15px,1.25vw,18px); line-height:1.5; color:var(--ink); opacity:.22; transform:translateY(10px); transition:opacity .7s, transform .7s}
+#brief.clear .bf0-then{opacity:1; transform:none}
+#brief .tz-status{margin-top:22px}
+#brief.solved .tz-status i{background:var(--lime); animation:ping 1.2s infinite}
+#brief.clear .tz-status i{animation:none}
+.bf0-stage{position:relative; height:min(560px,76vh); z-index:1}
+.bf0-hint{position:absolute; left:0; right:0; bottom:4px; margin:0; text-align:center; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:rgba(29,31,61,.55); transition:opacity .5s}
+#brief.clear .bf0-hint{opacity:0}
+.bf-node{left:64%; top:auto; bottom:36px}
+
+/* camera: fit to the stage, then dolly toward the Enter door as it opens */
+.kb-fit{position:absolute; left:50%; top:50%; width:660px; height:470px; margin:-235px 0 0 -330px; transform:scale(var(--s,1))}
+.kb-cam{position:absolute; inset:0; perspective:1300px; perspective-origin:60% 30%; transform-origin:88% 62%; transform:scale(calc(1 + var(--open) * .16))}
+.kb{position:absolute; left:53%; top:58%; width:560px; height:330px; margin:-165px 0 0 -280px; transform-style:preserve-3d;
+  transform:rotateX(var(--ra)) rotateZ(var(--rb)); transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  border-radius:26px; background:linear-gradient(150deg,#fbfcfe 0%,#e3e7ee 45%,#c3c9d5 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.9), inset 0 -10px 24px rgba(90,100,130,.18), 0 50px 70px rgba(30,60,120,.28)}
+.kb::before{content:""; position:absolute; left:32px; top:7px; width:230px; height:7px; border-radius:6px; background:#20232d; box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
+.kb::after{content:""; position:absolute; left:14px; right:14px; bottom:0; height:22px; border-radius:0 0 22px 22px; transform-origin:bottom; transform:rotateX(-90deg);
+  background:linear-gradient(180deg,#d9dde6,#9aa2b3)}
+.kgrid{position:absolute; inset:20px; display:grid; grid-template-columns:1fr 1fr 1fr .85fr 1.25fr; grid-template-rows:repeat(3,1fr); gap:10px; transform-style:preserve-3d}
+.slot{position:relative; border-radius:10px; background:#3a3f4d; box-shadow:inset 0 3px 8px rgba(0,0,0,.55); transform-style:preserve-3d}
+
+/* a key = footprint + float layer + top face (.cap) + front face (.fr) */
+.kk{--h:15px; --m:0; --dx:0px; --dy:0px; --dz:0px; --rz:0deg; --rx:0deg; position:absolute; inset:0; display:block; padding:0; border:0; margin:0; background:none; color:inherit; font:inherit; cursor:default; transform-style:preserve-3d;
+  transform:translate3d(calc(var(--dx) * var(--m)), calc(var(--dy) * var(--m)), calc(var(--dz) * var(--m))) rotateZ(calc(var(--rz) * var(--m))) rotateX(calc(var(--rx) * var(--m)))}
+button.kk{cursor:pointer}
+.kk:focus-visible{outline:none}
+.kk:focus-visible .cap{outline:2px solid var(--lime); outline-offset:3px}
+.kk .fl{position:absolute; inset:0; transform-style:preserve-3d; animation:kfloat 3.4s ease-in-out infinite}
+.kk .cap{position:absolute; inset:0; transform:translateZ(var(--h)); border-radius:9px; display:flex; flex-direction:column; justify-content:space-between; padding:9px 11px; text-align:left;
+  background:linear-gradient(160deg,#4a4f5e 0%,#2b2f3a 55%,#21242d 100%); box-shadow:inset 0 1px 0 rgba(255,255,255,.18), inset 0 -3px 6px rgba(0,0,0,.35); color:#e8eaf0}
+.kk .cap b{font-family:var(--f-head); font-weight:600; font-size:15px; line-height:1.05; letter-spacing:-.01em}
+.kk .cap i{font-style:normal; font-family:var(--f-mono); font-size:10px; letter-spacing:.08em; color:rgba(255,255,255,.4); transition:color .4s, text-shadow .4s}
+.kk .fl::after{content:""; position:absolute; top:0; bottom:0; right:0; width:var(--h); transform-origin:right center; transform:rotateY(90deg); border-radius:0 9px 9px 0; background:linear-gradient(90deg,#1a1c23,#262a34)}
+.ek .fl::after{background:linear-gradient(90deg,#d6d0c3,#ebe7de)}
+.kk .fr{position:absolute; left:0; right:0; bottom:0; height:var(--h); transform-origin:bottom; transform:rotateX(-90deg); border-radius:0 0 9px 9px; background:linear-gradient(180deg,#1d2028,#14161c)}
+.dk .cap{justify-content:flex-end} .dk .cap b{font-family:var(--f-mono); font-weight:400; font-size:12px; color:rgba(255,255,255,.62)}
+.bk .cap b{font-size:16px; color:#fff}
+.bk.ok .cap i{color:var(--lime); text-shadow:0 0 10px rgba(255,143,192,.8)}
+.bk:hover .cap{background:linear-gradient(160deg,#575d6e 0%,#323745 55%,#262a34 100%)}
+.kk.hit .fl{animation:kpress .32s cubic-bezier(.3,.7,.3,1)}
+.kk.nope .fl{animation:knope .45s ease}
+@keyframes kfloat{50%{transform:translateZ(calc(var(--m) * 18px)) rotateZ(calc(var(--m) * 7deg))}}
+@keyframes kpress{40%{transform:translateZ(-9px)}}
+@keyframes knope{20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)}}
+
+/* the five loose keys: where each one floats while the brief is still a tangle */
+.bk[data-k="0"]{--dx:-70px; --dy:-150px; --dz:130px; --rz:-32deg; --rx:28deg}
+.bk[data-k="1"]{--dx:-20px; --dy:-200px; --dz:170px; --rz:24deg; --rx:-22deg}
+.bk[data-k="2"]{--dx:-170px; --dy:40px; --dz:100px; --rz:38deg; --rx:24deg}
+.bk[data-k="3"]{--dx:80px; --dy:-140px; --dz:210px; --rz:-20deg; --rx:-30deg}
+.bk[data-k="4"]{--dx:-30px; --dy:150px; --dz:120px; --rz:44deg; --rx:18deg}
+.bk[data-k="1"] .fl{animation-delay:-.7s} .bk[data-k="2"] .fl{animation-delay:-1.4s} .bk[data-k="3"] .fl{animation-delay:-2.1s} .bk[data-k="4"] .fl{animation-delay:-2.8s}
+
+/* Enter: the tall cream key with a door in its front face */
+.ek{--h:72px}
+.ek .cap{background:linear-gradient(165deg,#ffffff 0%,#f1eee8 60%,#e2ded5 100%); box-shadow:inset 0 1px 0 #fff, inset 0 -4px 10px rgba(120,110,90,.18); color:var(--ink); align-items:flex-end; justify-content:flex-start; padding:14px}
+.ek .cap b{font-family:var(--f-head); font-weight:500; font-size:19px; color:var(--ink); display:flex; flex-direction:column; align-items:flex-end; gap:2px}
+.ek .cap b s{text-decoration:none; font-size:16px}
+#brief.solved .ek .cap{box-shadow:inset 0 1px 0 #fff, 0 0 0 2px var(--lime), 0 0 26px rgba(255,143,192,.55)}
+.ek .fr{background:linear-gradient(180deg,#e7e3da,#cfc9bd); transform-style:preserve-3d}
+.door{position:absolute; left:50%; bottom:0; width:42px; height:56px; margin-left:-21px; transform-style:preserve-3d}
+.door .glow{position:absolute; inset:0; background:linear-gradient(180deg,#fffaf0 0%,#ffe2c2 55%,#ffc4dc 100%); box-shadow:0 0 calc(var(--open) * 30px) rgba(255,200,170,.95); opacity:calc(.35 + var(--open) * .65)}
+.door .sign{position:absolute; left:8px; top:6px; writing-mode:vertical-rl; font-family:var(--f-mono); font-weight:600; font-size:8px; letter-spacing:.32em; color:var(--rose); opacity:var(--open)}
+.door .leaf{position:absolute; inset:0; transform-origin:right center; transform:rotateY(calc(var(--open) * -112deg)); background:linear-gradient(90deg,#f6f3ec,#e6e1d6); border:1px solid rgba(0,0,0,.08)}
+.door .leaf::after{content:""; position:absolute; left:4px; top:50%; width:3px; height:3px; border-radius:50%; background:#9a937f}
+/* Enter sits at column 5, rows 1-2: its front face is at x≈481px, y≈210px on the keyboard */
+.spill{position:absolute; left:421px; top:210px; width:120px; height:112px; transform:translateZ(.6px); clip-path:polygon(34% 0,66% 0,100% 100%,0 100%);
+  background:linear-gradient(180deg,rgba(255,236,205,.95),rgba(255,196,220,.35) 60%,rgba(255,196,220,0)); opacity:var(--open)}
+.bf-who{position:absolute; left:481px; top:calc(228px + (1 - var(--open)) * 78px); width:18px; height:46px; margin:-46px 0 0 -9px; transform-origin:50% 100%;
+  transform:rotateZ(calc(var(--rb) * -1)) rotateX(calc(var(--ra) * -1))}
+.bf-who svg{display:block; width:100%; height:100%; fill:var(--ink)}
+.bf-who .sh{position:absolute; left:-4px; right:-4px; bottom:-3px; height:5px; border-radius:50%; background:rgba(20,25,40,.28); filter:blur(1.5px)}
+
+/* the brief, typed on paper that feeds out of the slot at the back of the keyboard */
+.paper{position:absolute; left:40px; bottom:calc(100% - 10px); width:214px; padding:12px 14px 12px; transform-origin:50% 100%; transform:rotateZ(calc(var(--rb) * -1)) rotateX(calc(var(--ra) * -1));
+  font-family:var(--f-mono); font-size:10.5px; line-height:1.45; color:var(--ink); background:#fbf8f1 repeating-linear-gradient(180deg,transparent 0 18px,rgba(29,31,61,.05) 18px 19px);
+  border-radius:3px 3px 0 0; box-shadow:0 18px 30px rgba(30,60,120,.18), 0 1px 0 rgba(0,0,0,.05)}
+.paper p{margin:0}
+.paper .bf-ph{display:flex; justify-content:space-between; padding-bottom:6px; margin-bottom:6px; border-bottom:1px dashed rgba(29,31,61,.25); font-size:9.5px; letter-spacing:.12em; color:rgba(29,31,61,.6)}
+.paper .pg{color:rgba(29,31,61,.55)}
+.paper .pq{font-weight:600; transition:color .4s}
+.paper .pq u{display:inline-block; width:6px; height:11px; margin-left:3px; vertical-align:-2px; background:var(--lime); text-decoration:none; animation:blink 1s steps(1) infinite}
+#brief.solved .paper .pq{color:var(--rose)} #brief.solved .paper .pq u{display:none}
+.paper .pl{display:grid; grid-template-columns:20px 1fr; max-height:0; opacity:0; overflow:hidden; transition:max-height .5s, opacity .4s, background-color .3s, margin .5s; border-radius:3px}
+.paper .pl i{font-style:normal; color:var(--rose)}
+.paper .pl.on{max-height:3.2em; opacity:1; margin-top:4px}
+.paper .pl.hl{background:rgba(255,143,192,.22)}
+.paper .pr{font-weight:600; color:var(--rose)}
+
+@media (max-width:760px){
+  #brief.bf0{height:240vh; --a:50deg; --b:-12deg}
+  .bf0-pin{padding-bottom:92px}
+  .bf0-grid{grid-template-columns:minmax(0,1fr); grid-template-rows:auto minmax(0,1fr); align-items:stretch; gap:0; padding-top:14px}
+  .bf0-h{font-size:clamp(26px,7.4vw,34px); margin-top:12px}
+  .bf0-then{margin-top:10px; font-size:14px}
+  #brief .tz-status{margin-top:12px}
+  .bf0-stage{height:auto; min-height:0}
+  .bf0-hint{display:none}
+  .bf-node{left:50%}
+}
+@media (prefers-reduced-motion:reduce){
+  #brief.bf0{height:auto}
+  .bf0-pin{position:relative; height:auto; padding-block:calc(var(--hud) + 40px) 80px}
+  .bf0-stage{height:480px}
+  .kk .fl{animation:none}
+}
