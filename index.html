@@ -7,7 +7,7 @@
 <title>XINH.OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <script type="module" src="/src/main.ts"></script>
 </head>
 <body>
@@ -43,7 +43,9 @@
       <feFlood flood-color="#e5177f" flood-opacity=".28"/><feComposite in2="o" operator="in" result="sh"/>
       <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/><feMergeNode in="s2"/></feMerge>
     </filter>
-    <linearGradient id="gThread" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6f432"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#b9bdc9"/></linearGradient>
+    <linearGradient id="gThread" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fc0"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#b9bdc9"/></linearGradient>
+    <linearGradient id="gPk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3ee"/><stop offset=".45" stop-color="#ff8fc0"/><stop offset="1" stop-color="#d9548f"/></linearGradient>
+    <linearGradient id="gIr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".3" stop-color="#ffd3e4"/><stop offset=".5" stop-color="#8d92a2"/><stop offset=".62" stop-color="#cfe3f7"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
     <linearGradient id="gC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#d4d7e0"/><stop offset=".5" stop-color="#5a5e6e"/><stop offset=".62" stop-color="#e6e8ee"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
     <linearGradient id="gH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#d9ddea"/><stop offset=".55" stop-color="#a9b0c6"/><stop offset="1" stop-color="#eef0f6"/></linearGradient>
     <linearGradient id="gL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2ffc4"/><stop offset=".5" stop-color="#c6ff1f"/><stop offset="1" stop-color="#7fc400"/></linearGradient>
@@ -96,19 +98,42 @@
 <div class="boot" id="boot" role="dialog" aria-modal="true" aria-labelledby="bootTitle">
   <div class="boot-top"><span>XINH.OS <b>v2026</b> · HO CHI MINH CITY</span><span class="boot-load" aria-hidden="true"><span id="bootPct">BOOTING EM XINH… 0%</span><span class="bar"><i id="bootBar"></i></span></span><span id="bootClock"></span></div>
   <div class="bx">
+    <div class="sky" aria-hidden="true"><i class="cl c1"></i><i class="cl c2"></i><i class="cl c3"></i><i class="cl c4"></i><i class="cl c5"></i><i class="cl c6"></i></div>
     <h1 class="bx-word" id="bootTitle" aria-label="Em Xinh say hi">
       <span class="bx-w1" aria-hidden="true">Em Xinh</span>
       <span class="bx-w2" aria-hidden="true">say hi</span>
     </h1>
-    <figure class="bx-pic">
-      <div class="win">
-        <div class="win-bar"><b>SAY_HI.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
-        <div class="bx-shot"><div class="ph-frame" data-portrait="hi.png"></div>
-          <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span></div>
-        </div>
+    <div class="stage" id="stage">
+      <div class="orbit" aria-hidden="true">
+        <span class="ob" style="--a:0deg; --d:1.2"><svg viewBox="0 0 64 64"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z" fill="url(#gIr)" stroke="#fff" stroke-width="1"/></svg></span>
+        <span class="ob fold" style="--a:30deg; --d:.8"><i></i></span>
+        <span class="ob tagx" style="--a:62deg; --d:1"><b>CLICK ME</b></span>
+        <span class="ob" style="--a:92deg; --d:1.4"><svg viewBox="0 0 64 64"><path d="M32 56 C13 42 5 32 5 21 C5 12 12 6 20 6 C26 6 30 10 32 15 C34 10 38 6 44 6 C52 6 59 12 59 21 C59 32 51 42 32 56Z" fill="url(#gPk)"/><ellipse cx="20" cy="17" rx="7" ry="4" fill="#fff" opacity=".7" transform="rotate(-30 20 17)"/></svg></span>
+        <span class="ob mini" style="--a:124deg; --d:.9"><i>BRIEF.DOC</i><em></em><em></em><em></em></span>
+        <span class="ob ring" style="--a:152deg; --d:1.1"></span>
+        <span class="ob chk" style="--a:182deg; --d:1"><b>✓</b> Done</span>
+        <span class="ob" style="--a:212deg; --d:.7"><svg viewBox="0 0 64 64"><path d="M14 6 L50 36 L33 38 L42 58 L35 61 L26 41 L14 52Z" fill="#fff" stroke="#0e0f14" stroke-width="3" stroke-linejoin="round"/></svg></span>
+        <span class="ob fold cream" style="--a:240deg; --d:1.2"><i></i></span>
+        <span class="ob cal" style="--a:270deg; --d:.9"><b>Q4</b><i>PLAN</i></span>
+        <span class="ob" style="--a:300deg; --d:1.3"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="url(#gPk)"/><ellipse cx="23" cy="21" rx="9" ry="5" fill="#fff" opacity=".65" transform="rotate(-25 23 21)"/></svg></span>
+        <span class="ob chat" style="--a:332deg; --d:1"><i></i><i></i><i></i></span>
       </div>
-      <span class="bye" aria-hidden="true">hi hi!</span>
-    </figure>
+      <figure class="bx-pic">
+        <div class="win">
+          <div class="win-bar"><b>SAY_HI.JPG</b><span class="ctl"><i></i><i></i><i></i></span></div>
+          <div class="bx-shot"><div class="ph-frame" data-portrait="hi.png"></div>
+            <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span></div>
+          </div>
+        </div>
+        <span class="bye" aria-hidden="true">hi hi!</span>
+      </figure>
+    </div>
+    <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+    <div class="bx-tools">
+      <button type="button" class="grav" id="gravBtn" aria-pressed="true"><i aria-hidden="true"></i><span class="en">Gravity</span><span class="vi">Trọng lực</span></button>
+      <button type="button" class="rst" id="bubReset"><span class="en">Reset</span><span class="vi">Xếp lại</span></button>
+      <p class="hint"><span class="en">Tap the objects, toss the letters.</span><span class="vi">Bấm thử từng vật thể, kéo thả từng chữ.</span></p>
+    </div>
     <div class="bx-foot">
       <p class="bh-line"><span class="en">Every project is a game. <b>I play it to the last level.</b></span><span class="vi">Dự án nào cũng là một game. <b>Xinh chơi tới level cuối.</b></span></p>
       <div class="bh-cta">
