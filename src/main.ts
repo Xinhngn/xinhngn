@@ -55,7 +55,7 @@ import './styles.css';
   }
   function portrait(name){
     var src = IMAGES[name] || IMAGES['portrait.png'];
-    if (src) return '<div class="ph"><img src="' + esc(src) + '" alt="Xinh Nguyễn"></div>';
+    if (src) return '<div class="ph"><img src="' + esc(src) + '" alt="Xinh Nguyễn" loading="lazy" decoding="async"></div>';
     return '<div class="mono-pt"><svg class="lq" viewBox="0 0 300 300" aria-hidden="true"><text x="150" y="236" text-anchor="middle" font-size="260" fill="url(#gIrid)" stroke-width="6" filter="url(#liquid)">x</text></svg><span class="cap">XINH NGUYỄN</span>' + (EDIT ? '<span class="slot">' + esc(name) + '</span>' : '') + '</div>';
   }
   function hydrateImgs(){ $$('[data-portrait]').forEach(function(el){ el.innerHTML = portrait(el.dataset.portrait); }); }
@@ -85,6 +85,22 @@ import './styles.css';
   ];
   /* One benchmark for every project: four kinds of work, five parts of owning it.
      1 = I led it, 2 = part of the team, 0 = not in scope. Not every capability applies to every project. */
+  /* one rAF per scroll for every pinned scene: separate listeners read and wrote layout in turn, which forced
+     a layout per scene per scroll event and froze phones */
+  var scrollFns = [], scrollQueued = false;
+  function onScrollFrame(fn){
+    scrollFns.push(fn);
+    if (scrollFns.length > 1) return;
+    window.addEventListener('scroll', function(){
+      if (scrollQueued) return; scrollQueued = true;
+      requestAnimationFrame(function(){ scrollQueued = false; for (var i = 0; i < scrollFns.length; i++) scrollFns[i](); });
+    }, {passive:true});
+  }
+  /* looping CSS animations (spinners, blinkers, the ticker) only run in sections on screen */
+  if ('IntersectionObserver' in window){
+    var offIO = new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.toggleAttribute('data-off', !e.isIntersecting); }); }, {rootMargin:'100px 0px'});
+    document.querySelectorAll('main section, .band, #player, .boot').forEach(function(el){ offIO.observe(el); });
+  }
   var COLS = [
     {k:'imc', g:'type', t:{en:'IMC campaign', vi:'Chiến dịch IMC'},
      d:{en:'Integrated campaigns and launches: one big idea carried across paid, owned, earned, KOL and on-ground, from plan to report.', vi:'Chiến dịch tích hợp và ra mắt: một ý tưởng lớn chạy xuyên paid, owned, earned, KOL và on-ground, từ kế hoạch đến báo cáo.'}},
@@ -548,7 +564,7 @@ import './styles.css';
         if (go && hwIdx < 4) hwGo(hwIdx + 1); else drawHow(true);
       };
       hwStage.addEventListener('pointerup', end); hwStage.addEventListener('pointercancel', end);
-      window.addEventListener('scroll', function(){ drawHow(); }, {passive:true});
+      onScrollFrame(drawHow);
       window.addEventListener('resize', function(){ drawHow(true); });
     }
   }
@@ -619,6 +635,7 @@ import './styles.css';
      Scroll pulls the camera through the "0" of "20 brands" into the brand wall; the wall settles
      as one layout, then the camera dives into its centre tile, which opens into what Xinh runs and
      how far she takes it. JS only sets transforms/opacity from one smoothed progress value. */
+  var narrowPf = window.matchMedia('(max-width:760px)').matches;
   var PF_IDS = ['msb', 'vib', 'cake', 'poca', 'digimi', 'duytan', 'cindy'];
   var pf = $('#pf'), pfStage = $('#pfStage'), pfA = $('#pfA'), pfB = $('#pfB'), pfC = $('#pfC'), pfZ = 0, pfAnim = false, pfGeo = null;
   function pfCase(id){ for (var i = 0; i < CASES.length; i++) if (CASES[i].id === id) return CASES[i]; return null; }
@@ -630,24 +647,23 @@ import './styles.css';
     tiles.splice(4, 0, '<div class="pz-core" id="pfCore"><span class="pz-m">LV.3 · ' + (vi ? 'Năng lực' : 'Capabilities') + '</span><b>' + (vi ? 'Xinh chạy gì,<br>gánh tới đâu' : 'What I run,<br>how far I take it') + '</b></div>');
     tiles.push('<div class="pz-t pz-more"><b>+13</b><span class="pz-tl">' + (vi ? 'thương hiệu khác trong portfolio' : 'more brands in the portfolio') + '</span></div>');
     $('#pfGrid').innerHTML = tiles.join('');
-    /* inside the tile: one dot matrix instead of rows of chips. Brands across, capabilities down;
-       a filled dot = Xinh led it, a ring = with the team. Brand names appear once. */
-    var SHORT = {poca:'Poca', digimi:'Digimi', duytan:'Duy Tân', cindy:'Cindy'};
-    var brands = PF_IDS.map(pfCase).filter(Boolean);
-    var head = '<span class="mx3-h"></span>' + brands.map(function(c, j){ return '<a class="mx3-b" href="#case-' + c.id + '" style="--c:' + j + '"><span>' + esc(SHORT[c.id] || c.brand) + '</span></a>'; }).join('');
-    var r = 0;
-    var rows = function(g, label){
-      return '<p class="mx3-g">' + label + '</p>' + COLS.filter(function(c){ return c.g === g; }).map(function(col){
-        var i = colIdx(col.k); r++;
-        return '<p class="mx3-l"><i>' + ('0' + (i + 1)).slice(-2) + '</i>' + esc(L(col.t)) + '</p>' + brands.map(function(c, j){
-          var v = (MX[c.id] || [])[i] || 0;
-          return '<span class="mx3-d v' + v + '" style="--c:' + j + ';--r:' + r + '"' + (v ? ' title="' + esc(c.brand) + ' · ' + (v === 1 ? (vi ? 'Xinh dẫn dắt' : 'Led by Xinh') : (vi ? 'Cùng team' : 'With the team')) + '"' : '') + '><i></i></span>';
-        }).join('');
-      }).join('');
-    };
-    pfC.innerHTML = '<div class="wrap pz-cin"><div class="mx3" style="--n:' + brands.length + '">' + head +
-      rows('type', vi ? 'Xinh chạy gì' : 'What I run') + rows('own', vi ? 'Xinh gánh tới đâu' : 'How far I take it') + '</div>' +
-      '<p class="pz-key"><span><i class="mx3-k v1"></i>' + (vi ? 'Xinh dẫn dắt' : 'Led by Xinh') + '</span><span><i class="mx3-k v2"></i>' + (vi ? 'Cùng team' : 'With the team') + '</span><a class="more-link" href="#skills">' + (vi ? 'Xem từng năng lực, kèm bằng chứng' : 'Every capability, with proof') + ' →</a></p></div>';
+    /* inside the tile: the nine capabilities on their own, not split by brand (Xinh: every one is a strength).
+       What I run = four glossy cards; how far I take it = one chrome rail from pitch to sign-off. */
+    var SPH = ['pearl', 'pink', 'peach', 'lilac'];
+    var cards = COLS.filter(function(c){ return c.g === 'type'; }).map(function(col, j){
+      var i = colIdx(col.k);
+      return '<a class="sk-c" href="#skills" data-skill="' + col.k + '" style="--j:' + j + '"><i class="sk-o ' + SPH[j % 4] + '" aria-hidden="true"></i><span class="sk-n">' + ('0' + (i + 1)).slice(-2) + '</span><b>' + esc(L(col.t)) + '</b><span class="sk-d">' + esc(L(col.d)) + '</span></a>';
+    }).join('');
+    var rail = COLS.filter(function(c){ return c.g === 'own'; }).map(function(col, j){
+      var i = colIdx(col.k);
+      return '<li class="sk-s" style="--j:' + j + '"><i class="sk-dot" aria-hidden="true"></i><span class="sk-n">' + ('0' + (i + 1)).slice(-2) + '</span><b>' + esc(L(col.t)) + '</b><span class="sk-d">' + esc(L(col.d)) + '</span></li>';
+    }).join('');
+    pfC.innerHTML = '<div class="wrap pz-cin sk">' +
+      '<p class="sk-k">LV.3 · ' + (vi ? 'Năng lực' : 'Capabilities') + '</p>' +
+      '<h3 class="sk-h">' + (vi ? 'Xinh chạy gì, <em>gánh tới đâu.</em>' : 'What I run, <em>how far I take it.</em>') + '</h3>' +
+      '<p class="sk-g">' + (vi ? 'Xinh chạy gì' : 'What I run') + '</p><div class="sk-cards">' + cards + '</div>' +
+      '<p class="sk-g">' + (vi ? 'Xinh gánh tới đâu · từ pitch đến nghiệm thu' : 'How far I take it · from pitch to sign-off') + '</p><ol class="sk-rail">' + rail + '</ol>' +
+      '<p class="sk-f"><a class="more-link" href="#skills">' + (vi ? 'Xem từng năng lực, kèm dự án' : 'Every capability, with projects') + ' →</a></p></div>';
     pfGeo = null; drawProof(true);
   }
   function pfMeasure(){
@@ -672,11 +688,11 @@ import './styles.css';
     if (Math.abs(target - pfZ) < 0.0004) pfZ = target; else if (!pfAnim){ pfAnim = true; requestAnimationFrame(pfFrame); }
     var g = pfGeo, k1 = clamp(pfZ / 0.34, 0, 1), k2 = clamp((pfZ - 0.56) / 0.3, 0, 1);
     /* 1 · through the 0 */
-    var sA = Math.pow(70, k1 * k1);
+    var sA = Math.min(Math.pow(70, k1 * k1), narrowPf ? 24 : 70);
     pfA.style.transformOrigin = g.ax.toFixed(1) + 'px ' + g.ay.toFixed(1) + 'px';
     pfA.style.transform = 'scale(' + sA.toFixed(3) + ')';
     pfA.style.opacity = (1 - clamp((k1 - 0.55) / 0.3, 0, 1)).toFixed(3);
-    pfA.style.visibility = k1 >= 0.95 ? 'hidden' : '';
+    pfA.style.visibility = k1 >= 0.86 ? 'hidden' : '';
     $$('.pz-cap,.pf-yr', pfA).forEach(function(el){ el.style.opacity = (1 - clamp(k1 / 0.3, 0, 1)).toFixed(3); });
     /* 2 · the wall: grows in behind the 0, drifts, then dives into the centre tile */
     var drift = clamp((pfZ - 0.34) / 0.22, 0, 1);
@@ -694,7 +710,7 @@ import './styles.css';
     pfC.style.setProperty('--out', clamp((pfZ - 0.9) / 0.1, 0, 1).toFixed(3));
     pf.setAttribute('data-beat', k2 >= 1 ? 3 : k1 >= 1 ? 2 : 1);
   }
-  window.addEventListener('scroll', function(){ drawProof(); }, {passive:true});
+  onScrollFrame(drawProof);
   window.addEventListener('resize', function(){ pfGeo = null; drawProof(true); });
 
   /* LV.5 · what you get, as one pinned scene (ref: a statement on a sky bloom, ticket cards fly
@@ -718,7 +734,7 @@ import './styles.css';
     vx.style.setProperty('--c', ph(0.5, 0.7));
     vx.style.setProperty('--d', ph(0.78, 0.96));
   }
-  window.addEventListener('scroll', function(){ drawValue(); }, {passive:true});
+  onScrollFrame(drawValue);
   window.addEventListener('resize', function(){ drawValue(true); });
   drawValue(true);
 
@@ -737,6 +753,7 @@ import './styles.css';
   ].map(function(a){ return {el: document.getElementById(a[0]), c: a[1].map(function(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; })}; }).filter(function(a){ return a.el; });
   var atmoKey = '';
   function mixC(a, b, k){ return 'rgb(' + [0,1,2].map(function(i){ return Math.round(a[i] + (b[i] - a[i]) * k); }).join(',') + ')'; }
+  var atmoEl = null;
   function drawAtmo(){
     if (curView !== 'story' || !ATMO.length) return;
     var yc = window.innerHeight / 2, i = 0, f = 0;
@@ -746,9 +763,11 @@ import './styles.css';
     else if (f < 0.25 && ATMO[i - 1]){ b = ATMO[i - 1].c; k = sm((0.25 - f) / 0.25) * 0.5; }
     var v = [0,1,2].map(function(n){ return mixC(a[n], b[n], k); }), key = v.join();
     if (key === atmoKey) return; atmoKey = key;
-    root.style.setProperty('--at0', v[0]); root.style.setProperty('--at1', v[1]); root.style.setProperty('--at2', v[2]);
+    /* set on #atmo itself: a custom property on <html> would restyle the whole document on every scroll */
+    var at = atmoEl || (atmoEl = $('#atmo')); if (!at) return;
+    at.style.setProperty('--at0', v[0]); at.style.setProperty('--at1', v[1]); at.style.setProperty('--at2', v[2]);
   }
-  window.addEventListener('scroll', function(){ drawAtmo(); }, {passive:true});
+  onScrollFrame(drawAtmo);
   window.addEventListener('resize', function(){ drawAtmo(); });
 
   function renderMatrix(){
@@ -1566,14 +1585,18 @@ import './styles.css';
   bootEl.addEventListener('pointermove', function(e){ if (reduce || !finePointer) return; var st = $('#stage'); if (!st) return;
     st.style.setProperty('--px', ((e.clientX / window.innerWidth) - .5).toFixed(3)); st.style.setProperty('--py', ((e.clientY / window.innerHeight) - .5).toFixed(3)); });
   /* every object reacts; the portrait cycles through Xinh's photos like changing expressions */
-  var FACES = [['hi.png', 'hi hi!'], ['go.png', "let's go!"], ['work.png', 'on it!'], ['chill.png', 'chill~']], face = 0;
+  var FACES = [['assets/xinh-cut-hi.webp', 'hi hi!'], ['assets/xinh-cut-work.webp', 'on it!']], face = 0;
   bootEl.addEventListener('click', function(e){
     var ob = e.target.closest('.ob');
     if (ob){ ob.classList.remove('hit'); void ob.offsetWidth; ob.classList.add('hit'); }
     var pic = e.target.closest('.bx-pic');
-    if (pic){ face = (face + 1) % FACES.length; var fr = $('.bx-pic .ph-frame'); if (fr){ fr.dataset.portrait = FACES[face][0]; fr.innerHTML = portrait(FACES[face][0]); } }
+    if (pic){ face = (face + 1) % FACES.length; var me = $('.bx-pic .o-me'); if (me){ me.classList.remove('swap'); void me.offsetWidth; me.src = FACES[face][0]; me.classList.add('swap'); } }
     if (pic || (ob && ob.classList.contains('tagx'))){ var by = $('.bx-pic .bye'); if (by){ by.textContent = FACES[face][1]; by.classList.remove('pop'); void by.offsetWidth; by.classList.add('pop'); } }
   });
+  /* the foot height decides where the cut-out stands on phones */
+  function bootFoot(){ var f = $('.bx17 .bx-foot'), b = $('.bx17'); if (f && b) b.style.setProperty('--fh', f.offsetHeight + 'px'); }
+  bootFoot(); window.addEventListener('resize', bootFoot);
+  setTimeout(function(){ var im = new Image(); im.src = FACES[1][0]; }, 2500);
 
   function chooseMode(m){
     if (booted) return; booted = true;
