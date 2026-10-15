@@ -113,8 +113,6 @@ import './styles.css';
     duytan: [1,2,0,2, 1,2,1,0,0],
     cindy:  [1,2,0,1, 1,1,1,0,0]
   };
-  var CATS = [{k:'all', t:{en:'All', vi:'Tất cả'}}, {k:'bank', t:{en:'Banking & fintech', vi:'Ngân hàng & fintech'}}, {k:'fmcg', t:{en:'Consumer', vi:'Tiêu dùng'}}]
-    .concat(COLS.filter(function(c){ return c.g === 'type' || c.k === 'pitch'; }).map(function(c){ return {k:c.k, t:c.t}; }));
   /* Five core cases (story carousel, in this order) + other projects that stay in the Work archive.
      title: the case-sheet heading; t: the short tagline on cards and tiles; out: the outcome line (team vs. personal stays explicit). */
   var CASES = [
@@ -267,33 +265,135 @@ import './styles.css';
     var a = e.target.closest && e.target.closest('#track .ac[data-ac]'); if (!a || a.classList.contains('on')) return;
     accHover = setTimeout(function(){ if (Date.now() > accLock && a.matches(':hover')) accSet(+a.dataset.ac); }, 260);
   });
-  function tileHTML(c){
-    return '<a class="wt ' + (c.size || '') + '" href="#case-' + c.id + '" data-case="' + c.id + '" data-cats="' + c.cats.join(' ') + '" data-cursor="OPEN">' +
-      '<div class="pic">' + cover(c) + (IMAGES[c.imgs[0]] ? '<span class="bt"><span>' + esc(c.brand) + '</span></span>' : '') + '<span class="ov">' + (lang === 'vi' ? 'XEM CHI TIẾT ↗' : 'OPEN CASE ↗') + '</span></div>' +
-      '<div class="cap"><h3>' + both(c.t) + '</h3><span class="tg">' + esc(c.meta) + (c.period && c.meta.indexOf(c.period) < 0 && c.meta.indexOf(c.period.toUpperCase()) < 0 ? ' · ' + esc(c.period) : '') + (c.res[0] && !c.res[0].empty && !c.res[0].line ? '<span class="big-n">' + esc(c.res[0].b) + '</span>' : '') + '</span></div></a>';
-  }
-  var filterK = 'all';
+  /* =====================================================================
+     WORK (v15g): an editorial campaign index (ref: OUS Worldwide), sorted two ways:
+     by kind of work or by client. A row opens a glass intro card; "details" opens an editorial page
+     (ref: Stüssy "All about…") with text columns and a collage of image slots.
+     Facts come only from the approved brief; anything not confirmed shows as a "+ Xinh to add" slot.
+     ===================================================================== */
+  var TY = [
+    {k:'imc', t:{en:'IMC & launch', vi:'IMC & ra mắt'}, d:COLS[0].d},
+    {k:'awo', t:{en:'Social & always-on', vi:'Social & always-on'}, d:COLS[1].d},
+    {k:'act', t:{en:'Activation & event', vi:'Activation & sự kiện'}, d:COLS[2].d},
+    {k:'prod', t:{en:'Production', vi:'Sản xuất'}, d:COLS[3].d},
+    {k:'pitch', t:{en:'Pitch & proposal', vi:'Pitch & proposal'}, d:COLS[4].d},
+    {k:'tbd', t:{en:'To be classified', vi:'Cần phân loại'}, d:{en:'Projects in the portfolio list whose kind of work Xinh will confirm.', vi:'Dự án có trong danh sách portfolio, Xinh sẽ xác nhận tính chất sau.'}}
+  ];
+  var CLIENTS = [
+    {k:'msb', n:'MSB', ind:{en:'Banking', vi:'Ngân hàng'}},
+    {k:'vib', n:'VIB', ind:{en:'Banking', vi:'Ngân hàng'}, note:{en:'One pitch led to multiple projects.', vi:'Từ một lần pitch mở ra nhiều dự án.'}},
+    {k:'cake', n:'Cake by VPBank', ind:{en:'Digital bank', vi:'Ngân hàng số'}},
+    {k:'digimi', n:'Digimi × BVBank', ind:{en:'Digital banking', vi:'Ngân hàng số'}},
+    {k:'tpbank', n:'TPBank', ind:{en:'Banking', vi:'Ngân hàng'}},
+    {k:'ncb', n:'NCB', ind:{en:'Banking', vi:'Ngân hàng'}},
+    {k:'poca', n:'Poca', ind:{en:'FMCG · snacks', vi:'FMCG · snack'}},
+    {k:'masan', n:'Masan', ind:{en:'FMCG · brands in the same group', vi:'FMCG · các nhãn cùng tập đoàn'}},
+    {k:'meatdeli', n:'MEATDeli', ind:{en:'FMCG', vi:'FMCG'}},
+    {k:'duytan', n:'Nhựa Duy Tân', ind:{en:'Consumer', vi:'Tiêu dùng'}},
+    {k:'cindy', n:'Cindy Bloom', ind:{en:'Consumer', vi:'Tiêu dùng'}}
+  ];
+  /* c: client key · cs: full case study id · n: campaign name · y: year ('' = to fill) · ty: kinds of work
+     ctx / me / team: from the brief (null = to fill) · res: results tied to this campaign only · out: outcome line */
+  var CS = {}; CASES.forEach(function(c){ CS[c.id] = c; });
+  var JOBS = [
+    {id:'msb-awo', c:'msb', cs:'msb', n:{en:'Social Always On', vi:'Social Always On'}, y:'2025–2027', ty:['awo','pitch','prod'],
+     ctx:CS.msb.ask, role:FACTS.msb.role, me:CS.msb.me, team:CS.msb.team, out:CS.msb.out, res:[{b:'3 → 5', l:{en:'years of partnership', vi:'năm hợp tác'}}]},
+    {id:'vib-ivy', c:'vib', cs:'vib', n:{en:'VIB Ivy Card', vi:'VIB Ivy Card'}, y:'', ty:['pitch','imc'], ctx:CS.vib.ask, role:FACTS.vib.role, me:CS.vib.me, team:CS.vib.team, out:CS.vib.out},
+    {id:'vib-ats', c:'vib', cs:'vib', n:{en:'Anh Trai Say Hi', vi:'Anh Trai Say Hi'}, y:'', ty:['act'],
+     me:{en:'Led pitching and management for Anh Trai Say Hi.', vi:'Dẫn pitch và quản lý Anh Trai Say Hi.'}},
+    {id:'vib-btbt', c:'vib', cs:'vib', n:{en:'Bộ Tứ Báo Thủ · video', vi:'Bộ Tứ Báo Thủ · video'}, y:'', ty:['prod']},
+    {id:'vib-cashless', c:'vib', cs:'vib', n:{en:'Ngày hội không tiền mặt', vi:'Ngày hội không tiền mặt'}, y:'', ty:['act']},
+    {id:'vib-max', c:'vib', cs:'vib', n:{en:'Sound Notification for MAX', vi:'Sound Notification for MAX'}, y:'', ty:['tbd']},
+    {id:'cake-social', c:'cake', cs:'cake', n:{en:'Social retainer pitch', vi:'Pitch social retainer'}, y:'', ty:['pitch','awo'],
+     ctx:CS.cake.ask, role:FACTS.cake.role, me:CS.cake.me, team:CS.cake.team, out:CS.cake.out},
+    {id:'digimi-awo', c:'digimi', cs:'digimi', n:{en:'Social AWO', vi:'Social AWO'}, y:'', ty:['awo','prod'], ctx:CS.digimi.ask, team:CS.digimi.team},
+    {id:'digimi-bday', c:'digimi', cs:'digimi', n:{en:'Tròn một tuổi – Đầy Thank Xuân', vi:'Tròn một tuổi – Đầy Thank Xuân'}, y:'', ty:['act','imc'],
+     res:[{b:'500+', l:{en:'event attendees', vi:'người tham dự sự kiện'}}, {b:'450', l:{en:'Digimi accounts opened offline', vi:'tài khoản Digimi mở offline'}}, {b:'1.5M', l:{en:'online reach', vi:'reach online'}}]},
+    {id:'digimi-truck', c:'digimi', cs:'digimi', n:{en:'Coffee Truck', vi:'Coffee Truck'}, y:'', ty:['act'], me:CS.digimi.me,
+     res:[{b:'~2,000', l:{en:'booth visitors', vi:'lượt ghé booth'}}, {b:'268', l:{en:'sign-ups', vi:'đăng ký'}}, {b:'140', l:{en:'conversions', vi:'chuyển đổi'}}]},
+    {id:'digimi-csr', c:'digimi', cs:'digimi', n:{en:'CSR · Vì một thế hệ vươn tầm', vi:'CSR · Vì một thế hệ vươn tầm'}, y:'', ty:['tbd']},
+    {id:'tpbank-concert', c:'tpbank', n:{en:'Em Xinh Say Hi Concert 1', vi:'Em Xinh Say Hi Concert 1'}, y:'', ty:['pitch','act'],
+     role:{en:'Pitching → execution', vi:'Từ pitching đến triển khai'}},
+    {id:'ncb-awo', c:'ncb', n:{en:'Social Always On 2025', vi:'Social Always On 2025'}, y:'2025', ty:['awo'],
+     me:{en:'Ran the initial phase. Saw the client’s problem had not been clarified, stepped in to clarify it, brought the project back on track, then handed it back to Account.', vi:'Chạy giai đoạn đầu. Nhận ra vấn đề của khách hàng chưa được làm rõ, vào cuộc làm rõ, đưa dự án về đúng hướng rồi bàn giao lại cho Account.'}},
+    {id:'poca-launch', c:'poca', cs:'poca', n:{en:'Poca Yummy · QUẨY-VERSE launch', vi:'Poca Yummy · ra mắt QUẨY-VERSE'}, y:'2023', ty:['imc','prod'],
+     ctx:CS.poca.ask, role:FACTS.poca.role, me:CS.poca.me, out:CS.poca.out, res:CS.poca.res, src:CS.poca.src},
+    {id:'poca-tgvn', c:'poca', cs:'poca', n:{en:'Thế giới vui nhộn', vi:'Thế giới vui nhộn'}, y:'', ty:['tbd']},
+    {id:'poca-magic', c:'poca', cs:'poca', n:{en:'Poca – Thế giới pháp thuật vui nhộn', vi:'Poca – Thế giới pháp thuật vui nhộn'}, y:'', ty:['tbd']},
+    {id:'masan-chante', c:'masan', n:{en:'Chanté · Social Always On', vi:'Chanté · Social Always On'}, y:'', ty:['awo']},
+    {id:'masan-vihawa', c:'masan', n:{en:'Vihawa · Social Campaign 2025', vi:'Vihawa · Social Campaign 2025'}, y:'2025', ty:['awo']},
+    {id:'masan-wakeup', c:'masan', n:{en:'Wake-Up Tây Nguyên · Social Campaign', vi:'Wake-Up Tây Nguyên · Social Campaign'}, y:'', ty:['awo']},
+    {id:'meatdeli-q4', c:'meatdeli', n:{en:'Social Campaign Q4.2025', vi:'Social Campaign Q4.2025'}, y:'2025', ty:['pitch','awo'],
+     role:{en:'Pitching, then handed to Account', vi:'Pitching, sau đó bàn giao cho Account'}},
+    {id:'duytan-tet', c:'duytan', cs:'duytan', n:{en:'Tết 2025', vi:'Tết 2025'}, y:'2025', ty:['pitch','awo','prod'],
+     role:FACTS.duytan.role, me:CS.duytan.me, out:{en:'Pitch won, with the team.', vi:'Thắng pitch, cùng team.'}},
+    {id:'cindy-launch', c:'cindy', cs:'cindy', n:{en:'Launch campaign', vi:'Chiến dịch ra mắt'}, y:'', ty:['imc','pitch','prod'], role:FACTS.cindy.role, me:CS.cindy.me}
+  ];
+  var CL = {}; CLIENTS.forEach(function(c){ CL[c.k] = c; });
+  var TYK = {}; TY.forEach(function(t){ TYK[t.k] = t; });
+  var wxBy = 'type';
+  try{ wxBy = localStorage.getItem('xinhos-wx') || 'type'; }catch(e){}
+  function toFill(txt){ return '<span class="fill">+ ' + esc(txt) + '</span>'; }
   function renderWork(){
-    $('#filters').innerHTML = CATS.map(function(f){
-      var n = f.k === 'all' ? CASES.length : CASES.filter(function(c){ return c.cats.indexOf(f.k) > -1; }).length;
-      return '<button class="chip" type="button" data-f="' + f.k + '" aria-pressed="' + (f.k === filterK ? 'true' : 'false') + '">' + esc(L(f.t)) + ' <span class="ct">' + n + '</span></button>';
+    var host = $('#wxIndex'); if (!host) return; var vi = lang === 'vi';
+    $('#wxCount').innerHTML = '<b>' + JOBS.length + '</b> ' + (vi ? 'chiến dịch' : 'campaigns') + ' · <b>' + CLIENTS.length + '</b> ' + (vi ? 'khách hàng' : 'clients');
+    $$('#wxSw [data-wx]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.wx === wxBy ? 'true' : 'false'); });
+    var groups = wxBy === 'type'
+      ? TY.map(function(t){ return {id:t.k, name:L(t.t), sub:L(t.d), jobs:JOBS.filter(function(j){ return j.ty.indexOf(t.k) > -1; })}; })
+      : CLIENTS.map(function(c){ return {id:c.k, name:c.n, sub:L(c.ind) + (c.note ? ' · ' + L(c.note) : ''), jobs:JOBS.filter(function(j){ return j.c === c.k; })}; });
+    host.innerHTML = groups.filter(function(g){ return g.jobs.length; }).map(function(g, gi){
+      return '<section class="wx-g" id="wx-' + g.id + '"><header class="wx-gh"><span class="wx-gn">' + ('0' + (gi + 1)).slice(-2) + '</span><h3>' + esc(g.name) + '<sup>(' + g.jobs.length + ')</sup></h3><p>' + esc(g.sub) + '</p></header>' +
+        '<ol class="wx-rows">' + g.jobs.map(function(j){
+          var left = wxBy === 'type' ? CL[j.c].n : j.ty.map(function(k){ return L(TYK[k].t); }).join(' · ');
+          return '<li><button class="wx-r" type="button" data-job="' + j.id + '"><span class="wx-c">' + esc(wxBy === 'type' ? CL[j.c].n : L(j.n)) + '</span><span class="wx-t">' + esc(wxBy === 'type' ? L(j.n) : left) + '</span>' +
+            '<span class="wx-y">' + (j.y ? esc(j.y) : '<span class="fill sm">' + (vi ? '+ năm' : '+ year') + '</span>') + '</span><i aria-hidden="true">↗</i></button></li>';
+        }).join('') + '</ol></section>';
     }).join('');
-    $('#workGrid').innerHTML = CASES.map(tileHTML).join(''); wkMeta(null);
-    applyFilter();
+    $('#wxJump').innerHTML = groups.filter(function(g){ return g.jobs.length; }).map(function(g){ return '<a href="#wx-' + g.id + '" data-wxj="' + g.id + '">' + esc(g.name) + '</a>'; }).join('<span>/</span>');
   }
-  function wkMeta(c){
-    var el = $('#wkMeta'); if (!el) return; var vi = lang === 'vi';
-    if (!c){ el.innerHTML = '<p class="mono">' + (vi ? 'Rê chuột lên dự án' : 'Hover a project') + '</p><p class="wk-t">' + (vi ? '5 dự án chính + 2 dự án khác · 2022–2026' : '5 core cases + 2 other projects · 2022–2026') + '</p><p class="wk-d">' + (vi ? 'Ngân hàng, fintech, tiêu dùng. IMC · Social · Activation · Sản xuất.' : 'Banking, fintech, consumer. IMC · Social · Activation · Production.') + '</p>'; return; }
-    el.innerHTML = '<p class="mono">' + esc(c.brand) + (c.period ? ' · ' + esc(c.period) : '') + '</p><p class="wk-t">' + esc(L(c.t)) + '</p>' + (c.ask ? '<p class="wk-d">' + esc(L(c.ask)) + '</p>' : '') +
-      '<ul class="wk-l">' + c.subs.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + (c.role ? '<li>' + esc(L(c.role)) + '</li>' : '') + '</ul><p class="mono" style="color:var(--pink)">' + (vi ? 'Bấm để mở ↗' : 'Click to open ↗') + '</p>';
+  function jobChips(j){ return j.ty.map(function(k){ return '<span class="jc-chip">' + esc(L(TYK[k].t)) + '</span>'; }).join(''); }
+  function jobRes(j){ return (j.res || []).map(function(r){ return '<div class="jr"><b>' + esc(r.b) + '</b><span>' + both(r.l) + '</span></div>'; }).join(''); }
+  var curJob = null;
+  function openJob(id){
+    var j = JOBS.filter(function(x){ return x.id === id; })[0]; if (!j) return; curJob = j; var vi = lang === 'vi', c = CL[j.c];
+    var line = j.ctx || j.me || j.out;
+    $('#jcIn').innerHTML = '<span class="jc-rib r1" aria-hidden="true"></span><span class="jc-rib r2" aria-hidden="true"></span><span class="jc-rib r3" aria-hidden="true"></span>' +
+      '<button class="x" type="button" data-close aria-label="Close">×</button>' +
+      '<div class="jc-side"><span class="jc-k">' + (vi ? 'KHÁCH HÀNG' : 'CLIENT') + '</span><b>' + esc(c.n) + '</b><span class="jc-k">' + (vi ? 'TÍNH CHẤT' : 'KIND OF WORK') + '</span><div class="jc-chips">' + jobChips(j) + '</div>' +
+      '<span class="jc-k">' + (vi ? 'NĂM' : 'YEAR') + '</span><b>' + (j.y ? esc(j.y) : toFill(vi ? 'năm' : 'year')) + '</b></div>' +
+      '<div class="jc-main"><p class="jc-q" id="jcTitle">“' + esc(L(j.n)) + '”</p>' +
+      (line ? '<p class="jc-d">' + both(line) + '</p>' : '<p class="jc-d">' + toFill(vi ? 'mô tả ngắn 1–2 câu' : 'a 1–2 line summary') + '</p>') +
+      (j.res ? '<div class="jc-res">' + jobRes(j) + '</div>' : '') +
+      '<div class="jc-acts"><button class="btn hot" type="button" data-jobd="' + j.id + '">' + (vi ? 'Xem chi tiết' : 'See details') + ' →</button>' +
+      (j.cs && CS[j.cs] ? '<button class="btn" type="button" data-case="' + j.cs + '">' + (vi ? 'Case study ' : 'Case study ') + esc(CS[j.cs].brand) + '</button>' : '') + '</div></div>';
+    var sh = $('#jobCard'); if (sh.hidden) openSheet(sh);
+    track('job', id);
   }
-  document.addEventListener('pointerover', function(e){ var t = e.target.closest && e.target.closest('#workGrid .wt'); if (t) wkMeta(CASES.filter(function(c){ return c.id === t.dataset.case; })[0]); });
-  function applyFilter(){
-    $$('#filters .chip').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.f === filterK ? 'true' : 'false'); });
-    $$('#workGrid .wt').forEach(function(t){ t.classList.toggle('dim', filterK !== 'all' && t.dataset.cats.split(' ').indexOf(filterK) < 0); });
+  function openJobDetail(id){
+    var j = JOBS.filter(function(x){ return x.id === id; })[0]; if (!j) return; var vi = lang === 'vi', c = CL[j.c];
+    function col(n, lbl, body, ask){ return '<div class="jd-col"><h4><i>' + n + '</i>' + esc(lbl) + '</h4>' + (body ? '<p>' + both(body) + '</p>' : '<p>' + toFill(ask) + '</p>') + '</div>'; }
+    var role = j.role ? (typeof j.role === 'string' ? {en:j.role, vi:j.role} : j.role) : null;
+    var slots = ['a','b','c','d','e','f'].map(function(k, i){ return '<figure class="jd-ph p' + k + '"><span>' + (vi ? '+ Ảnh thành phẩm ' : '+ Final work image ') + (i + 1) + '</span></figure>'; }).join('');
+    $('#jdIn').innerHTML = '<div class="sheet-bar"><span class="tag"><b>' + esc(c.n) + '</b>' + esc(L(j.n)) + '</span><button class="x" type="button" data-close aria-label="Close">×</button></div>' +
+      '<header class="jd-head"><p class="jd-all">' + (vi ? 'Tất cả về' : 'All about') + '</p><h2 id="jdTitle">' + esc(c.n) + '</h2><p class="jd-sub"><em>' + esc(L(j.n)) + '</em></p>' +
+      '<div class="jd-meta"><span>' + (j.y ? esc(j.y) : toFill(vi ? 'năm' : 'year')) + '</span>' + jobChips(j) + '<span>' + esc(L(c.ind)) + '</span></div></header>' +
+      '<div class="jd-cols">' + col('01', vi ? 'Bối cảnh' : 'Context', j.ctx, vi ? 'bối cảnh & bài toán của khách hàng' : 'client context & problem') +
+        col('02', vi ? 'Vai trò' : 'Role', role, vi ? 'vai trò của Xinh trong dự án' : 'Xinh’s role on the project') +
+        col('03', vi ? 'Xinh đã làm' : 'What Xinh did', j.me, vi ? 'phần việc Xinh trực tiếp làm' : 'what Xinh did directly') +
+        col('04', vi ? 'Phần của team' : 'Team’s part', j.team, vi ? 'phần việc của team (nếu có)' : 'the team’s part (if any)') + '</div>' +
+      '<div class="jd-out"><h4>' + (vi ? 'Kết quả' : 'Outcome') + '</h4>' + (j.out ? '<p>' + both(j.out) + '</p>' : '') + (j.res ? '<div class="jc-res">' + jobRes(j) + '</div>' : '') +
+        (!j.out && !j.res ? '<p>' + toFill(vi ? 'kết quả / số liệu đã xác nhận' : 'confirmed result / metric') + '</p>' : '') + (j.src ? '<p class="src">' + esc(j.src) + '</p>' : '') + '</div>' +
+      '<div class="jd-gal">' + slots + '</div>' +
+      '<div class="sheet-nav"><button class="btn" type="button" data-job="' + j.id + '">← ' + (vi ? 'Giới thiệu' : 'Intro') + '</button>' + (j.cs && CS[j.cs] ? '<button class="btn hot" type="button" data-case="' + j.cs + '">' + (vi ? 'Case study ' : 'Case study ') + esc(CS[j.cs].brand) + ' →</button>' : '') + '</div>';
+    $$('.sheet').forEach(function(s){ if (s.id !== 'jobSheet') s.hidden = true; });
+    var sh = $('#jobSheet'); if (sh.hidden) openSheet(sh); else $('#jdIn').scrollTop = 0;
+    track('jobd', id);
   }
   document.addEventListener('click', function(e){
-    var f = e.target.closest('#filters [data-f]'); if (f){ filterK = f.dataset.f; applyFilter(); track('filter', filterK); }
+    var s = e.target.closest('#wxSw [data-wx]'); if (s){ wxBy = s.dataset.wx; try{ localStorage.setItem('xinhos-wx', wxBy); }catch(x){} renderWork(); track('wx', wxBy); return; }
+    var jj = e.target.closest('[data-wxj]'); if (jj){ e.preventDefault(); var g = document.getElementById('wx-' + jj.dataset.wxj); if (g) g.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); return; }
+    var d = e.target.closest('[data-jobd]'); if (d){ openJobDetail(d.dataset.jobd); return; }
+    var r = e.target.closest('[data-job]'); if (r){ $$('.sheet').forEach(function(x){ if (x.id !== 'jobCard') x.hidden = true; }); openJob(r.dataset.job); }
   });
 
   /* LV.1 roles + flip */
@@ -447,7 +547,7 @@ import './styles.css';
   var whoIdx = 0;
   function renderContact(){
     var s = hcmStatus();
-    ['#ctStatus', '#cnStatus', '#deskStatus'].forEach(function(id){ var el = $(id); el.className = 'status' + (s.on ? '' : ' off'); el.innerHTML = statusHTML(); });
+    ['#ctStatus', '#cnStatus'].forEach(function(id){ var el = $(id); if (!el) return; el.className = 'status' + (s.on ? '' : ' off'); el.innerHTML = statusHTML(); });
     $('#methods').innerHTML = methodsHTML();
     $('#cnMethods').innerHTML = methodsHTML();
     var ms = methodList(), z = ms[1], c = ms[0];
@@ -459,13 +559,7 @@ import './styles.css';
     if (CV_URL) acts.push('<a class="btn cv" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (lang === 'vi' ? 'Xem CV' : 'View CV') + ' ↗</a>');
     $('#bigActs').innerHTML = acts.join('');
     var cvBtn = CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">CV ↗</a>' : '';
-            $('#tlActs').innerHTML = (CV_URL ? '<a class="btn ink" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (lang === 'vi' ? 'Xem CV' : 'View CV') + ' ↗</a>' : need(lang === 'vi' ? 'link CV' : 'CV link')) +
-      (CONTACT.linkedin ? '<a class="btn" href="https://www.linkedin.com/in/' + esc(CONTACT.linkedin) + '" target="_blank" rel="noopener" data-m="linkedin">LinkedIn ↗</a>' : '') +
-      '<a class="btn" href="#align">' + (lang === 'vi' ? 'Xem bằng chứng' : 'See the proof') + ' ↓</a>';
     $('#goalCv').innerHTML = cvBtn;
-    var li = $('#deskLi'); if (li){ li.hidden = !CONTACT.linkedin; li.href = 'https://www.linkedin.com/in/' + CONTACT.linkedin; }
-    var dcv = $('#deskCv'); if (dcv){ dcv.hidden = !CV_URL; dcv.href = CV_URL; }
-    $('#deskFeat').innerHTML = MAIN.map(function(c){ return '<a href="#case-' + c.id + '" data-case="' + c.id + '"><i style="background:' + c.bg + '; color:' + c.fg + '">' + esc(c.brand.split(' ')[0].slice(0, 4).toUpperCase()) + '</i><span><b>' + esc(L(c.t)) + '</b><small>' + esc(c.meta) + '</small></span></a>'; }).join('') + '<a href="#work"><i style="background:var(--white)">+' + (CASES.length - MAIN.length) + '</i><span><b>' + (lang === 'vi' ? 'Xem cả ' + CASES.length + ' dự án' : 'See all ' + CASES.length + ' projects') + '</b><small>WORK/</small></span></a>';
     $('#whoOpts').innerHTML = WHO.map(function(w, i){ return '<button class="chip" type="button" data-who="' + i + '" aria-pressed="' + (i === whoIdx ? 'true' : 'false') + '">' + esc(L(w.t)) + '</button>'; }).join('');
     var w = WHO[whoIdx];
     $('#tpl').innerHTML = '“' + esc(L(w.msg)) + '”<span class="rec2">' + esc(L(w.rec)) + '</span><div style="margin-top:10px"><button class="chip" type="button" data-copy="' + esc(L(w.msg)) + '" data-m="template">' + (lang === 'vi' ? 'Sao chép tin nhắn mẫu' : 'Copy this message') + '</button></div>';
@@ -499,6 +593,7 @@ import './styles.css';
   function openCase(id){
     var i = CASES.findIndex(function(c){ return c.id === id; }); if (i < 0) return;
     var c = CASES[i], prev = CASES[(i - 1 + CASES.length) % CASES.length], next = CASES[(i + 1) % CASES.length];
+    ['#jobCard', '#jobSheet'].forEach(function(q){ var x = $(q); if (x) x.hidden = true; });
     var gal = c.imgs.slice(1).map(function(n){ return ph(n, lang === 'vi' ? 'CHỖ ĐẶT ẢNH' : 'IMAGE SLOT'); }).join('');
     var vi = lang === 'vi', facts = [];
     if (c.period) facts.push('<div><span>' + (vi ? 'Thời gian' : 'When') + '</span><b>' + esc(c.period) + '</b></div>');
@@ -538,9 +633,9 @@ import './styles.css';
   /* =====================================================================
      ROUTING (views) + slime wipe
      ===================================================================== */
-  var VIEWS = ['story', 'desk', 'work', 'profile', 'skills', 'contact', 'report'];
+  var VIEWS = ['story', 'profile', 'work', 'contact', 'report'];
   var curView = null, isOwner = false, runtimeHere = !!(window.claude && window.claude.use);
-  var WIPE = {story:'story', desk:'quick', work:'work', profile:'profile', skills:'skills', contact:'say hi', report:'console'};
+  var WIPE = {story:'story', work:'work', profile:'profile', contact:'say hi', report:'console'};
   function parseHash(){
     var h = (location.hash || '').slice(1);
     if (h.indexOf('from-') === 0){ setSource(h.slice(5)); try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){} return {view:'story'}; }
@@ -552,6 +647,9 @@ import './styles.css';
       return {view:'story'};
     }
     if (h.indexOf('case-') === 0) return {view:'work', caseId:h.slice(5)};
+    /* v15g: Quick view folded into Profile, Skills is a section of Profile */
+    if (h === 'desk') return {view:'profile'};
+    if (h === 'skills') return {view:'profile', anchor:'pfSkills'};
     if (VIEWS.indexOf(h) > -1) return {view:h};
     return {view:'story', anchor:h};
   }
@@ -1201,66 +1299,10 @@ import './styles.css';
   function openBoot(){
     bootEl.hidden = false; bootEl.classList.remove('out'); document.body.classList.add('booting'); booted = false;
     var last = null; try{ last = localStorage.getItem('xinhos-mode'); }catch(e){}
-    runBootBar(); setTimeout(bubblesStart, reduce ? 0 : 600);
+    runBootBar();
     setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
   }
-  /* Boot playground (refs: a sky with objects orbiting the portrait; letter bubbles you can toss around).
-     Tiny 2D physics for the letters of "EM XINH SAY HI"; it sleeps once everything settles. */
-  /* The letters EM XINH SAY HI drop in one by one and settle into a tidy row above the tagline (ref: letter bubbles).
-     Each letter hangs on a spring to its home spot: drag or flick it and it swings back. The loop sleeps once all are home. */
-  var bub = {list:[], raf:0, drag:null, calm:0};
-  function bubblesStart(){
-    var host = $('#bubbles'); if (!host) return;
-    cancelAnimationFrame(bub.raf); bub.raf = 0; host.innerHTML = ''; bub.list = [];
-    var small = host.clientWidth < 760, R = small ? 13 : 22;
-    'EMXINHSAYHI'.split('').forEach(function(ch, i){
-      var el = document.createElement('span'); el.className = 'bb' + (i === 7 || i === 10 ? ' pk' : i === 4 ? ' ch' : ''); el.innerHTML = '<i>' + ch + '</i>';
-      el.style.width = el.style.height = R * 2 + 'px'; el.style.setProperty('--i', i); host.appendChild(el);
-      bub.list.push({el:el, x:0, y:0, vx:0, vy:0, r:R, rot:0, hx:0, hy:0, t0:i * 70});
-    });
-    homes();
-    bub.list.forEach(function(b){ b.x = b.hx + (Math.random() - .5) * 60; b.y = -60 - Math.random() * 80; b.rot = (Math.random() - .5) * 90; });
-    if (reduce){ bub.list.forEach(function(b){ b.x = b.hx; b.y = b.hy; b.rot = 0; draw(b); }); return; }
-    bub.start = performance.now(); bub.calm = 0; bubLoop();
-  }
-  /* home row: words EM · XINH · SAY · HI, left-aligned to the tagline (centred on phones) */
-  function homes(){
-    var host = $('#bubbles'), line = $('.bx-foot .bh-line'); if (!host || !line || !bub.list.length) return;
-    var h = host.getBoundingClientRect(), l = line.getBoundingClientRect(), R = bub.list[0].r, step = R * 2 + 4, gap = R * .9;
-    var breaks = {2:1, 6:1, 9:1}, w = bub.list.length * step + 3 * gap - 4, small = h.width < 760;
-    var x = small ? (h.width - w) / 2 + R : l.left - h.left + R, y = l.top - h.top - R - (small ? 12 : 16);
-    bub.list.forEach(function(b, i){ if (breaks[i]) x += gap; b.hx = x; b.hy = y; x += step; });
-  }
-  function draw(b){ b.el.style.transform = 'translate(' + (b.x - b.r).toFixed(1) + 'px,' + (b.y - b.r).toFixed(1) + 'px) rotate(' + b.rot.toFixed(1) + 'deg)'; }
-  function bubLoop(){
-    if (bootEl.hidden){ bub.raf = 0; return; }
-    var now = performance.now(), moving = 0;
-    bub.list.forEach(function(b){
-      if (bub.drag && bub.drag.b === b) return;
-      if (now - bub.start < b.t0){ return; }
-      b.vx = (b.vx + (b.hx - b.x) * .07) * .82; b.vy = (b.vy + (b.hy - b.y) * .07) * .82; b.rot *= .88;
-      b.x += b.vx; b.y += b.vy; draw(b);
-      if (Math.abs(b.hx - b.x) + Math.abs(b.hy - b.y) + Math.abs(b.vx) + Math.abs(b.vy) > .3) moving++;
-    });
-    bub.calm = moving || bub.drag || now - bub.start < 1200 ? 0 : bub.calm + 1;
-    if (bub.calm < 20) bub.raf = requestAnimationFrame(bubLoop); else bub.raf = 0;
-  }
-  function wake(){ bub.calm = 0; if (!bub.raf && !reduce) bub.raf = requestAnimationFrame(bubLoop); }
-  document.addEventListener('pointerdown', function(e){
-    var el = e.target.closest && e.target.closest('.bb'); if (!el) return;
-    var b = bub.list.filter(function(x){ return x.el === el; })[0]; if (!b) return;
-    e.preventDefault(); el.setPointerCapture && el.setPointerCapture(e.pointerId);
-    bub.drag = {b:b, lx:e.clientX, ly:e.clientY, vx:0, vy:0, moved:0}; el.classList.add('held'); wake();
-  });
-  document.addEventListener('pointermove', function(e){
-    var g = bub.drag; if (!g) return;
-    var dx = e.clientX - g.lx, dy = e.clientY - g.ly; g.b.x += dx; g.b.y += dy; g.b.rot += dx * .6; g.vx = dx; g.vy = dy; g.moved += Math.abs(dx) + Math.abs(dy); g.lx = e.clientX; g.ly = e.clientY; draw(g.b);
-  });
-  document.addEventListener('pointerup', function(){
-    var g = bub.drag; if (!g) return; g.b.vx = g.vx * 1.5; g.b.vy = g.vy * 1.5;
-    if (g.moved < 4){ g.b.vy = -16; g.b.rot = 30; } /* a tap makes the letter hop */
-    g.b.el.classList.remove('held'); bub.drag = null; wake();
-  });
+  /* Boot playground (ref: a sky with objects orbiting the portrait). The letter bubbles were dropped in v15g for a cleaner cover. */
   /* the orbit leans toward the pointer */
   bootEl.addEventListener('pointermove', function(e){ if (reduce || !finePointer) return; var st = $('#stage'); if (!st) return;
     st.style.setProperty('--px', ((e.clientX / window.innerWidth) - .5).toFixed(3)); st.style.setProperty('--py', ((e.clientY / window.innerHeight) - .5).toFixed(3)); });
@@ -1273,7 +1315,6 @@ import './styles.css';
     if (pic){ face = (face + 1) % FACES.length; var fr = $('.bx-pic .ph-frame'); if (fr){ fr.dataset.portrait = FACES[face][0]; fr.innerHTML = portrait(FACES[face][0]); } }
     if (pic || (ob && ob.classList.contains('tagx'))){ var by = $('.bx-pic .bye'); if (by){ by.textContent = FACES[face][1]; by.classList.remove('pop'); void by.offsetWidth; by.classList.add('pop'); } }
   });
-  window.addEventListener('resize', function(){ if (!bootEl.hidden){ homes(); wake(); } });
 
   function chooseMode(m){
     if (booted) return; booted = true;
@@ -1281,7 +1322,7 @@ import './styles.css';
     track('mode', m);
     var fl = $('#flash'); fl.classList.remove('on'); void fl.offsetWidth; if (!reduce) fl.classList.add('on');
     bootEl.classList.add('out'); document.body.classList.remove('booting');
-    if (m === 'quick'){ location.hash = 'desk'; }
+    if (m === 'quick'){ location.hash = 'profile'; }
     else { if (curView !== 'story') location.hash = 'story'; window.scrollTo(0, 0); setTimeout(smartStart, 900); }
     setTimeout(function(){ bootEl.hidden = true; rebuild(); }, reduce ? 0 : 800);
   }
@@ -1331,7 +1372,7 @@ import './styles.css';
   /* the open: boot unless the link points straight at a view, a case or an anchor */
   var h0 = (location.hash || '').slice(1);
   if (!h0 || h0 === 'story' || h0 === 'start') openBoot(); else { bootEl.hidden = true; booted = true; }
-  setInterval(function(){ tickClock(); if (curView === 'contact' || curView === 'desk' || !$('#connectSheet').hidden) { ['#ctStatus', '#cnStatus', '#deskStatus'].forEach(function(id){ var s = hcmStatus(), el = $(id); el.className = 'status' + (s.on ? '' : ' off'); el.innerHTML = statusHTML(); }); } }, 30000);
+  setInterval(function(){ tickClock(); if (curView === 'contact' || !$('#connectSheet').hidden) { ['#ctStatus', '#cnStatus'].forEach(function(id){ var s = hcmStatus(), el = $(id); if (!el) return; el.className = 'status' + (s.on ? '' : ' off'); el.innerHTML = statusHTML(); }); } }, 30000);
 
   /* capabilities light up later */
   if (runtimeHere){

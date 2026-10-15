@@ -122,7 +122,6 @@
         <span class="bye" aria-hidden="true">hi hi!</span>
       </figure>
     </div>
-    <div class="bubbles" id="bubbles" aria-hidden="true"></div>
     <div class="bx-foot">
       <p class="bh-line"><span class="en">Every project is a game. <b>I play it to the last level.</b></span><span class="vi">Dự án nào cũng là một game. <b>Xinh chơi tới level cuối.</b></span></p>
       <div class="bh-cta">
@@ -134,7 +133,7 @@
         </button>
         <button class="mode quick" type="button" data-mode="quick">
           <span class="k"><b>QUICK</b><span>30 SEC</span></span>
-          <h2><span class="en">Just the essentials</span><span class="vi">Xem nhanh đầu mục</span></h2>
+          <h2><span class="en">Jump to the profile</span><span class="vi">Xem nhanh hồ sơ</span></h2>
           <span class="go" aria-hidden="true">→</span>
         </button>
       </div>
@@ -148,10 +147,8 @@
   <a class="logo" href="#story" aria-label="XINH.OS, Xinh Nguyễn"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-orb"/></svg>XINH.OS</a>
   <nav class="tabs" aria-label="Sections">
     <a href="#story" data-tab="story"><span class="en">Story</span><span class="vi">Hành trình</span></a>
-    <a href="#desk" data-tab="desk"><span class="en">Quick</span><span class="vi">Xem nhanh</span></a>
-    <a href="#work" data-tab="work"><span class="en">Work</span><span class="vi">Dự án</span></a>
     <a href="#profile" data-tab="profile"><span class="en">Profile</span><span class="vi">Hồ sơ</span></a>
-    <a href="#skills" data-tab="skills"><span class="en">Skills</span><span class="vi">Năng lực</span></a>
+    <a href="#work" data-tab="work"><span class="en">Work</span><span class="vi">Dự án</span></a>
     <a href="#contact" data-tab="contact"><span class="en">Contact</span><span class="vi">Liên hệ</span></a>
     <a href="#report" data-tab="report" class="rep" hidden>Console</a>
   </nav>
@@ -173,9 +170,8 @@
 </nav>
 <nav class="tabbar" aria-label="Sections">
   <a href="#story" data-tab="story"><svg class="ico" viewBox="0 0 64 64"><use href="#i-play"/></svg><span class="en">STORY</span><span class="vi">HÀNH TRÌNH</span></a>
-  <a href="#desk" data-tab="desk"><svg class="ico" viewBox="0 0 64 64"><use href="#i-grid"/></svg><span class="en">QUICK</span><span class="vi">NHANH</span></a>
-  <a href="#work" data-tab="work"><svg class="ico" viewBox="0 0 64 64"><use href="#i-folder"/></svg><span class="en">WORK</span><span class="vi">DỰ ÁN</span></a>
   <a href="#profile" data-tab="profile"><svg class="ico" viewBox="0 0 64 64"><use href="#i-id"/></svg><span class="en">PROFILE</span><span class="vi">HỒ SƠ</span></a>
+  <a href="#work" data-tab="work"><svg class="ico" viewBox="0 0 64 64"><use href="#i-folder"/></svg><span class="en">WORK</span><span class="vi">DỰ ÁN</span></a>
   <a href="#contact" data-tab="contact"><svg class="ico" viewBox="0 0 64 64"><use href="#i-chat"/></svg><span class="en">SAY HI</span><span class="vi">LIÊN HỆ</span></a>
   <a href="#report" data-tab="report" hidden><svg class="ico" viewBox="0 0 64 64"><use href="#i-chart"/></svg>CONSOLE</a>
 </nav>
@@ -199,7 +195,7 @@
       <p class="p1-sub"><span class="en">I work where brand, communication and project management meet: from clarifying the goal and building the plan to organising execution and following through to results.</span><span class="vi">Xinh làm việc ở giao điểm giữa thương hiệu, truyền thông và quản lý dự án — từ làm rõ mục tiêu, xây dựng kế hoạch đến tổ chức triển khai và theo sát kết quả.</span></p>
       <div class="cta">
         <a class="btn lime" href="#brief"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-play"/></svg><span class="en">Start level 0</span><span class="vi">Vào level 0</span></a>
-        <a class="btn" href="#desk"><span class="en">Quick mode</span><span class="vi">Xem nhanh</span> →</a>
+        <a class="btn" href="#profile"><span class="en">See the profile</span><span class="vi">Xem hồ sơ</span> →</a>
       </div>
     </div>
     <figure class="rec" data-tilt>
@@ -382,77 +378,30 @@
 </section>
 </div>
 
-<!-- =========================================================== QUICK DESK =========================================================== -->
-<section class="view qv sc-peri" data-view="desk" id="v-desk" hidden>
-  <div class="wrap plain">
-    <div class="qhead">
-      <p class="tag"><b>QUICK</b><span class="en">Desktop · everything in 30 seconds</span><span class="vi">Desktop · mọi thứ trong 30 giây</span></p>
-    </div>
-    <div class="desk">
-      <div class="icons">
-        <a class="dicon" href="#story"><svg class="ico" viewBox="0 0 64 64"><use href="#i-play"/></svg><span>STORY.EXE</span></a>
-        <a class="dicon" href="#work"><svg class="ico" viewBox="0 0 64 64"><use href="#i-folder"/></svg><span><span class="en">WORK</span><span class="vi">DỰ ÁN</span></span></a>
-        <a class="dicon" href="#profile"><svg class="ico" viewBox="0 0 64 64"><use href="#i-id"/></svg><span><span class="en">PROFILE</span><span class="vi">HỒ SƠ</span></span></a>
-        <a class="dicon" href="#skills"><svg class="ico" viewBox="0 0 64 64"><use href="#i-stats"/></svg><span><span class="en">SKILLS</span><span class="vi">NĂNG LỰC</span></span></a>
-        <a class="dicon" id="deskCv" href="assets/XinhNguyen-CV.pdf" target="_blank" rel="noopener" data-m="cv"><svg class="ico" viewBox="0 0 64 64"><use href="#i-doc"/></svg><span>CV.PDF</span></a>
-        <a class="dicon" id="deskLi" href="#" target="_blank" rel="noopener" data-m="linkedin"><svg class="ico" viewBox="0 0 64 64"><use href="#i-case"/></svg><span>LINKEDIN</span></a>
-        <a class="dicon" href="#contact"><svg class="ico" viewBox="0 0 64 64"><use href="#i-chat"/></svg><span>SAY HI</span></a>
-      </div>
-      <article class="win">
-        <div class="win-bar"><b><span class="en">XINH_IN_30S.TXT · for recruiters &amp; brands</span><span class="vi">XINH_30GIAY.TXT · cho nhà tuyển dụng &amp; thương hiệu</span></b><span class="ctl"><i></i><i></i><i></i></span></div>
-        <div class="win-body">
-          <h2 class="tl-h" id="tlTitle"><span class="en">Hire Xinh when you need <span>one person to own the project, from brief to result.</span></span><span class="vi">Chọn Xinh khi bạn cần <span>một người làm chủ dự án, từ brief đến kết quả.</span></span></h2>
-          <div class="tl-stats">
-            <div><b>5</b><span><span class="en">years of agency-side experience</span><span class="vi">năm kinh nghiệm agency-side</span></span></div>
-            <div><b>20</b><span><span class="en">brands in the portfolio</span><span class="vi">thương hiệu xuất hiện trong portfolio</span></span></div>
-            <div><b>4</b><span><span class="en">roles, Planning Assistant → Associate AM</span><span class="vi">vai trò, Planning Assistant → Associate AM</span></span></div>
-          </div>
-          <p class="tl-line"><span class="en"><b>Fits:</b> Marketing Project Manager · Marketing Communications · Campaign Management. Banking &amp; fintech first, open to other industries. HCMC or remote. Available per project or monthly.</span><span class="vi"><b>Phù hợp:</b> Marketing Project Manager · Marketing Communications · Campaign Management. Ưu tiên Banking &amp; Fintech, sẵn sàng mở rộng sang ngành hàng khác. TP.HCM hoặc remote. Có thể hợp tác theo dự án hoặc theo tháng.</span></p>
-          <div class="tl-foot">
-            <div class="rolechips"><b><span class="en">In the portfolio</span><span class="vi">Trong portfolio</span></b><span>MSB</span><span>VIB</span><span>Cake by VPBank</span><span>Poca</span><span>Digimi × BVBank</span><span>+14</span></div>
-            <div class="tl-acts" id="tlActs"></div>
-          </div>
-        </div>
-      </article>
-      <div class="side">
-        <article class="win pink">
-          <div class="win-bar"><b>STATUS</b><span class="ctl"><i></i><i></i><i></i></span></div>
-          <div class="win-body" style="display:grid; gap:12px"><div class="status" id="deskStatus"></div><button class="btn hot" type="button" data-connect><span class="en">Say hi now</span><span class="vi">Liên hệ ngay</span></button></div>
-        </article>
-        <article class="win lime">
-          <div class="win-bar"><b><span class="en">FEATURED.LNK</span><span class="vi">DỰ ÁN NỔI BẬT</span></b><span class="ctl"><i></i><i></i><i></i></span></div>
-          <div class="win-body feat" id="deskFeat"></div>
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- =========================================================== WORK =========================================================== -->
-<section class="view qv qv-night" data-view="work" id="v-work" hidden>
-  <div class="wrap plain wk">
+<section class="view qv wx" data-view="work" id="v-work" hidden>
+  <div class="wrap plain">
     <div class="qhead">
-      <p class="tag"><b>01</b><span class="en">Work</span><span class="vi">Dự án</span></p>
+      <p class="tag"><b>02</b><span class="en">Work</span><span class="vi">Dự án</span></p>
       <h2 class="qword">Work</h2>
-      <div class="row"><p class="lead"><span class="en">Five core cases plus two other projects, filtered by the same benchmark as Skills. Each case separates my part from the team's.</span><span class="vi">Năm dự án chính và hai dự án khác, lọc theo cùng thước đo với tab Năng lực. Mỗi dự án tách rõ phần Xinh làm và phần của team.</span></p></div>
-      <div class="filters" id="filters" role="group" aria-label="Filter"></div>
     </div>
-    <aside class="wk-meta" id="wkMeta" aria-live="polite"></aside>
-    <div class="grid" id="workGrid"></div>
-    <div class="also">
-      <p class="mono"><span class="en">Also in the portfolio · project list</span><span class="vi">Cũng có trong portfolio · danh sách dự án</span></p>
-      <ul>
-        <li><b>NCB</b><span>Social Always On 2025</span></li>
-        <li><b>TPBank</b><span>Em Xinh Say Hi Concert 1</span></li>
-        <li><b>Chanté</b><span>Social Always On</span></li>
-        <li><b>Vihawa</b><span>Social Campaign 2025</span></li>
-        <li><b>Wake-Up Tây Nguyên</b><span>Social Campaign</span></li>
-        <li><b>MEATDeli</b><span>Social Campaign Q4.2025</span></li>
-      </ul>
+    <div class="wx-hero">
+      <p class="wx-state"><span class="en">Campaigns Xinh has worked on, <i>(across)</i></span><span class="vi">Các chiến dịch Xinh đã tham gia, <i>(trải dài)</i></span></p>
+      <p class="wx-jump" id="wxJump"></p>
+      <div class="wx-bar">
+        <div class="wx-sw" id="wxSw" role="group" aria-label="Sort projects">
+          <button type="button" data-wx="type" aria-pressed="true"><span class="en">By kind of work</span><span class="vi">Theo tính chất</span></button>
+          <button type="button" data-wx="client" aria-pressed="false"><span class="en">By client</span><span class="vi">Theo khách hàng</span></button>
+        </div>
+        <p class="wx-count" id="wxCount"></p>
+      </div>
+      <p class="wx-note"><span class="en">Tap a row for a short intro, then open the details. Team results stay marked as team results.</span><span class="vi">Bấm một dòng để xem giới thiệu, rồi mở chi tiết. Kết quả của team được ghi rõ là của team.</span></p>
     </div>
+    <div class="wx-index" id="wxIndex"></div>
     <div class="stamp">
       <p><span class="en">Want the whole story, in order?</span><span class="vi">Muốn xem trọn câu chuyện theo thứ tự?</span></p>
-      <div class="mrow"><a class="btn lime" href="#deliver"><span class="en">Play the journey</span><span class="vi">Xem hành trình</span></a><button class="btn" type="button" data-connect><span class="en">Say hi</span><span class="vi">Liên hệ</span></button></div>
+      <div class="mrow"><a class="btn" href="#deliver"><span class="en">Play the journey</span><span class="vi">Xem hành trình</span></a><button class="btn hot" type="button" data-connect><span class="en">Say hi</span><span class="vi">Liên hệ</span></button></div>
     </div>
   </div>
 </section>
@@ -461,7 +410,7 @@
 <section class="view qv sc-paper" data-view="profile" id="v-profile" hidden>
   <div class="wrap plain">
     <div class="qhead">
-      <p class="tag"><b>02</b><span class="en">Profile</span><span class="vi">Hồ sơ</span></p>
+      <p class="tag"><b>01</b><span class="en">Profile</span><span class="vi">Hồ sơ</span></p>
       <h2 class="qword">Profile</h2>
     </div>
     <div class="pf-grid">
@@ -519,6 +468,11 @@
       <p class="fan-cap" id="fanCap" aria-live="polite"></p>
     </div>
     <div class="sec"><h3><span class="en">Career path</span><span class="vi">Lộ trình nghề nghiệp</span><i></i></h3><div class="tl4" id="tl4"></div></div>
+    <div class="sec pf-skills" id="pfSkills"><h3><span class="en">Skills</span><span class="vi">Năng lực</span><i></i></h3>
+      <p class="lead"><span class="en">Nine things I do well: the four kinds of project I run, and the five parts of owning one. Each links to a real project.</span><span class="vi">Chín đầu việc Xinh làm thạo: bốn mảng dự án Xinh chạy, và năm phần việc Xinh gánh khi làm chủ. Mỗi mục dẫn tới dự án thật.</span></p>
+      <div data-mx></div>
+      <div class="capg" id="skGrid"></div>
+    </div>
     <div class="sec"><h3><span class="en">How I work</span><span class="vi">Cách tôi làm việc</span><i></i></h3><div class="proc" id="steps4"></div></div>
     <div class="sec"><h3><span class="en">Education &amp; certificates</span><span class="vi">Học vấn &amp; chứng chỉ</span><i></i></h3>
       <div class="edu">
@@ -530,28 +484,11 @@
   </div>
 </section>
 
-<!-- =========================================================== SKILLS =========================================================== -->
-<section class="view qv sc-paper" data-view="skills" id="v-skills" hidden>
-  <div class="wrap plain">
-    <div class="qhead">
-      <p class="tag"><b>03</b><span class="en">Skills</span><span class="vi">Năng lực</span></p>
-      <h2 class="qword">Skills</h2>
-      <p class="lead"><span class="en">Nine things I do well: the four kinds of project I run, and the five parts of owning one. Each links to a real project.</span><span class="vi">Chín đầu việc Xinh làm thạo: bốn mảng dự án Xinh chạy, và năm phần việc Xinh gánh khi làm chủ. Mỗi mục dẫn tới dự án thật.</span></p>
-    </div>
-    <div data-mx></div>
-    <div class="sec"><h3><span class="en">Each capability, with proof</span><span class="vi">Từng năng lực, kèm bằng chứng</span><i></i></h3><div class="capg" id="skGrid"></div></div>
-    <div class="stamp">
-      <p><span class="en">How we can work</span><span class="vi">Hình thức hợp tác</span></p>
-      <div class="mrow"><span class="chip"><span class="en">Full-time role</span><span class="vi">Toàn thời gian</span></span><span class="chip"><span class="en">Per project</span><span class="vi">Theo dự án</span></span><span class="chip"><span class="en">Monthly retainer</span><span class="vi">Theo tháng</span></span><button class="btn hot" type="button" data-connect><span class="en">Say hi</span><span class="vi">Liên hệ ngay</span></button></div>
-    </div>
-  </div>
-</section>
-
 <!-- =========================================================== CONTACT =========================================================== -->
 <section class="view qv sc-peri" data-view="contact" id="v-contact" hidden>
   <div class="wrap plain">
     <div class="qhead">
-      <p class="tag"><b>04</b><span class="en">Contact</span><span class="vi">Liên hệ</span></p>
+      <p class="tag"><b>03</b><span class="en">Contact</span><span class="vi">Liên hệ</span></p>
       <h2 class="qword">Say hi</h2>
     </div>
     <div class="ct-grid">
@@ -576,6 +513,24 @@
         </div></div>
       </div>
     </div>
+    <div class="pk">
+      <div class="pk-h"><p class="mono"><span class="en">Ways to work together</span><span class="vi">Cách hợp tác</span></p>
+        <h3><span class="en">Start with one person, <em>or a full team.</em></span><span class="vi">Bắt đầu với một người, <em>hoặc trọn gói cả đội.</em></span></h3></div>
+      <article class="pk-c pk1">
+        <p class="pk-k"><b>SOLO</b><span class="en">Per project</span><span class="vi">Theo dự án</span></p>
+        <h4><span class="en">One person, <em>the whole project.</em></span><span class="vi">Một người, <em>trọn dự án.</em></span></h4>
+        <p><span class="en">From reading the brief and planning to managing execution, sign-off and reporting, you work directly with one point of contact the whole way.</span><span class="vi">Từ đọc brief, lên kế hoạch, quản lý triển khai đến nghiệm thu và báo cáo, bạn làm việc trực tiếp với một đầu mối xuyên suốt.</span></p>
+        <p class="pk-fit"><span class="en">Good for projects that need one end-to-end manager, or teams that need one more project owner.</span><span class="vi">Hợp với dự án cần một người quản lý đầu-cuối hoặc team cần thêm một project owner.</span></p>
+        <button class="btn hot" type="button" data-connect><span class="en">Start a project</span><span class="vi">Bắt đầu một dự án</span> →</button>
+      </article>
+      <article class="pk-c pk2">
+        <p class="pk-k"><b>TEAM</b><span class="en">Full package</span><span class="vi">Trọn gói</span></p>
+        <h4><span class="en">A quality crew, <em>built per project.</em></span><span class="vi">Một đội chất lượng, <em>lắp theo dự án.</em></span></h4>
+        <p><span class="en">I bring in the right partners from my network for each problem, and stay responsible for managing execution.</span><span class="vi">Xinh kết hợp với mạng lưới đối tác phù hợp theo từng bài toán và tiếp tục chịu trách nhiệm quản lý triển khai.</span></p>
+        <p class="pk-fit"><span class="en">With both: scope, timeline and budget clear from day one · regular updates, problems flagged early · quality checked before anything goes live.</span><span class="vi">Cả hai cách: phạm vi, timeline, ngân sách rõ từ ngày đầu · cập nhật đều đặn, có vấn đề báo sớm · kiểm soát chất lượng trước khi lên sóng.</span></p>
+        <div class="mrow"><button class="btn hot" type="button" data-connect><span class="en">Build my crew</span><span class="vi">Lắp đội cho tôi</span> →</button><a class="btn" href="#value"><span class="en">See sample crews</span><span class="vi">Xem đội hình mẫu</span></a></div>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -592,6 +547,8 @@
 </main>
 
 <!-- Case sheet -->
+<div class="sheet jc-sheet" id="jobCard" hidden role="dialog" aria-modal="true" aria-labelledby="jcTitle"><div class="sheet-in jc" id="jcIn"></div></div>
+<div class="sheet jd-sheet" id="jobSheet" hidden role="dialog" aria-modal="true" aria-labelledby="jdTitle"><div class="sheet-in jd" id="jdIn"></div></div>
 <div class="sheet" id="caseSheet" hidden role="dialog" aria-modal="true" aria-labelledby="csTitle"><div class="sheet-in" id="caseIn"></div></div>
 <!-- Connect sheet -->
 <div class="sheet csheet" id="connectSheet" hidden role="dialog" aria-modal="true" aria-labelledby="cnTitle">
