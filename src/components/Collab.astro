@@ -12,7 +12,7 @@ const { solo, squad, promise } = COLLAB;
     </div>
 
     <div class="collab__grid">
-      <article class="ticket" data-reveal>
+      <article class="ticket glass" data-reveal>
         <div class="ticket__top">
           <span class="pill">{solo.tag}</span>
           <h3 class="h2 ticket__t">{solo.title}</h3>
@@ -26,7 +26,7 @@ const { solo, squad, promise } = COLLAB;
         </div>
       </article>
 
-      <article class="ticket ticket--blush" data-reveal style="--i:1">
+      <article class="ticket ticket--blush glass" data-reveal style="--i:1">
         <div class="ticket__top">
           <span class="pill">{squad.tag}</span>
           <h3 class="h2 ticket__t">{squad.title}</h3>
@@ -49,17 +49,18 @@ const { solo, squad, promise } = COLLAB;
 </section>
 
 <style>
+  .collab { background: radial-gradient(50% 60% at 50% 45%, rgb(240 160 195 / 0.4), transparent 72%); }
   .collab__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 28px); }
-  .ticket { display: flex; flex-direction: column; border-radius: calc(var(--r) + 4px); background: #fffdf9; border: 1px solid var(--line); transition: transform 0.5s var(--ease); }
+  .ticket { display: flex; flex-direction: column; border-radius: calc(var(--r) + 4px); transition: transform 0.5s var(--ease); }
   .ticket:hover { transform: translateY(-4px) rotate(-0.4deg); }
-  .ticket--blush { background: var(--blush-2); }
+  .ticket--blush { background: rgb(251 225 235 / 0.6); }
   .ticket__top { display: grid; gap: 16px; align-content: start; padding: clamp(22px, 3vw, 36px); flex: 1; }
   .ticket__top .pill { justify-self: start; }
   .ticket__t { font-size: clamp(28px, 3.2vw, 48px); }
   .ticket__fit { font-size: 19px; color: var(--ink-2); }
   .ticket__net { display: flex; flex-wrap: wrap; gap: 6px; }
   .ticket__cut { position: relative; height: 0; border-top: 2px dashed var(--line); margin: 0 18px; }
-  .ticket__cut::before, .ticket__cut::after { content: ''; position: absolute; top: -13px; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); border: 1px solid var(--line); }
+  .ticket__cut::before, .ticket__cut::after { content: ''; position: absolute; top: -13px; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); border: 1px solid var(--glass-border); }
   .ticket__cut::before { left: -32px; clip-path: inset(0 0 0 50%); }
   .ticket__cut::after { right: -32px; clip-path: inset(0 50% 0 0); }
   .ticket__bot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 20px clamp(22px, 3vw, 36px); }
@@ -69,7 +70,8 @@ const { solo, squad, promise } = COLLAB;
   .collab__promise ul { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   .collab__promise li { display: flex; gap: 10px; align-items: baseline; font-weight: 600; }
   @media (max-width: 900px) {
-    .collab__grid { grid-template-columns: 1fr; }
+    .collab { background: radial-gradient(50% 60% at 50% 45%, rgb(240 160 195 / 0.4), transparent 72%); }
+  .collab__grid { grid-template-columns: 1fr; }
     .collab__promise ul { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 520px) { .collab__promise ul { grid-template-columns: 1fr; } }

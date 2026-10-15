@@ -78,15 +78,15 @@ const icons = [
   .os { padding-bottom: clamp(64px, 10vh, 120px); }
   .os__screen {
     position: relative; min-height: min(84svh, 780px); border-radius: calc(var(--r) + 10px); overflow: hidden;
-    background: radial-gradient(120% 90% at 20% 10%, #fff7f2 0%, var(--blush) 45%, #f1c7d6 100%);
+    background: radial-gradient(60% 55% at 22% 28%, #ffd9c8 0%, transparent 70%), radial-gradient(55% 60% at 78% 70%, #ec9fbf 0%, transparent 72%), linear-gradient(160deg, #fff4ee, #f6cfdd);
     border: 1px solid var(--line); box-shadow: 0 40px 80px -50px rgb(36 27 26 / 0.45);
   }
-  .os__menubar { position: relative; z-index: 2; display: flex; justify-content: space-between; height: 32px; align-items: center; padding: 0 16px; background: rgb(255 253 249 / 0.6); border-bottom: 1px solid var(--line); }
+  .os__menubar { position: relative; z-index: 2; display: flex; justify-content: space-between; height: 32px; align-items: center; padding: 0 16px; background: rgb(255 255 255 / 0.4); border-bottom: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
   .os__menu-r { display: flex; gap: 14px; }
   .os__icons { position: absolute; right: 18px; top: 56px; display: grid; gap: 14px; z-index: 1; }
   .os__icon { display: grid; justify-items: center; gap: 6px; width: 86px; padding: 6px; border-radius: 10px; text-align: center; }
   .os__icon:hover, .os__icon:focus-visible { background: rgb(255 253 249 / 0.6); }
-  .os__glyph { display: grid; place-items: center; width: 44px; height: 54px; border-radius: 6px 14px 6px 6px; background: #fffdf9; border: 1px solid var(--line); font-family: var(--f-mono); font-size: 10px; font-weight: 600; color: var(--accent); }
+  .os__glyph { display: grid; place-items: center; width: 44px; height: 54px; border-radius: 6px 14px 6px 6px; background: var(--glass-bg-strong); border: 1px solid var(--glass-border); font-family: var(--f-mono); font-size: 10px; font-weight: 600; color: var(--accent); }
   .os__glyph--dir { width: 54px; height: 42px; border-radius: 6px; background: var(--accent); border-color: var(--accent); position: relative; margin-top: 10px; }
   .os__glyph--dir::before { content: ''; position: absolute; left: 0; top: -7px; width: 22px; height: 10px; border-radius: 4px 4px 0 0; background: var(--accent); }
   .os__label { font-size: 12px; font-weight: 600; line-height: 1.2; }

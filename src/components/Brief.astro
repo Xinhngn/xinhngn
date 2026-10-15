@@ -15,7 +15,7 @@ const mess = [
     </div>
     <ol class="brief__cards">
       {BRIEF.cards.map((c, i) => (
-        <li class="brief__card" style={`--mx:${mess[i][0]}%;--my:${mess[i][1]}px;--mr:${mess[i][2]}deg`}>
+        <li class="brief__card glass" style={`--mx:${mess[i][0]}%;--my:${mess[i][1]}px;--mr:${mess[i][2]}deg`}>
           <span class="mono brief__n">0{i + 1}</span>
           <span class="brief__txt">{c}</span>
           <span class="brief__ok" aria-hidden="true">✓</span>
@@ -26,17 +26,16 @@ const mess = [
 </section>
 
 <style>
-  .brief { background: var(--blush-2); }
+  .brief { background: radial-gradient(60% 70% at 85% 60%, rgb(240 160 195 / 0.45), transparent 70%), radial-gradient(40% 50% at 10% 20%, rgb(255 205 185 / 0.4), transparent 70%); }
   .brief__in { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
   .brief__cards { display: grid; gap: 12px; counter-reset: c; }
   /* --p: 0 → 1 theo cuộn (scripts/core.ts). Không JS thì thẻ đã thẳng hàng. */
   .brief__card {
     --k: calc(1 - var(--p, 1));
     display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center;
-    padding: 18px 20px; border-radius: var(--r); background: #fffdf9; border: 1px solid var(--line);
+    padding: 18px 20px; border-radius: var(--r);
     font-weight: 600; font-size: clamp(16px, 1.3vw, 19px);
     transform: translate(calc(var(--mx) * var(--k)), calc(var(--my) * var(--k))) rotate(calc(var(--mr) * var(--k)));
-    box-shadow: 0 10px 30px -18px rgb(36 27 26 / calc(0.5 * var(--k)));
     will-change: transform;
   }
   .brief__n { color: var(--ink-3); }

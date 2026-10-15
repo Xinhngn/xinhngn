@@ -35,6 +35,9 @@ Dựa trên: `docs/KE-HOACH.md` (nội dung, luật) và `docs/refs/PHAN-TICH-WE
 - Lớp OS (nhãn, số, giờ): **JetBrains Mono**.
 - Kiểm tra dấu tiếng Việt ở cỡ lớn trước khi chốt.
 
+### Kính mờ (glassmorphism nhẹ)
+Xinh chọn 15/10. Kính trắng hồng mờ, viền sáng, bóng mềm. Chỉ dùng cho lớp nổi: menu, cửa sổ OS, thẻ đề bài, phiếu hợp tác, khối kết quả. Phía sau có vệt hồng, đào mờ để kính có màu. Không dùng kính tràn lan để giữ tốc độ và chữ dễ đọc.
+
 ### Thành phần dùng chung
 Nhãn dạng viên thuốc, số thứ tự 01–05, cửa sổ OS (thanh tiêu đề + 3 chấm), thẻ dự án, nút hồng.
 
