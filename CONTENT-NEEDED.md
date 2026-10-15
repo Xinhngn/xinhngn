@@ -70,5 +70,5 @@ Ba kỹ năng chưa có "WIN": **Always-on**, **KOL / KOC**, **Measurement**. M�
 ## 6. Report (đếm lượt xem công khai)
 
 Muốn đếm mọi người xem từ link công khai:
-1. Đưa web lên GitHub Pages: repo `Xinhngn/EmXinhSayHi` → Settings → Pages → chọn nhánh, thư mục gốc. File chạy là `index.html`.
+1. Đưa web lên GitHub Pages: repo `Xinhngn/xinhngn` → Settings → Pages → chọn nhánh, thư mục gốc. File chạy là `index.html`.
 2. Đăng ký GoatCounter (miễn phí), gửi Claude mã site (dạng `https://ten-ban.goatcounter.com/count`).
