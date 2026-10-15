@@ -1,75 +1,64 @@
 ---
-import { CASES } from '../data/work';
+import { CASES, JOBS } from '../data/work';
 ---
 
-<section class="sec sel" id="du-an-chon-loc">
+<section class="sel sec" id="du-an" data-selected>
   <div class="wrap">
-    <div class="sec-head">
-      <span class="pill"><span class="dot"></span>Selected work</span>
-      <h2 class="h2" data-reveal>Không chỉ nhận brief. <span class="it accent">Còn đưa việc đến đích.</span></h2>
-      <p class="lead" data-reveal style="--i:1">Những dự án cho thấy cách Xinh làm rõ bài toán, phát triển cơ hội hợp tác và theo sát quá trình triển khai.</p>
+    <div class="sel__head">
+      <h2 class="h2">Dự án chọn lọc</h2>
+      <a class="btn btn--ghost" href="/du-an/" data-magnet>Xem tất cả {JOBS.length} chiến dịch <span class="arr" aria-hidden="true">→</span></a>
     </div>
 
-    <div class="sel__grid" data-selected>
-      <ol class="sel__list">
-        {CASES.map((c, i) => (
-          <li>
-            <a class:list={['sel__row', { 'is-on': i === 0 }]} href={`/du-an/${c.slug}/`} data-i={i}>
-              <span class="mono sel__n">0{i + 1}</span>
-              <span class="sel__brand">{c.brand}</span>
-              <span class="sel__tag it">{c.tagline}</span>
-              <span class="mono sel__meta">{c.meta}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
+    <ol class="sel__list">
+      {CASES.map((c, i) => (
+        <li>
+          <a class="sel__row" href={`/du-an/${c.slug}/`} data-i={i}>
+            <span class="sel__brand">{c.brand}</span>
+            <span class="sel__info">
+              <span class="sel__title">{c.title}</span>
+              <span class="small soft">{c.meta}</span>
+            </span>
+            <span class="sel__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
 
-      <div class="sel__view" aria-hidden="true">
-        {CASES.map((c, i) => (
-          <article class:list={['sel__card', { 'is-on': i === 0 }]} data-i={i}>
-            <p class="mono sel__cmeta">0{i + 1} / 0{CASES.length}{c.role && ` · ${c.role}`}</p>
-            <p class="sel__title">{c.title}</p>
-            <div class="sel__res">
-              {c.results.slice(0, 3).map((r) => (
-                <p><b>{r.b}</b><span>{r.l}</span></p>
-              ))}
-            </div>
-            <p class="sel__big">{c.brand}</p>
-          </article>
-        ))}
+  <div class="sel__float glass" aria-hidden="true" data-float>
+    {CASES.map((c) => (
+      <div class="sel__card">
+        <p class="sel__tag">{c.tagline}</p>
+        {c.role && <p class="small soft">{c.role}</p>}
+        <p class="sel__res">{c.results[0] && <><b>{c.results[0].b}</b> <span class="small">{c.results[0].l}</span></>}</p>
       </div>
-    </div>
-
-    <a class="btn btn--ghost sel__all" href="/du-an/">Xem tất cả dự án <span class="arr">→</span></a>
+    ))}
   </div>
 </section>
 
 <style>
-  .sel__grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
-  .sel__list { border-top: 1px solid var(--line); }
-  .sel__row { display: grid; grid-template-columns: 44px 1fr; grid-template-areas: 'n brand' '. tag' '. meta'; column-gap: 8px; row-gap: 4px; padding: 22px 0; border-bottom: 1px solid var(--line); transition: padding var(--t-fast) var(--ease); }
-  .sel__n { grid-area: n; padding-top: 10px; color: var(--ink-3); }
-  .sel__brand { grid-area: brand; font-size: clamp(30px, 3.6vw, 54px); font-weight: 800; letter-spacing: -0.035em; line-height: 1; transition: color var(--t-fast); }
-  .sel__tag { grid-area: tag; font-size: 19px; color: var(--ink-2); }
-  .sel__meta { grid-area: meta; color: var(--ink-3); }
-  .sel__row:hover, .sel__row.is-on { padding-left: 10px; }
-  .sel__row.is-on .sel__brand, .sel__row:hover .sel__brand { color: var(--accent); }
-  .sel__row.is-on .sel__n { color: var(--accent); }
+  .sel__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(40px, 5vw, 80px); }
+  .sel__list { display: grid; }
+  .sel__row { position: relative; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) auto; align-items: center; gap: 24px; padding: clamp(18px, 2vw, 30px) 0; isolation: isolate; }
+  .sel__row::before { content: ''; position: absolute; inset: 0 calc(var(--gut) * -1); z-index: -1; background: var(--blush); border-radius: 26px; transform: scaleY(0.2); opacity: 0; transition: transform 0.5s var(--ease), opacity 0.3s; }
+  .sel__row:hover::before, .sel__row:focus-visible::before { transform: none; opacity: 1; }
+  .sel__brand { font-size: clamp(44px, 7vw, 132px); text-wrap: balance; font-weight: 780; letter-spacing: -0.055em; line-height: 0.9; transition: transform 0.5s var(--ease), color 0.3s; }
+  .sel__row:hover .sel__brand { transform: translateX(16px); color: var(--acc); }
+  .sel__info { display: grid; gap: 6px; }
+  .sel__title { font-size: clamp(19px, 1.6vw, 26px); font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; }
+  .sel__go { font-size: clamp(28px, 3vw, 48px); transition: transform 0.4s var(--ease); }
+  .sel__row:hover .sel__go { transform: translateX(8px) rotate(-45deg); }
 
-  .sel__view { position: sticky; top: 96px; aspect-ratio: 4 / 5; max-height: calc(100svh - 120px); width: 100%; }
-  .sel__card { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 16px; padding: clamp(20px, 2.4vw, 32px); border-radius: calc(var(--r) + 6px); background: var(--accent); color: var(--accent-ink); overflow: hidden; opacity: 0; transform: translateY(18px) scale(0.98); transition: opacity 0.5s var(--ease), transform 0.6s var(--ease); }
-  .sel__card:nth-child(2n) { background: var(--blush); color: var(--ink); }
-  .sel__card:nth-child(2n) .sel__big { color: var(--accent); }
-  .sel__card.is-on { opacity: 1; transform: none; }
-  .sel__title { font-size: clamp(24px, 2.4vw, 36px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; max-width: 16ch; }
-  .sel__res { display: grid; gap: 10px; margin-top: auto; }
-  .sel__res p { display: flex; align-items: baseline; gap: 10px; border-top: 1px solid currentColor; padding-top: 10px; opacity: 0.95; }
-  .sel__res b { font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -0.02em; }
-  .sel__res span { font-size: 14px; }
-  .sel__big { font-size: clamp(64px, 9vw, 150px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.82; margin: 0 0 -0.08em -0.04em; text-wrap: balance; }
-  .sel__all { margin-top: 40px; }
-  @media (max-width: 900px) {
-    .sel__grid { grid-template-columns: 1fr; }
-    .sel__view { display: none; }
+  .sel__float { position: fixed; left: 0; top: 0; z-index: 30; width: 300px; padding: 22px; border-radius: 24px; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(0.85); transition: opacity 0.25s, transform 0.4s var(--ease); display: none; }
+  .sel__float.is-on { opacity: 1; }
+  .sel__card { display: none; gap: 10px; }
+  .sel__card.is-on { display: grid; }
+  .sel__tag { font-size: 22px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; }
+  .sel__res b { font-size: 34px; letter-spacing: -0.04em; color: var(--acc); }
+  @media (hover: hover) and (min-width: 900px) { .sel__float { display: block; } }
+  @media (max-width: 760px) {
+    .sel__row { grid-template-columns: 1fr auto; gap: 8px 16px; }
+    .sel__info { grid-column: 1; }
+    .sel__go { grid-row: 1; grid-column: 2; }
   }
 </style>

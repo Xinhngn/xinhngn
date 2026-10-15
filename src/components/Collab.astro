@@ -1,78 +1,81 @@
 ---
-import { COLLAB } from '../data/site';
-const { solo, squad, promise } = COLLAB;
+import { COLLAB, CONTACT } from '../data/site';
+const mail = (subject: string) => `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}`;
+const [soloName, soloKind] = COLLAB.solo.tag.split(' · ');
+const [squadName, squadKind] = COLLAB.squad.tag.split(' · ');
 ---
 
-<section class="sec collab" id="hop-tac">
+<section class="collab sec" id="hop-tac" data-collab>
   <div class="wrap">
-    <div class="sec-head">
-      <span class="pill"><span class="dot"></span>{COLLAB.eyebrow}</span>
-      <h2 class="h2" data-reveal>{COLLAB.title}</h2>
-      <p class="lead" data-reveal style="--i:1">{COLLAB.body}</p>
+    <div class="collab__head">
+      <h2 class="collab__t">{COLLAB.title}</h2>
+      <p class="lead" data-rv>{COLLAB.body}</p>
     </div>
 
-    <div class="collab__grid">
-      <article class="ticket glass" data-reveal>
-        <div class="ticket__top">
-          <span class="pill">{solo.tag}</span>
-          <h3 class="h2 ticket__t">{solo.title}</h3>
-          <p class="muted">{solo.body}</p>
-          <p class="it ticket__fit">{solo.fit}</p>
+    <div class="collab__tickets">
+      <article class="ticket" data-ticket>
+        <div class="ticket__main">
+          <p class="ticket__kind"><b>{soloName}</b> <span class="soft">{soloKind}</span></p>
+          <h3 class="ticket__t">{COLLAB.solo.title}</h3>
+          <p>{COLLAB.solo.body}</p>
         </div>
-        <div class="ticket__cut" aria-hidden="true"></div>
-        <div class="ticket__bot">
-          <a class="btn" href="#lien-he" data-open-win="mail">{solo.cta} <span class="arr">→</span></a>
-          <span class="ticket__code mono" aria-hidden="true">SOLO-01</span>
+        <div class="ticket__stub">
+          <p class="small">{COLLAB.solo.fit}</p>
+          <a class="btn" href={mail(COLLAB.solo.cta)} data-magnet>{COLLAB.solo.cta} <span class="arr" aria-hidden="true">→</span></a>
         </div>
       </article>
 
-      <article class="ticket ticket--blush glass" data-reveal style="--i:1">
-        <div class="ticket__top">
-          <span class="pill">{squad.tag}</span>
-          <h3 class="h2 ticket__t">{squad.title}</h3>
-          <p class="muted">{squad.body}</p>
-          <ul class="ticket__net">{squad.network.map((n) => <li class="pill">{n}</li>)}</ul>
+      <article class="ticket ticket--acc" data-ticket>
+        <div class="ticket__main">
+          <p class="ticket__kind"><b>{squadName}</b> <span>{squadKind}</span></p>
+          <h3 class="ticket__t">{COLLAB.squad.title}</h3>
+          <p>{COLLAB.squad.body}</p>
         </div>
-        <div class="ticket__cut" aria-hidden="true"></div>
-        <div class="ticket__bot">
-          <a class="btn" href="#lien-he" data-open-win="mail">{squad.cta} <span class="arr">→</span></a>
-          <span class="ticket__code mono" aria-hidden="true">SQUAD-09</span>
+        <div class="ticket__stub">
+          <ul class="ticket__net small" aria-label="Mạng lưới đối tác">{COLLAB.squad.network.map((n) => <li>{n}</li>)}</ul>
+          <a class="btn btn--light" href={mail(COLLAB.squad.cta)} data-magnet>{COLLAB.squad.cta} <span class="arr" aria-hidden="true">→</span></a>
         </div>
       </article>
     </div>
 
-    <div class="collab__promise" data-reveal>
-      <p class="mono accent">{promise.title}</p>
-      <ul>{promise.items.map((p) => <li><span class="dot"></span>{p}</li>)}</ul>
+    <div class="collab__promise">
+      <h3 class="h3">{COLLAB.promise.title}</h3>
+      <ul>{COLLAB.promise.items.map((it, i) => <li data-rv style={`--d:${i}`}>{it}</li>)}</ul>
     </div>
   </div>
 </section>
 
 <style>
-  .collab { background: radial-gradient(50% 60% at 50% 45%, rgb(240 160 195 / 0.4), transparent 72%); }
-  .collab__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 28px); }
-  .ticket { display: flex; flex-direction: column; border-radius: calc(var(--r) + 4px); transition: transform 0.5s var(--ease); }
-  .ticket:hover { transform: translateY(-4px) rotate(-0.4deg); }
-  .ticket--blush { background: rgb(251 225 235 / 0.6); }
-  .ticket__top { display: grid; gap: 16px; align-content: start; padding: clamp(22px, 3vw, 36px); flex: 1; }
-  .ticket__top .pill { justify-self: start; }
-  .ticket__t { font-size: clamp(28px, 3.2vw, 48px); }
-  .ticket__fit { font-size: 19px; color: var(--ink-2); }
-  .ticket__net { display: flex; flex-wrap: wrap; gap: 6px; }
-  .ticket__cut { position: relative; height: 0; border-top: 2px dashed var(--line); margin: 0 18px; }
-  .ticket__cut::before, .ticket__cut::after { content: ''; position: absolute; top: -13px; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); border: 1px solid var(--glass-border); }
-  .ticket__cut::before { left: -32px; clip-path: inset(0 0 0 50%); }
-  .ticket__cut::after { right: -32px; clip-path: inset(0 50% 0 0); }
-  .ticket__bot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 20px clamp(22px, 3vw, 36px); }
-  .ticket__code { color: var(--ink-3); background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px); -webkit-background-clip: text; background-clip: text; padding: 18px 0 0; border-top: 0; position: relative; }
-  .ticket__code::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 14px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px); opacity: 0.8; }
-  .collab__promise { display: grid; gap: 14px; margin-top: clamp(32px, 5vw, 56px); padding-top: 24px; border-top: 1px solid var(--line); }
-  .collab__promise ul { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .collab__promise li { display: flex; gap: 10px; align-items: baseline; font-weight: 600; }
-  @media (max-width: 900px) {
-    .collab { background: radial-gradient(50% 60% at 50% 45%, rgb(240 160 195 / 0.4), transparent 72%); }
-  .collab__grid { grid-template-columns: 1fr; }
-    .collab__promise ul { grid-template-columns: 1fr 1fr; }
+  .collab__head { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: end; gap: 24px 64px; margin-bottom: clamp(40px, 6vw, 96px); }
+  .collab__t { font-size: clamp(42px, 5.6vw, 100px); }
+  .collab__tickets { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 28px); perspective: 1400px; }
+
+  .ticket {
+    --notch: 18px;
+    display: grid; grid-template-rows: 1fr auto; border-radius: 30px; background: var(--bg-2); color: var(--ink);
+    -webkit-mask: radial-gradient(circle var(--notch) at 0 var(--cut), #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% var(--cut), #0000 98%, #000) right / 51% 100% no-repeat;
+    mask: radial-gradient(circle var(--notch) at 0 var(--cut), #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% var(--cut), #0000 98%, #000) right / 51% 100% no-repeat;
+    --cut: calc(100% - 170px);
+    transform-style: preserve-3d; will-change: transform;
   }
-  @media (max-width: 520px) { .collab__promise ul { grid-template-columns: 1fr; } }
+  .ticket--acc { background: var(--acc); color: var(--acc-ink); }
+  .ticket__main { display: grid; gap: 18px; align-content: start; padding: clamp(28px, 3.2vw, 52px); }
+  .ticket__kind { font-size: 17px; display: flex; gap: 10px; }
+  .ticket__kind b { font-weight: 800; letter-spacing: 0.02em; }
+  .ticket__t { font-size: clamp(36px, 4vw, 72px); }
+  .ticket__stub { display: grid; gap: 18px; align-content: end; min-height: 170px; padding: 28px clamp(28px, 3.2vw, 52px) clamp(28px, 3.2vw, 44px); border-top: 2px dashed currentColor; border-top-color: rgb(42 17 25 / 0.2); }
+  .ticket--acc .ticket__stub { border-top-color: rgb(255 248 249 / 0.45); }
+  .ticket__stub .btn { justify-self: start; }
+  .ticket__net { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ticket__net li { padding: 5px 12px; border-radius: 999px; background: rgb(255 248 249 / 0.18); font-weight: 600; }
+  .btn--light { --bg-b: var(--acc-ink); --fg-b: var(--acc); }
+  .btn--light:hover { background: #fff; }
+
+  .collab__promise { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px 64px; margin-top: clamp(64px, 8vw, 128px); }
+  .collab__promise ul { display: grid; gap: 4px; }
+  .collab__promise li { padding: 16px 0 16px 34px; position: relative; font-size: clamp(19px, 1.6vw, 25px); font-weight: 550; letter-spacing: -0.015em; }
+  .collab__promise li::before { content: ''; position: absolute; left: 0; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--acc); }
+  @media (max-width: 860px) {
+    .collab__head, .collab__tickets, .collab__promise { grid-template-columns: 1fr; }
+  }
 </style>

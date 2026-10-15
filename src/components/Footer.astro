@@ -1,44 +1,57 @@
 ---
-import { CONTACT, TARGET_ROLES } from '../data/site';
+import { CONTACT, FINISH, TARGET_ROLES } from '../data/site';
+const channels = [
+  { k: 'Gọi', v: CONTACT.phoneLabel, href: `tel:${CONTACT.phone}` },
+  { k: 'Zalo', v: CONTACT.phoneLabel, href: `https://zalo.me/${CONTACT.zalo}` },
+  { k: 'Email', v: CONTACT.email, href: `mailto:${CONTACT.email}?subject=${encodeURIComponent('Say hi Xinh')}` },
+  { k: 'LinkedIn', v: 'xinh-nguyen-exploremore', href: `https://www.linkedin.com/in/${CONTACT.linkedin}` },
+  { k: 'CV', v: 'XinhNguyen-CV.pdf', href: CONTACT.cv },
+];
 ---
 
-<footer class="foot">
-  <div class="wrap">
-    <p class="foot__slot" aria-label={`Xinh Nguyễn, ${TARGET_ROLES.join(', ')}`}>
-      <span class="chip">Xinh</span>
-      <span class="chip chip--accent" data-slot={JSON.stringify(TARGET_ROLES)} aria-hidden="true">{TARGET_ROLES[0]}</span>
+<footer class="foot" id="lien-he" data-foot>
+  <div class="wrap foot__in">
+    <p class="foot__lead state">{FINISH.body}</p>
+
+    <ul class="foot__ch">
+      {channels.map((c) => (
+        <li>
+          <a href={c.href} target={c.href.startsWith('http') || c.k === 'CV' ? '_blank' : undefined} rel={c.href.startsWith('http') ? 'noopener' : undefined}>
+            <span class="soft small">{c.k}</span>
+            <span class="foot__v">{c.v}</span>
+            <span class="foot__arr" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="foot__say" aria-label="say hi!">
+      {'say hi!'.split('').map((ch, i) => <span style={`--i:${i}`}>{ch === ' ' ? ' ' : ch}</span>)}
     </p>
-    <div class="foot__row">
-      <div class="foot__col">
-        <p class="mono muted">Liên hệ</p>
-        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
-        <a href={`tel:${CONTACT.phone}`}>{CONTACT.phoneLabel}</a>
-      </div>
-      <div class="foot__col">
-        <p class="mono muted">Kết nối</p>
-        <a href={`https://www.linkedin.com/in/${CONTACT.linkedin}`} rel="noopener" target="_blank">LinkedIn</a>
-        <a href={`https://zalo.me/${CONTACT.zalo}`} rel="noopener" target="_blank">Zalo</a>
-        <a href={CONTACT.cv} target="_blank">CV (PDF)</a>
-      </div>
-      <div class="foot__col foot__col--end">
-        <p class="mono muted">© {new Date().getFullYear()} Xinh Nguyễn</p>
-        <p class="mono muted">{CONTACT.city}</p>
-      </div>
+
+    <div class="foot__bar small">
+      <p>Vai trò mục tiêu: <span class="foot__role" data-roles={JSON.stringify(TARGET_ROLES)}>{TARGET_ROLES[0]}</span></p>
+      <p class="foot__time">TP.HCM <time data-clock>--:--</time></p>
+      <p>© 2026 Xinh Nguyễn · XINH.OS</p>
     </div>
   </div>
 </footer>
 
 <style>
-  .foot { border-top: 1px solid var(--line); padding: 72px 0 40px; background: var(--paper-2); }
-  .foot__slot { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 64px; }
-  .chip { display: inline-flex; align-items: center; height: clamp(44px, 6vw, 72px); padding: 0 clamp(16px, 2vw, 28px); border-radius: 999px; background: #fffdf9; border: 1px solid var(--line); font-size: clamp(20px, 3vw, 40px); font-weight: 700; letter-spacing: -0.02em; }
-  .chip--accent { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); min-width: 6ch; justify-content: center; transition: width 0.4s var(--ease); }
-  .foot__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .foot__col { display: grid; gap: 6px; align-content: start; font-size: 15px; }
-  .foot__col a:hover { color: var(--accent); }
-  .foot__col--end { justify-items: end; text-align: right; }
-  @media (max-width: 720px) {
-    .foot__row { grid-template-columns: 1fr 1fr; }
-    .foot__col--end { grid-column: 1 / -1; justify-items: start; text-align: left; }
-  }
+  .foot { background: var(--blush); border-radius: 40px 40px 0 0; overflow: clip; }
+  .foot__in { display: grid; gap: clamp(36px, 5vw, 72px); padding-top: clamp(80px, 11vw, 180px); padding-bottom: 24px; }
+  .foot__lead { max-width: 30ch; font-weight: 600; }
+  .foot__ch { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+  .foot__ch a { position: relative; display: grid; gap: 6px; min-height: 120px; align-content: end; padding: 20px; border-radius: 22px; background: var(--bg); transition: background var(--t-fast), color var(--t-fast), transform 0.4s var(--ease); }
+  .foot__ch a:hover { background: var(--acc); color: var(--acc-ink); transform: translateY(-4px); }
+  .foot__ch a:hover .soft { color: inherit; opacity: 0.8; }
+  .foot__v { font-weight: 650; font-size: 18px; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .foot__arr { position: absolute; right: 18px; top: 14px; font-size: 22px; }
+  .foot__say { display: flex; font-size: clamp(110px, 31vw, 600px); line-height: 0.78; letter-spacing: -0.065em; white-space: nowrap; margin-left: -0.04em; font-weight: 800; color: var(--acc); margin-top: clamp(20px, 4vw, 60px); user-select: none; }
+  .foot__say span { display: inline-block; }
+  .foot__bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font-weight: 500; }
+  .foot__role { font-weight: 700; color: var(--acc); }
+  .foot__time { font-variant-numeric: tabular-nums; }
+  @media (max-width: 960px) { .foot__ch { grid-template-columns: 1fr 1fr; } .foot__ch li:nth-child(3) { grid-column: 1 / -1; } }
+  @media (max-width: 860px) { .foot { border-radius: 28px 28px 0 0; } }
 </style>

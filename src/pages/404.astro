@@ -2,16 +2,16 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Không tìm thấy · XINH.OS">
+<Base title="Không tìm thấy · XINH.OS" page="other">
   <section class="wrap nf">
-    <p class="mono accent">Lỗi 404</p>
-    <h1 class="mega">Ơ<span class="accent">.</span></h1>
-    <p class="lead">Trang này không có trong XINH.OS.</p>
-    <a class="btn" href="/">Về trang chủ <span class="arr">→</span></a>
+    <h1 class="nf__t">Ơ<span class="acc">.</span></h1>
+    <p class="lead">Trang này không có trong XINH.OS. Lỗi 404.</p>
+    <a class="btn" href="/">Về trang chủ <span class="arr" aria-hidden="true">→</span></a>
   </section>
 </Base>
 
 <style>
-  .nf { min-height: 80svh; display: grid; align-content: center; gap: 20px; padding-top: 100px; }
+  .nf { min-height: 86svh; display: grid; align-content: center; gap: 24px; padding-top: 100px; }
+  .nf__t { font-size: clamp(160px, 30vw, 520px); line-height: 0.8; letter-spacing: -0.06em; }
   .nf .btn { justify-self: start; }
 </style>

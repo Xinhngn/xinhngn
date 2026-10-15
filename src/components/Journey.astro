@@ -1,51 +1,90 @@
 ---
-import { JOURNEY, ROLES } from '../data/site';
+import { JOURNEY, ROLES, PROFILE, FIT } from '../data/site';
+// Trục thời gian 01/2022 → 12/2026 (60 tháng). Chỉ dùng ngày trong ROLES.
+const toM = (s: string) => { const [m, y] = s.trim().split('/').map(Number); return (y - 2022) * 12 + (m - 1); };
+const span = (when: string) => { const [a, b] = when.split('–'); const s = toM(a); const e = toM(b) + 1; return { l: (s / 60) * 100, w: ((e - s) / 60) * 100 }; };
+const years = [2022, 2023, 2024, 2025, 2026];
 ---
 
-<section class="sec journey" id="hanh-trinh" data-progress>
+<section class="journey sec" id="ho-so" data-journey>
   <div class="wrap">
-    <div class="sec-head">
-      <span class="pill"><span class="dot"></span>{JOURNEY.eyebrow}</span>
-      <h2 class="h2" data-reveal>{JOURNEY.title}</h2>
-      <p class="lead" data-reveal style="--i:1">{JOURNEY.body}</p>
+    <div class="journey__top">
+      <div class="journey__intro">
+        <h2 class="journey__t">{JOURNEY.title}</h2>
+        <p class="lead" data-rv>{JOURNEY.body}</p>
+      </div>
+      <figure class="journey__pic" data-rv>
+        <img src="/assets/portrait.webp" alt="Chân dung Xinh Nguyễn" width="640" height="960" loading="lazy" decoding="async" />
+      </figure>
+      <div class="journey__about">
+        <p class="state" data-rv>{PROFILE.title}</p>
+        <p data-rv style="--d:1">{PROFILE.body}</p>
+        <p data-rv style="--d:2">{PROFILE.years}</p>
+        <dl class="journey__facts small" data-rv style="--d:3">
+          <div><dt class="soft">Học vấn</dt><dd>{PROFILE.education}</dd></div>
+          <div><dt class="soft">Phù hợp</dt><dd>{FIT}</dd></div>
+        </dl>
+      </div>
     </div>
 
-    <div class="journey__track" aria-hidden="true"><span class="journey__bar"></span></div>
-    <ol class="journey__list">
-      {ROLES.map((r, i) => (
-        <li class="journey__item" style={`--i:${i}`} data-reveal>
-          <span class="journey__node"></span>
-          <p class="mono journey__when">{r.when}</p>
-          <p class="mono accent">{r.verb}</p>
-          <h3 class="h3 journey__title">{r.title}</h3>
-          <p class="journey__v it">{r.v}</p>
-          <details class="journey__more">
-            <summary class="mono">Xem việc đã làm</summary>
-            <p class="muted">{r.d}</p>
-          </details>
-        </li>
-      ))}
-    </ol>
+    <div class="gantt" role="list" aria-label="Các chức danh theo thời gian">
+      <div class="gantt__years" aria-hidden="true">{years.map((y) => <span>{y}</span>)}</div>
+      {ROLES.map((r, i) => {
+        const s = span(r.when);
+        return (
+          <article class="gantt__row" role="listitem" style={`--l:${s.l}%;--w:${s.w}%;--k:${i}`}>
+            <header class="gantt__head">
+              <h3 class="gantt__title">{r.title}</h3>
+              <p class="gantt__when small"><time>{r.when}</time></p>
+            </header>
+            <div class="gantt__track" aria-hidden="true"><i></i></div>
+            <div class="gantt__body">
+              <p class="soft">{r.d}</p>
+              <p class="gantt__v">{r.v}</p>
+            </div>
+          </article>
+        );
+      })}
+    </div>
   </div>
 </section>
 
 <style>
-  .journey__track { position: relative; height: 2px; background: var(--line); margin-bottom: 28px; }
-  .journey__bar { position: absolute; inset: 0 auto 0 0; width: calc(var(--p, 1) * 100%); background: var(--accent); }
-  .journey__list { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 2vw, 28px); }
-  .journey__item { position: relative; display: grid; gap: 8px; align-content: start; padding-top: 10px; }
-  .journey__node { position: absolute; top: -37px; left: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); }
-  .journey__when { color: var(--ink-2); }
-  .journey__title { font-size: clamp(19px, 1.7vw, 24px); }
-  .journey__v { font-size: 19px; line-height: 1.35; color: var(--ink-2); }
-  .journey__more summary { cursor: pointer; color: var(--ink-2); list-style: none; padding: 6px 0; }
-  .journey__more summary::before { content: '+ '; color: var(--accent); }
-  .journey__more[open] summary::before { content: '− '; }
-  .journey__more p { font-size: 15px; }
+  .journey__top { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
+  .journey__intro { grid-column: 1; display: grid; gap: 28px; align-content: start; }
+  .journey__t { font-size: clamp(42px, 5vw, 92px); }
+  .journey__pic { grid-column: 2; border-radius: 26px; overflow: hidden; aspect-ratio: 2 / 3; background: var(--blush); transform: rotate(-2deg); }
+  .journey__pic img { width: 100%; height: 100%; object-fit: cover; }
+  .journey__about { grid-column: 3; display: grid; gap: 18px; }
+  .journey__about .state { font-weight: 650; }
+  .journey__facts { display: grid; gap: 12px; padding-top: 6px; }
+  .journey__facts dt { font-weight: 500; }
+  .gantt { margin-top: clamp(64px, 9vw, 140px); }
+
+  .gantt { display: grid; gap: 4px; }
+  .gantt__years { display: grid; grid-template-columns: repeat(5, 1fr); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink-3); margin-left: 34%; padding-bottom: 10px; }
+  .gantt__row { display: grid; grid-template-columns: 34% 1fr; grid-template-areas: 'head track' 'head body'; gap: 14px 0; padding: clamp(20px, 2.4vw, 32px) 0; }
+  .gantt__row:nth-of-type(odd) { background: var(--bg-2); border-radius: 22px; }
+  .gantt__row { padding-inline: 18px; }
+  .gantt__head { grid-area: head; display: grid; gap: 6px; align-content: start; padding-right: 24px; }
+  .gantt__title { font-size: clamp(22px, 2vw, 32px); letter-spacing: -0.03em; line-height: 1.05; }
+  .gantt__when { font-variant-numeric: tabular-nums; font-weight: 500; color: var(--ink-2); }
+  .gantt__track { grid-area: track; position: relative; height: 26px; border-radius: 999px; background: rgb(201 31 85 / 0.1); }
+  .gantt__track i { position: absolute; top: 0; bottom: 0; left: var(--l); width: var(--w); min-width: 26px; border-radius: 999px; background: var(--acc); transform-origin: left center; }
+  .gantt__body { grid-area: body; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
+  .gantt__v { font-weight: 600; }
   @media (max-width: 900px) {
-    .journey__track { display: none; }
-    .journey__list { grid-template-columns: 1fr; gap: 0; border-left: 2px solid var(--line); margin-left: 7px; }
-    .journey__item { padding: 0 0 36px 24px; }
-    .journey__node { top: 2px; left: -9px; }
+    .journey__top { grid-template-columns: 1fr 1fr; }
+    .journey__intro { grid-column: 1 / -1; }
+    .journey__pic { grid-column: 1; }
+    .journey__about { grid-column: 2; }
+    .gantt__years { margin-left: 0; }
+    .gantt__row { grid-template-columns: 1fr; grid-template-areas: 'head' 'track' 'body'; }
+    .gantt__body { grid-template-columns: 1fr; gap: 10px; }
+  }
+  @media (max-width: 600px) {
+    .journey__top { grid-template-columns: 1fr; }
+    .journey__intro, .journey__pic, .journey__about { grid-column: 1; }
+    .journey__pic { width: 72%; }
   }
 </style>

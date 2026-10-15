@@ -1,67 +1,51 @@
 ---
 import { METHOD, STEPS } from '../data/site';
-// Độ lệch chiều cao ban đầu của 4 cột (0–1). Cuộn tới thì về 0: các cột bằng nhau.
-const off = [0.12, 0.34, 0.05, 0.45];
+// Đường gợn sóng: biên độ giảm dần về 0 khi cuộn (scripts/motion.ts vẽ lại).
+const W = 1600;
+const wave = (amp: number) => {
+  let d = `M0 60`;
+  for (let x = 0; x <= W; x += 20) d += ` L${x} ${(60 + Math.sin(x / 47) * amp * Math.sin(x / 310 + 1)).toFixed(1)}`;
+  return d;
+};
 ---
 
-<section class="sec method" id="cach-lam" data-lazy="method">
-  <div class="wrap">
-    <div class="sec-head method__head">
-      <span class="pill"><span class="dot"></span>{METHOD.eyebrow}</span>
-      <h2 class="h2" data-reveal>{METHOD.title}</h2>
-    </div>
+<section class="method sec" id="cach-lam" data-method>
+  <div class="wrap method__head">
+    <h2 class="h2 method__t">{METHOD.title}</h2>
+  </div>
 
-    <div class="method__stage" data-progress="0.95">
-      <svg class="method__wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
-        <g class="method__wave-g"><path d="M0 30 Q 50 0 100 30 T 200 30 T 300 30 T 400 30 T 500 30 T 600 30 T 700 30 T 800 30 T 900 30 T 1000 30 T 1100 30 T 1200 30" /></g>
-      </svg>
-      <div class="method__rail" aria-hidden="true">
-        <svg class="method__shape" viewBox="0 0 120 120" data-shape><polygon points="" /></svg>
-      </div>
-
-      <ol class="method__cols">
-        {STEPS.map((s, i) => (
-          <li class="method__col" style={`--off:${off[i]}`}>
-            <span class="mono method__n">0{i + 1}</span>
-            <div class="method__txt">
-              <h3 class="h3">{s.t}</h3>
-              <p class="it method__k">{s.k}</p>
-              <p class="method__d">{s.d}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </div>
+  <div class="method__pin">
+    <svg class="method__wave" viewBox={`0 0 ${W} 120`} preserveAspectRatio="none" aria-hidden="true">
+      <path d={wave(46)} data-wave data-w={W} />
+    </svg>
+    <ol class="method__track wrap">
+      {STEPS.map((s, i) => (
+        <li class="method__step" style={`--k:${i}`}>
+          <h3 class="method__name">{s.t}</h3>
+          <p class="state method__k">{s.k}</p>
+          <p class="method__d">{s.d}</p>
+        </li>
+      ))}
+    </ol>
   </div>
 </section>
 
 <style>
-  .method__stage { position: relative; }
-  .method__wave { position: absolute; left: 0; right: 0; top: calc(88% - 30px); width: 100%; height: 60px; z-index: 2; pointer-events: none; overflow: visible; }
-  .method__wave path { fill: none; stroke: var(--accent-ink); stroke-width: 2; vector-effect: non-scaling-stroke; }
-  .method__wave-g { transform-origin: 50% 50%; transform-box: fill-box; transform: scaleY(calc(1 - var(--p, 1))); }
-  .method__rail { position: absolute; left: 0; right: 0; top: 88%; height: 0; border-top: 1px dashed rgb(255 247 250 / 0.7); z-index: 3; pointer-events: none; }
-  .method__shape { position: absolute; top: -45px; left: 0; width: 90px; height: 90px; transform: translateX(var(--sx, 0px)); opacity: 0; transition: opacity 0.3s; overflow: visible; }
-  .method__stage.is-live .method__shape { opacity: 1; }
-  .method__shape polygon { fill: none; stroke: var(--accent-ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
-  .method__shape.trail { transition: opacity 1.2s; }
+  .method__head { margin-bottom: clamp(40px, 6vw, 96px); }
+  .method__t { max-width: 13ch; }
+  .method__pin { position: relative; overflow: clip; }
+  .method__wave { width: 100%; height: clamp(70px, 9vw, 120px); overflow: visible; }
+  .method__wave path { fill: none; stroke: var(--acc); stroke-width: 3; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+  .method__track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 64px) clamp(24px, 4vw, 72px); margin-top: clamp(24px, 3vw, 48px); }
+  .method__step { display: grid; gap: 16px; align-content: start; }
+  .method__name { font-size: clamp(52px, 9.4vw, 176px); letter-spacing: -0.05em; color: var(--acc); }
+  .method__k { font-weight: 600; }
+  .method__d { max-width: 42ch; color: var(--ink); font-size: clamp(17px, 1.3vw, 21px); }
 
-  .method__cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: end; height: clamp(440px, 60vh, 560px); }
-  .method__col {
-    /* chiều cao: lệch theo --off, cuộn tới (--p → 1) thì bằng nhau */
-    height: calc(100% - var(--off) * (1 - var(--p, 1)) * 100%);
-    display: flex; flex-direction: column; gap: 20px;
-    padding: 18px; border-radius: var(--r); background: var(--accent); color: var(--accent-ink);
-    position: relative; overflow: hidden;
-  }
-  .method__n { opacity: 0.85; }
-  .method__txt { display: grid; gap: 8px; }
-  .method__k { font-size: 20px; line-height: 1.25; }
-  .method__d { font-size: 15px; line-height: 1.5; opacity: 0.92; }
-
-  @media (max-width: 900px) {
-    .method__wave, .method__rail { display: none; }
-    .method__cols { grid-template-columns: 1fr; height: auto; min-height: 0; }
-    .method__col { height: auto; min-height: 0; gap: 24px; }
-  }
+  /* ngang + ghim khi JS bật trên màn rộng (lớp do motion.ts thêm) */
+  .method.is-h .method__pin { height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 2vh; }
+  .method.is-h .method__step { padding-top: 2vh; }
+  .method.is-h .method__track { display: flex; width: max-content; max-width: none; gap: 0; padding-right: 0; }
+  .method.is-h .method__step { width: min(70vw, 1080px); padding-right: clamp(40px, 6vw, 120px); }
+  @media (max-width: 760px) { .method__track { grid-template-columns: 1fr; } }
 </style>

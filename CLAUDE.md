@@ -17,10 +17,10 @@ Làm lại từ đầu (10/2026). Không dùng lại giao diện cũ (repo `Xinh
 - Trả lời Xinh bằng tiếng Việt, câu ngắn. Xong việc gửi link xem trước.
 
 ## Kỹ thuật
-- Astro 5 (static) + TypeScript. Không framework UI, không thư viện chuyển động (tự viết, nhẹ).
+- Astro 5 (static) + TypeScript. Không framework UI. Chuyển động theo repo design-on-the-flank: GSAP + ScrollTrigger (tải lúc rảnh), nền WebGL2 tự viết. Hướng thiết kế: `docs/HUONG-THIET-KE.md`.
 - Nội dung: `src/data/site.ts`, `src/data/work.ts`. Sửa chữ ở đây, không sửa trong component.
-- Hệ thiết kế: `src/styles/global.css` (biến màu, chữ, nút, cửa sổ OS).
-- JS: `src/scripts/core.ts` (chung), `method.ts` và `desktop.ts` tải khi cuộn gần tới.
+- Hệ thiết kế: `src/styles/global.css` (biến màu, chữ, nút, kính). Font Bricolage Grotesque khai báo trong `src/layouts/Base.astro`.
+- JS: `src/scripts/core.ts` (chung, chạy ngay), `field.ts` (WebGL mở đầu) và `motion.ts` (GSAP) tải lúc rảnh.
 - Deploy: Cloudflare Workers static assets (`wrangler.jsonc`, `public/_headers`). Build `npm run build` → `dist/`.
 
 ## Lệnh
@@ -30,7 +30,7 @@ Làm lại từ đầu (10/2026). Không dùng lại giao diện cũ (repo `Xinh
 | Chạy thử | `npm run dev` → http://localhost:4321 |
 | Kiểm tra kiểu | `npm run check` |
 | Build + xem | `npm run build && npm run preview` |
-| Chụp ảnh | `npm run shots` (khi preview đang chạy) |
+| Chụp ảnh | `PW_CHROMIUM="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" node tools/shots.mjs <url> [/,/du-an/]` |
 
 ## Quy trình
 Nhánh mới cho mỗi bước → PR → Cloudflare cho link xem trước → Xinh duyệt → merge `main`. Không merge khi Xinh chưa bảo.

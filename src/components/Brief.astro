@@ -1,44 +1,36 @@
 ---
 import { BRIEF } from '../data/site';
-// Vị trí "lộn xộn" ban đầu của từng thẻ (x %, y px, xoay độ). Cuộn tới thì về 0.
-const mess = [
-  [-6, 40, -9], [14, -30, 7], [-12, -10, 5], [8, 50, -6], [-4, -40, 10],
-];
 ---
 
-<section class="sec brief" id="de-bai" data-progress>
+<section class="brief sec" id="de-bai" data-brief>
   <div class="wrap brief__in">
-    <div class="sec-head">
-      <span class="pill"><span class="dot"></span>{BRIEF.eyebrow}</span>
-      <h2 class="h2" data-reveal>{BRIEF.title}</h2>
-      <p class="lead" data-reveal style="--i:1">{BRIEF.body}</p>
+    <div class="brief__head">
+      <h2 class="brief__t">{BRIEF.title}</h2>
+      <p class="lead" data-rv>{BRIEF.body}</p>
     </div>
-    <ol class="brief__cards">
+    <ul class="brief__cards">
       {BRIEF.cards.map((c, i) => (
-        <li class="brief__card glass" style={`--mx:${mess[i][0]}%;--my:${mess[i][1]}px;--mr:${mess[i][2]}deg`}>
-          <span class="mono brief__n">0{i + 1}</span>
-          <span class="brief__txt">{c}</span>
-          <span class="brief__ok" aria-hidden="true">✓</span>
+        <li class="brief__card" style={`--k:${i}`}>
+          <span class="brief__mark" aria-hidden="true"></span>
+          <p>{c}</p>
         </li>
       ))}
-    </ol>
+    </ul>
   </div>
 </section>
 
 <style>
-  .brief { overflow-x: clip; background: radial-gradient(60% 70% at 85% 60%, rgb(240 160 195 / 0.45), transparent 70%), radial-gradient(40% 50% at 10% 20%, rgb(255 205 185 / 0.4), transparent 70%); }
-  .brief__in { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
-  .brief__cards { display: grid; gap: 12px; counter-reset: c; }
-  /* --p: 0 → 1 theo cuộn (scripts/core.ts). Không JS thì thẻ đã thẳng hàng. */
-  .brief__card {
-    --k: calc(1 - var(--p, 1));
-    display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center;
-    padding: 18px 20px; border-radius: var(--r);
-    font-weight: 600; font-size: clamp(16px, 1.3vw, 19px);
-    transform: translate(calc(var(--mx) * var(--k)), calc(var(--my) * var(--k))) rotate(calc(var(--mr) * var(--k)));
-    will-change: transform;
+  .brief { background: var(--blush); border-radius: 40px 40px 0 0; }
+  .brief__in { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 120px); align-items: start; }
+  .brief__head { position: sticky; top: 120px; display: grid; gap: 28px; }
+  .brief__t { font-size: clamp(40px, 4.6vw, 84px); line-height: 0.98; }
+  .brief__cards { display: grid; gap: 14px; }
+  .brief__card { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; padding: clamp(22px, 2.4vw, 34px); border-radius: 26px; background: var(--bg); font-size: clamp(22px, 2.1vw, 34px); font-weight: 600; line-height: 1.12; letter-spacing: -0.025em; transform-origin: 50% 50%; will-change: transform; }
+  .brief__mark { width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 2.5px var(--acc); transition: background 0.4s var(--ease); }
+  .brief__card.is-set .brief__mark { background: var(--acc); }
+  @media (max-width: 860px) {
+    .brief { border-radius: 28px 28px 0 0; }
+    .brief__in { grid-template-columns: 1fr; }
+    .brief__head { position: static; }
   }
-  .brief__n { color: var(--ink-3); }
-  .brief__ok { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-size: 13px; opacity: clamp(0, calc((var(--p, 1) - 0.8) * 5), 1); }
-  @media (max-width: 900px) { .brief__in { grid-template-columns: 1fr; } }
 </style>

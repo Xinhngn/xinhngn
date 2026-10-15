@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "codegraph": {
+      "command": "/Users/macbookpro/.local/node/bin/npx",
+      "args": ["-y", "@colbymchenry/codegraph@1.6.2", "serve", "--mcp"],
+      "env": { "PATH": "/Users/macbookpro/.local/node/bin:/usr/bin:/bin", "CODEGRAPH_TELEMETRY": "0" }
+    }
+  }
+}
