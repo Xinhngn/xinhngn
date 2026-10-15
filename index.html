@@ -182,6 +182,7 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastTxt"></span><button type="button" id="toastGo"></button><button type="button" class="x" id="toastX" aria-label="Dismiss">✕</button></div>
 
+<div id="atmo" aria-hidden="true"></div>
 <main>
 <!-- =========================================================== STORY =========================================================== -->
 <div class="view" data-view="story" id="v-story">
@@ -287,25 +288,25 @@
 </section>
 
 <section class="sc sc-peri zone pf3" id="align">
-  <div class="wrap pf-headwrap">
+  <div class="wrap pz-headwrap">
     <div class="head">
       <span class="node rail cp" data-node data-cp="3"></span>
       <p class="tag"><b>LV.3</b><span class="en">Proof</span><span class="vi">Bằng chứng</span></p>
       <h2 class="h2"><span class="en">What has Xinh <em>actually done?</em></span><span class="vi">Xinh đã làm <em>được gì?</em></span></h2>
     </div>
   </div>
-  <div class="pf" id="pf">
-    <div class="pf-pin"><div class="pf-stage" id="pfStage">
-      <div class="pf-c" id="pfC" data-pfc></div>
-      <div class="pf-b" id="pfB"><div class="pf-grid" id="pfGrid"></div></div>
-      <div class="pf-a" id="pfA">
-        <p class="pf-num" aria-hidden="true"><span>2</span><span id="pf0">0</span></p>
-        <p class="pf-cap"><b class="bf-sr">20</b><span class="en">brands in the portfolio</span><span class="vi">thương hiệu trong portfolio</span><small><span class="en">Banking, fintech, consumer</span><span class="vi">Ngân hàng, fintech, tiêu dùng</span></small></p>
-        <p class="pf-yr"><b>5</b><span><span class="en">years of experience</span><span class="vi">năm kinh nghiệm</span><small>Marketing &amp; Communication</small></span></p>
+  <div class="pz" id="pf">
+    <div class="pz-pin"><div class="pz-stage" id="pfStage">
+      <div class="pz-c" id="pfC" data-pfc></div>
+      <div class="pz-b" id="pfB"><div class="pz-grid" id="pfGrid"></div></div>
+      <div class="pz-a" id="pfA">
+        <p class="pz-num" aria-hidden="true"><span>2</span><span id="pf0">0</span></p>
+        <p class="pz-cap"><b class="bf-sr">20</b><span class="en">brands in the portfolio</span><span class="vi">thương hiệu trong portfolio</span><small><span class="en">Banking, fintech, consumer</span><span class="vi">Ngân hàng, fintech, tiêu dùng</span></small></p>
+        <p class="pz-yr"><b>5</b><span><span class="en">years of experience</span><span class="vi">năm kinh nghiệm</span><small>Marketing &amp; Communication</small></span></p>
       </div>
     </div></div>
   </div>
-  <div class="wrap pf-after">
+  <div class="wrap pz-after">
     <div class="wpt"><span class="node rail wp" data-node></span></div>
   </div>
 </section>
@@ -375,7 +376,6 @@
     <div class="end-card">
       <div class="ec-l">
         <p class="ec-k"><span class="en">Next step</span><span class="vi">Bước tiếp theo</span></p>
-        <p><span class="en">Xinh said hi at the start. Now it's yours: pick a channel and she'll say hi right back.</span><span class="vi">Lúc mở màn Xinh đã say hi. Giờ đến lượt bạn: chọn một kênh, Xinh say hi lại liền.</span></p>
         <div class="acts">
           <button class="btn lime" type="button" data-connect><span class="en">Say hi now</span><span class="vi">Say hi ngay</span></button>
           <span id="goalCv"></span>
@@ -402,16 +402,12 @@
       <h2 class="qword">Work</h2>
     </div>
     <div class="wx-hero">
-      <p class="wx-state"><span class="en">Campaigns Xinh has worked on, <i>(across)</i></span><span class="vi">Các chiến dịch Xinh đã tham gia, <i>(trải dài)</i></span></p>
-      <p class="wx-jump" id="wxJump"></p>
-      <div class="wx-bar">
-        <div class="wx-sw" id="wxSw" role="group" aria-label="Sort projects">
-          <button type="button" data-wx="type" aria-pressed="true"><span class="en">By kind of work</span><span class="vi">Theo tính chất</span></button>
-          <button type="button" data-wx="client" aria-pressed="false"><span class="en">By client</span><span class="vi">Theo khách hàng</span></button>
-        </div>
-        <p class="wx-count" id="wxCount"></p>
+      <p class="wx-state"><span class="en">Campaigns Xinh has run, pitched or produced. <i>Pick a lane.</i></span><span class="vi">Các chiến dịch Xinh đã chạy, pitch hoặc sản xuất. <i>Chọn một hướng.</i></span></p>
+      <div class="wx-filter">
+        <div class="wx-fil" id="wxFil" role="group" aria-label="Filter by kind of work"></div>
+        <p class="wx-count" id="wxCount" aria-live="polite"></p>
       </div>
-      <p class="wx-note"><span class="en">Tap a row for a short intro, then open the details. Team results stay marked as team results.</span><span class="vi">Bấm một dòng để xem giới thiệu, rồi mở chi tiết. Kết quả của team được ghi rõ là của team.</span></p>
+      <div class="wx-cli" id="wxCli" role="group" aria-label="Filter by client"></div>
     </div>
     <div class="wx-index" id="wxIndex"></div>
     <div class="stamp">
@@ -562,8 +558,7 @@
 </main>
 
 <!-- Case sheet -->
-<div class="sheet jc-sheet" id="jobCard" hidden role="dialog" aria-modal="true" aria-labelledby="jcTitle"><div class="sheet-in jc" id="jcIn"></div></div>
-<div class="sheet jd-sheet" id="jobSheet" hidden role="dialog" aria-modal="true" aria-labelledby="jdTitle"><div class="sheet-in jd" id="jdIn"></div></div>
+<div class="sheet jd-sheet jx" id="jobSheet" hidden role="dialog" aria-modal="true" aria-labelledby="jdTitle"><div class="sheet-in jd" id="jdIn"></div></div>
 <div class="sheet" id="caseSheet" hidden role="dialog" aria-modal="true" aria-labelledby="csTitle"><div class="sheet-in" id="caseIn"></div></div>
 <!-- Connect sheet -->
 <div class="sheet csheet" id="connectSheet" hidden role="dialog" aria-modal="true" aria-labelledby="cnTitle">
