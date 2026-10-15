@@ -1,0 +1,43 @@
+---
+interface Props { page: string }
+const { page } = Astro.props;
+const links = [
+  { href: '/#hanh-trinh', label: 'Hành trình', on: false },
+  { href: '/du-an/', label: 'Dự án', on: page === 'work' || page === 'case' },
+  { href: '/#lien-he', label: 'Liên hệ', on: false },
+];
+---
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="nav__logo" href="/" aria-label="XINH.OS, về trang chủ">
+      <span class="nav__mark">X</span><span class="mono">XINH.OS</span>
+    </a>
+    <nav class="nav__links" aria-label="Chính">
+      {links.map((l) => (
+        <a class:list={['nav__link', { 'is-on': l.on }]} href={l.href} aria-current={l.on ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="nav__clock mono" aria-label="Giờ TP.HCM">
+      <span class="dot"></span><span>HCM</span><time data-clock>--:--:--</time>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; padding: 14px var(--gut); pointer-events: none; }
+  .nav__in { display: flex; align-items: center; justify-content: space-between; gap: 12px; max-width: var(--max); margin-inline: auto; }
+  .nav__in > * { pointer-events: auto; }
+  .nav__logo { display: inline-flex; align-items: center; gap: 10px; }
+  .nav__mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 17px; }
+  .nav__links { display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgb(245 240 232 / 0.78); border: 1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .nav__link { height: 32px; display: inline-flex; align-items: center; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 600; transition: background var(--t-fast); }
+  .nav__link:hover { background: var(--paper-2); }
+  .nav__link.is-on { background: var(--ink); color: var(--paper); }
+  .nav__clock { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
+  .nav__clock time { font-variant-numeric: tabular-nums; color: var(--ink); }
+  @media (max-width: 720px) {
+    .nav__logo .mono, .nav__clock { display: none; }
+    .nav__link { padding: 0 11px; font-size: 13px; }
+  }
+</style>

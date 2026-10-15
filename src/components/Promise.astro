@@ -1,0 +1,19 @@
+---
+import { PROMISE } from '../data/site';
+---
+
+<section class="sec promise" id="loi-hua">
+  <div class="wrap">
+    <h2 class="h1 promise__t lines" data-reveal-lines>
+      <span><span>{PROMISE.lead}</span></span>
+      <span><span class="it accent">{PROMISE.turn}</span></span>
+    </h2>
+    <p class="lead promise__b" data-reveal>{PROMISE.body}</p>
+  </div>
+</section>
+
+<style>
+  .promise__t { max-width: 14ch; }
+  .promise__t .it { font-weight: 400; letter-spacing: -0.02em; }
+  .promise__b { margin: clamp(32px, 5vw, 56px) 0 0 auto; max-width: 40ch; }
+</style>

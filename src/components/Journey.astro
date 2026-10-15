@@ -1,0 +1,51 @@
+---
+import { JOURNEY, ROLES } from '../data/site';
+---
+
+<section class="sec journey" id="hanh-trinh" data-progress>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="pill"><span class="dot"></span>{JOURNEY.eyebrow}</span>
+      <h2 class="h2" data-reveal>{JOURNEY.title}</h2>
+      <p class="lead" data-reveal style="--i:1">{JOURNEY.body}</p>
+    </div>
+
+    <div class="journey__track" aria-hidden="true"><span class="journey__bar"></span></div>
+    <ol class="journey__list">
+      {ROLES.map((r, i) => (
+        <li class="journey__item" style={`--i:${i}`} data-reveal>
+          <span class="journey__node"></span>
+          <p class="mono journey__when">{r.when}</p>
+          <p class="mono accent">{r.verb}</p>
+          <h3 class="h3 journey__title">{r.title}</h3>
+          <p class="journey__v it">{r.v}</p>
+          <details class="journey__more">
+            <summary class="mono">Xem việc đã làm</summary>
+            <p class="muted">{r.d}</p>
+          </details>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .journey__track { position: relative; height: 2px; background: var(--line); margin-bottom: 28px; }
+  .journey__bar { position: absolute; inset: 0 auto 0 0; width: calc(var(--p, 1) * 100%); background: var(--accent); }
+  .journey__list { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 2vw, 28px); }
+  .journey__item { position: relative; display: grid; gap: 8px; align-content: start; padding-top: 10px; }
+  .journey__node { position: absolute; top: -37px; left: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); }
+  .journey__when { color: var(--ink-2); }
+  .journey__title { font-size: clamp(19px, 1.7vw, 24px); }
+  .journey__v { font-size: 19px; line-height: 1.35; color: var(--ink-2); }
+  .journey__more summary { cursor: pointer; color: var(--ink-2); list-style: none; padding: 6px 0; }
+  .journey__more summary::before { content: '+ '; color: var(--accent); }
+  .journey__more[open] summary::before { content: '− '; }
+  .journey__more p { font-size: 15px; }
+  @media (max-width: 900px) {
+    .journey__track { display: none; }
+    .journey__list { grid-template-columns: 1fr; gap: 0; border-left: 2px solid var(--line); margin-left: 7px; }
+    .journey__item { padding: 0 0 36px 24px; }
+    .journey__node { top: 2px; left: -9px; }
+  }
+</style>

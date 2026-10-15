@@ -1,0 +1,63 @@
+---
+import { HERO, CONTACT } from '../data/site';
+const faces = [
+  { src: '/assets/xinh-hi.webp', alt: 'Xinh vẫy chào', label: 'hi.webp' },
+  { src: '/assets/xinh-go.webp', alt: 'Xinh sẵn sàng', label: 'go.webp' },
+  { src: '/assets/xinh-work.webp', alt: 'Xinh đang làm việc', label: 'work.webp' },
+  { src: '/assets/xinh-chill.webp', alt: 'Xinh nghỉ ngơi', label: 'chill.webp' },
+];
+---
+
+<section class="hero" id="top">
+  <div class="wrap hero__grid">
+    <p class="hero__hi it accent" data-reveal>{HERO.hi}</p>
+    <h1 class="mega hero__title lines" data-reveal-lines>
+      <span><span>Xinh thích</span></span>
+      <span><span>làm chủ<span class="accent">.</span></span></span>
+    </h1>
+
+    <div class="hero__side" data-reveal style="--i:3">
+      <button class="win hero__face" type="button" data-faces={JSON.stringify(faces)} aria-label="Bấm để đổi ảnh Xinh">
+        <span class="win__bar"><span class="win__dots"><i></i><i></i><i></i></span><span class="win__title" data-face-label>{faces[0].label}</span></span>
+        <img src={faces[0].src} alt={faces[0].alt} width="900" height="1350" fetchpriority="high" decoding="async" data-face-img />
+        <span class="hero__tap mono">bấm để đổi ảnh</span>
+      </button>
+    </div>
+
+    <div class="hero__foot" data-reveal style="--i:4">
+      <p class="lead">{HERO.sub}</p>
+      <div class="hero__cta">
+        <a class="btn" href="#loi-hua">Vào hành trình <span class="arr">↓</span></a>
+        <a class="btn btn--ghost" href="/du-an/">Xem dự án</a>
+      </div>
+    </div>
+
+    <div class="hero__meta mono">
+      <span>{CONTACT.city} · Remote</span>
+      <span>Ưu tiên Banking & Fintech</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { min-height: 100svh; display: flex; align-items: flex-end; padding: 96px 0 28px; }
+  .hero__grid { display: grid; grid-template-columns: 1fr minmax(240px, 30%); grid-template-areas: 'hi side' 'title side' 'foot side' 'meta meta'; column-gap: clamp(24px, 4vw, 64px); align-items: end; }
+  .hero__hi { grid-area: hi; font-size: clamp(28px, 4vw, 56px); line-height: 1; margin-bottom: 8px; }
+  .hero__title { grid-area: title; }
+  .hero__side { grid-area: side; align-self: center; }
+  .hero__foot { grid-area: foot; display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: center; justify-content: space-between; margin-top: clamp(24px, 4vw, 48px); }
+  .hero__cta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero__meta { grid-area: meta; display: flex; justify-content: space-between; gap: 16px; margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--ink-2); }
+  .hero__face { display: block; width: 100%; position: relative; transform: rotate(2deg); transition: transform 0.5s var(--ease); text-align: left; }
+  .hero__face:hover { transform: rotate(0deg) translateY(-4px); }
+  .hero__face img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .hero__tap { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgb(255 253 249 / 0.85); }
+  .hero__face.is-swap img { animation: face 0.45s var(--ease); }
+  @keyframes face { from { opacity: 0.2; transform: scale(1.04); } }
+  @media (max-width: 820px) {
+    .hero { align-items: flex-start; padding-top: 88px; }
+    .hero__grid { grid-template-columns: 1fr; grid-template-areas: 'hi' 'title' 'side' 'foot' 'meta'; }
+    .hero__side { width: min(72%, 320px); margin: 28px 0 0 auto; }
+    .hero__meta { flex-direction: column; gap: 4px; }
+  }
+</style>

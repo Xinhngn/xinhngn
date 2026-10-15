@@ -1,0 +1,67 @@
+---
+import { METHOD, STEPS } from '../data/site';
+// Độ lệch chiều cao ban đầu của 4 cột (0–1). Cuộn tới thì về 0: các cột bằng nhau.
+const off = [0.12, 0.34, 0.05, 0.45];
+---
+
+<section class="sec method" id="cach-lam" data-progress data-lazy="method">
+  <div class="wrap">
+    <div class="sec-head method__head">
+      <span class="pill"><span class="dot"></span>{METHOD.eyebrow}</span>
+      <h2 class="h2" data-reveal>{METHOD.title}</h2>
+    </div>
+
+    <div class="method__stage">
+      <svg class="method__wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+        <g class="method__wave-g"><path d="M0 30 Q 50 0 100 30 T 200 30 T 300 30 T 400 30 T 500 30 T 600 30 T 700 30 T 800 30 T 900 30 T 1000 30 T 1100 30 T 1200 30" /></g>
+      </svg>
+      <div class="method__rail" aria-hidden="true">
+        <svg class="method__shape" viewBox="0 0 120 120" data-shape><polygon points="" /></svg>
+      </div>
+
+      <ol class="method__cols">
+        {STEPS.map((s, i) => (
+          <li class="method__col" style={`--off:${off[i]}`}>
+            <span class="mono method__n">0{i + 1}</span>
+            <div class="method__txt">
+              <h3 class="h3">{s.t}</h3>
+              <p class="it method__k">{s.k}</p>
+              <p class="method__d">{s.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .method__stage { position: relative; }
+  .method__wave { position: absolute; left: 0; right: 0; top: calc(88% - 30px); width: 100%; height: 60px; z-index: 2; pointer-events: none; overflow: visible; }
+  .method__wave path { fill: none; stroke: var(--accent-ink); stroke-width: 2; vector-effect: non-scaling-stroke; }
+  .method__wave-g { transform-origin: 50% 50%; transform-box: fill-box; transform: scaleY(calc(1 - var(--p, 1))); }
+  .method__rail { position: absolute; left: 0; right: 0; top: 88%; height: 0; border-top: 1px dashed rgb(255 247 250 / 0.7); z-index: 3; pointer-events: none; }
+  .method__shape { position: absolute; top: -45px; left: 0; width: 90px; height: 90px; transform: translateX(var(--sx, 0px)); opacity: 0; transition: opacity 0.3s; overflow: visible; }
+  .method__stage.is-live .method__shape { opacity: 1; }
+  .method__shape polygon { fill: none; stroke: var(--accent-ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+  .method__shape.trail { transition: opacity 1.2s; }
+
+  .method__cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: end; height: clamp(540px, 72vh, 660px); }
+  .method__col {
+    /* chiều cao: lệch theo --off, cuộn tới (--p → 1) thì bằng nhau */
+    height: calc(100% - var(--off) * (1 - var(--p, 1)) * 100%);
+    display: flex; flex-direction: column; gap: 20px;
+    padding: 18px; border-radius: var(--r); background: var(--accent); color: var(--accent-ink);
+    position: relative; overflow: hidden;
+  }
+  .method__n { opacity: 0.85; }
+  .method__txt { display: grid; gap: 8px; }
+  .method__k { font-size: 20px; line-height: 1.25; }
+  .method__d { font-size: 15px; line-height: 1.5; opacity: 0.92; }
+
+  @media (max-width: 900px) {
+    .method__wave, .method__rail { display: none; }
+    .method__cols { grid-template-columns: 1fr; height: auto; min-height: 0; }
+    .method__col { height: auto; min-height: 0; gap: 24px; }
+  }
+</style>

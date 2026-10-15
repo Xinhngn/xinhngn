@@ -1,0 +1,122 @@
+---
+import { CONTACT, FINISH, FIT, PROFILE, TARGET_ROLES } from '../data/site';
+const channels = [
+  { k: 'call', label: 'Gọi', value: CONTACT.phoneLabel, href: `tel:${CONTACT.phone}` },
+  { k: 'zalo', label: 'Zalo', value: CONTACT.phoneLabel, href: `https://zalo.me/${CONTACT.zalo}`, ext: true },
+  { k: 'mail', label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
+  { k: 'in', label: 'LinkedIn', value: 'xinh-nguyen', href: `https://www.linkedin.com/in/${CONTACT.linkedin}`, ext: true },
+];
+const icons = [
+  { href: '#win-profile', label: 'Hồ sơ.txt', glyph: 'txt' },
+  { href: CONTACT.cv, label: 'CV.pdf', glyph: 'pdf', ext: true },
+  { href: '#win-fit', label: 'Phù hợp.txt', glyph: 'txt' },
+  { href: '#hop-tac', label: 'Cách hợp tác', glyph: 'dir' },
+  { href: '/du-an/', label: 'Dự án', glyph: 'dir' },
+];
+---
+
+<section class="sec os" id="lien-he" data-lazy="desktop">
+  <div class="wrap">
+    <div class="os__screen" data-desk>
+      <div class="os__menubar mono">
+        <span><b>XINH.OS</b></span>
+        <span class="os__menu-r"><span>{CONTACT.city}</span><time data-clock>--:--</time></span>
+      </div>
+
+      <ul class="os__icons">
+        {icons.map((ic) => (
+          <li>
+            <a class="os__icon" href={ic.href} target={ic.ext ? '_blank' : undefined} data-open={ic.href.startsWith('#win') ? ic.href.slice(1) : undefined}>
+              <span class:list={['os__glyph', `os__glyph--${ic.glyph}`]} aria-hidden="true">{ic.glyph === 'dir' ? '' : ic.glyph.toUpperCase()}</span>
+              <span class="os__label">{ic.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <article class="win os__win os__win--hi is-open" id="win-hi" data-win style="--x:6%;--y:16%">
+        <header class="win__bar" data-grab><span class="win__dots"><i></i><i></i><i></i></span><span class="win__title">say-hi.app</span></header>
+        <div class="win__body os__hi">
+          <p class="mono accent">{FINISH.eyebrow}</p>
+          <h2 class="os__say it">say hi!</h2>
+          <p class="muted">{FINISH.body}</p>
+          <ul class="os__ch">
+            {channels.map((c) => (
+              <li><a href={c.href} target={c.ext ? '_blank' : undefined} rel={c.ext ? 'noopener' : undefined}>
+                <span class="os__ch-l">{c.label}</span><span class="mono muted">{c.value}</span><span class="arr" aria-hidden="true">↗</span>
+              </a></li>
+            ))}
+          </ul>
+        </div>
+      </article>
+
+      <article class="win os__win os__win--fit is-open" id="win-fit" data-win style="--x:52%;--y:40%">
+        <header class="win__bar" data-grab><span class="win__dots"><a href="#lien-he" aria-label="Đóng" data-close><i></i></a><i></i><i></i></span><span class="win__title">phu-hop.txt</span></header>
+        <div class="win__body">
+          <p>{FIT}</p>
+          <p class="os__roles">{TARGET_ROLES.map((r) => <span class="pill">{r}</span>)}</p>
+        </div>
+      </article>
+
+      <article class="win os__win os__win--pf" id="win-profile" data-win style="--x:30%;--y:10%">
+        <header class="win__bar" data-grab><span class="win__dots"><a href="#lien-he" aria-label="Đóng" data-close><i></i></a><i></i><i></i></span><span class="win__title">ho-so.txt</span></header>
+        <div class="win__body os__pf">
+          <img src="/assets/portrait.webp" alt="Chân dung Xinh Nguyễn" width="600" height="750" loading="lazy" decoding="async" />
+          <div>
+            <p class="mono accent">{PROFILE.title}</p>
+            <p>{PROFILE.body}</p>
+            <p class="muted">{PROFILE.years}</p>
+            <p class="mono muted">Học vấn · {PROFILE.education}</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .os { padding-bottom: clamp(64px, 10vh, 120px); }
+  .os__screen {
+    position: relative; min-height: min(84svh, 780px); border-radius: calc(var(--r) + 10px); overflow: hidden;
+    background: radial-gradient(120% 90% at 20% 10%, #fff7f2 0%, var(--blush) 45%, #f1c7d6 100%);
+    border: 1px solid var(--line); box-shadow: 0 40px 80px -50px rgb(36 27 26 / 0.45);
+  }
+  .os__menubar { position: relative; z-index: 2; display: flex; justify-content: space-between; height: 32px; align-items: center; padding: 0 16px; background: rgb(255 253 249 / 0.6); border-bottom: 1px solid var(--line); }
+  .os__menu-r { display: flex; gap: 14px; }
+  .os__icons { position: absolute; right: 18px; top: 56px; display: grid; gap: 14px; z-index: 1; }
+  .os__icon { display: grid; justify-items: center; gap: 6px; width: 86px; padding: 6px; border-radius: 10px; text-align: center; }
+  .os__icon:hover, .os__icon:focus-visible { background: rgb(255 253 249 / 0.6); }
+  .os__glyph { display: grid; place-items: center; width: 44px; height: 54px; border-radius: 6px 14px 6px 6px; background: #fffdf9; border: 1px solid var(--line); font-family: var(--f-mono); font-size: 10px; font-weight: 600; color: var(--accent); }
+  .os__glyph--dir { width: 54px; height: 42px; border-radius: 6px; background: var(--accent); border-color: var(--accent); position: relative; margin-top: 10px; }
+  .os__glyph--dir::before { content: ''; position: absolute; left: 0; top: -7px; width: 22px; height: 10px; border-radius: 4px 4px 0 0; background: var(--accent); }
+  .os__label { font-size: 12px; font-weight: 600; line-height: 1.2; }
+
+  .os__win { position: absolute; left: var(--x); top: var(--y); width: min(440px, 46%); display: none; z-index: 3; }
+  .os__win.is-open, .os__win:target { display: block; }
+  .os__win--fit { width: min(360px, 38%); }
+  .os__win--pf { width: min(560px, 60%); }
+  .os__win [data-grab] { cursor: grab; user-select: none; touch-action: none; }
+  .os__win.is-drag [data-grab] { cursor: grabbing; }
+  .win__dots a { display: inline-flex; }
+  .os__hi { display: grid; gap: 12px; }
+  .os__say { font-size: clamp(56px, 7vw, 96px); line-height: 0.9; color: var(--accent); }
+  .os__ch { display: grid; margin-top: 8px; border-top: 1px solid var(--line); }
+  .os__ch a { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 10px; padding: 12px 4px; border-bottom: 1px solid var(--line); transition: background var(--t-fast), padding var(--t-fast); }
+  .os__ch a:hover { background: var(--blush-2); padding-left: 10px; }
+  .os__ch-l { font-weight: 700; }
+  .os__ch .arr { color: var(--accent); }
+  .os__roles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .os__pf { display: grid; grid-template-columns: 160px 1fr; gap: 18px; }
+  .os__pf > div { display: grid; gap: 10px; align-content: start; font-size: 15px; }
+  .os__pf img { border-radius: 10px; aspect-ratio: 4 / 5; object-fit: cover; }
+
+  @media (max-width: 820px) {
+    .os__screen { min-height: 0; padding-bottom: 16px; }
+    .os__icons { position: static; display: flex; flex-wrap: wrap; justify-content: center; padding: 16px 8px 4px; }
+    .os__icon { width: 76px; }
+    .os__win { position: relative; left: auto; top: auto; width: auto; margin: 12px; }
+    .os__win--fit, .os__win--pf { width: auto; }
+    .os__pf { grid-template-columns: 1fr; }
+    .os__pf img { max-width: 200px; }
+  }
+</style>

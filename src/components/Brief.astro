@@ -1,0 +1,45 @@
+---
+import { BRIEF } from '../data/site';
+// Vị trí "lộn xộn" ban đầu của từng thẻ (x %, y px, xoay độ). Cuộn tới thì về 0.
+const mess = [
+  [-6, 40, -9], [14, -30, 7], [-12, -10, 5], [8, 50, -6], [-4, -40, 10],
+];
+---
+
+<section class="sec brief" id="de-bai" data-progress>
+  <div class="wrap brief__in">
+    <div class="sec-head">
+      <span class="pill"><span class="dot"></span>{BRIEF.eyebrow}</span>
+      <h2 class="h2" data-reveal>{BRIEF.title}</h2>
+      <p class="lead" data-reveal style="--i:1">{BRIEF.body}</p>
+    </div>
+    <ol class="brief__cards">
+      {BRIEF.cards.map((c, i) => (
+        <li class="brief__card" style={`--mx:${mess[i][0]}%;--my:${mess[i][1]}px;--mr:${mess[i][2]}deg`}>
+          <span class="mono brief__n">0{i + 1}</span>
+          <span class="brief__txt">{c}</span>
+          <span class="brief__ok" aria-hidden="true">✓</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .brief { background: var(--blush-2); }
+  .brief__in { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .brief__cards { display: grid; gap: 12px; counter-reset: c; }
+  /* --p: 0 → 1 theo cuộn (scripts/core.ts). Không JS thì thẻ đã thẳng hàng. */
+  .brief__card {
+    --k: calc(1 - var(--p, 1));
+    display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center;
+    padding: 18px 20px; border-radius: var(--r); background: #fffdf9; border: 1px solid var(--line);
+    font-weight: 600; font-size: clamp(16px, 1.3vw, 19px);
+    transform: translate(calc(var(--mx) * var(--k)), calc(var(--my) * var(--k))) rotate(calc(var(--mr) * var(--k)));
+    box-shadow: 0 10px 30px -18px rgb(36 27 26 / calc(0.5 * var(--k)));
+    will-change: transform;
+  }
+  .brief__n { color: var(--ink-3); }
+  .brief__ok { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-size: 13px; opacity: clamp(0, calc((var(--p, 1) - 0.8) * 5), 1); }
+  @media (max-width: 900px) { .brief__in { grid-template-columns: 1fr; } }
+</style>

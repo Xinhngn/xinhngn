@@ -1,0 +1,44 @@
+---
+import { CONTACT, TARGET_ROLES } from '../data/site';
+---
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot__slot" aria-label={`Xinh Nguyễn, ${TARGET_ROLES.join(', ')}`}>
+      <span class="chip">Xinh</span>
+      <span class="chip chip--accent" data-slot={JSON.stringify(TARGET_ROLES)} aria-hidden="true">{TARGET_ROLES[0]}</span>
+    </p>
+    <div class="foot__row">
+      <div class="foot__col">
+        <p class="mono muted">Liên hệ</p>
+        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+        <a href={`tel:${CONTACT.phone}`}>{CONTACT.phoneLabel}</a>
+      </div>
+      <div class="foot__col">
+        <p class="mono muted">Kết nối</p>
+        <a href={`https://www.linkedin.com/in/${CONTACT.linkedin}`} rel="noopener" target="_blank">LinkedIn</a>
+        <a href={`https://zalo.me/${CONTACT.zalo}`} rel="noopener" target="_blank">Zalo</a>
+        <a href={CONTACT.cv} target="_blank">CV (PDF)</a>
+      </div>
+      <div class="foot__col foot__col--end">
+        <p class="mono muted">© {new Date().getFullYear()} Xinh Nguyễn</p>
+        <p class="mono muted">{CONTACT.city}</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot { border-top: 1px solid var(--line); padding: 72px 0 40px; background: var(--paper-2); }
+  .foot__slot { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 64px; }
+  .chip { display: inline-flex; align-items: center; height: clamp(44px, 6vw, 72px); padding: 0 clamp(16px, 2vw, 28px); border-radius: 999px; background: #fffdf9; border: 1px solid var(--line); font-size: clamp(20px, 3vw, 40px); font-weight: 700; letter-spacing: -0.02em; }
+  .chip--accent { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); min-width: 6ch; justify-content: center; transition: width 0.4s var(--ease); }
+  .foot__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .foot__col { display: grid; gap: 6px; align-content: start; font-size: 15px; }
+  .foot__col a:hover { color: var(--accent); }
+  .foot__col--end { justify-items: end; text-align: right; }
+  @media (max-width: 720px) {
+    .foot__row { grid-template-columns: 1fr 1fr; }
+    .foot__col--end { grid-column: 1 / -1; justify-items: start; text-align: left; }
+  }
+</style>
