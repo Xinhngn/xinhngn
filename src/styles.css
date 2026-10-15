@@ -1544,27 +1544,17 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:#fff}
 .how-card .n{color:var(--blue)}
 
 /* ---------- LV.3 proof: the cobalt poster ---------- */
-#align{background:var(--blue); color:#fff}
-#align .tag{color:rgba(255,255,255,.75)} #align .tag b{background:var(--ink); color:var(--lime)}
-#align .h2{color:#fff} #align .h2 em{color:var(--lime)!important}
-#align .lead{color:rgba(255,255,255,.78)}
-.statrow{grid-template-columns:1fr 1px 1fr; border-top:1px solid rgba(255,255,255,.3); padding-top:clamp(18px,2vw,26px)}
-#align .glowbar{display:block!important; width:1px; background:rgba(255,255,255,.3); filter:none; animation:none; border-radius:0}
-.sr b{color:#fff; font-weight:800; font-size:clamp(72px,9vw,140px); line-height:.85; letter-spacing:-.06em}
-.sr p{color:#fff; font-size:15px}
-.sr small{color:rgba(255,255,255,.7)}
+.statrow{grid-template-columns:1fr 1px 1fr; border-top:1px solid var(--edge); padding-top:clamp(18px,2vw,26px)}
+#align .glowbar{display:block!important; width:1px; background:var(--edge); filter:none; animation:none; border-radius:0}
+.sr b{color:var(--ink); font-weight:800; font-size:clamp(72px,9vw,140px); line-height:.85; letter-spacing:-.06em}
+.sr p{color:var(--ink); font-size:15px}
+.sr small{color:var(--muted)}
 .lsp-stage{border-radius:20px; background:#e3e6ee}
 .lsp-blob{opacity:.6} .lsp-blob.a{background:var(--lime)} .lsp-blob.b{background:#ffffff} .lsp-blob.c{background:#8a95ff}
-#align .lsp-stage{background:rgba(14,15,20,.16); border:1px solid rgba(255,255,255,.18)}
 .lsp-card{background:rgba(255,255,255,.9); border-color:rgba(255,255,255,.9); color:var(--ink); border-radius:16px}
 .lsp-card .mono{color:var(--muted)}
 .lsp-jd b{color:var(--blue)}
 .li{color:#a3a7b4} .li .ix{color:#b9bdc9} .li i{color:var(--blue)}
-#align .lsp-list .lg{color:rgba(255,255,255,.7)}
-#align .li{color:rgba(255,255,255,.5)} #align .li .ix{color:rgba(255,255,255,.45)}
-#align .li:hover,#align .li[aria-pressed="true"]{color:#fff}
-#align .li i{color:var(--lime)}
-#align .more-link{color:#fff} #align .more-link:hover{color:var(--lime)}
 
 /* ---------- LV.4 selected work ---------- */
 #deliver.sc-ink{background:var(--paper)}
@@ -1680,36 +1670,11 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:#fff}
 #brief .notes > span.ok{background:var(--lime); color:var(--ink); border-color:var(--lime); text-decoration:none; opacity:1; box-shadow:0 8px 24px rgba(198,244,50,.22)}
 #brief .notes > span.ok::before{content:"✓"; background:var(--ink); color:var(--lime)}
 
-/* LV.2: four methods as a staircase, number first, no icons */
-.proc.stair{grid-template-columns:repeat(4,minmax(0,1fr)); align-items:end; gap:12px; margin-top:clamp(28px,4vw,48px)}
-.proc.stair .how-card{justify-content:flex-start; gap:10px; padding:clamp(18px,1.8vw,24px); border-radius:16px; box-shadow:none; border:1px solid var(--edge); min-height:280px}
-.proc.stair .how-card:hover{transform:translateY(-6px)}
-.proc.stair .how-card:nth-child(1){background:var(--white); min-height:280px}
-.proc.stair .how-card:nth-child(2){background:var(--holo); min-height:330px}
-.proc.stair .how-card:nth-child(3){background:var(--ink); color:#fff; border-color:var(--ink); min-height:380px}
-.proc.stair .how-card:nth-child(4){background:var(--lime); border-color:var(--lime); min-height:430px}
-.proc.stair .how-card .n{font-family:var(--f-head); font-weight:900; font-size:clamp(52px,5.4vw,84px); line-height:.8; letter-spacing:-.06em; color:inherit; margin-bottom:auto; padding-bottom:18px}
-.proc.stair .how-card h3{font-family:var(--f-mono); font-weight:600; font-size:12px; letter-spacing:.08em; text-transform:uppercase}
-.proc.stair .how-card .k{font-family:var(--f-head); font-weight:700; font-size:clamp(18px,1.6vw,22px); line-height:1.15; letter-spacing:-.02em}
-.proc.stair .how-card p:not(.k){font-size:14px; line-height:1.45; color:var(--ink3)}
-.proc.stair .how-card:nth-child(3) p:not(.k){color:#c9ccd6}
-.proc.stair .how-card:nth-child(3) h3{color:var(--lime)}
-.proc.stair .how-card:nth-child(3) .k{color:#fff}
-@media (max-width: 900px){
-  .proc.stair{grid-template-columns:minmax(0,1fr); gap:10px}
-  .proc.stair .how-card:nth-child(n){min-height:0}
-  .proc.stair .how-card:nth-child(2){margin-left:5%} .proc.stair .how-card:nth-child(3){margin-left:10%} .proc.stair .how-card:nth-child(4){margin-left:15%}
-  .proc.stair .how-card .n{font-size:48px; padding-bottom:10px}
-}
-
-/* LV.3 proof: ink poster instead of cobalt */
-#align{background:var(--ink); color:#fff}
-#align .tag b{background:var(--lime); color:var(--ink)}
 
 /* capability list: list left, card right, every row readable and aligned to one grid */
 .lsp{grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start; gap:clamp(24px,4vw,56px)}
 .lsp-list{display:block; text-align:left}
-.lsp-list .lg{margin:26px 0 8px; padding-left:12px; text-align:left; font-size:11px; color:var(--muted)}
+.lsp-list .lg{width:100%!important; margin:26px 0 8px; padding-left:12px; text-align:left; font-size:11px; color:var(--muted)}
 .lsp-list .lg:first-child{margin-top:0}
 .li{display:grid; grid-template-columns:2.4em minmax(0,1fr) 1.4em; align-items:center; gap:0; width:100%; text-align:left; padding:11px 12px; border-radius:10px; border-bottom:1px solid var(--line); font-size:clamp(17px,1.6vw,21px); font-weight:600; line-height:1.25; color:var(--ink3); transition:background-color .2s, color .2s}
 .li .ix{font-size:11px; color:var(--muted)}
@@ -1724,45 +1689,7 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:#fff}
 .lsp-card h3{font-size:clamp(24px,2.2vw,32px); font-weight:800; letter-spacing:-.03em; line-height:1.05}
 .lsp-d{font-size:15px; line-height:1.5}
 .lsp-jd{margin-top:8px} .lsp-jd b{font-size:11px; color:var(--muted)}
-#align .lsp-stage{background:none; border:0}
-#align .lsp-list .lg{color:#9a9ead}
-#align .li{color:rgba(255,255,255,.86); border-bottom-color:rgba(255,255,255,.12)}
-#align .li .ix{color:rgba(255,255,255,.5)}
-#align .li:hover{background:rgba(255,255,255,.06); color:#fff}
-#align .li[aria-pressed="true"]{background:var(--lime); color:var(--ink)}
-#align .li[aria-pressed="true"] .ix,#align .li[aria-pressed="true"] i{color:var(--ink)}
-#align .lsp-card{border-color:transparent; box-shadow:none}
 @media (max-width: 900px){ .lsp{grid-template-columns:minmax(0,1fr)} .lsp-stage{position:static; order:0} .lsp-list{justify-items:stretch; text-align:left} }
-
-/* LV.4: a hand of five cards, all visible; the client name is the loudest line */
-.deck{position:relative; display:flex; justify-content:center; align-items:flex-start; padding:clamp(30px,4vw,56px) 0 clamp(40px,5vw,70px); margin-top:8px}
-.dk{--w:clamp(160px,15.4vw,218px); position:relative; flex:0 0 var(--w); margin-inline:-10px; transform:translateY(calc(var(--o) * var(--o) * 9px)) rotate(calc(var(--o) * 5deg)); transform-origin:50% 120%; transition:transform .45s cubic-bezier(.2,.9,.3,1.2)}
-.dk:hover,.dk:focus-within{z-index:10; transform:translateY(-22px) rotate(0deg); transition:transform .35s cubic-bezier(.2,.9,.3,1.2)}
-.dk-in{display:flex; flex-direction:column; gap:10px; min-height:calc(var(--w) * 1.42); padding:clamp(16px,1.6vw,22px); border-radius:18px; border:1px solid var(--edge); background:var(--white); color:var(--ink); box-shadow:0 18px 40px rgba(14,15,20,.14)}
-.dk-top{display:flex; justify-content:space-between; gap:8px; font-family:var(--f-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; opacity:.7}
-.dk-top span:last-child{text-align:right}
-.dk-name{margin:6px 0 0; font-family:var(--f-head); font-weight:900; font-size:clamp(28px,2.9vw,44px); line-height:.92; letter-spacing:-.05em; overflow-wrap:anywhere}
-.dk-t{margin:0; font-size:13.5px; line-height:1.4; opacity:.82}
-.dk-k{margin:auto 0 0; padding-top:12px; border-top:1px dashed currentColor; font-size:12px; line-height:1.35; opacity:.78; border-top-color:rgba(127,127,127,.4)}
-.dk-k b{font-family:var(--f-head); font-weight:800; font-size:15px; letter-spacing:-.01em; margin-right:3px}
-.dk-open{align-self:stretch; padding:10px 12px; border-radius:999px; border:1px solid currentColor; background:transparent; color:inherit; font-family:var(--f-head); font-weight:600; font-size:13.5px; cursor:pointer; transition:background-color .2s, color .2s}
-.dk-open:hover,.dk-open:focus-visible{background:var(--ink); color:var(--lime); border-color:var(--ink)}
-.k-ink .dk-in{background:var(--ink); color:#fff; border-color:var(--ink)}
-.k-ink .dk-k b{color:var(--lime)}
-.k-chrome .dk-in{background:var(--holo)}
-.k-lime .dk-in{background:var(--lime); border-color:var(--lime)}
-.k-graphite .dk-in{background:#2a2d38; color:#fff; border-color:#2a2d38}
-.k-ink .dk-open:hover,.k-graphite .dk-open:hover,.k-ink .dk-open:focus-visible,.k-graphite .dk-open:focus-visible{background:var(--lime); color:var(--ink); border-color:var(--lime)}
-@media (max-width: 900px){
-  .deck{display:grid; gap:0; padding:10px 0 20px}
-  .dk{--w:auto; margin:0 0 -10px; transform:rotate(calc(var(--o) * .9deg)); z-index:auto}
-  .dk:hover,.dk:focus-within{transform:none}
-  .dk-in{min-height:0; display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:14px; row-gap:8px}
-  .dk-top,.dk-t,.dk-k{grid-column:1/-1}
-  .dk-name{grid-column:1; font-size:clamp(30px,8.5vw,44px)}
-  .dk-open{grid-column:2; grid-row:2; align-self:center; padding:8px 12px; font-size:12.5px}
-}
-@media (prefers-reduced-motion: reduce){ .dk,.dk:hover{transition:none} }
 
 /* LV.1-style list of secondary projects (names only, no invented stories) */
 .also{margin-top:clamp(28px,4vw,48px)}
@@ -1775,3 +1702,122 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:#fff}
 /* quick desktop: graphite wallpaper instead of the blue sky */
 #v-desk{background:radial-gradient(60% 50% at 85% 0%, rgba(198,244,50,.22), transparent 70%), linear-gradient(180deg,#14161f 0%,#2a2d38 55%,#6b7080 100%)}
 #v-desk .tag{color:#c9ccd6} #v-desk .tag b{background:var(--lime); color:var(--ink)}
+
+/* =========== v15c · LV.2 + LV.4 after the motion references (Libraries.dev tiles, Jason Yuan's work wall).
+   Both sections go ink so the live tiles and posters glow; LV.3 between them returns to light. =========== */
+#align{background:#f7f8fa}
+#structure,#deliver.sc-ink{background:var(--ink); color:#fff}
+#structure .brk .say,#deliver .brk .say{color:#fff}
+#structure .brk .say em,#deliver .brk .say em,#deliver .h2 em{color:var(--lime)!important}
+#structure .tag,#deliver .tag{color:#9a9ead} #structure .tag b,#deliver .tag b{background:var(--lime); color:var(--ink)}
+#structure .own-big,#deliver .h2{color:#fff!important}
+#structure .own-sub,#deliver .lead{color:#9a9ead}
+#structure .quizchip{background:var(--ink2); color:#fff; border-color:rgba(255,255,255,.2)}
+
+/* LV.2 live tiles */
+.proc.lib{display:flex; gap:14px; margin-top:clamp(32px,4vw,56px); grid-template-columns:none}
+.lb{--beam:conic-gradient(from var(--ang), transparent 0 62%, rgba(198,244,50,.0) 64%, var(--lime) 76%, #ffffff 80%, rgba(198,244,50,0) 86%, transparent 100%); position:relative; flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:14px; padding:10px 10px 18px; border-radius:22px; background:#15171e; border:1px solid rgba(255,255,255,.08); cursor:pointer; transition:flex-grow .6s cubic-bezier(.2,.8,.2,1), background-color .4s, transform .4s}
+.lb.on{flex-grow:1.75; background:#191b23}
+.lb::after{content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1.5px; background:var(--beam); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); opacity:0; transition:opacity .4s; pointer-events:none; animation:ring 3.2s linear infinite}
+.lb.on::after{opacity:1}
+.lb-stage{position:relative; height:clamp(200px,17vw,250px); border-radius:14px; background:radial-gradient(120% 90% at 50% 0%, #20232d, #101218 70%); border:1px solid rgba(255,255,255,.06); overflow:hidden; display:grid; place-items:center; container-type:inline-size}
+.lb:not(.on) .lb-stage .dm{opacity:.6; filter:saturate(.5)}
+.dm{display:grid; gap:10px; justify-items:center; width:min(88%,340px); transition:opacity .5s, filter .5s; font-family:var(--f-head); color:#e6e8ee; font-size:13px}
+.lb-cap{padding:0 8px; display:grid; gap:4px}
+.lb-n{margin:0; font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#9a9ead}
+.lb.on .lb-n{color:var(--lime)}
+.lb-cap h3{margin:0; font-family:var(--f-head); font-weight:700; font-size:clamp(17px,1.5vw,21px); line-height:1.15; letter-spacing:-.02em; color:#fff}
+.lb-d{margin:0; font-size:14px; line-height:1.45; color:#9a9ead; max-height:0; opacity:0; overflow:hidden; transition:max-height .6s, opacity .5s}
+.lb.on .lb-d{max-height:6em; opacity:1}
+/* demo 1: a search that keeps asking, then the four answers pop in */
+.dm-search{display:flex; align-items:center; gap:10px; width:100%; padding:11px 14px; border-radius:999px; background:#1d2029; border:1px solid rgba(255,255,255,.1); white-space:nowrap; overflow:hidden}
+.dm-search i{flex:none; width:13px; height:13px; border:2px solid #9a9ead; border-radius:50%; position:relative}
+.dm-search i::after{content:""; position:absolute; right:-5px; bottom:-4px; width:6px; height:2px; background:#9a9ead; transform:rotate(45deg)}
+.dm-q{overflow:hidden; border-right:2px solid var(--lime); animation:dmType 3.4s steps(28) infinite; max-width:100%}
+.dm-chips{display:flex; flex-wrap:wrap; justify-content:center; gap:6px}
+.dm-chips > span{padding:5px 10px; border-radius:999px; background:rgba(198,244,50,.12); color:var(--lime); font-size:12px; font-weight:600; animation:dmPop 3.4s infinite both; animation-delay:.9s}
+.dm-chips > span:nth-child(2){animation-delay:1.1s} .dm-chips > span:nth-child(3){animation-delay:1.3s} .dm-chips > span:nth-child(4){animation-delay:1.5s}
+@keyframes dmType{0%{width:0} 45%,100%{width:100%}}
+@keyframes dmPop{0%{opacity:0; transform:translateY(6px) scale(.9)} 14%,90%{opacity:1; transform:none} 100%{opacity:0}}
+/* demo 2: a plan assembling itself */
+.dm-plan{display:grid; gap:9px; width:100%}
+.dm-plan > span{position:relative; height:14px; border-radius:4px; background:rgba(255,255,255,.04)}
+.dm-plan i{position:absolute; left:var(--x); top:0; bottom:0; width:var(--w); border-radius:4px; background:linear-gradient(90deg,#e6e8ee,#9a9ead); transform-origin:left; animation:dmBar 3.4s cubic-bezier(.3,.8,.2,1) infinite both; animation-delay:var(--d)}
+.dm-plan > span:last-child i{background:var(--lime)}
+.dm-axis{display:flex; justify-content:space-between; width:100%; font-family:var(--f-mono); font-size:10px; color:#6b7080}
+@keyframes dmBar{0%{transform:scaleX(0)} 35%,88%{transform:scaleX(1); opacity:1} 100%{transform:scaleX(1); opacity:0}}
+/* demo 3: work running, like an agent's status pills */
+.dm2{justify-items:stretch}
+.dm-agent{display:flex; align-items:center; gap:10px; padding:9px 14px; border-radius:999px; background:#1d2029; border:1px solid rgba(255,255,255,.08); white-space:nowrap; font-weight:600; animation:dmPop 3.4s infinite both}
+.dm-agent.a1{justify-self:start} .dm-agent.a2{justify-self:end; animation-delay:.35s} .dm-agent.a3{justify-self:center; animation-delay:.7s; color:var(--lime)}
+.dm-agent .orb{flex:none; width:18px; height:18px; border-radius:50%; background:radial-gradient(circle, #e6e8ee 1px, transparent 1.6px) 0 0/4px 4px; -webkit-mask:radial-gradient(circle, #000 60%, transparent 70%); mask:radial-gradient(circle, #000 60%, transparent 70%); animation:spin 4s linear infinite}
+.dm-agent .ring{flex:none; width:16px; height:16px; border-radius:50%; border:2px solid rgba(198,244,50,.25); border-top-color:var(--lime); animation:spin .9s linear infinite}
+/* demo 4: the ring closes, the checklist ticks */
+.dm3{grid-template-columns:auto 1fr; align-items:center; justify-items:start; gap:16px}
+.dm-done svg{display:block; width:74px; height:74px}
+.dm-done circle{fill:none; stroke:rgba(255,255,255,.1); stroke-width:5}
+.dm-done .arc{stroke:var(--lime); stroke-linecap:round; stroke-dasharray:170; stroke-dashoffset:170; transform:rotate(-90deg); transform-origin:center; animation:dmArc 3.4s cubic-bezier(.4,0,.2,1) infinite}
+.dm-done path{fill:none; stroke:var(--lime); stroke-width:5; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:40; stroke-dashoffset:40; animation:dmTick 3.4s infinite}
+.dm-list{display:grid; gap:7px}
+.dm-list > span{display:flex; align-items:center; gap:8px; font-weight:600; white-space:nowrap; animation:dmPop 3.4s infinite both}
+.dm-list > span::before{content:"✓"; display:grid; place-items:center; width:16px; height:16px; border-radius:4px; background:var(--lime); color:var(--ink); font-size:10px; font-weight:800}
+.dm-list > span:nth-child(1){animation-delay:.3s} .dm-list > span:nth-child(2){animation-delay:.6s} .dm-list > span:nth-child(3){animation-delay:.9s}
+@keyframes dmArc{0%{stroke-dashoffset:170} 45%,90%{stroke-dashoffset:0; opacity:1} 100%{stroke-dashoffset:0; opacity:0}}
+@keyframes dmTick{0%,40%{stroke-dashoffset:40} 55%,90%{stroke-dashoffset:0; opacity:1} 100%{opacity:0}}
+@media (max-width: 900px){
+  .proc.lib{flex-direction:column}
+  .lb,.lb.on{flex:none}
+  .lb-stage{height:190px}
+  .lb .lb-d{max-height:6em; opacity:1}
+  .lb:not(.on) .lb-stage .dm{opacity:1; filter:none}
+}
+@container (max-width: 300px){ .dm.dm3{grid-template-columns:1fr; justify-items:center; gap:10px} .dm-done svg{width:56px; height:56px} .dm-agent{font-size:12px; padding:8px 11px} }
+@media (prefers-reduced-motion: reduce){ .lb,.lb::after,.dm *{animation:none!important; transition:none} .dm-q{width:auto} .dm-plan i{transform:none} .dm-done .arc,.dm-done path{stroke-dashoffset:0} }
+
+/* LV.4 work wall: three columns of posters drifting at different speeds */
+.wall{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,1.4vw,20px); align-items:start; margin-top:clamp(8px,2vw,24px); padding-bottom:40px}
+.wcol{display:grid; gap:clamp(12px,1.4vw,20px); will-change:transform}
+.wcol:nth-child(2){margin-top:clamp(40px,7vw,110px)}
+.wcol:nth-child(3){margin-top:clamp(16px,3vw,44px)}
+.wt2{all:unset; box-sizing:border-box; display:grid; gap:12px; cursor:pointer; opacity:0; filter:blur(14px); transform:translateY(40px) scale(.97); transition:opacity .9s, filter .9s, transform 1s cubic-bezier(.2,.8,.2,1)}
+.wt2.in{opacity:1; filter:none; transform:none}
+.wall:hover .wt2.in:not(:hover){opacity:.55}
+.wt2-art{position:relative; display:grid; place-items:center; aspect-ratio:1/1; border-radius:12px; overflow:hidden; container-type:inline-size; background:#1b1d26}
+.wt2.tall .wt2-art{aspect-ratio:4/5}
+.wt2-name{position:relative; z-index:1; padding:0 6%; text-align:center; font-family:var(--f-head); font-weight:900; font-size:var(--fs,24cqi); line-height:.86; letter-spacing:-.055em; transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.wt2:hover .wt2-name,.wt2:focus-visible .wt2-name{transform:scale(1.05)}
+.wt2-sheen{position:absolute; inset:-40%; background:linear-gradient(115deg, transparent 40%, rgba(255,255,255,.22) 50%, transparent 60%); transform:translateX(-60%); animation:wSheen 7s ease-in-out infinite; pointer-events:none}
+@keyframes wSheen{0%,55%{transform:translateX(-60%)} 100%{transform:translateX(60%)}}
+.wt2-cap{display:grid; gap:3px; padding:0 2px}
+.wt2-cap b{font-family:var(--f-head); font-weight:600; font-size:15px; line-height:1.3; color:#fff}
+.wt2-cap small{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:#9a9ead}
+.wt2-cap .wt2-k{text-transform:none; letter-spacing:.02em; color:#c9ccd6}
+.wt2-cap em{font-style:normal; font-family:var(--f-head); font-weight:600; font-size:13px; color:var(--lime); opacity:0; transform:translateY(-4px); transition:opacity .3s, transform .3s}
+.wt2:hover .wt2-cap em,.wt2:focus-visible .wt2-cap em{opacity:1; transform:none}
+.wt2:focus-visible .wt2-art{outline:2px solid var(--lime); outline-offset:3px}
+.w-ink .wt2-art{background:radial-gradient(90% 70% at 30% 20%, #262938, #0b0c10)}
+.w-ink .wt2-name{background:linear-gradient(180deg,#ffffff 0%,#e6e8ee 38%,#8d92a2 52%,#c9ccd6 66%,#ffffff 100%); -webkit-background-clip:text; background-clip:text; color:transparent; padding-bottom:.06em}
+.w-chrome .wt2-art{background:linear-gradient(160deg,#ffffff,#cfd3dd 45%,#8d92a2 52%,#e9ebf0)}
+.w-chrome .wt2-name{color:var(--ink)}
+.w-paper .wt2-art{background:#eef0f4}
+.w-paper .wt2-name{color:var(--ink)}
+.w-paper .wt2-name::after{content:""; display:block; height:.12em; margin-top:.08em; background:var(--lime)}
+.w-lime .wt2-art{background:var(--lime)}
+.w-lime .wt2-name{color:var(--ink)}
+.w-grid .wt2-art{background:radial-gradient(circle, rgba(198,244,50,.35) 1.2px, transparent 1.6px) 0 0/18px 18px, #1b1d26; animation:wGrid 14s linear infinite}
+.w-grid .wt2-name{color:#fff}
+@keyframes wGrid{to{background-position:180px 90px, 0 0}}
+.w-more .wt2-art{aspect-ratio:5/3; background:transparent; border:1px dashed rgba(255,255,255,.28)}
+.w-more .wt2-name{font-size:clamp(22px,10cqi,48px); color:#fff}
+.w-more:hover .wt2-art{border-color:var(--lime)} .w-more:hover .wt2-name{color:var(--lime)}
+#deliver .lv4-foot{display:none}
+@media (max-width: 760px){
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wcol:nth-child(n){margin-top:0; transform:none!important}
+  .wcol:nth-child(3){grid-column:1/-1; grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wcol:nth-child(2){margin-top:36px}
+  .wt2-cap b{font-size:13.5px}
+  .wt2-cap em{opacity:1; transform:none}
+  .wall:hover .wt2.in:not(:hover){opacity:1}
+}
+@media (prefers-reduced-motion: reduce){ .wt2{opacity:1; filter:none; transform:none; transition:none} .wt2-sheen,.w-grid .wt2-art{animation:none} }

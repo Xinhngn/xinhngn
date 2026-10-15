@@ -232,24 +232,45 @@ import './styles.css';
     });
   }
 
-  /* LV.4: the five core cases dealt as a hand of cards, all visible at once. The client name leads; the metric is a footnote. */
+  /* LV.4: the five core cases as a wall of posters in three drifting columns (ref: Jason Yuan's work wall).
+     The client name is the artwork; the metric is a small footnote. */
   function renderStoryCases(){
     var vi = lang === 'vi';
     var NAME = {cake:'Cake by VPBank'};
-    var LOOKS = {msb:'k-ink', vib:'k-chrome', cake:'k-white', poca:'k-lime', digimi:'k-graphite'};
-    var BIG = {vib:['1', {en:'pitch, then multiple projects', vi:'lần pitch, rồi nhiều dự án tiếp theo'}], msb:['3→5', {en:'years of partnership', vi:'năm hợp tác'}], cake:['WIN', {en:'social retainer, won by the team', vi:'team giành social retainer'}], poca:['266K+', {en:'Facebook engagements · campaign', vi:'tương tác Facebook · chiến dịch'}], digimi:['268', {en:'app sign-ups · Coffee Truck', vi:'lượt đăng ký app · Coffee Truck'}]};
-    var n = CORE.length;
-    var items = CORE.map(function(c, i){
-      var bg = BIG[c.id] || ['', {en:'', vi:''}];
-      return '<article role="listitem" class="dk ' + (LOOKS[c.id] || 'k-white') + '" style="--i:' + i + '; --o:' + (i - (n - 1) / 2) + '"><div class="dk-in">' +
-        '<span class="dk-top"><span>' + ('0' + (i + 1)).slice(-2) + '/' + ('0' + n).slice(-2) + '</span><span>' + esc(c.meta.split(' · ').slice(0, 2).join(' · ')) + '</span></span>' +
-        '<h3 class="dk-name">' + esc(NAME[c.id] || c.brand) + '</h3>' +
-        '<p class="dk-t">' + both(c.t) + '</p>' +
-        '<p class="dk-k"><b>' + esc(bg[0]) + '</b> ' + esc(L(bg[1])) + '</p>' +
-        '<button class="dk-open" type="button" data-case="' + c.id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</button></div></article>';
-    }).join('');
-    $('#track').innerHTML = '<div class="deck" role="list" aria-label="' + (vi ? 'Năm dự án chính' : 'Five core cases') + '">' + items + '</div>';
+    var LOOKS = {msb:'w-ink', vib:'w-chrome', cake:'w-paper', poca:'w-lime', digimi:'w-grid'};
+    var NOTE = {vib:{en:'1 pitch, then multiple projects', vi:'1 lần pitch, rồi nhiều dự án tiếp theo'}, msb:{en:'3→5 years of partnership', vi:'3→5 năm hợp tác'}, cake:{en:'Social retainer, won by the team', vi:'Team giành social retainer'}, poca:{en:'266K+ Facebook engagements', vi:'266K+ tương tác Facebook'}, digimi:{en:'268 app sign-ups · Coffee Truck', vi:'268 lượt đăng ký app · Coffee Truck'}};
+    var byId = {}; CORE.forEach(function(c){ byId[c.id] = c; });
+    var tile = function(id, tall){
+      var c = byId[id]; if (!c) return '';
+      var nm = NAME[id] || c.brand;
+      return '<button type="button" class="wt2 ' + (LOOKS[id] || 'w-paper') + (tall ? ' tall' : '') + '" data-case="' + id + '" aria-label="' + esc(nm) + '">' +
+        '<span class="wt2-art" style="--fs:' + (nm.length <= 4 ? 40 : nm.length <= 10 ? 27 : 23) + 'cqi"><span class="wt2-name">' + esc(nm) + '</span><i class="wt2-sheen" aria-hidden="true"></i></span>' +
+        '<span class="wt2-cap"><b>' + both(c.t) + '</b><small>' + esc(c.meta.split(' · ').slice(0, 2).join(' · ')) + '</small>' +
+        '<small class="wt2-k">' + esc(L(NOTE[id] || {en:'', vi:''})) + '</small><em>' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</em></span></button>';
+    };
+    var more = '<a class="wt2 w-more" href="#work"><span class="wt2-art"><span class="wt2-name">' + (vi ? 'Cả 7 dự án →' : 'All 7 projects →') + '</span></span>' +
+      '<span class="wt2-cap"><b>' + (vi ? 'Thêm Duy Tân, Cindy Bloom và danh sách dự án khác' : 'Plus Duy Tân, Cindy Bloom and the full project list') + '</b></span></a>';
+    $('#track').innerHTML = '<div class="wall" aria-label="' + (vi ? 'Năm dự án chính' : 'Five core cases') + '">' +
+      '<div class="wcol" data-drift="-1">' + tile('msb', true) + tile('poca') + '</div>' +
+      '<div class="wcol" data-drift="1">' + tile('vib') + tile('digimi', true) + '</div>' +
+      '<div class="wcol" data-drift="-.6">' + tile('cake', true) + more + '</div></div>';
+    wallReveal();
   }
+  /* tiles sharpen in as they enter; columns drift at different speeds while the wall scrolls past */
+  function wallReveal(){
+    var tiles = $$('#track .wt2');
+    if (reduce || !('IntersectionObserver' in window)){ tiles.forEach(function(t){ t.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); }, {threshold:.15});
+    tiles.forEach(function(t, i){ t.style.transitionDelay = (i % 3) * 90 + 'ms'; io.observe(t); });
+  }
+  function wallDrift(){
+    var w = $('#track .wall'); if (!w || reduce || curView !== 'story' || window.innerWidth < 760) return;
+    var r = w.getBoundingClientRect(), vh = window.innerHeight;
+    if (r.bottom < 0 || r.top > vh) return;
+    var p = (vh - r.top) / (vh + r.height) - .5;
+    $$('.wcol', w).forEach(function(col){ col.style.transform = 'translate3d(0,' + (p * 140 * parseFloat(col.dataset.drift || 0)).toFixed(1) + 'px,0)'; });
+  }
+  window.addEventListener('scroll', function(){ requestAnimationFrame(wallDrift); }, {passive:true});
   function tileHTML(c){
     return '<a class="wt ' + (c.size || '') + '" href="#case-' + c.id + '" data-case="' + c.id + '" data-cats="' + c.cats.join(' ') + '" data-cursor="OPEN">' +
       '<div class="pic">' + cover(c) + (IMAGES[c.imgs[0]] ? '<span class="bt"><span>' + esc(c.brand) + '</span></span>' : '') + '<span class="ov">' + (lang === 'vi' ? 'XEM CHI TIẾT ↗' : 'OPEN CASE ↗') + '</span></div>' +
@@ -307,9 +328,37 @@ import './styles.css';
     if (j){ e.preventDefault(); roleIdx = +j.dataset.jumpRole; seenRoles[roleIdx] = 1; renderRoles(); var t = $('#roleTabs'); if (curView !== 'story'){ location.hash = 'clarify'; } else if (t) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
   });
   /* LV.2 accordion + profile steps */
+  /* LV.2: four methods as live tiles (ref: Libraries.dev). Each tile plays a tiny loop of the method;
+     the active tile widens and wears a running border beam, and the four take turns while in view. */
+  var DEMOS = [
+    function(){ return '<span class="dm-search"><i></i><span class="dm-q">' + both({en:'What is the real goal?', vi:'Mục tiêu thật là gì?'}) + '</span></span>' +
+      '<span class="dm-chips"><span>' + both({en:'Goal', vi:'Mục tiêu'}) + '</span><span>' + both({en:'Context', vi:'Bối cảnh'}) + '</span><span>' + both({en:'Scope', vi:'Phạm vi'}) + '</span><span>' + both({en:'Success', vi:'Thành công'}) + '</span></span>'; },
+    function(){ return '<span class="dm-plan">' + [[0,46],[22,58],[40,44],[62,34]].map(function(b, i){ return '<span style="--x:' + b[0] + '%; --w:' + b[1] + '%; --d:' + (i * .35) + 's"><i></i></span>'; }).join('') + '</span>' +
+      '<span class="dm-axis"><b>W1</b><b>W2</b><b>W3</b><b>W4</b></span>'; },
+    function(){ return '<span class="dm-agent a1"><i class="orb"></i>' + both({en:'Assigning the work…', vi:'Đang phân việc…'}) + '</span>' +
+      '<span class="dm-agent a2"><i class="orb"></i>' + both({en:'Aligning every party…', vi:'Đang điều phối các bên…'}) + '</span>' +
+      '<span class="dm-agent a3"><i class="ring"></i>' + both({en:'Running…', vi:'Đang triển khai…'}) + '</span>'; },
+    function(){ return '<span class="dm-done"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="27"/><circle class="arc" cx="32" cy="32" r="27"/><path d="M21 33l7 7 15-16"/></svg></span>' +
+      '<span class="dm-list"><span>' + both({en:'Timeline', vi:'Tiến độ'}) + '</span><span>' + both({en:'Quality', vi:'Chất lượng'}) + '</span><span>' + both({en:'Issues handled', vi:'Phát sinh đã xử lý'}) + '</span></span>'; }
+  ];
+  var libIdx = 0, libTimer = 0, libHold = false;
+  function libSet(i){ libIdx = i; $$('#proc .lb').forEach(function(t, k){ t.classList.toggle('on', k === i); }); }
+  function libStart(){ clearInterval(libTimer); if (reduce) return; libTimer = setInterval(function(){ if (!libHold) libSet((libIdx + 1) % 4); }, 3400); }
   function renderSteps(){
-    var html = STEPS.map(function(s, i){ return '<article class="how-card"><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
-    $('#proc').innerHTML = html; $('#steps4').innerHTML = html; $('#steps4').classList.add('stackx');
+    $('#proc').innerHTML = STEPS.map(function(s, i){
+      return '<article class="lb' + (i === libIdx ? ' on' : '') + '" data-lb="' + i + '"><div class="lb-stage" aria-hidden="true"><div class="dm dm' + i + '">' + DEMOS[i]() + '</div></div>' +
+        '<div class="lb-cap"><p class="lb-n">0' + (i + 1) + ' · ' + esc(L(s.t)) + '</p><h3>' + esc(L(s.k)) + '</h3><p class="lb-d">' + esc(L(s.d)) + '</p></div></article>';
+    }).join('');
+    $('#steps4').innerHTML = STEPS.map(function(s, i){ return '<article class="how-card"><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
+    $('#steps4').classList.add('stackx');
+    var proc = $('#proc');
+    if (!proc._wired){
+      proc._wired = true;
+      proc.addEventListener('pointerover', function(e){ var t = e.target.closest('.lb'); if (t && finePointer){ libHold = true; libSet(+t.dataset.lb); } });
+      proc.addEventListener('pointerleave', function(){ libHold = false; });
+      proc.addEventListener('click', function(e){ var t = e.target.closest('.lb'); if (t){ libSet(+t.dataset.lb); libStart(); } });
+      if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (es[0].isIntersecting) libStart(); else clearInterval(libTimer); }, {threshold:.3}).observe(proc);
+    }
   }
 
   /* LV.3 capability matrix (story + Skills tab share it) */
