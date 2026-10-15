@@ -502,6 +502,78 @@ import './styles.css';
     var n = colIdx(col.k) + 1;
     return '<button class="stat" type="button" data-col="' + col.k + '" aria-pressed="' + (col.k === mxSel ? 'true' : 'false') + '"><span class="ix">' + ('0' + n).slice(-2) + '</span><span class="nm">' + esc(L(col.t)) + '</span><span class="go">→</span></button>';
   }
+  /* LV.3 · proof as one zoom (ref: podium.global — the page keeps pulling you in).
+     Scroll pulls the camera through the "0" of "20 brands" into the brand wall; the wall settles
+     as one layout, then the camera dives into its centre tile, which opens into what Xinh runs and
+     how far she takes it. JS only sets transforms/opacity from one smoothed progress value. */
+  var PF_IDS = ['msb', 'vib', 'cake', 'poca', 'digimi', 'duytan', 'cindy'];
+  var pf = $('#pf'), pfStage = $('#pfStage'), pfA = $('#pfA'), pfB = $('#pfB'), pfC = $('#pfC'), pfZ = 0, pfAnim = false, pfGeo = null;
+  function pfCase(id){ for (var i = 0; i < CASES.length; i++) if (CASES[i].id === id) return CASES[i]; return null; }
+  function renderProof(){
+    var vi = lang === 'vi', tiles = PF_IDS.map(pfCase).filter(Boolean).map(function(c){
+      var m = (c.meta || '').split(' · ').filter(function(x){ return x !== 'OTHER PROJECT'; }).slice(0, 2).join(' · ');
+      return '<a class="pf-t" href="#case-' + c.id + '"><span class="pf-m">' + esc(m) + '</span><b>' + esc(c.brand) + '</b><span class="pf-tl">' + esc(L(c.t)) + '</span></a>';
+    });
+    tiles.splice(4, 0, '<div class="pf-core" id="pfCore"><span class="pf-m">LV.3 · ' + (vi ? 'Năng lực' : 'Capabilities') + '</span><b>' + (vi ? 'Xinh chạy gì,<br>gánh tới đâu' : 'What I run,<br>how far I take it') + '</b></div>');
+    tiles.push('<div class="pf-t pf-more"><b>+13</b><span class="pf-tl">' + (vi ? 'thương hiệu khác trong portfolio' : 'more brands in the portfolio') + '</span></div>');
+    $('#pfGrid').innerHTML = tiles.join('');
+    var row = function(col){
+      var i = colIdx(col.k), n = ('0' + (i + 1)).slice(-2);
+      var chips = CASES.filter(function(c){ return (MX[c.id] || [])[i]; }).map(function(c){ return '<a class="pf-ch' + (MX[c.id][i] === 1 ? ' led' : '') + '" href="#case-' + c.id + '">' + esc(c.brand) + '</a>'; }).join('');
+      return '<li><i>' + n + '</i><b>' + esc(L(col.t)) + '</b><span>' + chips + '</span></li>';
+    };
+    pfC.innerHTML = '<div class="wrap pf-cin">' +
+      '<div class="pf-col"><p class="pf-lg">' + (vi ? 'Xinh chạy gì' : 'What I run') + '</p><ul>' + COLS.filter(function(c){ return c.g === 'type'; }).map(row).join('') + '</ul></div>' +
+      '<div class="pf-col"><p class="pf-lg">' + (vi ? 'Xinh gánh tới đâu' : 'How far I take it') + '</p><ul>' + COLS.filter(function(c){ return c.g === 'own'; }).map(row).join('') + '</ul></div>' +
+      '<p class="pf-key"><span class="pf-ch led">' + (vi ? 'Xinh dẫn dắt' : 'Led by Xinh') + '</span><span class="pf-ch">' + (vi ? 'Cùng team' : 'With the team') + '</span><a class="more-link" href="#skills">' + (vi ? 'Xem từng năng lực, kèm bằng chứng' : 'Every capability, with proof') + ' →</a></p></div>';
+    pfGeo = null; drawProof(true);
+  }
+  function pfMeasure(){
+    var st = pfStage.getBoundingClientRect(), keepA = pfA.style.transform, keepB = pfB.style.transform;
+    pfA.style.transform = 'none'; pfB.style.transform = 'none';
+    var z = $('#pf0').getBoundingClientRect(), core = $('#pfCore').getBoundingClientRect();
+    pfGeo = {W: st.width, H: st.height,
+      ax: z.left + z.width / 2 - st.left, ay: z.top + z.height / 2 - st.top,
+      bx: core.left + core.width / 2 - st.left, by: core.top + core.height / 2 - st.top,
+      fill: Math.max(st.width / core.width, st.height / core.height) * 1.08};
+    pfA.style.transform = keepA; pfB.style.transform = keepB;
+  }
+  function pfFrame(){ pfAnim = false; drawProof(); }
+  function drawProof(force){
+    if (!pf || (curView !== 'story' && !force)) return;
+    if (reduce){ pf.classList.add('still'); return; }
+    var r = pf.getBoundingClientRect(), vh = window.innerHeight;
+    if (!force && (r.bottom < -50 || r.top > vh + 50)) return;
+    if (!pfGeo || force) pfMeasure();
+    var target = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+    pfZ += (target - pfZ) * (force ? 1 : 0.12);
+    if (Math.abs(target - pfZ) < 0.0004) pfZ = target; else if (!pfAnim){ pfAnim = true; requestAnimationFrame(pfFrame); }
+    var g = pfGeo, k1 = clamp(pfZ / 0.34, 0, 1), k2 = clamp((pfZ - 0.56) / 0.3, 0, 1);
+    /* 1 · through the 0 */
+    var sA = Math.pow(70, k1 * k1);
+    pfA.style.transformOrigin = g.ax.toFixed(1) + 'px ' + g.ay.toFixed(1) + 'px';
+    pfA.style.transform = 'scale(' + sA.toFixed(3) + ')';
+    pfA.style.opacity = (1 - clamp((k1 - 0.55) / 0.3, 0, 1)).toFixed(3);
+    pfA.style.visibility = k1 >= 0.95 ? 'hidden' : '';
+    $$('.pf-cap,.pf-yr', pfA).forEach(function(el){ el.style.opacity = (1 - clamp(k1 / 0.3, 0, 1)).toFixed(3); });
+    /* 2 · the wall: grows in behind the 0, drifts, then dives into the centre tile */
+    var drift = clamp((pfZ - 0.34) / 0.22, 0, 1);
+    var sB = k2 > 0 ? 1.04 * Math.pow(g.fill / 1.04, sm(k2) * 0.35 + k2 * k2 * 0.65) : (0.55 + 0.45 * sm(k1)) * (1 + drift * 0.04);
+    pfB.style.transformOrigin = g.bx.toFixed(1) + 'px ' + g.by.toFixed(1) + 'px';
+    pfB.style.transform = 'scale(' + sB.toFixed(4) + ')';
+    pfB.style.opacity = clamp((k1 - 0.42) / 0.38, 0, 1).toFixed(3);
+    pfB.style.visibility = k2 >= 1 ? 'hidden' : '';
+    pfStage.style.setProperty('--k2', k2.toFixed(3));
+    /* 3 · inside the tile */
+    var kc = clamp((k2 - 0.72) / 0.28, 0, 1);
+    pfC.style.opacity = kc.toFixed(3);
+    pfC.style.transform = 'scale(' + (0.94 + 0.06 * sm(kc)).toFixed(4) + ')';
+    pfC.style.pointerEvents = kc > 0.9 ? 'auto' : 'none';
+    pf.setAttribute('data-beat', k2 >= 1 ? 3 : k1 >= 1 ? 2 : 1);
+  }
+  window.addEventListener('scroll', function(){ drawProof(); }, {passive:true});
+  window.addEventListener('resize', function(){ pfGeo = null; drawProof(true); });
+
   function renderMatrix(){
     var vi = lang === 'vi', ci = colIdx(mxSel), col = COLS[ci];
     var item = function(c){ var n = colIdx(c.k) + 1; return '<button class="li" type="button" data-col="' + c.k + '" aria-pressed="' + (c.k === mxSel ? 'true' : 'false') + '"><span class="ix">' + ('0' + n).slice(-2) + '</span>' + esc(L(c.t)) + '<i>→</i></button>'; };
@@ -1360,7 +1432,7 @@ import './styles.css';
     }); }, {threshold:.6});
     $$('.head .tag > span:not(:first-child), .head .tag > span').forEach(function(el){ if (!el.querySelector('b')) sio.observe(el); });
   }
-  function renderAll(){ if (typeof renderFan === 'function') renderFan(); renderRoles(); renderSteps(); renderMatrix(); renderStoryCases(); setupStops(); renderWork(); renderContact(); renderSquad(); renderSaved(); if (!quizEl.hidden) renderQuiz(); if (curView === 'report') renderReport(); hydrateImgs(); }
+  function renderAll(){ if (typeof renderFan === 'function') renderFan(); renderRoles(); renderSteps(); renderMatrix(); renderProof(); renderStoryCases(); setupStops(); renderWork(); renderContact(); renderSquad(); renderSaved(); if (!quizEl.hidden) renderQuiz(); if (curView === 'report') renderReport(); hydrateImgs(); }
   function setLang(l){
     lang = l; S.lang = l;
     root.setAttribute('data-lang', l); root.setAttribute('lang', l);
