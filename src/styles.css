@@ -2578,3 +2578,84 @@ body{background:var(--cream)}
 .pf.still .pf-stage{height:auto; overflow:visible}
 .pf.still .pf-a,.pf.still .pf-b,.pf.still .pf-c{position:relative; inset:auto; opacity:1; transform:none; padding:40px 0}
 .pf.still .pf-a{min-height:60vh}
+
+/* =====================================================================
+   v16 · LV.5 "What you get" as one pinned scene (ref video: statement on a sky bloom → ticket
+   cards fly up and land → the page pulls back into an OS window). Few words: the claim, two
+   tickets, and the promise as the strip that ties both tickets together ("with both").
+   JS sets --a (statement) --b/--b2 (tickets) --c (promise) --d (pull-back) on #vx.
+   ===================================================================== */
+#value.vx5{background:linear-gradient(180deg,#f3eee6 0%,#f3eee6 100%)!important; padding:0; overflow:clip!important}
+.vx-headwrap{height:0; position:relative}
+.vx{position:relative; height:380vh; --a:0; --b:0; --b2:0; --c:0; --d:0}
+.vx-pin{position:sticky; top:0; height:100vh; height:100svh; padding-top:var(--hud); overflow:hidden}
+.vx-stage{position:relative; height:100%}
+.vx-in{position:absolute; inset:0; transform:scale(calc(1 - var(--d) * .12)); transform-origin:50% 50%;
+  border-radius:calc(var(--d) * 22px); overflow:hidden}
+/* the sky bloom: atmosphere only, grows from below */
+.vx-sky{position:absolute; left:50%; top:100%; width:160vmax; aspect-ratio:1; border-radius:50%; pointer-events:none;
+  transform:translate(-50%, calc(-50% + (1 - var(--a)) * 30vh)) scale(calc(.35 + var(--a) * .65));
+  background:radial-gradient(closest-side, #fff 0%, #ffe4ef 22%, #f6c9de 38%, #d9d3f3 55%, #cfe2f6 70%, rgba(243,238,230,0) 100%); opacity:calc(.2 + var(--a) * .8)}
+
+/* the claim */
+.vx .squad[hidden]{display:none!important}
+.vx-say{position:absolute; left:50%; top:calc(44% - var(--b) * 32%); width:min(900px,90%); text-align:center;
+  transform:translate(-50%,-50%) scale(calc(1 - var(--b) * .3)); opacity:var(--a); filter:blur(calc((1 - var(--a)) * 10px))}
+.vx-say .tag{justify-content:center; margin-bottom:16px; opacity:calc(1 - var(--b))}
+.vx-say h2{margin:0; font-family:var(--f-head); font-weight:600; font-size:clamp(40px,5.6vw,84px); line-height:1; letter-spacing:-.045em; color:var(--ink)}
+.vx-say h2 em{display:block; font-family:var(--f-serif)!important; font-style:italic!important; font-weight:400!important; letter-spacing:-.03em; color:var(--rose)!important; background:none!important}
+
+/* the tickets: fly up from below with a spin, land with a slight tilt */
+.vx-t{position:absolute; top:48%; width:min(360px,30vw); padding:22px 24px 0; border-radius:18px; background:#fffdfa; color:var(--ink);
+  box-shadow:0 30px 60px rgba(120,80,110,.16), 0 4px 10px rgba(120,80,110,.06); border:1px solid rgba(29,31,61,.08)}
+.vx-t.t1{right:calc(50% + 10px); transform:translate(0, calc(-50% + (1 - var(--b)) * 95vh)) rotate(calc(-3deg - (1 - var(--b)) * 28deg))}
+.vx-t.t2{left:calc(50% + 10px); transform:translate(0, calc(-50% + (1 - var(--b2)) * 95vh)) rotate(calc(3deg + (1 - var(--b2)) * 32deg))}
+.vx-k{margin:0; display:flex; justify-content:space-between; gap:10px; font:500 11px/1 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.vx-k b{color:var(--rose); font-weight:600}
+.vx-t h3{margin:34px 0 26px; font-family:var(--f-head); font-weight:600; font-size:clamp(24px,2.3vw,32px); line-height:1.05; letter-spacing:-.03em}
+.vx-t h3 em{display:block; font-family:var(--f-serif); font-style:italic; font-weight:400; color:var(--rose)}
+.vx-stub{position:relative; display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 -24px; padding:16px 24px 18px; border-top:1.5px dashed rgba(29,31,61,.22)}
+.vx-stub::before,.vx-stub::after{content:""; position:absolute; top:-9px; width:16px; height:16px; border-radius:50%; background:#f3eee6}
+.vx-stub::before{left:-9px} .vx-stub::after{right:-9px}
+.vx-stub .barcode{width:clamp(90px,9vw,130px); height:26px}
+.vx-btn{border:0; border-radius:999px; padding:10px 16px; font:600 13px/1 var(--f-head); color:var(--ink); background:var(--lime); cursor:pointer; white-space:nowrap; transition:transform .25s}
+.vx-btn:hover{transform:translateY(-2px)}
+.vx-t.t2 .vx-btn{background:var(--ink); color:#fff}
+
+/* the promise: one strip under both tickets */
+.vx-pr{position:absolute; left:50%; top:calc(48% + min(150px,19vh)); width:min(760px,64vw); padding:16px 22px 18px; border-radius:16px;
+  background:rgba(255,255,255,.72); border:1px solid #fff; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); box-shadow:0 20px 40px rgba(120,80,110,.1);
+  transform:translate(-50%, calc((1 - var(--c)) * 40px)); opacity:var(--c)}
+.vx-prk{margin:0 0 12px; text-align:center; font-family:var(--f-serif); font-style:italic; font-size:22px; line-height:1.1; color:var(--rose)}
+.vx-pr ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+.vx-pr li{font-size:14px; line-height:1.4; color:var(--ink); opacity:clamp(0, calc(var(--c) * 5 - var(--i) * 1 - 1), 1)}
+.vx-pr li b{display:block; margin-bottom:6px; font:500 11px/1 var(--f-mono); color:var(--muted)}
+
+/* the pull-back: the page becomes a window on the desktop */
+.vx-win{position:absolute; inset:0; pointer-events:none; opacity:var(--d)}
+.vx-win{transform:scale(calc(1 - var(--d) * .12)); transform-origin:50% 50%; border-radius:22px; border:1px solid rgba(29,31,61,.18); box-shadow:0 40px 90px rgba(90,60,90,.2)}
+.vx-bar{position:absolute; left:0; right:0; top:-34px; height:30px; margin:0; display:flex; align-items:center; gap:7px; padding:0 14px; border-radius:12px 12px 0 0;
+  font:500 11px/1 var(--f-mono); letter-spacing:.06em; color:var(--muted)}
+.vx-bar i{width:10px; height:10px; border-radius:50%; background:rgba(29,31,61,.18)} .vx-bar i:first-child{background:var(--lime)}
+.vx-bar span{margin-left:10px}
+.vx-after{padding-bottom:clamp(40px,6vw,80px)}
+
+@media (max-width:760px){
+  .vx{height:360vh}
+  .vx-pin{padding-bottom:84px}
+  .vx-say{top:calc(42% - var(--b) * 32%); padding-left:28px}
+  .vx-say h2{font-size:38px}
+  .vx-t{width:calc(100vw - 92px); padding:14px 16px 0}
+  .vx-t.t1{right:auto; left:58px; top:36%}
+  .vx-t.t2{left:46px; top:58%}
+  .vx-t h3{margin:14px 0 12px; font-size:20px}
+  .vx-stub{margin:0 -16px; padding:10px 16px 12px}
+  .vx-stub .barcode{width:70px; height:20px}
+  .vx-btn{padding:8px 12px; font-size:12px}
+  .vx-pr{top:auto; bottom:8px; left:calc(50% + 14px); width:calc(100vw - 72px); padding:12px 14px}
+  .vx-pr ol{grid-template-columns:1fr 1fr; gap:8px 12px}
+  .vx-pr li{font-size:11.5px} .vx-pr li b{margin-bottom:3px}
+  .vx-prk{font-size:18px; margin-bottom:8px}
+  .vx-win{display:none} .vx-in{transform:none; border-radius:0}
+}
+.vx.still{height:auto} .vx.still .vx-pin{position:relative; height:auto; min-height:100vh}

@@ -605,6 +605,31 @@ import './styles.css';
   window.addEventListener('scroll', function(){ drawProof(); }, {passive:true});
   window.addEventListener('resize', function(){ pfGeo = null; drawProof(true); });
 
+  /* LV.5 · what you get, as one pinned scene (ref: a statement on a sky bloom, ticket cards fly
+     up and land, then the page pulls back into an OS window). The promise is the strip that ties
+     both tickets together. JS only feeds four smoothed phases: --a statement, --b tickets,
+     --c promise, --d pull-back. */
+  var vx = $('#vx'), vxP = 0, vxAnim = false;
+  function vxFrame(){ vxAnim = false; drawValue(); }
+  function drawValue(force){
+    if (!vx || (curView !== 'story' && !force)) return;
+    if (reduce){ vx.classList.add('still'); ['--a','--b','--c','--d'].forEach(function(k){ vx.style.setProperty(k, k === '--d' ? 0 : 1); }); return; }
+    var r = vx.getBoundingClientRect(), vh = window.innerHeight;
+    if (!force && (r.bottom < -50 || r.top > vh + 50)) return;
+    var target = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+    vxP += (target - vxP) * (force ? 1 : 0.13);
+    if (Math.abs(target - vxP) < 0.0004) vxP = target; else if (!vxAnim){ vxAnim = true; requestAnimationFrame(vxFrame); }
+    var ph = function(a, b){ return sm((vxP - a) / (b - a)).toFixed(4); };
+    vx.style.setProperty('--a', ph(-0.02, 0.16));
+    vx.style.setProperty('--b', ph(0.16, 0.46));
+    vx.style.setProperty('--b2', ph(0.22, 0.52));
+    vx.style.setProperty('--c', ph(0.5, 0.7));
+    vx.style.setProperty('--d', ph(0.78, 0.96));
+  }
+  window.addEventListener('scroll', function(){ drawValue(); }, {passive:true});
+  window.addEventListener('resize', function(){ drawValue(true); });
+  drawValue(true);
+
   function renderMatrix(){
     var vi = lang === 'vi', ci = colIdx(mxSel), col = COLS[ci];
     var item = function(c){ var n = colIdx(c.k) + 1; return '<button class="li" type="button" data-col="' + c.k + '" aria-pressed="' + (c.k === mxSel ? 'true' : 'false') + '"><span class="ix">' + ('0' + n).slice(-2) + '</span>' + esc(L(c.t)) + '<i>→</i></button>'; };
