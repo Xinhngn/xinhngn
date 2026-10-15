@@ -185,8 +185,8 @@ import './styles.css';
      res:[{empty:true, l:{en:'add a result', vi:'thêm kết quả'}}], imgs:['cindy_bloom_kv.jpg','cindy_02.jpg','cindy_03.jpg','cindy_04.jpg']}
   ];
   /* Cover colours when there is no photo yet */
-  var LOOK = {vib:['#d6d9e2','#0e0f14'], msb:['#0e0f14','#ffffff'], cake:['#ffffff','#0e0f14'], poca:['#ff8fc0','#0e0f14'],
-              digimi:['#2a2d38','#ffffff'], duytan:['#e7e9f0','#0e0f14'], cindy:['#0e0f14','#ff8fc0']};
+  var LOOK = {vib:['linear-gradient(100deg,#f4f5f8,#c9ccd6 40%,#8d92a2 52%,#e8eaf0 70%,#fff)','#0e0f14'], msb:['linear-gradient(170deg,#5d9de3,#9cc8f2 55%,#dcecf9)','#ffffff'], cake:['#f3eee6','#0e0f14'], poca:['#ff8fc0','#0e0f14'],
+              digimi:['linear-gradient(160deg,#d9d4f5,#f6d9e7)','#0e0f14'], duytan:['#ffd3e4','#0e0f14'], cindy:['linear-gradient(160deg,#cfe3f7,#ffd3e4)','#0e0f14']};
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {

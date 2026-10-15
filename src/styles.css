@@ -2037,3 +2037,110 @@ body{background:var(--cream)}
 #start.p1{background:linear-gradient(180deg,#dcecf9 0%,#eef1f2 22%,var(--cream) 48%)}
 #finish .end-word em{display:block; margin-top:-.05em; font-family:var(--f-script)!important; font-style:normal!important; font-weight:400!important; font-size:1.35em; letter-spacing:0!important; line-height:1; padding:0 .12em .1em 0; background:var(--chrome-pk)!important; -webkit-background-clip:text!important; background-clip:text!important; color:transparent!important; -webkit-text-fill-color:transparent; filter:drop-shadow(0 10px 24px rgba(255,143,192,.25))!important}
 .boot .bx,.boot-top{-webkit-user-select:none; user-select:none}
+
+/* =========== v15e · Rebalance after AD review: the inner pages take the boot's sky.
+   No more black slabs: sky (Heaven on Earth), silver studio grey, cream/blush, and one twilight "Starry Night" (LV.2).
+   Ink stays for type only. Pink text on light grounds uses --rose for contrast. =========== */
+:root{--rose:#c13f7b; --lav:#d9d4f5; --silver:#e9ebf0;
+  --g-sky:linear-gradient(180deg,#5d9de3 0%,#8dbdef 38%,#cfe3f7 72%,#eef3f8 100%);
+  --g-wash:linear-gradient(180deg,#dcecf9 0%,#eef1f2 30%,#f3eee6 70%);
+  --g-dusk:linear-gradient(180deg,#f3eee6 0%,#f8d9e6 30%,#d8d5f3 65%,#9cc8f2 100%);
+  --g-night:linear-gradient(180deg,#232c66 0%,#3c4390 38%,#7b6fb8 72%,#e2aacb 100%);
+  --chrome-sv:linear-gradient(180deg,#ffffff 0%,#e3e9f2 28%,#8a95ab 46%,#2c3245 52%,#7d889e 60%,#dfe6f0 82%,#ffffff 100%);
+  --stars:radial-gradient(1.2px 1.2px at 12% 18%,#fff 98%,transparent),radial-gradient(1px 1px at 28% 62%,#fff 98%,transparent),radial-gradient(1.4px 1.4px at 44% 26%,#fff 98%,transparent),radial-gradient(1px 1px at 61% 12%,#fff 98%,transparent),radial-gradient(1.2px 1.2px at 74% 44%,#fff 98%,transparent),radial-gradient(1px 1px at 88% 22%,#fff 98%,transparent),radial-gradient(1px 1px at 92% 68%,#fff 98%,transparent),radial-gradient(1.3px 1.3px at 8% 80%,#fff 98%,transparent),radial-gradient(1px 1px at 52% 48%,#fff 98%,transparent),radial-gradient(1px 1px at 36% 8%,#fff 98%,transparent)}
+.cl-soft{position:absolute; pointer-events:none}
+
+/* LV.0 brief: sky */
+#brief{background:var(--g-sky)!important; color:var(--ink)}
+#brief::before{content:""; position:absolute; inset:auto 0 0 0; height:40%; background:radial-gradient(40% 60% at 20% 100%,rgba(255,255,255,.9),transparent 70%),radial-gradient(35% 50% at 75% 100%,rgba(255,255,255,.8),transparent 70%); pointer-events:none}
+#brief .tz-say{color:#fff!important; text-shadow:0 2px 18px rgba(40,80,140,.25)}
+#brief .tz-say .then{color:var(--ink)!important; text-shadow:none}
+#brief .tag{color:rgba(255,255,255,.9)} #brief .tag b{background:#fff; color:var(--ink)}
+#brief .tz-status{background:rgba(255,255,255,.7); color:var(--ink); border-color:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+#brief .notes > span{background:rgba(255,255,255,.82)!important; color:var(--ink)!important; border:1px solid rgba(255,255,255,.95)!important; box-shadow:0 10px 24px rgba(40,80,140,.18)!important; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+#brief .tangle svg path{stroke:#fff}
+#brief .tangle svg #tg{stroke:var(--lime)}
+
+/* LV.1 who: sky fades into cream */
+#clarify{background:linear-gradient(180deg,#eef3f8 0%,var(--cream) 26%)!important}
+
+/* LV.2 how: the one night scene (moodboard "Starry Night"), instruments as dark glass */
+#structure{background:var(--stars),var(--g-night)!important}
+#structure .brk .say,#structure .own-big{color:#fff!important}
+#structure .own-sub{color:rgba(255,255,255,.75)!important}
+#structure .tag{color:rgba(255,255,255,.75)} #structure .tag b{background:#fff; color:var(--ink)}
+.lb-stage{background:radial-gradient(90% 80% at 60% 10%, rgba(120,110,190,.35), rgba(16,16,40,.72) 75%); border-color:rgba(255,255,255,.16); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 30px 60px rgba(20,20,60,.35)}
+.dm .disc{background:radial-gradient(closest-side, #1d1d3d 92%, #2a2a52 93%, #1b1b38 96%, #34345e 97%, #15152e)}
+.dm .pk{background:radial-gradient(circle at 50% 38%, #34345c, #121230 72%)}
+.dm .scan{background:radial-gradient(closest-side, #23234a 84%, #1a1a38 86%, #2e2e58 90%, #14142c)}
+.dm .tg b{background:rgba(26,26,58,.9)}
+.lb-cap h3{color:#fff} .lb-ic{stroke:#fff} .lb-d{color:rgba(255,255,255,.72)} .lb-n{color:rgba(255,255,255,.6)}
+
+/* LV.3 proof: silver studio */
+#align{background:linear-gradient(180deg,#f3e7ee 0%,var(--silver) 22%,var(--silver) 100%)!important}
+
+/* LV.4 results: Heaven on Earth sky, accordion in glass / chrome / pink / cream */
+#deliver{background:var(--g-sky)!important; color:var(--ink)}
+#deliver .brk .say{color:#fff!important; text-shadow:0 2px 18px rgba(40,80,140,.25)}
+#deliver .brk .say em,#deliver .h2 em{color:#fff!important}
+#deliver .h2{color:#fff!important; text-shadow:0 2px 24px rgba(40,80,140,.3)}
+#deliver .h2 em{font-family:var(--f-serif)}
+#deliver .lead{color:rgba(255,255,255,.92)!important}
+#deliver .tag{color:rgba(255,255,255,.9)} #deliver .tag b{background:#fff; color:var(--ink)}
+.a-ink{background:rgba(255,255,255,.42); color:var(--ink); box-shadow:inset 0 0 0 1px rgba(255,255,255,.7); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px)}
+.a-ink2{background:var(--lav); color:var(--ink)}
+.ac.on{background:rgba(255,255,255,.88); box-shadow:0 30px 70px rgba(40,80,140,.25), inset 0 0 0 1px #fff; -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px)}
+.ac-media{background:linear-gradient(150deg,#ffd3e4 0%,#f3e9f6 45%,#cfe3f7 100%); color:var(--ink); box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+.ac-media::before{background:radial-gradient(closest-side, rgba(255,255,255,.95), rgba(255,255,255,0))}
+.ac-k{color:#4a4b55} .ac-open{border-color:rgba(14,15,20,.25); color:var(--ink)}
+.ac-name{background:var(--chrome-sv); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 6px 14px rgba(40,60,110,.18))}
+.ac-more{color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
+#deliver .lv4-foot .pill-cta{background:#fff; color:var(--ink)}
+
+/* LV.5 offer: cream into blush; the squad card becomes lavender glass instead of black */
+#value{background:linear-gradient(180deg,var(--cream) 0%,#f8e3ec 100%)!important}
+.of.of2{background:linear-gradient(160deg,#d9d4f5 0%,#f6d9e7 100%)!important; color:var(--ink)!important; border-color:rgba(255,255,255,.8)!important}
+.of.of2 h3,.of.of2 .of-d,.of.of2 .of-k,.of.of2 p{color:var(--ink)!important}
+.of.of2 h3 em{color:var(--rose)!important}
+.of.of2 .of-stub{background:rgba(255,255,255,.55)!important; color:var(--ink)!important}
+.of.of2 .barcode{filter:invert(1)}
+
+/* END: dusk that returns to the boot's sky */
+#finish{background:var(--g-dusk)!important; color:var(--ink)}
+#finish .end-word{color:var(--ink)!important}
+#finish .tag{color:var(--ink)} #finish .end-pic figcaption{color:var(--ink)}
+#finish .win.dk{background:rgba(255,255,255,.72)!important; color:var(--ink)!important; border:1px solid #fff!important; -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 30px 70px rgba(60,70,130,.2)!important}
+#finish .win.dk .win-bar{background:rgba(255,255,255,.6)!important; color:var(--ink)!important; border-color:rgba(14,15,20,.08)!important}
+#finish .win.dk p,#finish .win.dk .saved span{color:var(--ink)!important}
+#finish .win.dk .saved span{background:rgba(255,255,255,.8)!important; border-color:rgba(14,15,20,.1)!important}
+#finish .restart{color:var(--ink)}
+
+/* journey pill: white glass, not a black bar */
+.lvbar{background:rgba(255,255,255,.72)!important; border:1px solid rgba(255,255,255,.9)!important; -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 12px 30px rgba(40,60,110,.15)!important}
+.lvbar a{color:#5b5e6b} .lvbar a:hover,.lvbar a.done{color:var(--ink)}
+.lvbar a i{background:rgba(14,15,20,.08); color:var(--ink)}
+.lvbar a.cur{background:var(--ink); color:#fff}
+
+/* quick views: sky wash grounds, chrome-silver display words, glass windows */
+.view.qv{background:var(--g-wash)!important}
+#v-desk,#v-contact{background:var(--g-sky)!important}
+#v-desk .tag,#v-contact .tag{color:rgba(255,255,255,.9)} #v-desk .tag b,#v-contact .tag b{background:#fff; color:var(--ink)}
+#v-desk .icons span,#v-desk .icons a,#v-desk .dicon span{color:#fff; text-shadow:0 1px 6px rgba(40,80,140,.4)}
+.qword{background:var(--chrome-sv)!important; -webkit-background-clip:text!important; background-clip:text!important; color:transparent!important; -webkit-text-fill-color:transparent; filter:drop-shadow(0 8px 18px rgba(40,60,110,.2))}
+#v-contact .qword{filter:drop-shadow(0 8px 24px rgba(20,40,90,.3))}
+.view.qv .win:not(.dk){border-color:rgba(255,255,255,.9); box-shadow:0 24px 60px rgba(40,60,110,.14)}
+#v-profile{background:linear-gradient(180deg,#f8e3ec 0%,var(--cream) 40%)!important}
+#v-skills{background:linear-gradient(180deg,#eef3f8 0%,var(--silver) 40%)!important}
+.of2 .crew span{background:rgba(255,255,255,.7)!important; border-color:rgba(255,255,255,.9)!important; color:var(--ink)!important}
+.of2 .crew span.lead{background:var(--lime)!important; color:var(--ink)!important}
+.of2 .opts .chip{background:rgba(255,255,255,.55)!important; border-color:rgba(14,15,20,.12)!important; color:var(--ink)!important}
+.of2 .opts .chip[aria-pressed="true"]{background:var(--ink)!important; color:#fff!important}
+#finish .btn.ghost{background:rgba(255,255,255,.5)!important; color:var(--ink)!important; border:1px solid rgba(14,15,20,.2)!important}
+#finish .mrow a,#finish .mrow button{color:var(--ink)}
+.qword{-webkit-text-stroke:1px rgba(30,40,70,.28)}
+:root{--chrome-sv:linear-gradient(180deg,#c9d2e0 0%,#f7faff 22%,#8792a8 44%,#232a3d 52%,#6f7a92 62%,#dfe6f0 84%,#aeb8ca 100%)}
+#finish .end-word em{padding-left:.18em!important; margin-left:-.18em; overflow:visible}
+@media (max-width: 760px){ #finish .end-word em{font-size:1.15em} }
+#finish .end-word em{filter:drop-shadow(0 1px 0 rgba(123,47,82,.45)) drop-shadow(0 10px 22px rgba(193,63,123,.25))!important}
+@media (max-width: 760px){ #finish .end-word em{text-align:center; margin-left:0; padding:0 .15em .1em!important; font-size:1.6em} }
+@media (max-width: 760px){ #finish .end-word em{display:block!important; width:100%; text-align:center!important} }
