@@ -34,6 +34,7 @@ import './styles.css';
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia && matchMedia('(pointer: fine)').matches;
   function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function sm(k){ k = clamp(k, 0, 1); return k * k * (3 - 2 * k); }
   function $(s, c){ return (c || document).querySelector(s); }
   function $$(s, c){ return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
@@ -424,44 +425,58 @@ import './styles.css';
     if (j){ e.preventDefault(); roleIdx = +j.dataset.jumpRole; seenRoles[roleIdx] = 1; renderRoles(); var t = $('#roleTabs'); if (curView !== 'story'){ location.hash = 'clarify'; } else if (t) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
   });
   /* LV.2 accordion + profile steps */
-  /* LV.2: four methods as live tiles (ref: Libraries.dev). Each tile plays a tiny loop of the method;
-     the active tile widens and wears a running border beam, and the four take turns while in view. */
-  /* LV.2 demos (ref: a dark instrument panel, a scanning disc with pucks, one glowing tag on a light beam).
-     Each step is one small "machine": scan the brief, light up the plan, link the parties, close the loop. */
-  function puck(x, y, txt, cls){ return '<span class="pk' + (cls ? ' ' + cls : '') + '" style="--x:' + x + '%; --y:' + y + '%">' + (txt ? '<em>' + txt + '</em>' : '') + '</span>'; }
-  function tag(x, y, txt){ return '<span class="tg" style="--x:' + x + '%; --y:' + y + '%; --ax:' + (x > 70 ? -86 : x < 30 ? -14 : -50) + '%"><b>' + txt + '</b><i></i></span>'; }
-  var DEMOS = [
-    function(){ return '<span class="disc"><i class="sweep"></i></span>' +
-      puck(58, 84, both({en:'Goal', vi:'Mục tiêu'}), 'hot') + puck(20, 52, both({en:'Context', vi:'Bối cảnh'})) + puck(88, 62, both({en:'Scope', vi:'Phạm vi'})) + puck(84, 28, both({en:'Success', vi:'Thành công'})) +
-      '<span class="scan">' + both({en:'Reading the brief…', vi:'Đang đọc brief…'}) + '</span>' + tag(58, 84, both({en:'Real goal found', vi:'Đã rõ mục tiêu thật'})); },
-    function(){ return '<span class="disc"><i class="sec s1"></i><i class="sec s2"></i><i class="sec s3"></i><i class="sec s4"></i></span>' +
-      puck(18, 74, 'W1') + puck(36, 58, 'W2') + puck(58, 56, 'W3') + puck(82, 72, 'W4', 'hot') + puck(50, 87, both({en:'Plan', vi:'Kế hoạch'}), 'big') +
-      tag(82, 72, both({en:'Priorities set', vi:'Đã chốt thứ tự ưu tiên'})); },
-    function(){ return '<span class="disc"></span><svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M54 82 L24 56"/><path d="M54 82 L52 40"/><path d="M54 82 L82 58"/></svg>' +
-      puck(24, 56, both({en:'Team', vi:'Team'})) + puck(52, 40, both({en:'Client', vi:'Khách hàng'})) + puck(82, 58, both({en:'Partners', vi:'Đối tác'}), 'hot') + puck(54, 82, 'XINH', 'big me') +
-      tag(82, 58, both({en:'Everyone aligned', vi:'Các bên đã khớp'})); },
-    function(){ return '<span class="disc"><svg class="gauge" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44"/><circle class="arc" cx="50" cy="50" r="44"/></svg></span>' +
-      puck(28, 60, both({en:'Timeline', vi:'Tiến độ'}), 'ok') + puck(50, 46, both({en:'Quality', vi:'Chất lượng'}), 'ok') + puck(74, 62, both({en:'Issues', vi:'Phát sinh'}), 'hot ok') +
-      tag(74, 62, both({en:'Issue handled', vi:'Đã xử lý phát sinh'})); }
-  ];
-  var LB_IC = ['<path d="M2 12h4l3-7 4 14 3-7h6"/>', '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/>', '<circle cx="12" cy="17" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="19" cy="6" r="2"/><path d="M11 14L6 8M12 14V6M13 14l5-6"/>', '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>'];
-  var libIdx = 0, libTimer = 0, libHold = false;
-  function libSet(i){ libIdx = i; $$('#proc .lb').forEach(function(t, k){ t.classList.toggle('on', k === i); }); }
-  function libStart(){ clearInterval(libTimer); if (reduce) return; libTimer = setInterval(function(){ if (!libHold) libSet((libIdx + 1) % 4); }, 3400); }
+  /* LV.2 · four steps as one orbit (refs: a hero card ringed by orbit lines and labelled pills).
+     Xinh's photo card sits in the centre; the four steps are the pills on the ring. Scrolling turns
+     the ring a quarter at a time, so each step swings to the top, its photo, outcome tag and caption
+     take over, and the colour field drifts with it. Tapping a pill jumps to that step. */
+  var HW_PH = ['work.png', 'hi.png', 'go.png', 'chill.png'];
+  var HW_TAG = [{en:'Real goal found', vi:'Đã rõ mục tiêu thật'}, {en:'Priorities set', vi:'Đã chốt thứ tự ưu tiên'}, {en:'Everyone aligned', vi:'Các bên đã khớp'}, {en:'Issue handled', vi:'Đã xử lý phát sinh'}];
+  var hw = $('#hw'), hwStage = $('#hwStage'), hwS = 0, hwT = 0, hwIdx = -1, hwAnim = false;
   function renderSteps(){
-    $('#proc').innerHTML = STEPS.map(function(s, i){
-      return '<article class="lb' + (i === libIdx ? ' on' : '') + '" data-lb="' + i + '"><div class="lb-stage" aria-hidden="true"><div class="dm dm' + i + '">' + DEMOS[i]() + '</div></div>' +
-        '<div class="lb-cap"><p class="lb-n">0' + (i + 1) + ' · ' + esc(L(s.t)) + '</p><h3><svg class="lb-ic" viewBox="0 0 24 24" aria-hidden="true">' + LB_IC[i] + '</svg>' + esc(L(s.k)) + '</h3><p class="lb-d">' + esc(L(s.d)) + '</p></div></article>';
-    }).join('');
+    hwStage.innerHTML = '<span class="hw-glow" aria-hidden="true"><i></i><i></i><i></i></span>' +
+      '<span class="hw-ring r1" aria-hidden="true"></span><span class="hw-ring r2" aria-hidden="true"></span><span class="hw-ring r3" aria-hidden="true"></span>' +
+      '<div class="hw-card" aria-hidden="true">' + HW_PH.map(function(p, i){ return '<span class="hw-ph" data-s="' + i + '" data-portrait="' + p + '"></span>'; }).join('') + '</div>' +
+      HW_TAG.map(function(g, i){ return '<p class="hw-tag" data-s="' + i + '" aria-hidden="true">' + esc(L(g)) + ' <span>↗</span></p>'; }).join('') +
+      '<div class="wrap hw-capwrap"><div class="hw-cap">' + STEPS.map(function(st, i){ return '<article data-s="' + i + '"><p class="hw-n"><b>0' + (i + 1) + '</b> / 04 · ' + esc(L(st.t)) + '</p><h3>' + esc(L(st.k)) + '</h3><p class="hw-d">' + esc(L(st.d)) + '</p></article>'; }).join('') + '</div></div>' +
+      '<div class="hw-orbit">' + STEPS.map(function(st, i){ return '<button class="hw-pill" type="button" data-s="' + i + '"><i></i><b>0' + (i + 1) + '</b><span>' + esc(L(st.t)) + '</span></button>'; }).join('') + '</div>';
+    $$('[data-portrait]', hwStage).forEach(function(el){ el.innerHTML = portrait(el.dataset.portrait); });
+    hwIdx = -1; drawHow(true);
     $('#steps4').innerHTML = STEPS.map(function(s, i){ return '<article class="how-card"><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
     $('#steps4').classList.add('stackx');
-    var proc = $('#proc');
-    if (!proc._wired){
-      proc._wired = true;
-      proc.addEventListener('pointerover', function(e){ var t = e.target.closest('.lb'); if (t && finePointer){ libHold = true; libSet(+t.dataset.lb); } });
-      proc.addEventListener('pointerleave', function(){ libHold = false; });
-      proc.addEventListener('click', function(e){ var t = e.target.closest('.lb'); if (t){ libSet(+t.dataset.lb); libStart(); } });
-      if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (es[0].isIntersecting) libStart(); else clearInterval(libTimer); }, {threshold:.3}).observe(proc);
+    if (!hwStage._wired){
+      hwStage._wired = true;
+      hwStage.addEventListener('click', function(e){
+        var b = e.target.closest('.hw-pill'); if (!b) return;
+        var i = +b.dataset.s, top = hw.getBoundingClientRect().top + window.scrollY, span = hw.offsetHeight - window.innerHeight;
+        window.scrollTo({top: top + span * (i + 0.2) / 3.6, behavior: reduce ? 'auto' : 'smooth'});
+      });
+      window.addEventListener('scroll', function(){ drawHow(); }, {passive:true});
+      window.addEventListener('resize', function(){ drawHow(true); });
+    }
+  }
+  function hwFrame(){ hwAnim = false; drawHow(); }
+  function drawHow(force){
+    if (curView !== 'story' && !force) return;
+    var r = hw.getBoundingClientRect(), vh = window.innerHeight;
+    if (!force && (r.bottom < -50 || r.top > vh + 50)) return;
+    var t = reduce ? 0 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+    var raw = clamp(t * 3.6, 0, 3), base = Math.min(2, Math.floor(raw)), f = raw - base;
+    var target = raw >= 3 ? 3 : base + sm((f - 0.5) / 0.5);
+    hwT = target; hwS += (hwT - hwS) * (reduce || force ? 1 : 0.16);
+    if (Math.abs(hwT - hwS) < 0.001) hwS = hwT; else if (!hwAnim){ hwAnim = true; requestAnimationFrame(hwFrame); }
+    var W = hwStage.clientWidth, H = hwStage.clientHeight, small = W < 700;
+    var R = small ? Math.min(W * 0.4, H * 0.25) : Math.min(H * 0.4, 330), rot = -60 - hwS * 90;
+    hwStage.style.setProperty('--rot', rot.toFixed(2) + 'deg');
+    hwStage.style.setProperty('--s', hwS.toFixed(3));
+    $$('.hw-pill', hwStage).forEach(function(p, i){
+      var a = (i * 90 + rot) * Math.PI / 180, d = Math.abs(hwS - i);
+      p.style.transform = 'translate(-50%,-50%) translate(' + (Math.cos(a) * R).toFixed(1) + 'px,' + (Math.sin(a) * R).toFixed(1) + 'px)';
+      p.style.opacity = (1 - Math.min(d, 2) * 0.28).toFixed(2);
+    });
+    var idx = Math.round(hwS);
+    if (idx !== hwIdx){ hwIdx = idx;
+      $$('[data-s]', hwStage).forEach(function(el){ el.classList.toggle('on', +el.dataset.s === idx); });
+      hw.setAttribute('data-step', idx);
     }
   }
 
@@ -686,105 +701,31 @@ import './styles.css';
   /* =====================================================================
      STORY: tangle, pin, thread
      ===================================================================== */
-  /* LV.0 · the brief as an OS desktop. One actor (Xinh's cursor) tells the whole story on scroll:
-     the question types itself, then the cursor picks up each loose file (blurred, tilted), it sharpens
-     and is dragged into the plan board, and finally the cursor presses "Plan" in the bar.
-     Tapping a file sorts it on the spot; tapping "Plan" once all five are in locks the plan. */
-  var tzCount = $('#tzCount'), tz = $('#brief'), bfStage = $('#bfStage'), bfWins = $$('#bfStage .bw'), bfCur = $('#bfCur');
-  var bfAskT = $('#bfAskT'), bfGo = $('#bfGo'), bfAsk = $('#bfAsk');
-  /* m = loose spot (x%, y%, rotate, scale, blur px) · n = slot on the plan board (x%, y%) */
-  var BF_D = [
-    {m:[17,36,-6,1.02,0], n:[17,46]}, {m:[80,64,6,.8,4], n:[50,46]}, {m:[31,80,-4,1.06,1], n:[83,46]},
-    {m:[85,31,8,.9,2.5], n:[33.5,79]}, {m:[57,62,-9,.76,5.5], n:[66.5,79]}];
-  var BF_M = [
-    {m:[26,30,-8,.98,0], n:[26,33]}, {m:[78,44,7,.84,3.5], n:[74,33]}, {m:[30,62,-5,1,1], n:[26,57]},
-    {m:[74,74,10,.9,2.5], n:[74,57]}, {m:[44,88,-9,.82,4.5], n:[50,81]}];
+  /* LV.0 · the brief as one search. Scroll types the question into the bar, the five starting
+     points drop down and get ticked one by one, then the top hit slides in: Xinh, with her answer.
+     Tapping a row ticks it; once all five are ticked the top hit shows. */
+  var tzCount = $('#tzCount'), tz = $('#brief'), bfAskT = $('#bfAskT'), bfRows = $$('#brief .sp-row');
   var BF_Q = {en:'A goal. A budget. But where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
-  var BF_A = {en:'Turn the brief into a plan that runs.', vi:'Biến đề bài thành kế hoạch chạy được.'};
-  var bfFix = [0,0,0,0,0], bfK = [0,0,0,0,0], bfT = reduce ? 1 : 0, bfDone = reduce ? 1 : 0, bfDoneT = 0, briefAnim = false, lastT = -1, tangleVis = true;
-  var bfW = 1, bfH = 1, bfPx = 0, bfPy = 0, bfTxt = '';
-  function bfSize(){ bfW = bfStage.clientWidth || 1; bfH = bfStage.clientHeight || 1; }
-  bfSize(); window.addEventListener('resize', function(){ bfSize(); schedule(); });
-  function bfData(){ return bfW < 640 ? BF_M : BF_D; }
-  function lerp(a, b, k){ return a + (b - a) * k; }
-  function sm(k){ k = clamp(k, 0, 1); return k * k * (3 - 2 * k); }
-  bfWins.forEach(function(el){
-    var i = +el.dataset.w;
-    el.addEventListener('click', function(){ bfFix[i] = 1; schedule(); });
-  });
-  bfGo.addEventListener('click', function(){
-    if (bfK.some(function(k){ return k < 0.98; })){ bfFix = [1,1,1,1,1]; }
-    bfDoneT = 1; schedule();
-  });
-  if (finePointer && !reduce){
-    tz.addEventListener('pointermove', function(e){ bfPx = e.clientX / window.innerWidth * 2 - 1; bfPy = e.clientY / window.innerHeight * 2 - 1; schedule(); }, {passive:true});
-  }
-  /* where the cursor is at scroll time u: rests by the bar, then visits file i (approach → grab → drag) */
-  function winXY(i, k){ var d = bfData()[i]; return [lerp(d.m[0], d.n[0], k) / 100 * bfW, lerp(d.m[1], d.n[1], k) / 100 * bfH]; }
+  var bfFix = [0,0,0,0,0], bfT = reduce ? 1 : 0, briefAnim = false, lastT = -1, tangleVis = true, bfTxt = '';
+  bfRows.forEach(function(el){ el.addEventListener('click', function(){ bfFix[+el.dataset.r] = 1; schedule(); }); });
   function drawTangle(){
     var r = tz.getBoundingClientRect(), vh = window.innerHeight;
     tangleVis = r.bottom > 0 && r.top < vh;
     if (!tangleVis && lastT >= 0 && !briefAnim) return;
     var t = reduce ? 1 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
     lastT = t; briefAnim = false;
-    bfT += (t - bfT) * (reduce ? 1 : 0.14);
+    bfT += (t - bfT) * (reduce ? 1 : 0.2);
     if (Math.abs(t - bfT) < 0.0005) bfT = t; else briefAnim = true;
-    var u = bfT, D = bfData(), open = 0, sel = -1;
-    /* files: slice i runs from S+i*G; the cursor approaches for 40%, grabs, then drags */
-    var S = 0.12, G = 0.12;
-    bfWins.forEach(function(el, i){
-      var s0 = S + i * G, kScroll = sm((u - s0 - 0.05) / 0.065);
-      var target = Math.max(bfFix[i], kScroll);
-      bfK[i] += (target - bfK[i]) * (reduce ? 1 : (bfFix[i] ? 0.12 : 0.5));
-      if (Math.abs(target - bfK[i]) < 0.002) bfK[i] = target; else briefAnim = true;
-      var k = bfK[i], d = D[i], depth = 1 - k;
-      var x = lerp(d.m[0], d.n[0], k), y = lerp(d.m[1], d.n[1], k);
-      el.style.left = x + '%'; el.style.top = y + '%';
-      var lift = (u > s0 + 0.04 && u < s0 + G && !bfFix[i]) ? 1.04 : 1;
-      el.style.transform = 'translate(-50%,-50%) translate(' + (bfPx * -14 * depth).toFixed(1) + 'px,' + (bfPy * -10 * depth).toFixed(1) + 'px) rotate(' + (d.m[2] * depth).toFixed(2) + 'deg) scale(' + (lerp(d.m[3], 1, k) * lift).toFixed(3) + ')';
-      var focus = 1 - Math.max(k, bfFix[i] ? 0 : sm((u - s0 - 0.02) / 0.03));
-      el.style.filter = focus * d.m[4] > 0.05 ? 'blur(' + (d.m[4] * focus).toFixed(2) + 'px)' : 'none';
-      el.style.opacity = (1 - d.m[4] * 0.05 * focus).toFixed(3);
-      var ok = k > 0.98; el.classList.toggle('ok', ok); if (!ok) open++;
-      if (u > s0 + 0.035 && u < s0 + G + 0.005 && !bfFix[i]) sel = i;
-    });
-    bfWins.forEach(function(el, i){ el.classList.toggle('sel', i === sel); });
-    /* finale: the cursor goes to "Plan" and presses it */
-    var end = S + 5 * G, scrollDone = !open && u > end + 0.13 ? 1 : 0;
-    var doneTarget = Math.max(scrollDone, bfDoneT && !open ? 1 : 0);
-    bfDone += (doneTarget - bfDone) * (reduce ? 1 : 0.2);
-    if (Math.abs(doneTarget - bfDone) < 0.01) bfDone = doneTarget; else briefAnim = true;
-    var cl = bfDone > 0.5;
-    tz.classList.toggle('clear', cl); tz.classList.toggle('solved', !open);
-    /* cursor path */
-    var rest = [bfW * (bfW < 640 ? 0.7 : 0.66), bfH * (bfW < 640 ? 0.17 : 0.22)], cx = rest[0], cy = rest[1], down = false;
-    var goR = bfGo.getBoundingClientRect(), stR = bfStage.getBoundingClientRect();
-    var go = [goR.left - stR.left + goR.width * 0.35, goR.top - stR.top + goR.height * 0.6];
-    if (u >= S && u < end){
-      var i = Math.min(4, Math.floor((u - S) / G)), p = (u - S - i * G) / G;
-      var from = i === 0 ? rest : winXY(i - 1, bfK[i - 1]), w = winXY(i, bfK[i]);
-      if (p < 0.4){ var e = sm(p / 0.4); cx = lerp(from[0], w[0] + 18, e); cy = lerp(from[1], w[1] + 14, e); }
-      else { cx = w[0] + 18; cy = w[1] + 14; down = p > 0.42; }
-    } else if (u >= end){
-      var last = winXY(4, bfK[4]), e2 = sm((u - end) / 0.1);
-      cx = lerp(last[0] + 18, go[0], e2); cy = lerp(last[1] + 14, go[1], e2);
-      down = u > end + 0.11 && u < end + 0.15;
-    }
-    if (bfDoneT && !scrollDone){ cx = go[0]; cy = go[1]; }
-    bfCur.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
-    bfCur.classList.toggle('down', down); bfGo.classList.toggle('down', down && u >= end);
-    bfCur.style.opacity = (reduce || (cl && u > end + 0.24)) ? '0' : '1';
-    /* the bar types the question, then retypes the answer */
-    var txt, q = BF_Q[lang], a = BF_A[lang];
-    if (cl) txt = a.slice(0, Math.max(1, Math.round(a.length * (bfDoneT && !scrollDone ? 1 : clamp((u - end - 0.13) / 0.06, 0, 1)))));
-    else if (u < end + 0.02) txt = q.slice(0, Math.round(q.length * clamp(u / 0.1, 0, 1)));
-    else txt = q.slice(0, Math.round(q.length * (1 - clamp((u - end - 0.02) / 0.06, 0, 1))));
-    if (reduce) txt = cl ? a : q;
-    if (txt !== bfTxt){ bfTxt = txt; bfAskT.textContent = txt; }
+    var u = bfT, q = BF_Q[lang], open = 0;
+    var typed = q.slice(0, Math.round(q.length * clamp((u + 0.04) / 0.22, 0, 1)));
+    if (typed !== bfTxt){ bfTxt = typed; bfAskT.textContent = typed; }
+    var listed = u > 0.24 || bfFix.some(Boolean);
+    bfRows.forEach(function(el, i){ var ok = !!bfFix[i] || u > 0.36 + i * 0.08; el.classList.toggle('ok', ok); if (!ok) open++; });
+    var cl = !open && (u > 0.8 || bfFix.every(Boolean));
+    tz.classList.toggle('listed', listed); tz.classList.toggle('clear', cl);
     var key = lang + open + cl;
     if (tzCount.dataset.k !== key){ tzCount.dataset.k = key; var vi = lang === 'vi';
       tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All untangled! · <b>plan locked</b>')
-        : !open ? (vi ? 'Đề bài đã rõ · <b>bấm Lên plan</b>' : 'Brief sorted · <b>press Plan</b>')
         : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'open question' : 'open questions')); }
   }
 

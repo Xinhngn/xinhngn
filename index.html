@@ -213,24 +213,30 @@
 
 <section class="sc bf0" id="brief">
   <div class="bf0-pin">
-    <div class="wrap bf0-top">
-      <p class="tag"><b>LV.0</b><span class="en">The brief</span><span class="vi">Đề bài</span></p>
-      <p class="tz-status"><i></i><span id="tzCount"></span></p>
+    <div class="wrap bf0-in">
+      <div class="bf0-top">
+        <p class="tag"><b>LV.0</b><span class="en">The brief</span><span class="vi">Đề bài</span></p>
+        <p class="tz-status"><i></i><span id="tzCount"></span></p>
+      </div>
+      <div class="sp" id="bfSp">
+        <h2 class="sp-bar"><svg class="sp-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="bf-sr"><span class="en">A goal. A budget. But where do you start?</span><span class="vi">Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?</span></span><span class="sp-t" id="bfAskT" aria-hidden="true"></span><u aria-hidden="true"></u></h2>
+        <div class="sp-drop">
+          <div class="sp-top">
+            <span class="sp-av" data-portrait="work.png"></span>
+            <div><p class="sp-k"><span class="en">Top hit</span><span class="vi">Kết quả phù hợp nhất</span> · Xinh Nguyễn</p>
+            <p class="sp-ans"><span class="en">I help clarify the problem, decide what comes first and turn the brief into a plan that can actually run.</span><span class="vi">Xinh giúp làm rõ bài toán, xác định việc cần ưu tiên và biến đề bài thành kế hoạch có thể triển khai.</span></p></div>
+          </div>
+          <p class="sp-k sp-k2"><span class="en">Where to start</span><span class="vi">Bắt đầu từ đâu</span> · 5</p>
+          <ol class="sp-list">
+          <li><button type="button" class="sp-row" data-r="0"><i>01</i><span class="en">Fix the real problem first.</span><span class="vi">Gỡ đúng vấn đề trước khi bắt tay triển khai.</span><em><span class="en">problem</span><span class="vi">vấn đề</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="1"><i>02</i><span class="en">Prioritise the right work.</span><span class="vi">Ưu tiên đúng việc để tối ưu nguồn lực.</span><em><span class="en">priority</span><span class="vi">ưu tiên</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="2"><i>03</i><span class="en">Spend the budget wisely per goal.</span><span class="vi">Dùng ngân sách hợp lý theo từng mục tiêu.</span><em><span class="en">budget</span><span class="vi">ngân sách</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="3"><i>04</i><span class="en">Measure results with the right KPIs.</span><span class="vi">Đo đúng hiệu quả bằng KPI phù hợp.</span><em><span class="en">KPI</span><span class="vi">KPI</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="4"><i>05</i><span class="en">Keep many parties on schedule.</span><span class="vi">Giữ tiến độ giữa nhiều bên tham gia.</span><em><span class="en">timeline</span><span class="vi">tiến độ</span></em><b aria-hidden="true">✓</b></button></li>
+          </ol>
+        </div>
+      </div>
     </div>
-    <div class="bf0-stage" id="bfStage">
-      <span class="bf-ghost" style="--x:8%;--y:20%;--w:17%;--d:-6s" aria-hidden="true"></span>
-      <span class="bf-ghost" style="--x:90%;--y:16%;--w:14%;--d:-2s" aria-hidden="true"></span>
-      <span class="bf-ghost" style="--x:93%;--y:78%;--w:19%;--d:-9s" aria-hidden="true"></span>
-      <span class="bf-ghost" style="--x:5%;--y:84%;--w:13%;--d:-4s" aria-hidden="true"></span>
-      <h2 class="bf-ask" id="bfAsk"><svg class="bf-ask-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="bf-sr"><span class="en">A goal. A budget. But where do you start?</span><span class="vi">Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?</span></span><span class="bf-ask-t" id="bfAskT" aria-hidden="true"></span><u aria-hidden="true"></u><button class="bf-go" type="button" id="bfGo"><span class="en">Plan</span><span class="vi">Lên plan</span> ↵</button></h2>
-        <button class="bw" type="button" data-w="0" aria-label="Fix the real problem first."><span class="bw-bar"><i></i>problem.txt<b>✓</b></span><span class="bw-body"><span class="v-doc"><i></i><i class="hl"></i><i></i><i class="sh"></i></span><span class="bw-t"><span class="en">Fix the real problem first.</span><span class="vi">Gỡ đúng vấn đề trước khi bắt tay triển khai.</span></span></span><span class="bw-sel" aria-hidden="true"><em>01</em><s></s><s></s><s></s><s></s></span></button>
-        <button class="bw" type="button" data-w="1" aria-label="Prioritise the right work."><span class="bw-bar"><i></i>priority.list<b>✓</b></span><span class="bw-body"><span class="v-list"><i class="on"></i><i></i><i></i></span><span class="bw-t"><span class="en">Prioritise the right work.</span><span class="vi">Ưu tiên đúng việc để tối ưu nguồn lực.</span></span></span><span class="bw-sel" aria-hidden="true"><em>02</em><s></s><s></s><s></s><s></s></span></button>
-        <button class="bw" type="button" data-w="2" aria-label="Spend the budget wisely per goal."><span class="bw-bar"><i></i>budget.xlsx<b>✓</b></span><span class="bw-body"><span class="v-bars"><i style="--h:.45"></i><i style="--h:.7"></i><i style="--h:.55"></i><i style="--h:.9"></i><i style="--h:.65"></i></span><span class="bw-t"><span class="en">Spend the budget wisely per goal.</span><span class="vi">Dùng ngân sách hợp lý theo từng mục tiêu.</span></span></span><span class="bw-sel" aria-hidden="true"><em>03</em><s></s><s></s><s></s><s></s></span></button>
-        <button class="bw" type="button" data-w="3" aria-label="Measure results with the right KPIs."><span class="bw-bar"><i></i>kpi.dash<b>✓</b></span><span class="bw-body"><span class="v-donut"><i></i></span><span class="bw-t"><span class="en">Measure results with the right KPIs.</span><span class="vi">Đo đúng hiệu quả bằng KPI phù hợp.</span></span></span><span class="bw-sel" aria-hidden="true"><em>04</em><s></s><s></s><s></s><s></s></span></button>
-        <button class="bw" type="button" data-w="4" aria-label="Keep many parties on schedule."><span class="bw-bar"><i></i>timeline.plan<b>✓</b></span><span class="bw-body"><span class="v-gantt"><i style="--a:0;--w:.45"></i><i style="--a:.3;--w:.4"></i><i style="--a:.55;--w:.45"></i></span><span class="bw-t"><span class="en">Keep many parties on schedule.</span><span class="vi">Giữ tiến độ giữa nhiều bên tham gia.</span></span></span><span class="bw-sel" aria-hidden="true"><em>05</em><s></s><s></s><s></s><s></s></span></button>
-      <span class="bf-cur" id="bfCur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 2l17 9-7.5 1.8L9.8 21z"/></svg><b>Xinh</b></span>
-    </div>
-    <p class="wrap bf0-then"><span class="en">I help clarify the problem, decide what comes first and turn the brief into a plan that can actually run.</span><span class="vi">Xinh giúp làm rõ bài toán, xác định việc cần ưu tiên và biến đề bài thành kế hoạch có thể triển khai.</span></p>
   </div>
   <span class="node cp bf-node" data-node data-cp="0"></span>
 </section>
@@ -261,14 +267,18 @@
     <span class="node" data-node></span>
     <p class="say"><span class="en">That's me. <em>Now, how I work.</em></span><span class="vi">Biết Xinh là ai rồi. <em>Giờ xem Xinh làm thế nào nè.</em></span></p>
   </div>
-  <div class="wrap" style="padding-bottom:clamp(80px,10vw,130px)">
+  <div class="wrap hw-headwrap">
     <div class="head">
       <span class="node rail cp" data-node data-cp="2"></span>
       <p class="tag"><b>LV.2</b><span class="en">How</span><span class="vi">Cách làm</span></p>
       <h2 class="own-big"><span class="en">Xinh owns it.</span><span class="vi">Xinh thích làm chủ.</span></h2>
       <p class="own-sub"><span class="en">In control from the goal to the result.</span><span class="vi">Chủ động kiểm soát từ mục tiêu đến kết quả.</span></p>
     </div>
-    <div class="proc lib" id="proc"></div>
+  </div>
+  <div class="hw" id="hw">
+    <div class="hw-pin"><div class="hw-stage" id="hwStage"></div></div>
+  </div>
+  <div class="wrap" style="padding-bottom:clamp(80px,10vw,130px)">
     <button class="quizchip" type="button" data-quiz><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg><span><b>XINH_QUIZ.EXE</b><span class="en">Got 30 seconds? 3 quick ones with Xinh</span><span class="vi">Rảnh 30 giây? Chơi 3 câu với Xinh</span></span><em><span class="en">Open</span><span class="vi">Mở</span></em></button>
     <div class="wpt" style="margin-top:10px"><span class="node rail wp" data-node></span></div>
   </div>
