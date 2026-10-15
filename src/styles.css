@@ -2806,3 +2806,56 @@ body{background:transparent!important}
 }
 @media (prefers-reduced-motion:reduce){ .wk{animation:none} .wk-cv,.jx-next{transition:none} }
 .wx-index.still .wk{animation:none}
+
+/* ===== v16b · WORK closer to toyfight: "Projects (n)" + Filter panel, staggered 2-up grid,
+   page tint follows the hovered project, scroll past the end to pull the next project in ===== */
+@property --wxc{syntax:'<color>'; inherits:true; initial-value:#f3eee6}
+#v-work{--wxc:#f3eee6; background:radial-gradient(90% 70% at 70% 30%, var(--wxc) 0%, transparent 70%), var(--cream,#f3eee6)!important; transition:--wxc .9s cubic-bezier(.2,.8,.2,1)}
+.wx-top{padding-top:clamp(8px,2vw,24px)}
+.wx-headrow{display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-top:14px; padding-bottom:18px; border-bottom:1px solid rgba(17,17,20,.16)}
+.wx-h{margin:0; font-family:var(--f-head); font-weight:800; font-size:clamp(64px,11vw,176px); line-height:.82; letter-spacing:-.065em; color:var(--ink)}
+.wx-h sup{font-family:var(--f-mono); font-weight:500; font-size:clamp(14px,1.4vw,20px); letter-spacing:0; vertical-align:top; margin-left:8px; position:relative; top:.4em}
+.wx-fbtn{all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:8px; font-family:var(--f-mono); font-size:13px; color:var(--ink); padding:12px 18px; border-radius:999px; border:1px solid rgba(17,17,20,.2); background:rgba(255,255,255,.5); white-space:nowrap; transition:background .25s,color .25s}
+.wx-fbtn b{font-weight:600}
+.wx-fbtn i{font-style:normal; font-size:16px; line-height:1; transition:transform .4s cubic-bezier(.2,.9,.3,1.3)}
+.wx-fbtn:hover,.wx-fbtn[aria-expanded="true"]{background:var(--ink); color:#fff}
+.wx-fbtn[aria-expanded="true"] i{transform:rotate(45deg)}
+.wx-fbtn:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
+.wx-top .wx-state{margin:14px 0 0; font-size:15px; color:rgba(17,17,20,.6)}
+.wx-panel{display:grid; grid-template-rows:0fr; transition:grid-template-rows .55s cubic-bezier(.2,.8,.2,1)}
+.wx-panel.open{grid-template-rows:1fr}
+.wx-pin{overflow:hidden; display:grid; grid-template-columns:1.3fr 1fr; gap:clamp(20px,4vw,60px)}
+.wx-panel.open .wx-pin{padding:26px 0 30px; border-bottom:1px solid rgba(17,17,20,.16)}
+.wx-pin > *{opacity:0; transform:translateY(-10px); transition:opacity .35s, transform .5s cubic-bezier(.2,.8,.2,1)}
+.wx-panel.open .wx-pin > *{opacity:1; transform:none; transition-delay:.12s}
+.wx-pk{margin:0 0 12px; font-family:var(--f-mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:rgba(17,17,20,.5)}
+.wx-pin .wx-fil{display:flex; flex-direction:column; align-items:flex-start; gap:2px}
+.wx-pin .wx-fil button{font-size:clamp(24px,2.8vw,40px); line-height:1.12}
+.wx-pin .wx-fil button[aria-pressed="true"]::after{bottom:6px; height:3px}
+.wx-pin .wx-cli{margin:0; flex-wrap:wrap}
+/* staggered 2-up grid */
+.wx .wx-index{grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(40px,5vw,80px) clamp(20px,3vw,48px); margin-top:clamp(36px,4vw,64px)}
+.wx .wx-index .wk:nth-child(even){margin-top:clamp(60px,12vw,180px)}
+.wx .wk-cv{aspect-ratio:4/3.4}
+.wx .wk-cl{font-size:clamp(40px,5.6vw,88px)}
+.wk.t-imc,.wk.t-awo,.wk.t-act,.wk.t-prod,.wk.t-pitch,.wk.t-tbd{background:none; box-shadow:none}
+.wx .wk-m{flex-direction:row; justify-content:space-between; align-items:baseline; gap:16px}
+.wx .wk-m b{font-size:clamp(17px,1.5vw,21px)}
+.wx .wk-m span{text-align:right}
+/* pull zone at the foot of a project */
+.jx-pull{margin-top:clamp(60px,8vw,110px); padding-bottom:30px}
+.jx-pull .jx-next{min-height:72vh; margin-top:0; position:relative}
+.jx-pull .jx-next:hover{transform:none}
+.jx-bar2{position:absolute; left:clamp(26px,4vw,56px); right:clamp(26px,4vw,56px); top:clamp(26px,4vw,48px); height:2px; background:rgba(17,17,20,.12); border-radius:2px; overflow:hidden}
+.jx-bar2 i{display:block; height:100%; background:var(--ink); transform:scaleX(0); transform-origin:0 50%; transition:transform .25s ease-out}
+.jx-nh{margin-top:14px; font-family:var(--f-mono); font-size:11px; color:rgba(17,17,20,.55)}
+@media (max-width:860px){
+  .wx-headrow{flex-direction:column; align-items:flex-start}
+  .wx-pin{grid-template-columns:1fr}
+  .wx .wx-index{grid-template-columns:1fr; gap:34px}
+  .wx .wx-index .wk:nth-child(even){margin-top:0}
+  .wx .wk-cl{font-size:clamp(40px,13vw,64px)}
+  .wx .wk-m{flex-direction:column; gap:4px} .wx .wk-m span{text-align:left}
+  .jx-pull .jx-next{min-height:62vh}
+}
+.wk-cv::after{inset:-40%!important}

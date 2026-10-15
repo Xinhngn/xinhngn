@@ -347,19 +347,32 @@ import './styles.css';
   function renderWork(){
     var host = $('#wxIndex'); if (!host) return; var vi = lang === 'vi';
     wxList = wkList();
-    $('#wxCount').innerHTML = '<b>' + wxList.length + '</b> / ' + JOBS.length + ' ' + (vi ? 'chiến dịch' : 'campaigns') + ' · <b>' + CLIENTS.length + '</b> ' + (vi ? 'khách hàng' : 'clients');
+    $('#wxN').textContent = '(' + wxList.length + ')';
+    var curF = wxF === 'all' ? (vi ? 'Tất cả' : 'All') : L(TYK[wxF].t);
+    if (wxC !== 'all') curF += ' · ' + CL[wxC].n;
+    $('#wxFcur').textContent = curF;
     var fil = [{k:'all', n:vi ? 'Tất cả' : 'All', c:JOBS.length}].concat(TY.map(function(t){ return {k:t.k, n:L(t.t), c:JOBS.filter(function(j){ return j.ty.indexOf(t.k) > -1; }).length}; }));
     $('#wxFil').innerHTML = fil.map(function(f){ return '<button type="button" data-wxf="' + f.k + '" aria-pressed="' + (wxF === f.k) + '">' + esc(f.n) + '<sup>' + f.c + '</sup></button>'; }).join('');
-    $('#wxCli').innerHTML = '<span>' + (vi ? 'Khách hàng' : 'Client') + '</span>' + [{k:'all', n:vi ? 'Tất cả' : 'All'}].concat(CLIENTS.map(function(c){ return {k:c.k, n:c.n}; })).map(function(c){
+    $('#wxCli').innerHTML = [{k:'all', n:vi ? 'Tất cả' : 'All'}].concat(CLIENTS.map(function(c){ return {k:c.k, n:c.n}; })).map(function(c){
       return '<button type="button" data-wxc="' + c.k + '" aria-pressed="' + (wxC === c.k) + '">' + esc(c.n) + '</button>'; }).join('');
     host.innerHTML = wxList.length ? wxList.map(function(j, i){
       var c = CL[j.c];
-      return '<button class="wk t-' + wkTone(j) + '" type="button" data-job="' + j.id + '" style="--wi:' + i + ';--vt:wk-' + j.id + '">' +
-        '<span class="wk-cv"><span class="wk-n">' + ('0' + (JOBS.indexOf(j) + 1)).slice(-2) + '</span><span class="wk-yr">' + (j.y ? esc(j.y) : '') + '</span>' +
+      return '<button class="wk" type="button" data-tone="' + wkTone(j) + '" data-job="' + j.id + '" style="--wi:' + i + ';--vt:wk-' + j.id + '">' +
+        '<span class="wk-cv t-' + wkTone(j) + '"><span class="wk-n">' + ('0' + (JOBS.indexOf(j) + 1)).slice(-2) + '</span><span class="wk-yr">' + (j.y ? esc(j.y) : '') + '</span>' +
         '<b class="wk-cl">' + esc(c.n) + '</b><span class="wk-go" aria-hidden="true">' + (vi ? 'Xem' : 'View') + ' ↗</span></span>' +
         '<span class="wk-m"><b>' + esc(L(j.n)) + '</b><span>' + j.ty.map(function(k){ return esc(L(TYK[k].t)); }).join(' · ') + '</span></span></button>';
     }).join('') : '<p class="wk-none">' + (vi ? 'Chưa có chiến dịch nào khớp bộ lọc.' : 'No campaigns match this filter.') + ' <button type="button" data-wxf="all" data-wxc="all">' + (vi ? 'Xoá lọc' : 'Clear filters') + '</button></p>';
   }
+  function wxPanel(open){
+    var p = $('#wxPanel'), b = $('#wxFbtn'); if (!p) return;
+    if (open === undefined) open = !p.classList.contains('open');
+    p.classList.toggle('open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  var WX_TONE = {imc:'#ffc2dc', awo:'#dfe2ea', act:'#ffd0de', prod:'#ddd5f6', pitch:'#efe3d2', tbd:'#efebe5'};
+  document.addEventListener('pointerover', function(e){
+    var w = e.target.closest && e.target.closest('#wxIndex .wk'); var v = $('#v-work');
+    if (v) v.style.setProperty('--wxc', w ? WX_TONE[w.dataset.tone] : '#f3eee6');
+  });
   function setFilter(f, c){
     var g = $('#wxIndex'); g.classList.add('flip', 'still');
     vt(function(){ if (f) wxF = f; if (c) wxC = c; renderWork(); }, function(){ g.classList.remove('flip', 'still'); });
@@ -385,8 +398,9 @@ import './styles.css';
         (!j.out && !j.res ? '<p>' + toFill(vi ? 'kết quả / số liệu đã xác nhận' : 'confirmed result / metric') + '</p>' : '') + (j.src ? '<p class="src">' + esc(j.src) + '</p>' : '') +
         (j.cs && CS[j.cs] ? '<button class="btn" type="button" data-case="' + j.cs + '">' + (vi ? 'Case study ' : 'Case study ') + esc(CS[j.cs].brand) + ' →</button>' : '') + '</div>' +
       '<div class="jd-gal">' + slots + '</div>' +
-      (n > 1 ? '<button type="button" class="jx-next t-' + wkTone(nx) + '" data-jxgo="1"><span class="jx-nk">' + (vi ? 'Dự án kế tiếp' : 'Next project') + ' →</span><b>' + esc(CL[nx.c].n) + '</b><em>' + esc(L(nx.n)) + '</em></button>' : '') +
-      '<p class="jx-hint">' + (vi ? 'Vuốt ngang hoặc dùng phím ← → để chuyển dự án' : 'Swipe sideways or use ← → to change project') + '</p></div>';
+      (n > 1 ? '<div class="jx-pull"><button type="button" class="jx-next t-' + wkTone(nx) + '" data-jxnext><span class="jx-nk">' + (vi ? 'Dự án kế tiếp' : 'Next project') + ' · ' + ('0' + ((jxIdx + 1) % n + 1)).slice(-2) + '</span><b>' + esc(CL[nx.c].n) + '</b><em>' + esc(L(nx.n)) + '</em>' +
+        '<span class="jx-bar2"><i></i></span><span class="jx-nh">' + (vi ? 'Cuộn tiếp để sang dự án' : 'Keep scrolling for the next one') + ' ↓</span></button></div>' : '') +
+      '</div>';
   }
   function cardCv(id){ var b = $('#wxIndex [data-job="' + id + '"] .wk-cv'); return b; }
   function openJob(id){
@@ -418,6 +432,31 @@ import './styles.css';
     }, 220);
     track('jobd', j.id);
   }
+  /* toyfight-style hand-off: the next-project block at the foot of the page grows into the next hero */
+  var jxPull = 0, jxPullT = 0, jxBusy = false;
+  function jxSetPull(v){ jxPull = clamp(v, 0, 1); var b = $('#jdIn .jx-bar2 i'); if (b) b.style.transform = 'scaleX(' + jxPull.toFixed(3) + ')'; }
+  function jxNext(){
+    var n = wxList.length; if (n < 2 || jxBusy) return; jxBusy = true;
+    var inn = $('#jdIn'), nb = $('.jx-next', inn), h = $('.jx-hero', inn);
+    if (h) h.style.viewTransitionName = '';
+    if (nb) nb.style.viewTransitionName = 'jxc';
+    jxIdx = (jxIdx + 1) % n; var j = wxList[jxIdx];
+    vt(function(){ inn.innerHTML = jxHtml(j); inn.scrollTop = 0; var nh = $('.jx-hero', inn); if (nh) nh.style.viewTransitionName = 'jxc'; }, function(){ jxBusy = false; jxSetPull(0); });
+    track('jobd', j.id);
+  }
+  function jxAtEnd(inn){ return inn.scrollTop + inn.clientHeight >= inn.scrollHeight - 4; }
+  (function(){
+    var inn = $('#jdIn'); if (!inn) return; var ty = 0;
+    function feed(d){
+      if (!jxAtEnd(inn) || !$('.jx-next', inn)) return;
+      jxSetPull(jxPull + d); clearTimeout(jxPullT);
+      if (jxPull >= 1){ jxNext(); return; }
+      jxPullT = setTimeout(function(){ jxSetPull(0); }, 650);
+    }
+    inn.addEventListener('wheel', function(e){ if (e.deltaY > 0) feed(e.deltaY / 700); }, {passive:true});
+    inn.addEventListener('touchstart', function(e){ ty = e.touches[0].clientY; }, {passive:true});
+    inn.addEventListener('touchmove', function(e){ var y = e.touches[0].clientY, d = ty - y; ty = y; if (d > 0) feed(d / 260); }, {passive:true});
+  })();
   function jxClose(){
     var sh = $('#jobSheet'); if (sh.hidden) return;
     var j = wxList[jxIdx], hero = $('#jdIn .jx-hero'), cv = null;
@@ -440,8 +479,10 @@ import './styles.css';
     else if (e.key === 'ArrowRight'){ jxGo(1); } else if (e.key === 'ArrowLeft'){ jxGo(-1); }
   });
   document.addEventListener('click', function(e){
-    var f = e.target.closest('[data-wxf],[data-wxc]'); if (f){ setFilter(f.dataset.wxf, f.dataset.wxc); track('wx', (f.dataset.wxf || '') + (f.dataset.wxc || '')); return; }
+    var f = e.target.closest('[data-wxf],[data-wxc]'); if (f){ setFilter(f.dataset.wxf, f.dataset.wxc); wxPanel(false); track('wx', (f.dataset.wxf || '') + (f.dataset.wxc || '')); return; }
     if (e.target.closest('[data-jxclose]')){ jxClose(); return; }
+    if (e.target.closest('[data-jxnext]')){ jxNext(); return; }
+    if (e.target.closest('#wxFbtn')){ wxPanel(); return; }
     var g = e.target.closest('[data-jxgo]'); if (g){ jxGo(+g.dataset.jxgo); return; }
     var d = e.target.closest('[data-jobd]'); if (d){ openJob(d.dataset.jobd); return; }
     var r = e.target.closest('[data-job]'); if (r){ openJob(r.dataset.job); }

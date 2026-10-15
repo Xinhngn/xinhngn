@@ -397,17 +397,17 @@
 <!-- =========================================================== WORK =========================================================== -->
 <section class="view qv wx" data-view="work" id="v-work" hidden>
   <div class="wrap plain">
-    <div class="qhead">
+    <div class="wx-top">
       <p class="tag"><b>02</b><span class="en">Work</span><span class="vi">Dự án</span></p>
-      <h2 class="qword">Work</h2>
-    </div>
-    <div class="wx-hero">
-      <p class="wx-state"><span class="en">Campaigns Xinh has run, pitched or produced. <i>Pick a lane.</i></span><span class="vi">Các chiến dịch Xinh đã chạy, pitch hoặc sản xuất. <i>Chọn một hướng.</i></span></p>
-      <div class="wx-filter">
-        <div class="wx-fil" id="wxFil" role="group" aria-label="Filter by kind of work"></div>
-        <p class="wx-count" id="wxCount" aria-live="polite"></p>
+      <div class="wx-headrow">
+        <h2 class="wx-h"><span class="en">Projects</span><span class="vi">Dự án</span><sup id="wxN"></sup></h2>
+        <button class="wx-fbtn" id="wxFbtn" type="button" aria-expanded="false" aria-controls="wxPanel"><span class="en">Filter</span><span class="vi">Lọc</span>: <b id="wxFcur"></b><i aria-hidden="true">+</i></button>
       </div>
-      <div class="wx-cli" id="wxCli" role="group" aria-label="Filter by client"></div>
+      <p class="wx-state"><span class="en">Campaigns Xinh has run, pitched or produced.</span><span class="vi">Các chiến dịch Xinh đã chạy, pitch hoặc sản xuất.</span></p>
+      <div class="wx-panel" id="wxPanel"><div class="wx-pin">
+        <div class="wx-pcol"><p class="wx-pk"><span class="en">Kind of work</span><span class="vi">Tính chất</span></p><div class="wx-fil" id="wxFil" role="group" aria-label="Filter by kind of work"></div></div>
+        <div class="wx-pcol"><p class="wx-pk"><span class="en">Client</span><span class="vi">Khách hàng</span></p><div class="wx-cli" id="wxCli" role="group" aria-label="Filter by client"></div></div>
+      </div></div>
     </div>
     <div class="wx-index" id="wxIndex"></div>
     <div class="stamp">
