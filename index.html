@@ -395,25 +395,18 @@
 
 
 <!-- =========================================================== WORK =========================================================== -->
-<section class="view qv wx" data-view="work" id="v-work" hidden>
-  <div class="wrap plain">
-    <div class="wx-top">
-      <p class="tag"><b>02</b><span class="en">Work</span><span class="vi">Dự án</span></p>
-      <div class="wx-headrow">
-        <h2 class="wx-h"><span class="en">Projects</span><span class="vi">Dự án</span><sup id="wxN"></sup></h2>
-        <button class="wx-fbtn" id="wxFbtn" type="button" aria-expanded="false" aria-controls="wxPanel"><span class="en">Filter</span><span class="vi">Lọc</span>: <b id="wxFcur"></b><i aria-hidden="true">+</i></button>
+<section class="view qv wx tf" data-view="work" id="v-work" hidden>
+  <div class="tf-wrap">
+    <div class="tf-head">
+      <div class="tf-title">
+        <p class="tag"><b>02</b><span class="en">Work</span><span class="vi">Dự án</span></p>
+        <p class="tf-pill big" id="tfCur"></p>
+        <h2 class="tf-line"><span class="tf-pill big"><span class="en">Projects</span><span class="vi">Dự án</span></span><sup id="wxN"></sup></h2>
       </div>
-      <p class="wx-state"><span class="en">Campaigns Xinh has run, pitched or produced.</span><span class="vi">Các chiến dịch Xinh đã chạy, pitch hoặc sản xuất.</span></p>
-      <div class="wx-panel" id="wxPanel"><div class="wx-pin">
-        <div class="wx-pcol"><p class="wx-pk"><span class="en">Kind of work</span><span class="vi">Tính chất</span></p><div class="wx-fil" id="wxFil" role="group" aria-label="Filter by kind of work"></div></div>
-        <div class="wx-pcol"><p class="wx-pk"><span class="en">Client</span><span class="vi">Khách hàng</span></p><div class="wx-cli" id="wxCli" role="group" aria-label="Filter by client"></div></div>
-      </div></div>
+      <nav class="tf-filter" aria-label="Filter projects"><p class="tf-k"><span class="en">Filter</span><span class="vi">Lọc</span></p><div id="wxFil" role="group"></div></nav>
     </div>
-    <div class="wx-index" id="wxIndex"></div>
-    <div class="stamp">
-      <p><span class="en">Want the whole story, in order?</span><span class="vi">Muốn xem trọn câu chuyện theo thứ tự?</span></p>
-      <div class="mrow"><a class="btn" href="#deliver"><span class="en">Play the journey</span><span class="vi">Xem hành trình</span></a><button class="btn hot" type="button" data-connect><span class="en">Say hi</span><span class="vi">Liên hệ</span></button></div>
-    </div>
+    <div class="tf-strip" id="tfStrip"><div class="tf-track" id="wxIndex"></div></div>
+    <div class="tf-foot"><span>XINH.OS · 2022 – ∞</span><span class="tf-hint"><span class="en">Drag or scroll the strip · click a project</span><span class="vi">Kéo hoặc cuộn dải dự án · bấm để xem</span></span></div>
   </div>
 </section>
 
@@ -558,6 +551,7 @@
 </main>
 
 <!-- Case sheet -->
+<div class="tf-wipe" id="tfWipe" hidden aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><p><span>LOADING</span><span>PLS</span><span>WAIT</span></p></div>
 <div class="sheet jd-sheet jx" id="jobSheet" hidden role="dialog" aria-modal="true" aria-labelledby="jdTitle"><div class="sheet-in jd" id="jdIn"></div></div>
 <div class="sheet" id="caseSheet" hidden role="dialog" aria-modal="true" aria-labelledby="csTitle"><div class="sheet-in" id="caseIn"></div></div>
 <!-- Connect sheet -->
