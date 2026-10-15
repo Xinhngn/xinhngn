@@ -469,7 +469,7 @@ import './styles.css';
     $('#whoOpts').innerHTML = WHO.map(function(w, i){ return '<button class="chip" type="button" data-who="' + i + '" aria-pressed="' + (i === whoIdx ? 'true' : 'false') + '">' + esc(L(w.t)) + '</button>'; }).join('');
     var w = WHO[whoIdx];
     $('#tpl').innerHTML = '“' + esc(L(w.msg)) + '”<span class="rec2">' + esc(L(w.rec)) + '</span><div style="margin-top:10px"><button class="chip" type="button" data-copy="' + esc(L(w.msg)) + '" data-m="template">' + (lang === 'vi' ? 'Sao chép tin nhắn mẫu' : 'Copy this message') + '</button></div>';
-    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v; }).map(function(m){ return '<span class="chip"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg>' + esc(L(m.t)) + '</span>'; }).join('');
+    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
   }
   document.addEventListener('click', function(e){
     var w = e.target.closest('[data-who]'); if (w){ whoIdx = +w.dataset.who; renderContact(); track('who', WHO[whoIdx].k); return; }
@@ -1206,84 +1206,61 @@ import './styles.css';
   }
   /* Boot playground (refs: a sky with objects orbiting the portrait; letter bubbles you can toss around).
      Tiny 2D physics for the letters of "EM XINH SAY HI"; it sleeps once everything settles. */
-  var bub = {list:[], raf:0, drag:null, calm:0, g:1, box:null};
+  /* The letters EM XINH SAY HI drop in one by one and settle into a tidy row above the tagline (ref: letter bubbles).
+     Each letter hangs on a spring to its home spot: drag or flick it and it swings back. The loop sleeps once all are home. */
+  var bub = {list:[], raf:0, drag:null, calm:0};
   function bubblesStart(){
     var host = $('#bubbles'); if (!host) return;
     cancelAnimationFrame(bub.raf); bub.raf = 0; host.innerHTML = ''; bub.list = [];
-    var W = host.clientWidth, small = W < 760, R = small ? 21 : 29;
+    var small = host.clientWidth < 760, R = small ? 13 : 22;
     'EMXINHSAYHI'.split('').forEach(function(ch, i){
-      var el = document.createElement('span'); el.className = 'bb' + (i === 7 || i === 10 ? ' pk' : i === 4 ? ' ch' : ''); el.textContent = ch;
-      el.style.width = el.style.height = R * 2 + 'px'; host.appendChild(el);
-      var x0 = small ? W * (.12 + Math.random() * .76) : W * (.04 + Math.random() * .26);
-      bub.list.push({el:el, x:x0, y:-80 - i * 46, vx:(Math.random() - .5) * 2, vy:0, r:R, rot:(Math.random() - .5) * 40});
+      var el = document.createElement('span'); el.className = 'bb' + (i === 7 || i === 10 ? ' pk' : i === 4 ? ' ch' : ''); el.innerHTML = '<i>' + ch + '</i>';
+      el.style.width = el.style.height = R * 2 + 'px'; el.style.setProperty('--i', i); host.appendChild(el);
+      bub.list.push({el:el, x:0, y:0, vx:0, vy:0, r:R, rot:0, hx:0, hy:0, t0:i * 70});
     });
-    measure();
-    if (reduce){ settleStatic(); return; }
-    bub.calm = 0; bubLoop();
+    homes();
+    bub.list.forEach(function(b){ b.x = b.hx + (Math.random() - .5) * 60; b.y = -60 - Math.random() * 80; b.rot = (Math.random() - .5) * 90; });
+    if (reduce){ bub.list.forEach(function(b){ b.x = b.hx; b.y = b.hy; b.rot = 0; draw(b); }); return; }
+    bub.start = performance.now(); bub.calm = 0; bubLoop();
   }
-  /* The floor and the solid boxes (tagline, language switch, the two mode buttons), in the bubbles' own coordinates.
-     On a phone the letters rest on top of the footer; on desktop they land on the footer pieces themselves. */
-  function measure(){
-    var host = $('#bubbles'); if (!host) return;
-    var h = host.getBoundingClientRect(), small = h.width < 760, f = $('.bx-foot'), rects = [];
-    var floor = h.height - 6;
-    if (small && f){ var line = $('.bx-foot .bh-line') || f; floor = line.getBoundingClientRect().top - h.top - 6; }
-    else $$('.bx-foot .bh-line, .bx-foot .boot-lang, .bx-foot .mode').forEach(function(el){ var r = el.getBoundingClientRect(); rects.push({l:r.left - h.left, t:r.top - h.top, r:r.right - h.left, b:r.bottom - h.top}); });
-    bub.box = {w:h.width, floor:floor, rects:rects};
+  /* home row: words EM · XINH · SAY · HI, left-aligned to the tagline (centred on phones) */
+  function homes(){
+    var host = $('#bubbles'), line = $('.bx-foot .bh-line'); if (!host || !line || !bub.list.length) return;
+    var h = host.getBoundingClientRect(), l = line.getBoundingClientRect(), R = bub.list[0].r, step = R * 2 + 4, gap = R * .9;
+    var breaks = {2:1, 6:1, 9:1}, w = bub.list.length * step + 3 * gap - 4, small = h.width < 760;
+    var x = small ? (h.width - w) / 2 + R : l.left - h.left + R, y = l.top - h.top - R - (small ? 12 : 16);
+    bub.list.forEach(function(b, i){ if (breaks[i]) x += gap; b.hx = x; b.hy = y; x += step; });
   }
-  function settleStatic(){ var fy = bub.box.floor, x = 0; bub.list.forEach(function(b){ x += b.r * 2.1; b.x = x; b.y = fy - b.r; draw(b); }); }
   function draw(b){ b.el.style.transform = 'translate(' + (b.x - b.r).toFixed(1) + 'px,' + (b.y - b.r).toFixed(1) + 'px) rotate(' + b.rot.toFixed(1) + 'deg)'; }
-  function hitRect(b, k){
-    var cx = Math.max(k.l, Math.min(b.x, k.r)), cy = Math.max(k.t, Math.min(b.y, k.b)), dx = b.x - cx, dy = b.y - cy, d = Math.hypot(dx, dy);
-    if (d >= b.r) return;
-    var nx, ny; if (d > 0){ nx = dx / d; ny = dy / d; } else { nx = 0; ny = -1; d = 0; b.y = k.t; }
-    b.x += nx * (b.r - d); b.y += ny * (b.r - d);
-    var vn = b.vx * nx + b.vy * ny; if (vn < 0){ b.vx -= 1.45 * vn * nx; b.vy -= 1.45 * vn * ny; b.vx *= .9; if (ny < -.7 && Math.abs(b.vy) < .9) b.vy = 0; }
-  }
   function bubLoop(){
     if (bootEl.hidden){ bub.raf = 0; return; }
-    if (!bub.box) measure();
-    var W = bub.box.w, fy = bub.box.floor, L = bub.list, moving = 0, g = bub.g;
-    for (var i = 0; i < L.length; i++){
-      var b = L[i]; if (bub.drag && bub.drag.b === b) continue;
-      if (g){ b.vy += .55; b.vx *= .995; } else { b.vx *= .996; b.vy = b.vy * .996 - .012; }
-      b.x += b.vx; b.y += b.vy; b.rot += b.vx * 1.4;
-      if (b.y > fy - b.r){ b.y = fy - b.r; b.vy *= -.42; b.vx *= .86; if (g && Math.abs(b.vy) < .9) b.vy = 0; }
-      if (!g && b.y < b.r){ b.y = b.r; b.vy = Math.abs(b.vy) * .6; }
-      if (b.x < b.r){ b.x = b.r; b.vx *= -.6; } if (b.x > W - b.r){ b.x = W - b.r; b.vx *= -.6; }
-      for (var k = 0; k < bub.box.rects.length; k++) hitRect(b, bub.box.rects[k]);
-    }
-    for (var a = 0; a < L.length; a++) for (var c = a + 1; c < L.length; c++){
-      var p = L[a], q = L[c], dx = q.x - p.x, dy = q.y - p.y, d = Math.hypot(dx, dy), m = p.r + q.r;
-      if (d > 0 && d < m){ var nx = dx / d, ny = dy / d, o = (m - d) / 2; p.x -= nx * o; p.y -= ny * o; q.x += nx * o; q.y += ny * o;
-        var rv = (q.vx - p.vx) * nx + (q.vy - p.vy) * ny; if (rv < 0){ var j = -rv * .55; p.vx -= j * nx; p.vy -= j * ny; q.vx += j * nx; q.vy += j * ny; } }
-    }
-    L.forEach(function(b){ draw(b); if (Math.abs(b.vx) + Math.abs(b.vy) > .25) moving++; });
-    bub.calm = moving || bub.drag ? 0 : bub.calm + 1;
-    if (bub.calm < 40) bub.raf = requestAnimationFrame(bubLoop); else bub.raf = 0;
+    var now = performance.now(), moving = 0;
+    bub.list.forEach(function(b){
+      if (bub.drag && bub.drag.b === b) return;
+      if (now - bub.start < b.t0){ return; }
+      b.vx = (b.vx + (b.hx - b.x) * .07) * .82; b.vy = (b.vy + (b.hy - b.y) * .07) * .82; b.rot *= .88;
+      b.x += b.vx; b.y += b.vy; draw(b);
+      if (Math.abs(b.hx - b.x) + Math.abs(b.hy - b.y) + Math.abs(b.vx) + Math.abs(b.vy) > .3) moving++;
+    });
+    bub.calm = moving || bub.drag || now - bub.start < 1200 ? 0 : bub.calm + 1;
+    if (bub.calm < 20) bub.raf = requestAnimationFrame(bubLoop); else bub.raf = 0;
   }
   function wake(){ bub.calm = 0; if (!bub.raf && !reduce) bub.raf = requestAnimationFrame(bubLoop); }
   document.addEventListener('pointerdown', function(e){
     var el = e.target.closest && e.target.closest('.bb'); if (!el) return;
     var b = bub.list.filter(function(x){ return x.el === el; })[0]; if (!b) return;
     e.preventDefault(); el.setPointerCapture && el.setPointerCapture(e.pointerId);
-    bub.drag = {b:b, lx:e.clientX, ly:e.clientY, vx:0, vy:0}; el.classList.add('held'); wake();
+    bub.drag = {b:b, lx:e.clientX, ly:e.clientY, vx:0, vy:0, moved:0}; el.classList.add('held'); wake();
   });
   document.addEventListener('pointermove', function(e){
     var g = bub.drag; if (!g) return;
-    var dx = e.clientX - g.lx, dy = e.clientY - g.ly; g.b.x += dx; g.b.y += dy; g.vx = dx; g.vy = dy; g.lx = e.clientX; g.ly = e.clientY; draw(g.b);
+    var dx = e.clientX - g.lx, dy = e.clientY - g.ly; g.b.x += dx; g.b.y += dy; g.b.rot += dx * .6; g.vx = dx; g.vy = dy; g.moved += Math.abs(dx) + Math.abs(dy); g.lx = e.clientX; g.ly = e.clientY; draw(g.b);
   });
   document.addEventListener('pointerup', function(){
-    var g = bub.drag; if (!g) return; g.b.vx = g.vx; g.b.vy = g.vy; if (Math.abs(g.vx) + Math.abs(g.vy) < 1){ g.b.vy = -14; } g.b.el.classList.remove('held'); bub.drag = null; wake();
+    var g = bub.drag; if (!g) return; g.b.vx = g.vx * 1.5; g.b.vy = g.vy * 1.5;
+    if (g.moved < 4){ g.b.vy = -16; g.b.rot = 30; } /* a tap makes the letter hop */
+    g.b.el.classList.remove('held'); bub.drag = null; wake();
   });
-  /* gravity switch + reset (ref: the floating-object playground). With gravity off the letters drift up slowly. */
-  var gravBtn = $('#gravBtn'), bubReset = $('#bubReset');
-  if (gravBtn) gravBtn.addEventListener('click', function(){
-    bub.g = bub.g ? 0 : 1; gravBtn.setAttribute('aria-pressed', bub.g ? 'true' : 'false');
-    if (!bub.g) bub.list.forEach(function(b){ b.vx += (Math.random() - .5) * 3; b.vy -= 2 + Math.random() * 3; });
-    if (reduce){ if (bub.g) settleStatic(); return; } wake();
-  });
-  if (bubReset) bubReset.addEventListener('click', function(){ bub.g = 1; if (gravBtn) gravBtn.setAttribute('aria-pressed', 'true'); bubblesStart(); });
   /* the orbit leans toward the pointer */
   bootEl.addEventListener('pointermove', function(e){ if (reduce || !finePointer) return; var st = $('#stage'); if (!st) return;
     st.style.setProperty('--px', ((e.clientX / window.innerWidth) - .5).toFixed(3)); st.style.setProperty('--py', ((e.clientY / window.innerHeight) - .5).toFixed(3)); });
@@ -1296,7 +1273,7 @@ import './styles.css';
     if (pic){ face = (face + 1) % FACES.length; var fr = $('.bx-pic .ph-frame'); if (fr){ fr.dataset.portrait = FACES[face][0]; fr.innerHTML = portrait(FACES[face][0]); } }
     if (pic || (ob && ob.classList.contains('tagx'))){ var by = $('.bx-pic .bye'); if (by){ by.textContent = FACES[face][1]; by.classList.remove('pop'); void by.offsetWidth; by.classList.add('pop'); } }
   });
-  window.addEventListener('resize', function(){ if (!bootEl.hidden){ measure(); wake(); } });
+  window.addEventListener('resize', function(){ if (!bootEl.hidden){ homes(); wake(); } });
 
   function chooseMode(m){
     if (booted) return; booted = true;
