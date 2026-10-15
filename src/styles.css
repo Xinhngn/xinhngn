@@ -2432,9 +2432,9 @@ body{background:var(--cream)}
 /* =====================================================================
    v16 · LV.2 "How" as one loop, AD pass 2 (Xinh: headline and loop drifted apart; ring
    looked like a generic widget). Headline + loop now share one pinned frame: left = the
-   claim "Xinh owns it." with a 4-bar progress, right = the loop drawn like an instrument
-   dial: ink hairlines, mono ticks, one pink arc, no glow blobs, no glass pills.
-   JS sets --p / --ha on #hw, .on / .done on stations, .solved on #hw.
+   claim "Xinh owns it." with a 4-bar progress, right = a deck of paper step cards that
+   flick off to the right like Tinder (scroll or drag) and tuck in at the back: the loop.
+   JS sets --p on #hw, inline transforms on .dk-c, .top / .back, data-step and .solved on #hw.
    ===================================================================== */
 #structure{background:linear-gradient(180deg,#f4eef2 0%,#f3eee6 100%)!important}
 .hw-headwrap{height:0; position:relative}
@@ -2452,47 +2452,25 @@ body{background:var(--cream)}
 .hw.solved .hw-now span{color:var(--rose)}
 
 .hw-stage{position:relative; height:100%}
-.cy{--d:min(62vh,520px,44vw); position:absolute; left:50%; top:50%; width:var(--d); aspect-ratio:1; transform:translate(-50%,-50%)}
-.cy-svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
-.cy-disc{fill:rgba(255,255,255,.55)}
-.cy-in{fill:none; stroke:rgba(29,31,61,.08); stroke-width:.4}
-.cy-tick{stroke:rgba(29,31,61,.22); stroke-width:.35} .cy-tick.m{stroke:rgba(29,31,61,.4); stroke-width:.5}
-.cy-track{fill:none; stroke:rgba(29,31,61,.85); stroke-width:.45}
-.cy-arc{fill:none; stroke:var(--lime); stroke-width:2.2; stroke-linecap:round; stroke-dasharray:100; stroke-dashoffset:calc(100 - var(--p) * 100)}
-.cy-chev{fill:none; stroke:var(--ink); stroke-width:.8; stroke-linecap:round; stroke-linejoin:round}
-.cy-head{transform:rotate(var(--ha)) translate(90px,0)}
-.cy-head circle{fill:var(--ink); stroke:#fff; stroke-width:1.4}
-.hw.solved .cy-head{opacity:0; transition:opacity .4s}
-
-/* stations: a dot on the ring, the label outside it */
-.cy-st{position:absolute; left:calc(50% + cos(var(--a)) * 45%); top:calc(50% + sin(var(--a)) * 45%); width:0; height:0; padding:0; border:0; background:none; cursor:pointer}
-.cy-st i{position:absolute; left:-7px; top:-7px; width:14px; height:14px; border-radius:50%; background:#f6f1ee; border:1.2px solid var(--ink); transition:background-color .4s, transform .5s cubic-bezier(.3,1.6,.5,1)}
-.cy-st.done i{background:var(--ink)}
-.cy-st.on i{background:var(--lime); transform:scale(1.35); border-color:var(--ink)}
-.cy-lb{position:absolute; white-space:nowrap; font-family:var(--f-head); font-weight:600; font-size:15px; letter-spacing:-.01em; line-height:1.2; color:rgba(29,31,61,.45); transition:color .4s}
-.cy-lb b{margin-right:8px; font:500 11px/1 var(--f-mono); color:var(--muted)}
-.cy-lb em{display:block; margin-top:5px; font:500 10.5px/1.2 var(--f-mono); font-style:normal; letter-spacing:.06em; text-transform:uppercase; color:var(--rose); opacity:0; transform:translateY(-4px); transition:opacity .4s, transform .5s}
-.cy-lb em::before{content:"✓ "}
-.cy-st.on .cy-lb,.cy-st.done .cy-lb{color:var(--ink)} .cy-st.on .cy-lb b{color:var(--rose)}
-.cy-st.done .cy-lb em{opacity:1; transform:none}
-.cy-st.t .cy-lb{left:0; bottom:18px; transform:translateX(-50%); text-align:center}
-.cy-st.b .cy-lb{left:0; top:18px; transform:translateX(-50%); text-align:center}
-.cy-st.r .cy-lb{left:20px; top:0; transform:translateY(-10px)}
-.cy-st.l .cy-lb{right:20px; top:0; transform:translateY(-10px); text-align:right}
-.cy-st:focus-visible i{outline:2px solid var(--rose); outline-offset:3px}
-
-/* the centre: the step the arc is on */
-.cy-mid{position:absolute; left:50%; top:50%; width:60%; height:58%; transform:translate(-50%,-50%)}
-.cy-mid article{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-  opacity:0; transform:translateY(12px); filter:blur(5px); transition:opacity .45s, transform .6s cubic-bezier(.2,.8,.2,1), filter .45s; pointer-events:none}
-.cy-mid article.on{opacity:1; transform:none; filter:none; transition-delay:.08s}
-.hw-nm{display:none}
-@media (max-width:860px){ .hw-nm{display:inline} }
-.hw-n{margin:0; font:500 11px/1.3 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)} .hw-n b{color:var(--rose); font-weight:600}
-.cy-mid h3{margin:12px 0 0; font-family:var(--f-head); font-weight:600; font-size:clamp(22px,2.2vw,32px); line-height:1.08; letter-spacing:-.03em; color:var(--ink)}
-.hw-d{margin:12px 0 0; max-width:28ch; font-size:14.5px; line-height:1.5; color:#4a4d5a}
-.cy-end h3{font-family:var(--f-serif); font-style:italic; font-weight:400; font-size:clamp(28px,2.8vw,40px); color:var(--rose)}
-.cy-end .hw-n b{font-size:18px}
+/* the deck: paper cards, ink type, one pink outcome line; cards behind fan out slightly */
+.dk{position:absolute; left:50%; top:46%; width:min(400px,100%); aspect-ratio:4/5; max-height:70%; transform:translate(-50%,-50%)}
+.dk-c{position:absolute; inset:0; margin:0; display:flex; flex-direction:column; padding:26px 28px 24px; border-radius:22px; background:#fbf8f4; color:var(--ink);
+  border:1px solid rgba(29,31,61,.1); box-shadow:0 1px 0 #fff inset, 0 24px 50px rgba(90,60,90,.14), 0 4px 10px rgba(90,60,90,.06);
+  transform-origin:50% 100%; will-change:transform; touch-action:pan-y; user-select:none; -webkit-user-select:none}
+.dk-c > *{transition:opacity .35s} .dk-c.back > *{opacity:0}
+.dk-c.top{cursor:grab} .hw.drag .dk-c.top{cursor:grabbing}
+.dk-top{margin:0; display:flex; align-items:center; gap:10px; font:500 11px/1 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.dk-top b{display:grid; place-items:center; width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff; font-weight:500; letter-spacing:0}
+.dk-top i{margin-left:auto; font-style:normal}
+.dk-c h3{margin:auto 0 0; font-family:var(--f-head); font-weight:600; font-size:clamp(28px,2.7vw,40px); line-height:1.02; letter-spacing:-.035em}
+.dk-d{margin:14px 0 0; font-size:15px; line-height:1.5; color:#4a4d5a}
+.dk-out{margin:22px 0 0; padding-top:14px; border-top:1px solid rgba(29,31,61,.12); font:500 11px/1.2 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--rose)}
+.dk-end{background:linear-gradient(160deg,#fff 0%,#ffe3ef 60%,#efe6fa 100%)}
+.dk-end .dk-top b{background:var(--lime); color:var(--ink); font-size:15px}
+.dk-end h3{font-family:var(--f-serif); font-style:italic; font-weight:400; color:var(--rose); font-size:clamp(34px,3.2vw,48px)}
+.dk-outs{margin:20px 0 0; padding-top:14px; border-top:1px solid rgba(29,31,61,.12); display:grid; gap:6px; font:500 11px/1.2 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--rose)}
+.dk-hint{position:absolute; left:0; right:0; bottom:-72px; margin:0; text-align:center; font:500 11px/1 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); transition:opacity .4s}
+.hw[data-step="4"] .dk-hint{opacity:0}
 
 @media (max-width:860px){
   .hw{height:400vh}
@@ -2502,12 +2480,11 @@ body{background:var(--cream)}
   .hw-head .own-big{font-size:44px}
   .hw-head .own-sub{margin-top:8px; font-size:16px; max-width:none}
   .hw-now{margin-top:14px} .hw-now i{width:30px}
-  .cy{--d:min(70vw,300px,46vh); left:calc(50% - 6px)}
-  .cy-lb{display:none}
-  .cy-st i{left:-6px; top:-6px; width:12px; height:12px}
-  .cy{top:46%}
-  .cy-mid{width:70%; height:66%}
-  .cy-mid h3{font-size:18px} .hw-d{font-size:12.5px; margin-top:6px}
+  .dk{width:min(300px,100%); max-height:80%; top:46%}
+  .dk-c{padding:18px 18px 16px; border-radius:18px}
+  .dk-c h3{font-size:24px} .dk-d{font-size:13px; margin-top:10px} .dk-out,.dk-outs{margin-top:14px; padding-top:10px; font-size:10px}
+  .dk-end h3{font-size:30px}
+  .dk-hint{bottom:-56px; font-size:10px}
 }
 @media (prefers-reduced-motion:reduce){
   .hw{height:auto} .hw-pin{position:relative; height:90vh}
@@ -2557,18 +2534,22 @@ body{background:var(--cream)}
 
 /* C · inside the tile */
 .pf-c{display:flex; align-items:center; background:linear-gradient(140deg,#ffd3e6 0%,#ffc4dd 40%,#e9e1f8 100%); transform-origin:50% 50%}
-.pf-cin{display:grid; grid-template-columns:1fr 1fr; gap:24px clamp(24px,5vw,72px); width:100%}
-.pf-lg{margin:0 0 10px; font:500 11px/1.3 var(--f-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--rose)}
-.pf-col ul{list-style:none; margin:0; padding:0}
-.pf-col li{display:grid; grid-template-columns:30px minmax(0,1fr); gap:4px 10px; padding:12px 0; border-top:1px solid rgba(29,31,61,.12)}
-.pf-col li i{grid-row:span 2; font:500 11px/1.9 var(--f-mono); font-style:normal; color:var(--muted)}
-.pf-col li b{font-family:var(--f-head); font-weight:600; font-size:clamp(18px,1.7vw,24px); line-height:1.15; letter-spacing:-.02em; color:var(--ink)}
-.pf-col li span{display:flex; flex-wrap:wrap; gap:5px}
-.pf-ch{display:inline-block; padding:4px 9px; border-radius:999px; font:600 11.5px/1.2 var(--f-head); color:var(--ink); text-decoration:none; border:1px solid rgba(29,31,61,.22); background:rgba(255,255,255,.35)}
-.pf-ch.led{background:var(--ink); border-color:var(--ink); color:#fff}
-a.pf-ch:hover{background:#fff; color:var(--ink)}
-.pf-key{grid-column:1/-1; margin:0; display:flex; flex-wrap:wrap; align-items:center; gap:8px}
-.pf-key .more-link{margin-left:auto}
+.pf-cin{width:100%; max-width:860px}
+.mx3{display:grid; grid-template-columns:minmax(0,1fr) repeat(var(--n),minmax(44px,64px)); align-items:center}
+.mx3-b{display:flex; align-items:flex-end; justify-content:center; height:44px; padding-bottom:10px; font:600 12px/1 var(--f-head); color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(29,31,61,.3)}
+.mx3-b:hover{color:var(--rose)}
+.mx3-h{height:44px; border-bottom:1px solid rgba(29,31,61,.3)}
+.mx3-g{grid-column:1/-1; margin:16px 0 4px; font:500 11px/1.3 var(--f-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--rose)}
+.mx3-l{margin:0; padding:9px 0; font-family:var(--f-head); font-weight:600; font-size:clamp(15px,1.35vw,19px); letter-spacing:-.015em; color:var(--ink); border-bottom:1px solid rgba(29,31,61,.08)}
+.mx3-l i{display:inline-block; width:30px; font:500 11px/1 var(--f-mono); font-style:normal; color:var(--muted)}
+.mx3-d{display:grid; place-items:center; height:100%; border-bottom:1px solid rgba(29,31,61,.08)}
+.mx3-d i{width:14px; height:14px; border-radius:50%; transform:scale(0); transition:transform .5s cubic-bezier(.3,1.6,.5,1); transition-delay:calc(var(--c) * 45ms + var(--r) * 30ms)}
+.mx3-d.v1 i{background:var(--ink)} .mx3-d.v2 i{border:1.6px solid var(--ink)} .mx3-d.v0 i{width:4px; height:4px; background:rgba(29,31,61,.18)}
+.pf[data-beat="3"] .mx3-d i{transform:scale(1)}
+.pf-key{margin:22px 0 0; display:flex; flex-wrap:wrap; align-items:center; gap:18px; font:500 11px/1 var(--f-mono); letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.pf-key span{display:inline-flex; align-items:center; gap:8px}
+.mx3-k{display:inline-block; width:11px; height:11px; border-radius:50%} .mx3-k.v1{background:var(--ink)} .mx3-k.v2{border:1.5px solid var(--ink)}
+.pf-key .more-link{margin-left:auto; font-family:var(--f-head); font-size:14px; letter-spacing:0; text-transform:none}
 .pf-after{padding-bottom:clamp(60px,8vw,110px)}
 
 @media (max-width:760px){
@@ -2583,12 +2564,14 @@ a.pf-ch:hover{background:#fff; color:var(--ink)}
   .pf-tl,.pf-m{display:none}
   .pf-more .pf-tl{display:block; font-size:10px}
   .pf-c{align-items:flex-start; padding-top:10px}
-  .pf-cin{grid-template-columns:1fr; gap:4px; padding-left:44px}
-  .pf-lg{margin-bottom:4px}
-  .pf-col li{padding:5px 0; grid-template-columns:20px minmax(0,1fr); gap:2px 6px} .pf-col li b{font-size:14px} .pf-col li i{line-height:1.6}
-  .pf-col li span{gap:3px}
-  .pf-ch{font-size:9.5px; padding:2px 6px}
-  .pf-key{font-size:12px} .pf-key .more-link{margin-left:0}
+  .pf-cin{padding-left:44px; padding-right:12px}
+  .mx3{grid-template-columns:minmax(0,1fr) repeat(var(--n),24px)}
+  .mx3-b,.mx3-h{height:62px} .mx3-b{padding-bottom:8px; font-size:10px}
+  .mx3-b span{writing-mode:vertical-rl; transform:rotate(180deg); white-space:nowrap}
+  .mx3-g{margin:10px 0 2px; font-size:10px}
+  .mx3-l{padding:7px 0; font-size:13px} .mx3-l i{width:22px; font-size:9.5px}
+  .mx3-d i{width:11px; height:11px}
+  .pf-key{margin-top:14px; gap:12px; font-size:9.5px} .pf-key .more-link{margin-left:0; font-size:13px}
 }
 /* reduced motion: three layers stacked as plain blocks */
 .pf.still{height:auto} .pf.still .pf-pin{position:relative; height:auto; overflow:visible}

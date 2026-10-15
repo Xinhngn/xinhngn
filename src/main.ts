@@ -425,60 +425,79 @@ import './styles.css';
     if (j){ e.preventDefault(); roleIdx = +j.dataset.jumpRole; seenRoles[roleIdx] = 1; renderRoles(); var t = $('#roleTabs'); if (curView !== 'story'){ location.hash = 'clarify'; } else if (t) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
   });
   /* LV.2 accordion + profile steps */
-  /* LV.2 · the four steps as one loop. A ring with the four steps at 12, 3, 6 and 9 o'clock;
-     scrolling draws a pink arc clockwise round it. When the arc reaches a step, that step takes
-     the centre; when it passes, the step leaves its outcome behind ("Priorities set").
-     When the arc closes the circle the problem is solved and the loop starts again. */
+  /* LV.2 · the four steps as a deck you swipe (Xinh: "like Tinder"). Scrolling (or dragging the top
+     card) flicks it off to the right; it tucks in at the back of the deck, so after step 04 the
+     deck has looped round under "Problem solved." The headline stays beside the deck. */
   var HW_TAG = [{en:'Real goal found', vi:'Đã rõ mục tiêu thật'}, {en:'Priorities set', vi:'Đã chốt thứ tự ưu tiên'}, {en:'Everyone aligned', vi:'Các bên đã khớp'}, {en:'Issue handled', vi:'Đã xử lý phát sinh'}];
   var HW_END = {k:{en:'Problem solved.', vi:'Vấn đề đã được giải quyết.'}, d:{en:'Then the loop starts again on the next brief.', vi:'Rồi vòng lặp bắt đầu lại với đề bài tiếp theo.'}};
-  var hw = $('#hw'), hwStage = $('#hwStage'), hwP = 0, hwIdx = -2, hwDone = -1, hwAnim = false;
+  var hw = $('#hw'), hwStage = $('#hwStage'), hwS = 0, hwIdx = -2, hwAnim = false, hwDrag = 0, hwCards = [];
   function renderSteps(){
-    var ticks = '', k;
-    for (k = 0; k < 72; k++){ if (k % 18) ticks += '<line class="cy-tick' + (k % 6 ? '' : ' m') + '" x1="0" y1="-95.5" x2="0" y2="' + (k % 6 ? -93.5 : -92.5) + '" transform="rotate(' + (k * 5) + ')"/>'; }
-    var chev = [45, 135, 225, 315].map(function(a){ return '<path class="cy-chev" d="M-2.6 -2.8 L1.2 0 L-2.6 2.8" transform="rotate(' + a + ') translate(90 0) rotate(90)"/>'; }).join('');
-    var side = ['t', 'r', 'b', 'l'];
-    hwStage.innerHTML = '<div class="cy">' +
-        '<svg class="cy-svg" viewBox="-100 -100 200 200" aria-hidden="true"><circle class="cy-disc" r="90"/><circle class="cy-in" r="66"/>' + ticks +
-        '<circle class="cy-track" r="90"/><circle class="cy-arc" r="90" pathLength="100" transform="rotate(-90)"/>' + chev +
-        '<g class="cy-head"><circle r="3.6"/></g></svg>' +
-        STEPS.map(function(st, i){ return '<button class="cy-st ' + side[i] + '" type="button" data-s="' + i + '" style="--a:' + (i * 90 - 90) + 'deg"><i></i><span class="cy-lb"><b>0' + (i + 1) + '</b>' + esc(L(st.t)) + '<em>' + esc(L(HW_TAG[i])) + '</em></span></button>'; }).join('') +
-        '<div class="cy-mid">' + STEPS.map(function(st, i){ return '<article data-s="' + i + '"><p class="hw-n"><b>0' + (i + 1) + '</b> / 04<span class="hw-nm"> · ' + esc(L(st.t)) + '</span></p><h3>' + esc(L(st.k)) + '</h3><p class="hw-d">' + esc(L(st.d)) + '</p></article>'; }).join('') +
-          '<article data-s="4" class="cy-end"><p class="hw-n"><b>↻</b></p><h3>' + esc(L(HW_END.k)) + '</h3><p class="hw-d">' + esc(L(HW_END.d)) + '</p></article>' +
-        '</div>' +
-      '</div>';
-    $('#hwNow').innerHTML = STEPS.map(function(st, i){ return '<i style="--i:' + i + '"></i>'; }).join('') + '<span>' + (lang === 'vi' ? 'Một vòng, bốn bước' : 'One loop, four steps') + '</span>';
-    hwIdx = -2; hwDone = -1; drawHow(true);
+    var vi = lang === 'vi';
+    hwStage.innerHTML = '<div class="dk">' + STEPS.map(function(st, i){
+        return '<article class="dk-c" data-s="' + i + '"><p class="dk-top"><b>0' + (i + 1) + '</b><span>' + esc(L(st.t)) + '</span><i>0' + (i + 1) + ' / 04</i></p>' +
+          '<h3>' + esc(L(st.k)) + '</h3><p class="dk-d">' + esc(L(st.d)) + '</p><p class="dk-out">✓ ' + esc(L(HW_TAG[i])) + '</p></article>';
+      }).join('') +
+      '<article class="dk-c dk-end" data-s="4"><p class="dk-top"><b>↻</b><span>' + (vi ? 'Khép vòng' : 'Loop closed') + '</span></p><h3>' + esc(L(HW_END.k)) + '</h3><p class="dk-d">' + esc(L(HW_END.d)) + '</p>' +
+        '<p class="dk-outs">' + HW_TAG.map(function(g){ return '<span>✓ ' + esc(L(g)) + '</span>'; }).join('') + '</p></article>' +
+      '<p class="dk-hint" aria-hidden="true">' + (vi ? 'Cuộn hoặc kéo sang phải' : 'Scroll or drag right') + ' →</p></div>';
+    hwCards = $$('.dk-c', hwStage);
+    $('#hwNow').innerHTML = STEPS.map(function(st, i){ return '<i style="--i:' + i + '"></i>'; }).join('') + '<span>' + (vi ? 'Một vòng, bốn bước' : 'One loop, four steps') + '</span>';
+    hwIdx = -2; drawHow(true);
     $('#steps4').innerHTML = STEPS.map(function(s, i){ return '<article class="how-card"><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
     $('#steps4').classList.add('stackx');
     if (!hwStage._wired){
       hwStage._wired = true;
-      hwStage.addEventListener('click', function(e){
-        var b = e.target.closest('.cy-st'); if (!b) return;
-        var i = +b.dataset.s, top = hw.getBoundingClientRect().top + window.scrollY, span = hw.offsetHeight - window.innerHeight;
-        window.scrollTo({top: top + span * (i * 0.25 + 0.1) / 1.1, behavior: reduce ? 'auto' : 'smooth'});
-      });
+      /* drag the top card: past a third of its width it flicks and the page scrolls to the next card */
+      var x0 = 0, dragging = false;
+      hwStage.addEventListener('pointerdown', function(e){ if (!e.target.closest('.dk-c.top')) return; dragging = true; x0 = e.clientX; hwStage.setPointerCapture(e.pointerId); hw.classList.add('drag'); });
+      hwStage.addEventListener('pointermove', function(e){ if (!dragging) return; hwDrag = Math.max(-40, e.clientX - x0); drawHow(true); });
+      var end = function(){
+        if (!dragging) return; dragging = false; hw.classList.remove('drag');
+        var w = hwCards[0].offsetWidth, go = hwDrag > w * 0.33 ? 1 : 0; hwDrag = 0;
+        if (go && hwIdx < 4) hwGo(hwIdx + 1); else drawHow(true);
+      };
+      hwStage.addEventListener('pointerup', end); hwStage.addEventListener('pointercancel', end);
       window.addEventListener('scroll', function(){ drawHow(); }, {passive:true});
       window.addEventListener('resize', function(){ drawHow(true); });
     }
+  }
+  function hwGo(i){
+    var top = hw.getBoundingClientRect().top + window.scrollY, span = hw.offsetHeight - window.innerHeight;
+    window.scrollTo({top: top + span * (i + 0.15) / 4.6, behavior: reduce ? 'auto' : 'smooth'});
   }
   function hwFrame(){ hwAnim = false; drawHow(); }
   function drawHow(force){
     if (curView !== 'story' && !force) return;
     var r = hw.getBoundingClientRect(), vh = window.innerHeight;
     if (!force && (r.bottom < -50 || r.top > vh + 50)) return;
-    var target = reduce ? 1 : clamp(-r.top / Math.max(1, r.height - vh) * 1.1, 0, 1);
-    hwP += (target - hwP) * (reduce || force ? 1 : 0.14);
-    if (Math.abs(target - hwP) < 0.0005) hwP = target; else if (!hwAnim){ hwAnim = true; requestAnimationFrame(hwFrame); }
-    hw.style.setProperty('--p', hwP.toFixed(4));
-    hw.style.setProperty('--ha', (hwP * 360 - 90).toFixed(2) + 'deg');
-    var idx = hwP >= 0.985 ? 4 : Math.min(3, Math.floor(hwP * 4 + 0.02));
-    var done = Math.min(4, Math.floor(hwP * 4 + 0.015));
-    if (idx !== hwIdx || done !== hwDone){ hwIdx = idx; hwDone = done;
-      $$('.cy-mid [data-s]', hwStage).forEach(function(el){ el.classList.toggle('on', +el.dataset.s === idx); });
-      $$('.cy-st', hwStage).forEach(function(el, i){ el.classList.toggle('on', i === idx); el.classList.toggle('done', i < done); });
-      hw.setAttribute('data-step', idx);
-      hw.classList.toggle('solved', idx === 4);
-    }
+    /* scroll → 0..4 with a rest on every card, so each one is read before it flies */
+    var t = reduce ? 0 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+    var raw = clamp(t * 4.6, 0, 4), base = Math.min(3, Math.floor(raw)), f = raw - base;
+    var target = raw >= 4 ? 4 : base + sm((f - 0.45) / 0.55);
+    hwS += (target - hwS) * (reduce || force ? 1 : 0.15);
+    if (Math.abs(target - hwS) < 0.001) hwS = target; else if (!hwAnim){ hwAnim = true; requestAnimationFrame(hwFrame); }
+    hw.style.setProperty('--p', (hwS / 4).toFixed(4));
+    var W = hwCards.length ? hwCards[0].offsetWidth : 360, n = hwCards.length;
+    hwCards.forEach(function(c, i){
+      var d = i - hwS;
+      if (i < 4 && d <= -1) d += n;            /* swiped cards tuck in behind: the loop */
+      var x = 0, y = 0, rot = 0, sc = 1, op = 1, z = 10 - Math.round(d * 2);
+      if (d < 0){                               /* flying out to the right */
+        var k = -d; x = k * W * 1.25; y = -k * 30; rot = k * 18; op = 1 - sm((k - 0.55) / 0.45);
+        z = 20;
+      } else {
+        var dd = Math.min(d, 3);
+        y = dd * 16; sc = 1 - dd * 0.05; rot = dd === 0 ? 0 : (i % 2 ? -1 : 1) * dd * 1.6; op = d > 3 ? 0 : 1 - Math.max(0, d - 2) ;
+      }
+      if (d >= 0 && d < 0.5 && hwDrag){ x = hwDrag; rot = hwDrag / W * 14; }
+      c.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + rot.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+      c.style.opacity = clamp(op, 0, 1).toFixed(3);
+      c.style.zIndex = z;
+      c.classList.toggle('top', d >= -0.5 && d < 0.5);
+      c.classList.toggle('back', d >= 0.5);
+    });
+    var idx = Math.round(hwS);
+    if (idx !== hwIdx){ hwIdx = idx; hw.setAttribute('data-step', idx); hw.classList.toggle('solved', idx === 4); }
   }
 
   /* LV.3 capability matrix (story + Skills tab share it) */
@@ -520,15 +539,24 @@ import './styles.css';
     tiles.splice(4, 0, '<div class="pf-core" id="pfCore"><span class="pf-m">LV.3 · ' + (vi ? 'Năng lực' : 'Capabilities') + '</span><b>' + (vi ? 'Xinh chạy gì,<br>gánh tới đâu' : 'What I run,<br>how far I take it') + '</b></div>');
     tiles.push('<div class="pf-t pf-more"><b>+13</b><span class="pf-tl">' + (vi ? 'thương hiệu khác trong portfolio' : 'more brands in the portfolio') + '</span></div>');
     $('#pfGrid').innerHTML = tiles.join('');
-    var row = function(col){
-      var i = colIdx(col.k), n = ('0' + (i + 1)).slice(-2);
-      var chips = CASES.filter(function(c){ return (MX[c.id] || [])[i]; }).map(function(c){ return '<a class="pf-ch' + (MX[c.id][i] === 1 ? ' led' : '') + '" href="#case-' + c.id + '">' + esc(c.brand) + '</a>'; }).join('');
-      return '<li><i>' + n + '</i><b>' + esc(L(col.t)) + '</b><span>' + chips + '</span></li>';
+    /* inside the tile: one dot matrix instead of rows of chips. Brands across, capabilities down;
+       a filled dot = Xinh led it, a ring = with the team. Brand names appear once. */
+    var SHORT = {poca:'Poca', digimi:'Digimi', duytan:'Duy Tân', cindy:'Cindy'};
+    var brands = PF_IDS.map(pfCase).filter(Boolean);
+    var head = '<span class="mx3-h"></span>' + brands.map(function(c, j){ return '<a class="mx3-b" href="#case-' + c.id + '" style="--c:' + j + '"><span>' + esc(SHORT[c.id] || c.brand) + '</span></a>'; }).join('');
+    var r = 0;
+    var rows = function(g, label){
+      return '<p class="mx3-g">' + label + '</p>' + COLS.filter(function(c){ return c.g === g; }).map(function(col){
+        var i = colIdx(col.k); r++;
+        return '<p class="mx3-l"><i>' + ('0' + (i + 1)).slice(-2) + '</i>' + esc(L(col.t)) + '</p>' + brands.map(function(c, j){
+          var v = (MX[c.id] || [])[i] || 0;
+          return '<span class="mx3-d v' + v + '" style="--c:' + j + ';--r:' + r + '"' + (v ? ' title="' + esc(c.brand) + ' · ' + (v === 1 ? (vi ? 'Xinh dẫn dắt' : 'Led by Xinh') : (vi ? 'Cùng team' : 'With the team')) + '"' : '') + '><i></i></span>';
+        }).join('');
+      }).join('');
     };
-    pfC.innerHTML = '<div class="wrap pf-cin">' +
-      '<div class="pf-col"><p class="pf-lg">' + (vi ? 'Xinh chạy gì' : 'What I run') + '</p><ul>' + COLS.filter(function(c){ return c.g === 'type'; }).map(row).join('') + '</ul></div>' +
-      '<div class="pf-col"><p class="pf-lg">' + (vi ? 'Xinh gánh tới đâu' : 'How far I take it') + '</p><ul>' + COLS.filter(function(c){ return c.g === 'own'; }).map(row).join('') + '</ul></div>' +
-      '<p class="pf-key"><span class="pf-ch led">' + (vi ? 'Xinh dẫn dắt' : 'Led by Xinh') + '</span><span class="pf-ch">' + (vi ? 'Cùng team' : 'With the team') + '</span><a class="more-link" href="#skills">' + (vi ? 'Xem từng năng lực, kèm bằng chứng' : 'Every capability, with proof') + ' →</a></p></div>';
+    pfC.innerHTML = '<div class="wrap pf-cin"><div class="mx3" style="--n:' + brands.length + '">' + head +
+      rows('type', vi ? 'Xinh chạy gì' : 'What I run') + rows('own', vi ? 'Xinh gánh tới đâu' : 'How far I take it') + '</div>' +
+      '<p class="pf-key"><span><i class="mx3-k v1"></i>' + (vi ? 'Xinh dẫn dắt' : 'Led by Xinh') + '</span><span><i class="mx3-k v2"></i>' + (vi ? 'Cùng team' : 'With the team') + '</span><a class="more-link" href="#skills">' + (vi ? 'Xem từng năng lực, kèm bằng chứng' : 'Every capability, with proof') + ' →</a></p></div>';
     pfGeo = null; drawProof(true);
   }
   function pfMeasure(){
