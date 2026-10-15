@@ -5,7 +5,8 @@
 - Cloudflare: Worker mới tên `xinhngn` (`wrangler.jsonc`), Xinh tự nối repo trong Cloudflare (Workers & Pages → Create → Import a repository → `Xinhngn/xinhngn`, build `npm run build`, deploy `npx wrangler deploy`). Đã deploy 2026-10-15: **https://xinhngn.ngnxinhh.workers.dev** (Workers Builds tự build lại mỗi lần push lên `main`).
 - Bản xem trước cũ (repo cũ): https://claude-moodboard-redesign-hf110l-emxinhsayhi.ngnxinhh.workers.dev
 - Thư mục trên máy Xinh: `/Users/macbookpro/Documents/projects/xinhngn` (clone của repo này). Thư mục cũ `Porfolio-EmXinhSayHi` không dùng nữa.
-- Bàn giao đầy đủ portfolio + website: `docs/HANDOFF-du-an.md`.
+- Bàn giao đầy đủ portfolio + website: `docs/HANDOFF-du-an.md` (đọc mục 0 trước).
+- Nhánh `claude/xinhos-astro` trên GitHub là bản Astro Xinh đã bỏ; không xoá được, bỏ qua.
 - Ảnh kiểm tra và báo cáo: `/mnt/project-files/reports/moodboard-redesign/`, số từ 01 đến 37. Các ảnh 31–37 là của vòng 7.
 
 ## Đã làm qua 7 vòng (chi tiết trong CLAUDE.md)

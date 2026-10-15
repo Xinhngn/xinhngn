@@ -4,22 +4,20 @@ Cập nhật: 2026-10-15. Viết cho phiên Claude tiếp quản.
 Nguồn: repo, `CLAUDE.md` + `HANDOFF.md` trên nhánh `claude/moodboard-redesign-hf110l`, PR #4–#7, các thread trong project "Website conversion with visual design", file trong `/mnt/project-files/`.
 Chỗ nào chưa được Xinh xác nhận đều ghi rõ **[CHỜ XINH]**. Không có số liệu nào trong file này do Claude tự đặt ra.
 
-> **Cập nhật 2026-10-15 chiều:** dự án đã chuyển sang repo `Xinhngn/xinhngn` (nhánh `main`), thư mục máy Xinh `/Users/macbookpro/Documents/projects/xinhngn`, Cloudflare Worker mới tên `xinhngn`. Các chỗ bên dưới nhắc tới repo `EmXinhSayHi`, PR #7 và thư mục `Porfolio-EmXinhSayHi` là lịch sử; xem `HANDOFF.md` ở gốc repo cho trạng thái mới nhất.
-
----
-
-## 0. Đọc nhanh (2 phút)
+## 0. Đọc nhanh (2 phút) — trạng thái mới nhất 2026-10-15 20:15
 
 - **Sản phẩm:** website portfolio cá nhân "XINH.OS" của Xinh Nguyễn. Vite + TypeScript, không framework, deploy Cloudflare Workers.
-- **Bản mới nhất:** nhánh `claude/moodboard-redesign-hf110l` (PR #7, draft, chưa merge). Đã gồm nội dung của PR #6.
-- **Link xem trước:** https://claude-moodboard-redesign-hf110l-emxinhsayhi.ngnxinhh.workers.dev
-- **Thư mục code trên máy Xinh:** `/Users/macbookpro/Documents/Porfolio-EmXinhSayHi` (đã có code + `.git` ở nhánh trên, chưa có `node_modules`). Xinh muốn phiên sau làm việc trong thư mục này. Push lên GitHub xong thì đồng bộ lại thư mục máy.
-- **Việc đang chờ:** Xinh duyệt layout trang Dự án mới, rồi gửi thông tin để điền các ô "+ …" (năm, mô tả, vai trò, kết quả, ảnh). Xem mục 8.
+- **Repo chính: `Xinhngn/xinhngn`, nhánh `main`** (bản Vite theo moodboard, "bản A"). Repo cũ `Xinhngn/EmXinhSayHi` không làm tiếp nữa; các mục bên dưới nhắc PR #4–#7 là lịch sử của repo cũ.
+- **Web đang chạy:** https://xinhngn.ngnxinhh.workers.dev (Cloudflare Worker `xinhngn`, Workers Builds tự build + deploy mỗi lần push lên `main`; build `npm run build`, deploy `npx wrangler deploy`).
+- **Quy trình:** làm trên nhánh mới → PR vào `main` → Cloudflare cho link xem trước của nhánh → Xinh duyệt → merge. Không merge khi Xinh chưa bảo.
+- **Thư mục code trên máy Xinh:** `/Users/macbookpro/Documents/projects/xinhngn` (clone của repo, khớp `main`, chưa có `node_modules`). Máy Xinh chưa đăng nhập GitHub, nên Claude đẩy code từ cloud rồi chép lại vào thư mục máy khi cần.
+- **Đã bỏ:** bản làm lại bằng Astro ("bản B") — Xinh chọn giữ bản A. Bản B đã xoá khỏi máy và `main`. Nhánh `claude/xinhos-astro` vẫn còn trên GitHub vì không xoá được (GitHub báo "Branch could not be deleted", Claude không có quyền xoá nhánh). Bỏ qua nhánh này, không dùng.
+- **Kết nối:** project có connector Cloudflare Developer Platform (chỉ xem Worker, không deploy được).
+- **Việc đang chờ:** Xinh duyệt layout trang Dự án, rồi gửi thông tin để điền các ô "+ …" (năm, mô tả, vai trò, kết quả, ảnh). Xem mục 8.
 - **Luật vàng:** không tự thêm số liệu, chức danh, kết quả. Không dùng "4 pitch wins" / "6/7 projects". Giữ "Em Xinh say hi", 5 năm, 20 thương hiệu. Không dùng xanh cho UI.
 - **Cách trả lời Xinh:** tiếng Việt, câu ngắn. **Xong việc luôn gửi link xem trước ngay trong tin nhắn.**
 
 ---
-
 ## 1. Về Xinh và portfolio
 
 ### 1.1 Định vị
