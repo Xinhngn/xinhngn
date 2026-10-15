@@ -4,14 +4,14 @@ import { METHOD, STEPS } from '../data/site';
 const off = [0.12, 0.34, 0.05, 0.45];
 ---
 
-<section class="sec method" id="cach-lam" data-progress data-lazy="method">
+<section class="sec method" id="cach-lam" data-lazy="method">
   <div class="wrap">
     <div class="sec-head method__head">
       <span class="pill"><span class="dot"></span>{METHOD.eyebrow}</span>
       <h2 class="h2" data-reveal>{METHOD.title}</h2>
     </div>
 
-    <div class="method__stage">
+    <div class="method__stage" data-progress="0.95">
       <svg class="method__wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
         <g class="method__wave-g"><path d="M0 30 Q 50 0 100 30 T 200 30 T 300 30 T 400 30 T 500 30 T 600 30 T 700 30 T 800 30 T 900 30 T 1000 30 T 1100 30 T 1200 30" /></g>
       </svg>
@@ -46,7 +46,7 @@ const off = [0.12, 0.34, 0.05, 0.45];
   .method__shape polygon { fill: none; stroke: var(--accent-ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
   .method__shape.trail { transition: opacity 1.2s; }
 
-  .method__cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: end; height: clamp(540px, 72vh, 660px); }
+  .method__cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: end; height: clamp(440px, 60vh, 560px); }
   .method__col {
     /* chiều cao: lệch theo --off, cuộn tới (--p → 1) thì bằng nhau */
     height: calc(100% - var(--off) * (1 - var(--p, 1)) * 100%);

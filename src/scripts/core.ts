@@ -38,8 +38,9 @@ function progress() {
     secs.forEach((s) => {
       const r = s.getBoundingClientRect();
       if (r.bottom < -vh || r.top > vh * 2) return;
-      // 0 khi đỉnh phần ở đáy màn hình, 1 khi đỉnh phần lên tới 35% màn hình
-      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.65)));
+      // 0 khi đỉnh phần ở đáy màn hình, 1 khi đỉnh đã đi được `f` màn hình (mặc định 0.65)
+      const f = Number(s.dataset.progress) || 0.65;
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * f)));
       s.style.setProperty('--p', p.toFixed(3));
     });
   };
@@ -107,7 +108,8 @@ function slot() {
     const run = () => {
       f++;
       const done = Math.floor(f / 2);
-      el.textContent = target.split('').map((ch, k) => (k < done || ch === ' ' ? ch : chars[(k + f) % chars.length])).join('');
+      // hiện dần từng chữ, phía trước chỉ có 2 ký tự "quay số" cho gọn
+      el.textContent = target.slice(0, done) + (done < target.length ? chars[f % chars.length] + chars[(f * 7) % chars.length] : '');
       if (done < target.length) requestAnimationFrame(run);
     };
     run();

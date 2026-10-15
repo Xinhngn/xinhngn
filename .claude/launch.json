@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "xinhos-preview",
+      "runtimeExecutable": "/Users/macbookpro/.local/node/bin/node",
+      "runtimeArgs": ["node_modules/astro/astro.js", "preview", "--port", "4321"],
+      "port": 4321
+    }
+  ]
+}
