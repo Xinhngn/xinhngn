@@ -1,6 +1,6 @@
 # XINH.OS — website cá nhân của Xinh Nguyễn
 
-Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng: trang là một "hệ điều hành" XINH.OS. Mở đầu bằng màn khởi động "Em Xinh say hi", chọn Story hoặc Quick, mọi nội dung nằm trong các cửa sổ OS. Phong cách (v15, bám moodboard): nền sáng / đen / xanh cobalt, lime là màu nhấn duy nhất, chữ chrome cho "say hi". Chữ: Inter Tight + Newsreader nghiêng (từ nhấn) + JetBrains Mono (lớp OS). Không dùng sticker, hồng và hiệu ứng bóng kẹo nữa: người dùng thấy bản trước "diêm dúa". CSS: lớp v15 ở cuối `src/styles.css` đè lên các lớp v7–v14 cũ.
+Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng: trang là một "hệ điều hành" XINH.OS. Mở đầu bằng màn khởi động "Em Xinh say hi", chọn Story hoặc Quick, mọi nội dung nằm trong các cửa sổ OS. Phong cách (v15, bám moodboard): nền sáng / đen / bạc, lime là màu nhấn duy nhất (Xinh không thích màu xanh: không dùng xanh dương ở đâu cả, biến `--blue` giờ là màu mực), chữ chrome cho "say hi". Chữ: Inter Tight + Newsreader nghiêng (từ nhấn) + JetBrains Mono (lớp OS). Không dùng sticker, hồng và hiệu ứng bóng kẹo nữa: người dùng thấy bản trước "diêm dúa". CSS: lớp v15 + v15b ở cuối `src/styles.css` đè lên các lớp v7–v14 cũ. LV.2 là 4 thẻ bậc thang (`#proc.stair`), LV.3 là danh sách năng lực trái + thẻ phải (`.lsp`), LV.4 là "bộ bài" 5 dự án hiện cùng lúc (`.deck`, tên khách hàng là chữ lớn nhất, số liệu chỉ là chú thích).
 
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.

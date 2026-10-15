@@ -1654,3 +1654,124 @@ button.chip[aria-pressed="true"]{background:var(--ink); color:#fff}
 /* v15 tracking: Inter Tight is already tight, so mid-size headings keep word spaces readable */
 .tz-say,.brk .say,.hook,.p1 .hook,.tl-h,.own-sub,.mode h2,.sheet h2,.cn-card h2,.pf-bio .big,.stamp p,.bh-line,.cc-t,.of h3,.role-panel h3,.cbody h3,.sy-step h3{letter-spacing:-.022em}
 .own-big{letter-spacing:-.045em}
+
+/* =========== v15b · feedback round 2: no blue at all (ink / paper / silver, lime the only accent),
+   readable "untangled" notes, the four methods as a staircase, a left-aligned capability list,
+   and the five core cases dealt as a hand of cards (client name first, metric as a footnote). =========== */
+:root{--blue:#14161f; --peri:#b9bdc9; --sky:#e7e9f0; --lilac:#eef0f4; --pink2:#eef0f4; --butter:#f3f4f7}
+:focus-visible{outline-color:var(--ink)}
+.win::before,.how-card::before,.badge::before,.role::before,.mth::before,.card::before,.stamp::before,.tl4 article::before,.mode::before{background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%), rgba(198,244,50,.14), transparent 70%)}
+.boot{background:radial-gradient(55% 45% at 100% 0%, rgba(14,15,20,.07), transparent 70%), radial-gradient(40% 35% at 0% 100%, rgba(198,244,50,.2), transparent 70%), var(--paper)}
+.bx .mode:hover,.bx .mode:focus-visible{box-shadow:0 0 0 3px rgba(198,244,50,.6)}
+.quizchip,.sc-ink .quizchip{border:1px dashed rgba(14,15,20,.3)}
+.pill-cta:hover{background:var(--lime); color:var(--ink)}
+.more-link:hover{color:var(--ink); text-decoration-color:var(--lime)}
+.how-card .ic{display:none}
+
+/* hero supporting line */
+.p1-sub{max-width:50ch; margin:18px 0 0; font-size:clamp(15px,1.25vw,18px); line-height:1.5; color:var(--ink3)}
+
+/* LV.0: resolved notes turn lime and stay readable */
+#brief .tz-say .then{opacity:.5}
+#brief.clear .tz-say .then{opacity:1}
+#brief .notes > span{color:#fff; border-color:rgba(255,255,255,.24); transition:background-color .4s, color .4s, border-color .4s, transform .4s}
+#brief .notes > span::before{background:rgba(255,255,255,.16); color:#fff}
+#brief .tz-status i{background:#fff} #brief.clear .tz-status i{background:var(--lime)}
+#brief .notes > span.ok{background:var(--lime); color:var(--ink); border-color:var(--lime); text-decoration:none; opacity:1; box-shadow:0 8px 24px rgba(198,244,50,.22)}
+#brief .notes > span.ok::before{content:"✓"; background:var(--ink); color:var(--lime)}
+
+/* LV.2: four methods as a staircase, number first, no icons */
+.proc.stair{grid-template-columns:repeat(4,minmax(0,1fr)); align-items:end; gap:12px; margin-top:clamp(28px,4vw,48px)}
+.proc.stair .how-card{justify-content:flex-start; gap:10px; padding:clamp(18px,1.8vw,24px); border-radius:16px; box-shadow:none; border:1px solid var(--edge); min-height:280px}
+.proc.stair .how-card:hover{transform:translateY(-6px)}
+.proc.stair .how-card:nth-child(1){background:var(--white); min-height:280px}
+.proc.stair .how-card:nth-child(2){background:var(--holo); min-height:330px}
+.proc.stair .how-card:nth-child(3){background:var(--ink); color:#fff; border-color:var(--ink); min-height:380px}
+.proc.stair .how-card:nth-child(4){background:var(--lime); border-color:var(--lime); min-height:430px}
+.proc.stair .how-card .n{font-family:var(--f-head); font-weight:900; font-size:clamp(52px,5.4vw,84px); line-height:.8; letter-spacing:-.06em; color:inherit; margin-bottom:auto; padding-bottom:18px}
+.proc.stair .how-card h3{font-family:var(--f-mono); font-weight:600; font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+.proc.stair .how-card .k{font-family:var(--f-head); font-weight:700; font-size:clamp(18px,1.6vw,22px); line-height:1.15; letter-spacing:-.02em}
+.proc.stair .how-card p:not(.k){font-size:14px; line-height:1.45; color:var(--ink3)}
+.proc.stair .how-card:nth-child(3) p:not(.k){color:#c9ccd6}
+.proc.stair .how-card:nth-child(3) h3{color:var(--lime)}
+.proc.stair .how-card:nth-child(3) .k{color:#fff}
+@media (max-width: 900px){
+  .proc.stair{grid-template-columns:minmax(0,1fr); gap:10px}
+  .proc.stair .how-card:nth-child(n){min-height:0}
+  .proc.stair .how-card:nth-child(2){margin-left:5%} .proc.stair .how-card:nth-child(3){margin-left:10%} .proc.stair .how-card:nth-child(4){margin-left:15%}
+  .proc.stair .how-card .n{font-size:48px; padding-bottom:10px}
+}
+
+/* LV.3 proof: ink poster instead of cobalt */
+#align{background:var(--ink); color:#fff}
+#align .tag b{background:var(--lime); color:var(--ink)}
+
+/* capability list: list left, card right, every row readable and aligned to one grid */
+.lsp{grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start; gap:clamp(24px,4vw,56px)}
+.lsp-list{display:block; text-align:left}
+.lsp-list .lg{margin:26px 0 8px; padding-left:12px; text-align:left; font-size:11px; color:var(--muted)}
+.lsp-list .lg:first-child{margin-top:0}
+.li{display:grid; grid-template-columns:2.4em minmax(0,1fr) 1.4em; align-items:center; gap:0; width:100%; text-align:left; padding:11px 12px; border-radius:10px; border-bottom:1px solid var(--line); font-size:clamp(17px,1.6vw,21px); font-weight:600; line-height:1.25; color:var(--ink3); transition:background-color .2s, color .2s}
+.li .ix{font-size:11px; color:var(--muted)}
+.li i{width:auto; justify-self:end; opacity:0; color:var(--ink); transition:opacity .2s}
+.li:hover{background:rgba(14,15,20,.04); color:var(--ink)}
+.li[aria-pressed="true"]{background:var(--lime); color:var(--ink); border-bottom-color:transparent}
+.li[aria-pressed="true"] .ix{color:var(--ink)}
+.li[aria-pressed="true"] i{width:auto; opacity:1}
+.lsp-stage{position:sticky; top:96px; min-height:0; display:block; background:none; border:0; border-radius:0; overflow:visible}
+.lsp-blob{display:none}
+.lsp-card{width:100%; padding:clamp(22px,2.4vw,32px); border-radius:16px; background:var(--white); border:1px solid var(--edge); box-shadow:var(--sh-1); -webkit-backdrop-filter:none; backdrop-filter:none}
+.lsp-card h3{font-size:clamp(24px,2.2vw,32px); font-weight:800; letter-spacing:-.03em; line-height:1.05}
+.lsp-d{font-size:15px; line-height:1.5}
+.lsp-jd{margin-top:8px} .lsp-jd b{font-size:11px; color:var(--muted)}
+#align .lsp-stage{background:none; border:0}
+#align .lsp-list .lg{color:#9a9ead}
+#align .li{color:rgba(255,255,255,.86); border-bottom-color:rgba(255,255,255,.12)}
+#align .li .ix{color:rgba(255,255,255,.5)}
+#align .li:hover{background:rgba(255,255,255,.06); color:#fff}
+#align .li[aria-pressed="true"]{background:var(--lime); color:var(--ink)}
+#align .li[aria-pressed="true"] .ix,#align .li[aria-pressed="true"] i{color:var(--ink)}
+#align .lsp-card{border-color:transparent; box-shadow:none}
+@media (max-width: 900px){ .lsp{grid-template-columns:minmax(0,1fr)} .lsp-stage{position:static; order:0} .lsp-list{justify-items:stretch; text-align:left} }
+
+/* LV.4: a hand of five cards, all visible; the client name is the loudest line */
+.deck{position:relative; display:flex; justify-content:center; align-items:flex-start; padding:clamp(30px,4vw,56px) 0 clamp(40px,5vw,70px); margin-top:8px}
+.dk{--w:clamp(160px,15.4vw,218px); position:relative; flex:0 0 var(--w); margin-inline:-10px; transform:translateY(calc(var(--o) * var(--o) * 9px)) rotate(calc(var(--o) * 5deg)); transform-origin:50% 120%; transition:transform .45s cubic-bezier(.2,.9,.3,1.2)}
+.dk:hover,.dk:focus-within{z-index:10; transform:translateY(-22px) rotate(0deg); transition:transform .35s cubic-bezier(.2,.9,.3,1.2)}
+.dk-in{display:flex; flex-direction:column; gap:10px; min-height:calc(var(--w) * 1.42); padding:clamp(16px,1.6vw,22px); border-radius:18px; border:1px solid var(--edge); background:var(--white); color:var(--ink); box-shadow:0 18px 40px rgba(14,15,20,.14)}
+.dk-top{display:flex; justify-content:space-between; gap:8px; font-family:var(--f-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; opacity:.7}
+.dk-top span:last-child{text-align:right}
+.dk-name{margin:6px 0 0; font-family:var(--f-head); font-weight:900; font-size:clamp(28px,2.9vw,44px); line-height:.92; letter-spacing:-.05em; overflow-wrap:anywhere}
+.dk-t{margin:0; font-size:13.5px; line-height:1.4; opacity:.82}
+.dk-k{margin:auto 0 0; padding-top:12px; border-top:1px dashed currentColor; font-size:12px; line-height:1.35; opacity:.78; border-top-color:rgba(127,127,127,.4)}
+.dk-k b{font-family:var(--f-head); font-weight:800; font-size:15px; letter-spacing:-.01em; margin-right:3px}
+.dk-open{align-self:stretch; padding:10px 12px; border-radius:999px; border:1px solid currentColor; background:transparent; color:inherit; font-family:var(--f-head); font-weight:600; font-size:13.5px; cursor:pointer; transition:background-color .2s, color .2s}
+.dk-open:hover,.dk-open:focus-visible{background:var(--ink); color:var(--lime); border-color:var(--ink)}
+.k-ink .dk-in{background:var(--ink); color:#fff; border-color:var(--ink)}
+.k-ink .dk-k b{color:var(--lime)}
+.k-chrome .dk-in{background:var(--holo)}
+.k-lime .dk-in{background:var(--lime); border-color:var(--lime)}
+.k-graphite .dk-in{background:#2a2d38; color:#fff; border-color:#2a2d38}
+.k-ink .dk-open:hover,.k-graphite .dk-open:hover,.k-ink .dk-open:focus-visible,.k-graphite .dk-open:focus-visible{background:var(--lime); color:var(--ink); border-color:var(--lime)}
+@media (max-width: 900px){
+  .deck{display:grid; gap:0; padding:10px 0 20px}
+  .dk{--w:auto; margin:0 0 -10px; transform:rotate(calc(var(--o) * .9deg)); z-index:auto}
+  .dk:hover,.dk:focus-within{transform:none}
+  .dk-in{min-height:0; display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:14px; row-gap:8px}
+  .dk-top,.dk-t,.dk-k{grid-column:1/-1}
+  .dk-name{grid-column:1; font-size:clamp(30px,8.5vw,44px)}
+  .dk-open{grid-column:2; grid-row:2; align-self:center; padding:8px 12px; font-size:12.5px}
+}
+@media (prefers-reduced-motion: reduce){ .dk,.dk:hover{transition:none} }
+
+/* LV.1-style list of secondary projects (names only, no invented stories) */
+.also{margin-top:clamp(28px,4vw,48px)}
+.also > .mono{margin:0 0 10px}
+.also ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); border-top:1px solid var(--edge)}
+.also li{display:grid; gap:2px; padding:14px 16px 14px 0; border-bottom:1px solid var(--edge)}
+.also li b{font-family:var(--f-head); font-weight:800; font-size:19px; letter-spacing:-.02em}
+.also li span{font-family:var(--f-mono); font-size:11px; letter-spacing:.04em; color:var(--muted)}
+
+/* quick desktop: graphite wallpaper instead of the blue sky */
+#v-desk{background:radial-gradient(60% 50% at 85% 0%, rgba(198,244,50,.22), transparent 70%), linear-gradient(180deg,#14161f 0%,#2a2d38 55%,#6b7080 100%)}
+#v-desk .tag{color:#c9ccd6} #v-desk .tag b{background:var(--lime); color:var(--ink)}

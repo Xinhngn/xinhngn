@@ -185,8 +185,8 @@ import './styles.css';
      res:[{empty:true, l:{en:'add a result', vi:'thêm kết quả'}}], imgs:['cindy_bloom_kv.jpg','cindy_02.jpg','cindy_03.jpg','cindy_04.jpg']}
   ];
   /* Cover colours when there is no photo yet */
-  var LOOK = {vib:['#0e0f14','#c6f432'], msb:['#3d4bff','#ffffff'], cake:['#e7e9f0','#0e0f14'], poca:['#c6f432','#0e0f14'],
-              digimi:['#9aa6ff','#0e0f14'], duytan:['#e7e9f0','#3d4bff'], cindy:['#0e0f14','#ffffff']};
+  var LOOK = {vib:['#d6d9e2','#0e0f14'], msb:['#0e0f14','#ffffff'], cake:['#ffffff','#0e0f14'], poca:['#c6f432','#0e0f14'],
+              digimi:['#2a2d38','#ffffff'], duytan:['#e7e9f0','#0e0f14'], cindy:['#0e0f14','#c6f432']};
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {
@@ -232,55 +232,24 @@ import './styles.css';
     });
   }
 
-  var carIdx = 0, carRot = 0, carAuto = 0;
+  /* LV.4: the five core cases dealt as a hand of cards, all visible at once. The client name leads; the metric is a footnote. */
   function renderStoryCases(){
     var vi = lang === 'vi';
-    var MESH = {vib:['#3d4bff','#c3c8d6','#0e0f14'], msb:['#2f3be0','#9aa6ff','#0d1270'], cake:['#ff5fae','#8fd8d2','#123038'], poca:['#7fa300','#d6f75a','#26330a'], digimi:['#ffcf3f','#9aa6ff','#3a46c4'], duytan:['#3d4bff','#c6f432','#0e0f14'], cindy:['#9aa6ff','#ffffff','#3a46c4']};
-    var BIG = {vib:['1', {en:'pitch, then multiple projects', vi:'lần pitch, rồi nhiều dự án tiếp theo'}], msb:['3→5', {en:'years of partnership', vi:'năm hợp tác'}], cake:['WIN', {en:'social retainer, won by the team', vi:'team giành social retainer'}], poca:['266K', {en:'Facebook engagements · campaign', vi:'tương tác Facebook · chiến dịch'}], digimi:['268', {en:'app sign-ups · Coffee Truck', vi:'lượt đăng ký app · Coffee Truck'}]};
+    var NAME = {cake:'Cake by VPBank'};
+    var LOOKS = {msb:'k-ink', vib:'k-chrome', cake:'k-white', poca:'k-lime', digimi:'k-graphite'};
+    var BIG = {vib:['1', {en:'pitch, then multiple projects', vi:'lần pitch, rồi nhiều dự án tiếp theo'}], msb:['3→5', {en:'years of partnership', vi:'năm hợp tác'}], cake:['WIN', {en:'social retainer, won by the team', vi:'team giành social retainer'}], poca:['266K+', {en:'Facebook engagements · campaign', vi:'tương tác Facebook · chiến dịch'}], digimi:['268', {en:'app sign-ups · Coffee Truck', vi:'lượt đăng ký app · Coffee Truck'}]};
+    var n = CORE.length;
     var items = CORE.map(function(c, i){
-      var m = MESH[c.id] || ['#3d4bff','#c6f432','#0e0f14'], bg = BIG[c.id] || ['', {en:'', vi:''}];
-      return '<article class="cc" data-ci="' + i + '" tabindex="-1" style="--m1:' + m[0] + '; --m2:' + m[1] + '; --m3:' + m[2] + '"><div class="cc-in">' +
-        '<span class="cc-top"><span>' + esc(c.brand) + '</span><span>' + ('0' + (i + 1)).slice(-2) + '/' + ('0' + CORE.length).slice(-2) + '</span></span>' +
-        '<span class="cc-big">' + esc(bg[0]) + '</span><span class="cc-bl">' + esc(L(bg[1])) + '</span>' +
-        '<span class="cc-bar"><i></i></span>' +
-        '<span class="cc-t">' + both(c.t) + '</span>' +
-        '<button class="cc-open" type="button" data-case="' + c.id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</button></div></article>';
+      var bg = BIG[c.id] || ['', {en:'', vi:''}];
+      return '<article role="listitem" class="dk ' + (LOOKS[c.id] || 'k-white') + '" style="--i:' + i + '; --o:' + (i - (n - 1) / 2) + '"><div class="dk-in">' +
+        '<span class="dk-top"><span>' + ('0' + (i + 1)).slice(-2) + '/' + ('0' + n).slice(-2) + '</span><span>' + esc(c.meta.split(' · ').slice(0, 2).join(' · ')) + '</span></span>' +
+        '<h3 class="dk-name">' + esc(NAME[c.id] || c.brand) + '</h3>' +
+        '<p class="dk-t">' + both(c.t) + '</p>' +
+        '<p class="dk-k"><b>' + esc(bg[0]) + '</b> ' + esc(L(bg[1])) + '</p>' +
+        '<button class="dk-open" type="button" data-case="' + c.id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</button></div></article>';
     }).join('');
-    $('#track').innerHTML = '<div class="car-glow" aria-hidden="true"></div><div class="car-tags" id="carTags" aria-hidden="true"></div><div class="car" id="car" role="group" aria-roledescription="carousel" aria-label="' + (vi ? 'Năm dự án chính' : 'Five core cases') + '"><div class="car-ring" id="carRing">' + items + '</div></div>' +
-      '<div class="car-ctl"><button type="button" class="car-btn" data-car="-1" aria-label="' + (vi ? 'Dự án trước' : 'Previous project') + '">‹</button><span class="car-dots" id="carDots">' + CORE.map(function(c, i){ return '<i data-cgo="' + i + '"></i>'; }).join('') + '</span><button type="button" class="car-btn" data-car="1" aria-label="' + (vi ? 'Dự án tiếp' : 'Next project') + '">›</button></div>';
-    layoutCar();
+    $('#track').innerHTML = '<div class="deck" role="list" aria-label="' + (vi ? 'Năm dự án chính' : 'Five core cases') + '">' + items + '</div>';
   }
-  function carGeom(){ var w = window.innerWidth < 760 ? 230 : 300, n = CORE.length, step = 360 / n; return {w:w, step:step, R:Math.round((w / 2 + 26) / Math.tan(Math.PI / n))}; }
-  function layoutCar(){
-    var ring = $('#carRing'); if (!ring) return; var g = carGeom();
-    $$('.cc', ring).forEach(function(el, i){ el.style.width = g.w + 'px'; el.style.marginLeft = (-g.w / 2) + 'px'; el.style.transform = 'rotateY(' + (i * g.step) + 'deg) translateZ(' + g.R + 'px)'; });
-    ring.style.transform = 'translateZ(' + (-g.R) + 'px) rotateY(' + carRot + 'deg)';
-    var front = ((Math.round(-carRot / g.step) % CORE.length) + CORE.length) % CORE.length; carIdx = front;
-    $$('.cc', ring).forEach(function(el, i){ var d = Math.abs(((i - front) % CORE.length + CORE.length) % CORE.length); d = Math.min(d, CORE.length - d); el.classList.toggle('front', d === 0); el.style.opacity = d > 2 ? .18 : d === 2 ? .45 : 1; el.setAttribute('aria-hidden', d === 0 ? 'false' : 'true'); });
-    $$('#carDots i').forEach(function(d, i){ d.classList.toggle('on', i === front); });
-    var tg = $('#carTags'); if (tg){ var fc = CORE[front], tags = fc.subs.concat(fc.cats.filter(function(k){ return k !== 'bank' && k !== 'fmcg'; }).map(function(k){ var c = COLS[colIdx(k)]; return L(c.t); })).slice(0, 4);
-      if (tg.dataset.f !== String(front) + lang){ tg.dataset.f = String(front) + lang; tg.innerHTML = tags.map(function(t, i){ return '<span style="--i:' + i + '">' + esc(t) + '</span>'; }).join(''); } }
-  }
-  function carGo(i){ var g = carGeom(); var target = -i * g.step, cur = carRot; var diff = ((target - cur) % 360 + 540) % 360 - 180; carRot = cur + diff; layoutCar(); }
-  function carStep(d){ var g = carGeom(); carRot = Math.round(carRot / g.step) * g.step - d * g.step; layoutCar(); }
-  document.addEventListener('click', function(e){
-    var b = e.target.closest('[data-car]'); if (b){ carStep(+b.dataset.car); stopAuto(); return; }
-    var d = e.target.closest('[data-cgo]'); if (d){ carGo(+d.dataset.cgo); stopAuto(); return; }
-    var cc = e.target.closest('.cc'); if (cc && !cc.classList.contains('front') && !e.target.closest('[data-case]')){ e.preventDefault(); carGo(+cc.dataset.ci); stopAuto(); }
-  }, true);
-  (function(){
-    var sx = null, sr = 0, moved = false;
-    document.addEventListener('pointerdown', function(e){ var c = e.target.closest('#car'); if (!c || e.target.closest('button')) return; sx = e.clientX; sr = carRot; moved = false; stopAuto(); });
-    document.addEventListener('pointermove', function(e){ if (sx === null) return; var dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; carRot = sr + dx * .35; var ring = $('#carRing'); if (ring){ ring.style.transition = 'none'; layoutCar(); } }, {passive:true});
-    document.addEventListener('pointerup', function(){ if (sx === null) return; sx = null; var ring = $('#carRing'); if (ring) ring.style.transition = ''; if (moved){ var g = carGeom(); carRot = Math.round(carRot / g.step) * g.step; layoutCar(); } });
-    document.addEventListener('keydown', function(e){ if (!document.activeElement || !document.activeElement.closest || !document.activeElement.closest('.car-ctl,#car')) return; if (e.key === 'ArrowLeft'){ carStep(-1); stopAuto(); } if (e.key === 'ArrowRight'){ carStep(1); stopAuto(); } });
-  })();
-  function stopAuto(){ clearInterval(carAuto); carAuto = 0; }
-  if (!reduce && 'IntersectionObserver' in window){
-    new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting && !carAuto && !en.target.dataset.touched){ carAuto = setInterval(function(){ carStep(1); }, 3600); } else if (!en.isIntersecting){ stopAuto(); } }); }, {threshold:.4}).observe($('#pin'));
-  }
-  document.addEventListener('pointerdown', function(e){ if (e.target.closest && e.target.closest('#pin')) $('#pin').dataset.touched = '1'; });
-  window.addEventListener('resize', function(){ layoutCar(); });
   function tileHTML(c){
     return '<a class="wt ' + (c.size || '') + '" href="#case-' + c.id + '" data-case="' + c.id + '" data-cats="' + c.cats.join(' ') + '" data-cursor="OPEN">' +
       '<div class="pic">' + cover(c) + (IMAGES[c.imgs[0]] ? '<span class="bt"><span>' + esc(c.brand) + '</span></span>' : '') + '<span class="ov">' + (lang === 'vi' ? 'XEM CHI TIẾT ↗' : 'OPEN CASE ↗') + '</span></div>' +
@@ -338,24 +307,9 @@ import './styles.css';
     if (j){ e.preventDefault(); roleIdx = +j.dataset.jumpRole; seenRoles[roleIdx] = 1; renderRoles(); var t = $('#roleTabs'); if (curView !== 'story'){ location.hash = 'clarify'; } else if (t) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
   });
   /* LV.2 accordion + profile steps */
-  var syIdx = -1, SYIC = ['i-search', 'i-blocks', 'i-nodes', 'i-target'];
-  function syUpdate(force){
-    var sc = $('#scrolly'); if (!sc || (curView !== 'story' && !force)) return;
-    var r = sc.getBoundingClientRect(), span = sc.offsetHeight - window.innerHeight * .75;
-    var p = clamp((window.innerHeight * .2 - r.top) / Math.max(1, span), 0, .999), i = window.innerWidth < 760 ? syIdx < 0 ? 0 : syIdx : Math.floor(p * 4);
-    if (window.innerWidth >= 760){ var mk = $('#syMark'); if (mk) mk.style.top = (p * 100).toFixed(1) + '%'; }
-    if (i === syIdx && !force) return; syIdx = i;
-    $$('#syText .sy-step').forEach(function(a, k){ a.classList.toggle('on', k === i); });
-    var iso = $('#iso'); if (iso){ iso.dataset.s = i; $('#isoUse').setAttribute('href', '#' + SYIC[i]); }
-  }
-  window.addEventListener('scroll', function(){ syUpdate(false); }, {passive:true});
-  document.addEventListener('click', function(e){ if (window.innerWidth < 760 && e.target.closest('#scrolly')){ syIdx = (syIdx + 1) % 4; var k = syIdx; syIdx = -9; syIdx = k; $$('#syText .sy-step').forEach(function(a, j){ a.classList.toggle('on', j === k); }); var iso = $('#iso'); iso.dataset.s = k; $('#isoUse').setAttribute('href', '#' + SYIC[k]); } });
   function renderSteps(){
-    var IC = ['i-search', 'i-blocks', 'i-nodes', 'i-target'];
-    var html = STEPS.map(function(s, i){ return '<article class="how-card"><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><use href="#' + IC[i] + '"/></svg><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
+    var html = STEPS.map(function(s, i){ return '<article class="how-card"><span class="n">0' + (i + 1) + '</span><h3>' + esc(L(s.t)) + '</h3><p class="k">' + esc(L(s.k)) + '</p><p>' + esc(L(s.d)) + '</p></article>'; }).join('');
     $('#proc').innerHTML = html; $('#steps4').innerHTML = html; $('#steps4').classList.add('stackx');
-    var st = $('#syText'); if (st) st.innerHTML = STEPS.map(function(s, i){ return '<article class="sy-step" data-i="' + i + '"><p class="sy-k">0' + (i + 1) + ' / 04 · ' + esc(L(s.t)) + '</p><h3>' + esc(L(s.k)) + '</h3><p class="sy-d">' + esc(L(s.d)) + '</p></article>'; }).join('');
-    syUpdate(true);
   }
 
   /* LV.3 capability matrix (story + Skills tab share it) */
@@ -375,7 +329,7 @@ import './styles.css';
   function capCard(col, n){
     var i = colIdx(col.k), vi = lang === 'vi';
     return '<article class="win"><div class="win-bar"><b>' + ('0' + (n + 1)).slice(-2) + ' · ' + esc(L(col.t)).toUpperCase() + '</b><span class="ctl"><i></i><i></i><i></i></span></div><div class="win-body">' +
-      '<p class="mono" style="color:var(--blue)">' + grpName(col) + '</p>' +
+      '<p class="mono">' + grpName(col) + '</p>' +
       '<p>' + esc(L(col.d)) + '</p><div class="fit"><b>' + (vi ? 'Thể hiện qua' : 'Shown in') + '</b><div class="proof">' + proofChips(i) + '</div></div></div></article>';
   }
   function statBtn(col){
@@ -389,7 +343,7 @@ import './styles.css';
       '<p class="lg">' + (vi ? 'Xinh gánh tới đâu' : 'How far I take it') + '</p>' + COLS.filter(function(c){ return c.g === 'own'; }).map(item).join('');
     var card = '<div class="lsp-card" aria-live="polite"><p class="mono">' + grpName(col) + ' · ' + ('0' + (ci + 1)).slice(-2) + '</p><h3>' + esc(L(col.t)) + '</h3><p class="lsp-d">' + esc(L(col.d)) + '</p>' +
       '<p class="lsp-jd"><b>' + (vi ? 'Dự án liên quan' : 'Related projects') + '</b></p><div class="proof">' + proofChips(ci) + '</div></div>';
-    var html = '<div class="lsp"><div class="lsp-stage"><span class="lsp-blob a"></span><span class="lsp-blob b"></span><span class="lsp-blob c"></span>' + card + '</div><div class="lsp-list">' + list + '</div></div>';
+    var html = '<div class="lsp"><div class="lsp-list">' + list + '</div><div class="lsp-stage">' + card + '</div></div>';
     $$('[data-mx]').forEach(function(h){ h.innerHTML = html; });
     var g = $('#skGrid'); if (g) g.innerHTML = COLS.map(capCard).join('');
   }
