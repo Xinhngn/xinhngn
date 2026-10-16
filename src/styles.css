@@ -3691,3 +3691,81 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
   .boot.suck .x3{filter:none!important}
   .x3o,.x3-tw{filter:none!important}
 }
+
+/* ===== v29 · open screen fits the visible phone screen (iPhone Safari: the buttons sat under the toolbar).
+   The boot is exactly one visible screen tall; the face takes whatever height is left between the
+   wordmark and the buttons (--sh, measured by bootFit() in main.ts; the clamp is the no-JS fallback). */
+@media (max-width:760px){
+  .boot{height:100vh; height:100dvh; min-height:0; overflow:hidden; box-sizing:border-box; padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+  .boot .bx{height:100%; min-height:0; display:flex; flex-direction:column}
+  .x3{flex:1 1 auto; min-height:0; justify-content:flex-start; padding-top:clamp(8px,2.6vh,24px)}
+  .x3-stage{--sh:clamp(190px, calc(100svh - 400px), 430px); height:var(--sh); width:calc(var(--sh) * 840 / 1205); max-width:88vw}
+  .boot .bx-foot{flex:none; margin-top:auto; padding-top:8px; gap:8px}
+  .boot .bh-line{font-size:14px; line-height:1.3}
+  .boot .bh-cta{gap:6px}
+  .boot .bh-cta .mode{padding:10px 12px}
+  .boot .bh-cta .boot-lang button{padding-top:5px; padding-bottom:5px}
+  .boot .boot-skip{display:none}
+}
+
+/* ===== v29 · Contact on phones: tighter rows (one line per channel, Call + Zalo merged when it is the
+   same number), copy as an icon, small chips, a compact chat; the jump arrows no longer cover content. */
+.c3-cp svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round}
+@media (max-width:760px){
+  .dock{display:none!important}
+  .ct3{padding-inline:20px}
+  .c3-ch,.c3-who,.c3-pk{padding-block:44px}
+  .c3-open{padding-block:28px}
+  .c3-rows{gap:8px}
+  .c3-row{grid-template-columns:40px minmax(0,1fr) auto; grid-template-areas:"ic b a" "ic s a"; column-gap:12px; row-gap:3px; padding:12px 12px 12px 14px; border-radius:18px}
+  .c3-row::before{clip-path:inset(0 100% 0 0 round 18px)}
+  .c3-row-ic{width:40px; height:40px; border-radius:12px}
+  .c3-row-ic svg{width:22px; height:22px}
+  .c3-row b{font-size:17px; letter-spacing:-.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .c3-row small{font-size:11.5px}
+  .c3-row-a{margin:0; gap:6px}
+  .c3-go{padding:9px 12px; font-size:13px; gap:0}
+  .c3-go i{display:none}
+  .c3-cp{width:36px; height:36px; padding:0; justify-content:center}
+  .c3-cp span{display:none}
+  .c3-who{gap:22px}
+  .c3-who .a3-h2{margin-bottom:10px}
+  .c3-who-l{margin-bottom:16px; font-size:15px}
+  .c3-opts{gap:6px}
+  .c3-opt{padding:9px 15px; font-size:13.5px}
+  .c3-chat{gap:10px; padding:16px; border-radius:24px}
+  .c3-chat-k{font-size:10.5px} .c3-chat-k i{width:22px; height:22px}
+  .c3-bub{padding:13px 16px; border-radius:20px 20px 6px 20px; font-size:15.5px}
+  .c3-bub.me{padding:9px 14px; font-size:13px; gap:9px}
+  .c3-copy{padding:11px 18px; font-size:14px}
+  .c3-hero{gap:20px; padding-top:8px; padding-bottom:20px}
+  .c3-face{width:min(46%,180px)}
+  .c3-seal{width:96px; height:96px; right:-22%; bottom:-10%}
+  .c3-h1{font-size:clamp(38px,11vw,48px)}
+  #ctStatus{margin-top:16px; padding:9px 14px 9px 12px; font-size:13px}
+  .c3-acts{gap:6px; margin-top:12px}
+  .c3-acts .btn{padding:11px 16px; font-size:14px}
+  .c3-t{padding:22px; border-radius:24px; gap:12px}
+  .c3-t h4{font-size:clamp(28px,8.4vw,34px); margin-top:4px}
+  .c3-t > p:not([class]){font-size:15px}
+  .c3-t-fit{font-size:16px}
+  .c3-promise{padding:8px; gap:6px}
+  .c3-promise li{padding:8px 13px; font-size:13px}
+}
+
+/* ===== v29 · About on phones: the hero photo no longer pushes the headline off screen, the 4 cards are
+   short blocks (no tall sticky stack), the How pin is shorter, one 20px gutter like the nav. */
+@media (max-width:760px){
+  .a3{padding-inline:20px}
+  .a3-hero{gap:22px; padding-top:6px}
+  .a3-pill{width:min(50%,200px)}
+  .a3-seal{width:88px; left:-26%; bottom:4%}
+  .a3-say{padding-block:60px}
+  .a3-roles{gap:40px}
+  .a3-r-ph{aspect-ratio:16/10; border-radius:20px}
+  .a3-c,.a3-c:not(:last-child){position:relative; top:auto; min-height:0; margin-bottom:10px; padding:20px 20px 22px; gap:10px; border-radius:22px; animation:none!important}
+  .a3-c h4{font-size:clamp(28px,8.6vw,36px); margin-top:6px}
+  .a3-c-d{font-size:14.5px}
+  .a3-c-o{width:40px; right:18px; top:16px}
+  .a3-how{height:200vh}
+}

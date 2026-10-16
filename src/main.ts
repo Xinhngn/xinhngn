@@ -834,12 +834,19 @@ import { mountHead3D } from './head3d';
   }
   /* Contact page (v27): every channel as one wide row, the action on the right; hover fills it pink */
   function c3RowsHTML(){
-    var vi = lang === 'vi';
-    return methodList().filter(function(m){ return m.v; }).map(function(m, i){
+    var vi = lang === 'vi', ms = methodList().filter(function(m){ return m.v; });
+    function go(m, verb){ return '<a class="c3-go" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span>' + verb + '</span><i aria-hidden="true">↗</i></a>'; }
+    /* v29: Zalo on the same number as the phone is one row, not two (the number was shown twice). */
+    var call = ms.filter(function(m){ return m.k === 'call'; })[0], zalo = ms.filter(function(m){ return m.k === 'zalo'; })[0];
+    var same = call && zalo && call.copy === zalo.copy;
+    if (same) ms = ms.filter(function(m){ return m !== zalo; });
+    return ms.map(function(m, i){
       var verb = m.k === 'call' ? (vi ? 'Gọi' : 'Call') : m.k === 'email' ? (vi ? 'Viết thư' : 'Write') : (vi ? 'Mở' : 'Open');
-      var open = m.href ? '<a class="c3-go" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span>' + verb + '</span><i aria-hidden="true">↗</i></a>' : '';
-      var cp = m.copy ? '<button class="c3-cp" type="button" data-copy="' + esc(m.copy) + '" data-m="' + m.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '';
-      return '<div class="c3-row" style="--j:' + i + '"><span class="c3-row-n">0' + (i + 1) + '</span><span class="c3-row-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.v) + '</small><span class="c3-row-a">' + cp + open + '</span></div>';
+      var t = L(m.t); if (same && m.k === 'call') t = vi ? 'Gọi / Zalo' : 'Call / Zalo';
+      var open = m.href ? go(m, verb) : '';
+      if (same && m.k === 'call' && zalo.href) open += go(zalo, 'Zalo');
+      var cp = m.copy ? '<button class="c3-cp" type="button" data-copy="' + esc(m.copy) + '" data-m="' + m.k + '" aria-label="' + (vi ? 'Chép ' : 'Copy ') + esc(m.v) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>' + (vi ? 'Chép' : 'Copy') + '</span></button>' : '';
+      return '<div class="c3-row" style="--j:' + i + '"><span class="c3-row-n">0' + (i + 1) + '</span><span class="c3-row-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(t) + '</b><small>' + esc(m.v) + '</small><span class="c3-row-a">' + cp + open + '</span></div>';
     }).join('');
   }
   var WHO = [
@@ -868,11 +875,11 @@ import { mountHead3D } from './head3d';
     $('#goalCv').innerHTML = cvBtn;
     $('#whoOpts').innerHTML = WHO.map(function(w, i){ return '<button class="c3-opt" type="button" data-who="' + i + '" aria-pressed="' + (i === whoIdx ? 'true' : 'false') + '">' + esc(L(w.t)) + '</button>'; }).join('');
     var w = WHO[whoIdx], vi = lang === 'vi';
-    $('#tpl').innerHTML = '<p class="c3-chat-k"><i></i><span>' + (vi ? 'Tin nhắn đầu tiên' : 'First message') + '</span><span>' + esc(L(w.t)) + '</span></p>' +
+    $('#tpl').innerHTML = '<p class="c3-chat-k"><i></i><span>' + (vi ? 'Tin nhắn đầu tiên' : 'First message') + '</span></p>' +
       '<p class="c3-bub" data-k="' + whoIdx + '">' + esc(L(w.msg)).replace(/___/g, '<u>___</u>') + '</p>' +
       '<p class="c3-bub me"><span class="c3-typing" aria-hidden="true"><i></i><i></i><i></i></span><span class="c3-rec">' + esc(L(w.rec)) + '</span></p>' +
       '<button class="btn hot c3-copy" type="button" data-copy="' + esc(L(w.msg)) + '" data-m="template">' + (vi ? 'Sao chép tin nhắn' : 'Copy this message') + '</button>';
-    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
+    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.k === 'zalo' && m.copy === c.copy ? (lang === 'vi' ? 'Cùng số điện thoại' : 'Same number') : m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
   }
   document.addEventListener('click', function(e){
     var w = e.target.closest('[data-who]'); if (w){ whoIdx = +w.dataset.who; renderContact(); track('who', WHO[whoIdx].k); return; }
@@ -1756,6 +1763,20 @@ import { mountHead3D } from './head3d';
     head3d = mountHead3D($('#x3Cv'), {color:x3Small ? 'assets/xinh-ai-m.webp' : 'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp', maxDpr:finePointer ? 2 : 1.5,
       lids:{src:'assets/xinh-ai-blink.webp', rect:[336/1024, 786/1470, 768/1024, 906/1470], split:.5}}, function(){ x3Head.classList.add('gl'); });
   }
+  /* v29: on phones the boot is one visible screen; the face gets the height left above the buttons. */
+  var x3Stage = $('.x3-stage'), bootFoot = $('.bx-foot', bootEl), bootFitWH = '';
+  function bootFit(){
+    if (!x3Stage || !bootFoot) return;
+    if (window.innerWidth > 760){ if (bootFitWH){ x3Stage.style.removeProperty('--sh'); bootFitWH = ''; } return; }
+    var wh = window.innerWidth + 'x' + window.innerHeight;
+    if (wh === bootFitWH || bootEl.hidden) return; bootFitWH = wh;
+    var bottomPad = parseFloat(getComputedStyle(bootEl).paddingBottom) || 0;
+    var room = window.innerHeight - x3Stage.getBoundingClientRect().top - bootFoot.offsetHeight - bottomPad - 14;
+    var maxH = Math.min(430, window.innerWidth * .88 * 1205 / 840);
+    x3Stage.style.setProperty('--sh', Math.round(clamp(room, 190, maxH)) + 'px');
+  }
+  bootFit(); window.addEventListener('resize', bootFit, {passive:true});
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ bootFitWH = ''; bootFit(); });
   function x3Aim(nx, ny){
     x3.style.setProperty('--mx', nx.toFixed(3)); x3.style.setProperty('--my', ny.toFixed(3));
     if (head3d) head3d.aim(nx, ny);
