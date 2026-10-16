@@ -959,6 +959,8 @@ import { mountHead3D } from './head3d';
     /* v15g: Quick view folded into Profile, Skills is a section of Profile */
     if (h === 'desk') return {view:'profile'};
     if (h === 'skills') return {view:'profile', anchor:'pfSkills'};
+    // the owner console only exists inside the claude.ai runtime; on the public site it is not a page
+    if (h === 'report' && !runtimeHere) return {view:'story'};
     if (VIEWS.indexOf(h) > -1) return {view:h};
     return {view:'story', anchor:h};
   }
@@ -1109,7 +1111,7 @@ import { mountHead3D } from './head3d';
     [base, under, live, shine].forEach(function(p){ p.setAttribute('d', d); });
     total = live.getTotalLength();
     samples = [];
-    for (var l = 0; l < total; l += 6){ var p = live.getPointAtLength(l); samples.push([l, p.x, p.y]); }
+    for (var l = 0, stp = finePointer ? 6 : 16; l < total; l += stp){ var p = live.getPointAtLength(l); samples.push([l, p.x, p.y]); }
     var pe = live.getPointAtLength(total); samples.push([total, pe.x, pe.y]);
     var si = 0;
     nodes = pts.map(function(p){
@@ -1175,8 +1177,17 @@ import { mountHead3D } from './head3d';
   window.addEventListener('scroll', schedule, {passive:true});
   var rt = 0;
   function rebuild(){ clearTimeout(rt); rt = setTimeout(build, 140); }
-  window.addEventListener('resize', rebuild);
-  if ('ResizeObserver' in window){ new ResizeObserver(rebuild).observe($('main')); }
+  /* phones fire resize whenever the address bar shows or hides, and main changes height as images and
+     reveals land: rebuilding the thread each time (it samples the whole path) froze phones while scrolling.
+     Rebuild only when the width or the page height really changed. */
+  var lastW = 0, lastH = 0;
+  function rebuildIfChanged(){
+    var w = window.innerWidth, h = $('main').scrollHeight;
+    if (w === lastW && Math.abs(h - lastH) < 24) return;
+    lastW = w; lastH = h; rebuild();
+  }
+  window.addEventListener('resize', rebuildIfChanged);
+  if ('ResizeObserver' in window){ new ResizeObserver(rebuildIfChanged).observe($('main')); }
   if (document.fonts && document.fonts.ready){ document.fonts.ready.then(rebuild); }
   window.addEventListener('load', rebuild);
 
@@ -1741,7 +1752,8 @@ import { mountHead3D } from './head3d';
   var X3_SAY = [{en:'hi hi!', vi:'hi hi!'}, {en:'leave it to me!', vi:'để em!'}];
   var x3 = $('#x3'), x3Head = $('#x3Head'), x3Said = 0, head3d = null;
   if (!reduce){
-    head3d = mountHead3D($('#x3Cv'), {color:'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp',
+    var x3Small = window.innerWidth <= 760;
+    head3d = mountHead3D($('#x3Cv'), {color:x3Small ? 'assets/xinh-ai-m.webp' : 'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp', maxDpr:finePointer ? 2 : 1.5,
       lids:{src:'assets/xinh-ai-blink.webp', rect:[336/1024, 786/1470, 768/1024, 906/1470], split:.5}}, function(){ x3Head.classList.add('gl'); });
   }
   function x3Aim(nx, ny){
@@ -1760,7 +1772,7 @@ import { mountHead3D } from './head3d';
     var x3g = 0, x3Idle = setInterval(function(){
       if (bootEl.hidden){ clearInterval(x3Idle); return; }
       x3g++; if (x3g % 2) x3Aim(Math.random() * 1.2 - .6, Math.random() * .5 - .3); else x3Aim(0, 0);
-    }, 2400);
+    }, 4200);
   }
   bootEl.addEventListener('click', function(e){
     var ob = e.target.closest('.x3o');
