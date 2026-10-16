@@ -30,6 +30,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v25 (màn mở đầu):** mặt bị bóp ngang trên máy Xinh (Safari tính bề ngang flex item có `height` + `aspect-ratio` theo nội dung) → `.x3-stage` đặt cả 2 chiều từ `--sh`, và shader `head3d.ts` tự giữ tỉ lệ ảnh (uniform `fit`, khung lệch thì chừa trống, không kéo giãn). Chữ theo ref bìa đĩa "Twinkle": "Em Xinh" Shrikhand chrome lỏng bạc → hồng (bộ lọc `#x3Liquid`), sau là chữ khối "EM XINH" hồng (`.x3-blk`), dòng thông số mono phía trên (`.x3-cap`), tia lấp lánh (`.x3-tw`); "say hi" script hồng viền trắng.
 
+**v26 (About làm lại lần 2, Xinh: gọn, mỗi phần trình bày 1 kiểu, nội dung lồng nội dung, pop-up, zoom out ra giải pháp):** 02 `#abZm` (ghim 220vh): câu `#abSay` tô đậm từng chữ rồi camera lùi ra, câu nằm trong cửa sổ "about-xinh.txt", 4 cửa sổ ảnh modes bật ra (`.ab-pop`, giữ id `#fan`). 03 Lộ trình: trái là chồng thẻ level dính (`#abDeck`, `.ab-card.lvc0-3`, không dùng `.c1-.c4` vì trùng mây), phải là 4 vai trò (`#tl4`), mô tả dài nằm trong pop-up (`data-abrole`, `abPopOpen`). 05 `#abNest` (ghim 260vh): 4 bước lồng nhau (Clarify ở lõi), cuộn là zoom out tới "Problem solved." (`renderNest`). Học vấn gộp vào thanh kết `.ab-end` (`.ab-edu2`). `#steps4` vẫn có trong HTML nhưng ẩn. Logic `drawAbout()`.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.

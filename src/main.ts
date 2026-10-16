@@ -525,7 +525,8 @@ import { mountHead3D } from './head3d';
         '</button></div>';
     }).join('');
     initHang();
-    if ($('#tl4')) $('#tl4').innerHTML = ROLES.map(function(r, i){ return '<article><b class="ab-lv">LV.' + (i + 1) + '</b><i class="ab-node" aria-hidden="true"></i><span class="lane">' + r.lane + '</span><h4>' + esc(r.t) + '</h4><span class="w">' + r.w + '</span><p>' + esc(L(r.d)) + '</p><p style="font-weight:700; color:var(--ink)">' + esc(L(r.v)) + '</p><div class="scope"><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div></article>'; }).join('');
+    if ($('#tl4')) $('#tl4').innerHTML = ROLES.map(function(r, i){ return '<article data-lv="' + i + '"><b class="ab-lv">LV.' + (i + 1) + '</b><span class="w">' + r.w + '</span><h4>' + esc(r.t) + '</h4><p class="ab-fy">' + esc(L(r.v)) + '</p><button class="ab-more" type="button" data-abrole="' + i + '"><span>' + (lang === 'vi' ? 'Xem việc đã làm' : 'What I did') + '</span><i>+</i></button></article>'; }).join('');
+    if ($('#abDeck')) $('#abDeck').innerHTML = ROLES.map(function(r, i){ return '<div class="ab-card lvc' + i + '" data-i="' + i + '"><p class="ab-card-top"><b>XINH.OS</b><span>' + r.y + '</span></p><b class="ab-card-lv">LV.' + (i + 1) + '</b><span class="lane">' + r.lane + '</span><p class="ab-card-t">' + esc(r.short) + '</p><div class="scope"><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div></div>'; }).join('');
   }
   document.addEventListener('click', function(e){
     var b = e.target.closest('button[data-role]'); if (b && !b.disabled){ roleIdx = +b.dataset.role; seenRoles[roleIdx] = 1; renderRoles(); var nb = $('#roleTabs [data-role="' + roleIdx + '"]'); if (nb && !reduce){ nb.classList.add('flip'); } return; }
@@ -1560,19 +1561,22 @@ import { mountHead3D } from './head3d';
     if (!reduce && 'IntersectionObserver' in window) new IntersectionObserver(function(es){ if (es[0].isIntersecting){ vel = 3.2; kick(); } }, {threshold:.5}).observe(lan);
   })();
   /* =====================================================================
-     ABOUT ME (v24): one thread through six chapters. A sticky index on the left fills as you read and
-     marks the chapter on screen; inside, the photos fan out of one stack, the career line grows through
-     four levels and a bead runs across the four work steps, all from scroll position.
+     ABOUT ME (v26, ref: eDesign CPG page; Xinh: shorter, each part told a different way, content nested in
+     content, pop-ups, zoom out to the solution). A sticky index on the left marks the chapter being read.
+     02: the statement fills in, then the camera pulls back and it is a note in an OS window, four photo
+     windows pop up around it. 03: a stack of level cards holds still while the roles scroll past; each
+     role opens a pop-up. 05: the four work steps sit one inside the next; scrolling zooms out from the
+     core to the whole solution. Nothing here runs without scrolling except the pop-up.
      ===================================================================== */
   var abBuilt = false;
   function abIndex(){
     var ol = $('#abIdx'); if (!ol) return;
     ol.innerHTML = $$('#v-profile [data-ch]').map(function(c){
       var k = c.querySelector('.ab-k'), n = c.dataset.ch;
-      var t = k ? $$('span', k).map(function(x){ return x.outerHTML; }).join('') : '<span class="en">' + c.dataset.en + '</span><span class="vi">' + c.dataset.vi + '</span>';
+      var t = k ? $$(':scope > span', k).map(function(x){ return x.outerHTML; }).join('') : '<span class="en">' + c.dataset.en + '</span><span class="vi">' + c.dataset.vi + '</span>';
       return '<li><button type="button" data-abgo="' + n + '"><b>' + n + '</b>' + t + '</button></li>';
     }).join('');
-    // the statement fills in word by word as it rises (ref: eDesign)
+    // the statement fills in word by word
     $$('#abSay > span').forEach(function(sp){
       (function wrap(node){
         Array.prototype.slice.call(node.childNodes).forEach(function(n){
@@ -1586,19 +1590,48 @@ import { mountHead3D } from './head3d';
     });
     abBuilt = true;
   }
-  // each chapter brings its own paper colour, the page eases from one to the next
+  // the four work steps, nested: Clarify at the core, each next step wrapped around the one before
+  function renderNest(){
+    var el = $('#abNestIn'); if (!el) return;
+    el.innerHTML = STEPS.map(function(st, i){
+      return '<div class="nb n' + i + '" style="--sz:' + ((i + 1) * 25) + '%"><p><b>0' + (i + 1) + '</b><strong>' + esc(L(st.t)) + '</strong><span>' + esc(L(st.k)) + '</span></p></div>';
+    }).join('');
+  }
   var AB_BG = ['#f8e3ec', '#f3eee6', '#ebebef', '#f3eee6', '#f9e6ee', '#f3eee6'];
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-abgo]'); if (!b) return;
     var c = $('#v-profile [data-ch="' + b.dataset.abgo + '"]'); if (!c) return;
     window.scrollTo({top: c.getBoundingClientRect().top + window.scrollY - 90, behavior: reduce ? 'auto' : 'smooth'});
   });
-  function abLocal(el, vh, a, b){ var r = el.getBoundingClientRect(); return clamp((vh * a - r.top) / Math.max(1, r.height * b), 0, 1); }
+  /* role pop-up: the long description lives here, not on the page */
+  var abPop = null, abPopFrom = null;
+  function abPopClose(){ if (!abPop || abPop.hidden) return; abPop.classList.remove('in'); setTimeout(function(){ abPop.hidden = true; }, reduce ? 0 : 220); if (abPopFrom) abPopFrom.focus(); }
+  function abPopOpen(i, from){
+    var r = ROLES[i]; if (!r) return;
+    if (!abPop){
+      abPop = document.createElement('div'); abPop.className = 'ab-modal'; abPop.hidden = true;
+      abPop.setAttribute('role', 'dialog'); abPop.setAttribute('aria-modal', 'true');
+      abPop.innerHTML = '<div class="ab-modal-bg" data-abx></div><div class="ab-modal-win" tabindex="-1"></div>';
+      document.body.appendChild(abPop);
+      abPop.addEventListener('click', function(e){ if (e.target.closest('[data-abx]')) abPopClose(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') abPopClose(); });
+    }
+    abPopFrom = from || null;
+    var w = $('.ab-modal-win', abPop);
+    w.innerHTML = '<div class="ab-modal-bar"><b>LV.' + (i + 1) + ' · ' + esc(r.lane) + '</b><button type="button" data-abx aria-label="Close">✕</button></div>' +
+      '<div class="ab-modal-body"><span class="w">' + r.w + '</span><h4>' + esc(r.t) + '</h4><p>' + esc(L(r.d)) + '</p><p class="ab-fy">' + esc(L(r.v)) + '</p>' +
+      '<div class="scope"><div class="m"><i style="width:' + r.s + '%"></i></div><span>' + esc(L(r.sc)) + '</span></div></div>';
+    abPop.setAttribute('aria-label', r.t);
+    abPop.hidden = false; void abPop.offsetWidth; abPop.classList.add('in'); w.focus();
+    track('role-pop', i);
+  }
+  document.addEventListener('click', function(e){ var b = e.target.closest('[data-abrole]'); if (b) abPopOpen(+b.dataset.abrole, b); });
+  function abPin(el, vh){ var r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - vh), 0, 1); }
+  function ease(t){ return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
   function drawAbout(){
     var v = $('#v-profile'); if (!v || curView !== 'profile') return;
-    if (!abBuilt) abIndex();
+    if (!abBuilt){ abIndex(); renderNest(); }
     var vh = window.innerHeight, H = document.documentElement.scrollHeight - vh;
-    // the bead sits on the label of the chapter being read and slides to the next one as it comes up
     var chs = $$('[data-ch]', v), tops = chs.map(function(c){ return c.getBoundingClientRect().top; }), cur = 0;
     tops.forEach(function(t, i){ if (t < vh * .5) cur = i; });
     var nx = tops[cur + 1], fr = nx === undefined ? 0 : clamp((vh * .5 - tops[cur]) / Math.max(1, nx - tops[cur]), 0, 1);
@@ -1606,24 +1639,32 @@ import { mountHead3D } from './head3d';
     var p = reduce ? cur / Math.max(1, chs.length - 1) : (cur + fr) / Math.max(1, chs.length - 1);
     v.style.setProperty('--abp', p.toFixed(4));
     v.style.setProperty('--abbg', AB_BG[cur] || AB_BG[0]);
-    var say = $('#abSay', v);
-    if (say){
-      var r = say.getBoundingClientRect(), sp = reduce ? 1 : clamp((vh * .88 - r.top) / (vh * .5), 0, 1);
-      $$(':scope > span', say).forEach(function(x){ var ws = $$('.wd', x), n = Math.round(sp * ws.length); ws.forEach(function(w, i){ w.classList.toggle('on', i < n); }); });
-    }
     $$('#abIdx li', v).forEach(function(li, i){ li.classList.toggle('on', i === cur); li.classList.toggle('done', i < cur); });
-    var fan = $('#fan', v); if (fan) fan.style.setProperty('--p', reduce ? 1 : abLocal(fan, vh, .95, .75).toFixed(3));
-    var tl = $('#tl4', v);
-    if (tl){
-      var tp = reduce ? 1 : abLocal(tl, vh, .62, 1);
-      tl.style.setProperty('--p', tp.toFixed(3));
-      $$('article', tl).forEach(function(a){ a.classList.toggle('on', reduce || a.getBoundingClientRect().top < vh * .62); });
+    // 02 · fill, then pull back to the window and pop the photos
+    var zm = $('#abZm', v);
+    if (zm){
+      var zp = reduce ? 1 : abPin(zm, vh), fill = clamp(zp / .4, 0, 1), k = ease(clamp((zp - .42) / .36, 0, 1));
+      $$('#abSay > span', v).forEach(function(x){ var ws = $$('.wd', x), n = Math.round(fill * ws.length); ws.forEach(function(w, i){ w.classList.toggle('on', i < n); }); });
+      zm.style.setProperty('--k', k.toFixed(3));
+      $$('.ab-pop', zm).forEach(function(f, i){ f.classList.toggle('on', k > .25 + i * .16); });
+      zm.classList.toggle('done', k > .85);
     }
-    var how = $('.ab-how', v);
-    if (how){
-      var hp = reduce ? 1 : abLocal($('#steps4', v), vh, .8, 1.1);
-      how.style.setProperty('--p', hp.toFixed(3));
-      $$('#steps4 > *', v).forEach(function(c, i){ c.classList.toggle('lit', hp >= i / 4 + .04); });
+    // 03 · the deck shows the level whose role is in the middle of the screen
+    var tl = $('#tl4', v), deck = $('#abDeck', v);
+    if (tl && deck){
+      var arts = $$('article', tl), act = 0;
+      arts.forEach(function(a, i){ if (a.getBoundingClientRect().top < vh * .55) act = i; });
+      arts.forEach(function(a, i){ a.classList.toggle('on', i === act); });
+      $$('.ab-card', deck).forEach(function(c, i){ c.style.setProperty('--d', i - act); c.classList.toggle('gone', i < act); });
+    }
+    // 05 · zoom out from the core step to the whole solution
+    var ns = $('#abNest', v);
+    if (ns){
+      var np = reduce ? 1 : abPin(ns, vh), t = clamp(np / .8, 0, 1), size = .25 + .75 * ease(t);
+      ns.style.setProperty('--s', (1 / size).toFixed(4));
+      var step = Math.min(3, Math.floor((size - .25) / .75 * 3 + .5));
+      $$('.nb', ns).forEach(function(b, i){ b.classList.toggle('on', i <= step); b.classList.toggle('cur', i === step && np < .86); });
+      ns.classList.toggle('done', np >= .86);
     }
   }
   onScrollFrame(drawAbout);
@@ -1748,7 +1789,7 @@ import { mountHead3D } from './head3d';
     }); }, {threshold:.6});
     $$('.head .tag > span:not(:first-child), .head .tag > span').forEach(function(el){ if (!el.querySelector('b')) sio.observe(el); });
   }
-  function renderAll(){ if (typeof renderFan === 'function') renderFan(); renderRoles(); renderSteps(); renderMatrix(); renderProof(); renderStoryCases(); setupStops(); renderWork(); renderContact(); renderSquad(); renderSaved(); if (!quizEl.hidden) renderQuiz(); if (curView === 'report') renderReport(); hydrateImgs(); drawAtmo(); }
+  function renderAll(){ if (typeof renderFan === 'function') renderFan(); renderRoles(); renderNest(); renderSteps(); renderMatrix(); renderProof(); renderStoryCases(); setupStops(); renderWork(); renderContact(); renderSquad(); renderSaved(); if (!quizEl.hidden) renderQuiz(); if (curView === 'report') renderReport(); hydrateImgs(); drawAtmo(); }
   function setLang(l){
     lang = l; S.lang = l;
     root.setAttribute('data-lang', l); root.setAttribute('lang', l);
