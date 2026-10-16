@@ -3,7 +3,7 @@
 // Type checking is off for this file for now; move pieces into typed modules over time.
 // CONFIG (contacts, image slots, CV link) is at the top of the function below.
 import './styles.css';
-import { mountHead3D } from './head3d';
+import { mountAvatar3D } from './avatar3d';
 
 (function(){
   /* =====================================================================
@@ -1591,14 +1591,13 @@ import { mountHead3D } from './head3d';
     runBootBar();
     setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
   }
-  /* Boot playground (v20, ref millascope): a 3D head that turns toward the pointer, objects at
-     different depths around it, the wordmark tilting with them. Clicking the head flips it to
-     Xinh's other face; clicking an object makes it bounce. */
-  var X3_FACES = [{color:'assets/xinh-3d-hi.webp', depth:'assets/xinh-3d-hi-d.webp', say:{en:'hi hi!', vi:'hi hi!'}},
-                  {color:'assets/xinh-3d-work.webp', depth:'assets/xinh-3d-work-d.webp', say:{en:'on it!', vi:'để Xinh lo!'}}];
-  var x3 = $('#x3'), x3Head = $('#x3Head'), x3Face = 0, head3d = null;
+  /* Boot playground (v21, ref millascope): Xinh's 3D character looks straight at you, then follows
+     the pointer with her eyes and a small turn of the head; objects at different depths around her,
+     the wordmark tilting with them. Clicking her makes her wink; clicking an object makes it bounce. */
+  var X3_SAY = [{en:'hi hi!', vi:'hi hi!'}, {en:'on it!', vi:'để Xinh lo!'}];
+  var x3 = $('#x3'), x3Head = $('#x3Head'), x3Said = 0, head3d = null;
   if (!reduce){
-    head3d = mountHead3D($('#x3Cv'), X3_FACES, function(){ x3Head.classList.add('gl'); });
+    head3d = mountAvatar3D($('#x3Cv'), {maxDpr: finePointer ? 2 : 1.75, onReady: function(){ x3Head.classList.add('gl'); }});
   }
   function x3Aim(nx, ny){
     x3.style.setProperty('--mx', nx.toFixed(3)); x3.style.setProperty('--my', ny.toFixed(3));
@@ -1612,17 +1611,19 @@ import { mountHead3D } from './head3d';
   bootEl.addEventListener('pointerleave', function(){ x3Aim(0, 0); });
   /* touch screens: the head looks around on its own until touched */
   if (!reduce && !finePointer){
-    var x3t0 = performance.now();
-    (function idle(t){ if (bootEl.hidden) return; var k = (t - x3t0) / 1000; x3Aim(Math.sin(k * .7) * .55, Math.sin(k * .45) * .25); setTimeout(function(){ requestAnimationFrame(idle); }, 40); })(x3t0);
+    /* a glance somewhere, then back at you; the head redraws only while it moves */
+    var x3g = 0, x3Idle = setInterval(function(){
+      if (bootEl.hidden){ clearInterval(x3Idle); return; }
+      x3g++; if (x3g % 2) x3Aim(Math.random() * 1.2 - .6, Math.random() * .5 - .3); else x3Aim(0, 0);
+    }, 2400);
   }
   bootEl.addEventListener('click', function(e){
     var ob = e.target.closest('.x3o');
     if (ob){ ob.classList.remove('hit'); void ob.offsetWidth; ob.classList.add('hit'); return; }
     if (!e.target.closest('#x3Head')) return;
-    x3Face = (x3Face + 1) % X3_FACES.length;
-    var say = $('#x3Say'); say.textContent = X3_FACES[x3Face].say[lang === 'vi' ? 'vi' : 'en'];
-    x3Head.classList.remove('flip', 'said'); void x3Head.offsetWidth; x3Head.classList.add('flip', 'said');
-    setTimeout(function(){ if (head3d) head3d.show(x3Face); $('.x3-img', x3Head).src = X3_FACES[x3Face].color; }, reduce ? 0 : 260);
+    var say = $('#x3Say'); say.textContent = X3_SAY[x3Said][lang === 'vi' ? 'vi' : 'en']; x3Said = (x3Said + 1) % X3_SAY.length;
+    x3Head.classList.remove('said'); void x3Head.offsetWidth; x3Head.classList.add('said');
+    if (head3d) head3d.wink();
   });
 
   function chooseMode(m){
@@ -1637,7 +1638,7 @@ import { mountHead3D } from './head3d';
     bootEl.classList.add('out');
     setTimeout(function(){ bootEl.hidden = true; rebuild(); }, reduce ? 0 : 800);
   }
-  /* leaving the open screen (v20): the objects scatter, Xinh sinks into her cloud, and a bank of
+  /* leaving the open screen (v20, faster in v21): the objects scatter, Xinh floats up and away, and a bank of
      clouds rises over the whole screen; behind it the page is swapped in, then the clouds keep rising
      and the new page arrives underneath, as if flying up through the sky into the site. */
   function bootClouds(m){
@@ -1648,8 +1649,8 @@ import { mountHead3D } from './head3d';
     setTimeout(function(){
       bootEl.hidden = true; bootEl.classList.remove('leave'); rebuild();
       document.body.classList.add('arrive'); if (m === 'quick') document.body.classList.add('arr-q');
-    }, 760);
-    setTimeout(function(){ cw.classList.remove('go'); cw.hidden = true; document.body.classList.remove('arrive', 'arr-q'); }, 2300);
+    }, 470);
+    setTimeout(function(){ cw.classList.remove('go'); cw.hidden = true; document.body.classList.remove('arrive', 'arr-q'); }, 1400);
     return true;
   }
   document.addEventListener('click', function(e){

@@ -3107,8 +3107,8 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
 @media (max-width:760px){ .boot .bh-cta .mode.quick{background:rgba(255,255,255,.92)!important} }
 
 /* ===== v20 · THE OPEN in 3D (ref millascope, Xinh's video): same sky + buttons as v19; the wordmark is
-   inflated pink 3D type, Xinh's head is a WebGL depth cut-out that turns toward the pointer
-   (src/head3d.ts), sitting on a 3D cloud, with a few glossy objects at different depths around it.
+   inflated pink 3D type; v21: Xinh's 3D character (src/avatar3d.ts, raymarched in WebGL2) floats in
+   the middle, eyes on you and then on the pointer, with a few glossy objects at different depths around it.
    Everything leans with the pointer through --mx / --my (-1..1) set on .x3 by main.ts. */
 .x3{--mx:0; --my:0; position:absolute; z-index:3; left:0; right:0; top:0; bottom:clamp(150px,20vh,190px); display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; perspective:1100px}
 .x3-word{position:relative; z-index:1; margin:0 0 calc(-1 * clamp(22px,3.4vh,40px)); line-height:.8; text-align:center; transform-style:preserve-3d;
@@ -3119,14 +3119,15 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
   background:var(--chrome-pk); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 10px 16px rgba(123,47,82,.35))}
 .x3-stage{position:relative; width:clamp(270px,27vw,370px); aspect-ratio:1; flex:none}
 .x3-head{position:absolute; inset:0; z-index:2; padding:0; border:0; background:none; cursor:pointer; pointer-events:auto; border-radius:40%;
-  transform:rotateY(calc(var(--mx) * 18deg)) rotateX(calc(var(--my) * -10deg)); transition:transform .45s cubic-bezier(.2,.8,.2,1); animation:x3Bob 5s ease-in-out infinite}
+  transform:translate3d(calc(var(--mx) * 8px), calc(var(--my) * 5px), 0) rotate(calc(var(--mx) * 2deg)); transition:transform .45s cubic-bezier(.2,.8,.2,1); animation:x3Bob 5s ease-in-out infinite}
 .x3-head:focus-visible{outline:3px solid var(--lime); outline-offset:6px}
 .x3-img,.x3-cv{position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none}
-.x3-img{object-fit:contain; -webkit-mask:linear-gradient(#000 78%,transparent 99%); mask:linear-gradient(#000 78%,transparent 99%); filter:drop-shadow(0 0 1px rgba(255,143,192,.6))}
+.x3-img{object-fit:contain}
+/* a soft shadow on the sky under the floating head */
+.x3-stage::after{content:""; position:absolute; z-index:0; left:30%; right:30%; bottom:-4%; height:7%; border-radius:50%; background:radial-gradient(closest-side,rgba(40,70,130,.26),transparent); animation:x3Sh 5s ease-in-out infinite}
+@keyframes x3Sh{50%{scale:.86; opacity:.7}}
 .x3-cv{opacity:0; transition:opacity .4s}
 .x3-head.gl .x3-cv{opacity:1} .x3-head.gl .x3-img{opacity:0}
-.x3-head.flip{animation:x3Flip .6s cubic-bezier(.5,0,.3,1)}
-@keyframes x3Flip{0%{rotate:y 0deg; scale:1} 45%{rotate:y 90deg; scale:.94} 55%{rotate:y -90deg; scale:.94} 100%{rotate:y 0deg; scale:1}}
 @keyframes x3Bob{0%,100%{translate:0 0} 50%{translate:0 -7px}}
 /* pixel speech bubble */
 .x3-say{position:absolute; z-index:4; right:-8%; top:6%; padding:7px 12px 8px; background:#fff; color:var(--ink); font:400 15px/1 var(--f-pixel); letter-spacing:.04em; white-space:nowrap;
@@ -3140,16 +3141,6 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
 .x3-love i + i{left:28px; top:-14px; font-size:18px}
 .x3-head.said .x3-love i{animation:x3Love 1.4s ease-out both} .x3-head.said .x3-love i + i{animation-delay:.12s}
 @keyframes x3Love{0%{opacity:0; transform:translateY(10px) scale(.5)} 25%{opacity:1; transform:none} 100%{opacity:0; transform:translateY(-46px) scale(1.15)}}
-/* a soft 3D cloud the head rests on: many small puffs, lit from the top left */
-.x3-cloud{position:absolute; z-index:3; left:-24%; right:-24%; bottom:-8%; height:64%; pointer-events:none; translate:calc(var(--mx) * 10px) 0; transition:translate .5s cubic-bezier(.2,.8,.2,1); will-change:translate; -webkit-mask:linear-gradient(#000 80%,transparent 99%); mask:linear-gradient(#000 80%,transparent 99%)}
-.x3-cloud i{position:absolute; bottom:0; border-radius:50%; aspect-ratio:1; background:radial-gradient(circle at 40% 28%,#fff 0 46%,#f6f8fd 64%,#e3eaf5 86%,#d3deee 100%); filter:blur(.6px)}
-.x3-cloud i:nth-child(1){left:4%; width:20%; bottom:2%}
-.x3-cloud i:nth-child(2){left:17%; width:24%; bottom:9.5%}
-.x3-cloud i:nth-child(3){left:32%; width:22%; bottom:18%}
-.x3-cloud i:nth-child(4){left:46%; width:24%; bottom:14%}
-.x3-cloud i:nth-child(5){right:16%; width:22%; bottom:7.5%}
-.x3-cloud i:nth-child(6){right:3%; width:19%; bottom:1%}
-.x3-cloud i:nth-child(7){left:2%; right:2%; width:auto; aspect-ratio:auto; height:23%; border-radius:999px; bottom:0; background:linear-gradient(#fff 30%,#e6ecf6)}
 /* objects: glossy, each on its own depth, they pop in one by one */
 .x3-objs{position:absolute; left:50%; top:50%; width:0; height:0; z-index:1}
 .x3o{--s:56px; --k:1; position:absolute; left:calc(var(--x) * var(--k)); top:calc(var(--y) * var(--k)); width:var(--s); height:var(--s); margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2); pointer-events:auto; cursor:pointer; font-style:normal;
@@ -3169,11 +3160,10 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
   background:linear-gradient(160deg,#3a3b45,#0f1016 60%,#24252e); box-shadow:inset 0 1px 0 rgba(255,255,255,.3), inset 0 -3px 6px rgba(0,0,0,.6); rotate:-8deg}
 .x3o.pager b{font:400 9px/1 var(--f-pixel); color:#c8ccd8; letter-spacing:.06em}
 .x3o.pager em{font:400 11px/1 var(--f-pixel); font-style:normal; color:var(--ink); background:linear-gradient(#ffc2dc,#ff8fc0); border-radius:4px; padding:4px 5px; box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
-/* leaving: objects scatter outward, the head sinks into its cloud, the title floats up */
+/* leaving: objects scatter outward, the head and the title float up and away */
 .boot.leave .x3o{transition:translate .8s cubic-bezier(.5,0,.2,1), opacity .5s .2s; translate:calc(var(--x) * 1.6) calc(var(--y) * 1.6 - 60px); opacity:0; animation-play-state:paused}
 .boot.leave .x3-word{transition:transform .8s cubic-bezier(.5,0,.2,1), opacity .5s .1s; transform:translateY(-70px) scale(1.04); opacity:0}
-.boot.leave .x3-head{animation:none; transition:transform .7s cubic-bezier(.6,0,.4,1), opacity .5s .2s; transform:translateY(34%) scale(.92); opacity:0}
-.boot.leave .x3-cloud{transition:translate .8s cubic-bezier(.5,0,.2,1); translate:0 -30px}
+.boot.leave .x3-head{animation:none; transition:transform .5s cubic-bezier(.6,0,.4,1), opacity .35s .1s; transform:translateY(-14%) scale(.9); opacity:0}
 .boot.leave .bx-foot,.boot.leave .boot-skip{transition:transform .6s cubic-bezier(.5,0,.2,1), opacity .4s; transform:translateY(30px); opacity:0}
 /* the cloud bank that carries you into the page */
 .cloud-wipe{position:fixed; inset:0; z-index:160; pointer-events:none; overflow:hidden}
@@ -3186,9 +3176,9 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
 .cw-in i.lo{top:auto; bottom:4vh}
 .cw-in i.lo:nth-of-type(8){left:-6vw; bottom:8vh} .cw-in i.lo:nth-of-type(9){left:18vw; bottom:0; width:30vw} .cw-in i.lo:nth-of-type(10){left:40vw; bottom:6vh; width:36vw}
 .cw-in i.lo:nth-of-type(11){left:64vw; bottom:1vh; width:32vw} .cw-in i.lo:nth-of-type(12){left:84vw; bottom:9vh} .cw-in i.lo:nth-of-type(13){left:28vw; bottom:14vh; width:44vw}
-.cloud-wipe.go .cw-in{animation:cwRise 2.2s cubic-bezier(.45,0,.25,1) forwards}
+.cloud-wipe.go .cw-in{animation:cwRise 1.3s cubic-bezier(.45,0,.25,1) forwards}
 @keyframes cwRise{0%{transform:translateY(105vh)} 34%{transform:translateY(-30vh)} 46%{transform:translateY(-62vh)} 100%{transform:translateY(-235vh)}}
-@media (prefers-reduced-motion:reduce){ .x3-head,.x3o,.x3-say{animation:none!important} .x3o{opacity:1} }
+@media (prefers-reduced-motion:reduce){ .x3-head,.x3o,.x3-say,.x3-stage::after{animation:none!important} .x3o{opacity:1} }
 @media (max-width:760px){
   .x3{position:relative; inset:auto; flex:1; padding:6px 0 0; min-height:0; justify-content:flex-end}
   .x3-word{margin-bottom:-14px; transform:none}
@@ -3197,7 +3187,6 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
   .x3-stage{width:min(340px,84vw)}
   .x3o.pager b{font-size:8px} .x3o.pager em{font-size:9px; padding:3px 4px}
   .x3-say{font-size:12px; right:-2%; top:2%}
-  .x3-cloud{bottom:-16%}
   .x3o{--s:36px!important; --k:.56; translate:none}
   .x3o.pager{--s:60px!important}
   .x3o.ring,.x3o.pearl{display:none}
