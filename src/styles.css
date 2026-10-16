@@ -3206,8 +3206,6 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
 .x3-stage{width:clamp(300px,31vw,430px)}
 .x3-stage::after{background:radial-gradient(closest-side,rgba(150,70,90,.18),transparent)}
 .x3-img{filter:none}
-/* her own tagline from the sheet, hand-written beside her */
-.x3-note{position:absolute; z-index:1; left:-34%; top:30%; font:400 clamp(20px,1.7vw,26px)/1.05 var(--f-script); color:#7a4a55; rotate:-9deg; pointer-events:none; opacity:.85; animation:x3In .7s cubic-bezier(.3,1.6,.5,1) 1.4s both}
 .x3-say{box-shadow:0 0 0 1.5px var(--ink), 3px 3px 0 1.5px var(--ink)}
 /* objects from her accessories */
 .x3o{filter:drop-shadow(0 12px 14px rgba(150,70,90,.18))}
@@ -3222,7 +3220,48 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
   .x3-w1{font-size:clamp(54px,16vw,74px)}
   .x3-w2{font-size:clamp(50px,13.5vw,66px); margin-left:40%}
   .x3-stage{width:min(360px,88vw)}
-  .x3-note{display:none}
   .x3o.badge b{font-size:8px} .x3o.badge{padding:6px 7px}
 }
-@media (prefers-reduced-motion:reduce){ .x3-note{animation:none} }
+
+/* ===== v23 · XINH AI in a real space (Xinh: crisp cut-out, light and shadow like refs of a glossy 3D bust,
+   objects with depth). Full-bun portrait from the updated handoff, cut with a colour-decontaminated matte
+   so no white fringe; she casts a soft shadow on the backdrop that moves against the pointer, a studio
+   light pool sits behind her, the bust dissolves at the bottom into the glossy black wordmark (ref: the
+   "PROMPT" poster). Objects sit on separate depths: some behind her, some in front, with depth-of-field
+   blur and shadows that grow with depth. */
+.x3{justify-content:flex-start; padding-top:clamp(36px,5vh,52px)}
+.x3-stage{width:auto; height:min(calc(100vh - clamp(150px,20vh,190px) - clamp(96px,14vh,130px)), 640px); aspect-ratio:840/1205}
+.x3-stage::after{display:none}
+/* studio light pool behind her, leaning toward the pointer */
+.x3-stage::before{content:""; position:absolute; z-index:0; left:-30%; right:-30%; top:-6%; height:90%; border-radius:50%; pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,247,245,.6) 45%,rgba(255,240,240,0));
+  translate:calc(var(--mx) * 24px) calc(var(--my) * 14px); transition:translate .6s cubic-bezier(.2,.8,.2,1)}
+.x3-cast{position:absolute; z-index:1; inset:0; pointer-events:none; background:url(assets/xinh-ai-sh.webp) center/100% 100% no-repeat; opacity:.34; filter:blur(10px);
+  transform:translate(calc(22px - var(--mx) * 18px), calc(30px - var(--my) * 12px)) scale(1.03); transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.x3-head{border-radius:30%}
+/* wordmark: glossy black puffed type with a white edge, over the dissolving bust */
+.x3-word{position:absolute; z-index:4; left:0; right:0; bottom:calc(-1 * clamp(14px,3vh,30px)); margin:0; pointer-events:none}
+.x3-w1{font-family:'Shrikhand',var(--f-head); font-weight:400; font-size:clamp(64px,7.4vw,112px); letter-spacing:-.01em; line-height:1; padding:.06em .18em .12em; color:#141418;
+  -webkit-text-stroke:.1em #fff; paint-order:stroke fill; filter:url(#x3Gloss) drop-shadow(0 14px 18px rgba(60,20,40,.3))}
+.x3-w2{margin:-.72em 0 0 52%; font-size:clamp(56px,6.2vw,96px); rotate:-7deg}
+/* objects on depths: behind her (.bk) or in front (.fr); far and near ones out of focus */
+.x3-objs{z-index:auto}
+.x3o{z-index:1; filter:drop-shadow(calc(var(--z) * 6px) calc(var(--z) * 14px) calc(var(--z) * 9px) rgba(120,50,70,.2))}
+.x3o.fr{z-index:3}
+.x3o.bk{z-index:1; opacity:.9}
+@media (min-width:861px) and (hover:hover){
+  .x3o.bk{filter:blur(1.6px) drop-shadow(4px 8px 6px rgba(120,50,70,.14))}
+  .x3o.fr[style*="--z:1.7"]{filter:blur(1.2px) drop-shadow(12px 24px 16px rgba(120,50,70,.22))}
+}
+.x3o.chr{background:radial-gradient(circle at 32% 26%,#fff 0 7%,#f1f2f6 14%,#a3a8b5 36%,#5d6270 52%,#e9ebf0 60%,#8b909c 78%,#d5d8df 100%); box-shadow:inset -6px -8px 14px rgba(40,40,60,.35), inset 4px 5px 8px rgba(255,255,255,.7)}
+.x3o.hoop{background:radial-gradient(circle,transparent 0 44%,#a8b51c 46%,#f2fb98 54%,#d6e649 62%,#9aa716 70%,transparent 72%)}
+.x3o.badge{box-shadow:inset 0 0 0 1px rgba(255,255,255,.95), inset 0 -8px 14px rgba(180,170,200,.3), inset 0 10px 12px rgba(255,255,255,.6)}
+@media (max-width:760px){
+  .x3{padding-top:8px; justify-content:flex-end}
+  .x3-stage{height:auto; width:min(76vw,330px)}
+  .x3-word{bottom:-40px}
+  .x3o.badge{display:none}
+  .x3-w1{font-size:clamp(58px,17vw,82px)}
+  .x3-w2{font-size:clamp(46px,12.5vw,62px)}
+  .x3-cast{filter:none; opacity:.18}
+}

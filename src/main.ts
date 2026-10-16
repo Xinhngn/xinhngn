@@ -1591,13 +1591,14 @@ import { mountHead3D } from './head3d';
     runBootBar();
     setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
   }
-  /* Boot playground (v22, ref millascope): XINH AI, the character from Xinh's handoff, as a depth
-     cut-out that turns a little toward the pointer; objects at different depths around her, the
-     wordmark tilting with them. Clicking her gets a hop + "hi hi!"; clicking an object makes it bounce. */
+  /* Boot playground (v23, ref millascope): XINH AI, the character from Xinh's handoff, as a depth
+     cut-out that turns a little toward the pointer, blinks on her own and winks when clicked; objects
+     at different depths around her (some behind, some in front), the wordmark tilting with them. */
   var X3_SAY = [{en:'hi hi!', vi:'hi hi!'}, {en:'on it!', vi:'để Xinh lo!'}];
   var x3 = $('#x3'), x3Head = $('#x3Head'), x3Said = 0, head3d = null;
   if (!reduce){
-    head3d = mountHead3D($('#x3Cv'), [{color:'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp'}], function(){ x3Head.classList.add('gl'); });
+    head3d = mountHead3D($('#x3Cv'), {color:'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp',
+      lids:{src:'assets/xinh-ai-blink.webp', rect:[336/1024, 786/1470, 768/1024, 906/1470], split:.5}}, function(){ x3Head.classList.add('gl'); });
   }
   function x3Aim(nx, ny){
     x3.style.setProperty('--mx', nx.toFixed(3)); x3.style.setProperty('--my', ny.toFixed(3));
@@ -1623,6 +1624,7 @@ import { mountHead3D } from './head3d';
     if (!e.target.closest('#x3Head')) return;
     var say = $('#x3Say'); say.textContent = X3_SAY[x3Said][lang === 'vi' ? 'vi' : 'en']; x3Said = (x3Said + 1) % X3_SAY.length;
     x3Head.classList.remove('said'); void x3Head.offsetWidth; x3Head.classList.add('said');
+    if (head3d) head3d.wink();
   });
 
   function chooseMode(m){
