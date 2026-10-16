@@ -3,6 +3,7 @@
 // Type checking is off for this file for now; move pieces into typed modules over time.
 // CONFIG (contacts, image slots, CV link) is at the top of the function below.
 import './styles.css';
+import { mountHead3D } from './head3d';
 
 (function(){
   /* =====================================================================
@@ -101,47 +102,6 @@ import './styles.css';
     var offIO = new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.toggleAttribute('data-off', !e.isIntersecting); }); }, {rootMargin:'100px 0px'});
     document.querySelectorAll('main section, .band, #player, .boot').forEach(function(el){ offIO.observe(el); });
   }
-  /* the cursor tells you what to do next (ref jarcos.work): a dot that trails the pointer and a small
-     note that changes with what is under it — click, drag, scroll, open. Fine pointers only. */
-  var CUR = [
-    ['.boot .bx-pic', {en:'Click me', vi:'Bấm nè'}],
-    ['.boot .ob', {en:'Poke', vi:'Chọc thử'}],
-    ['.boot [data-mode=story]', {en:'Play · 3 min', vi:'Chơi · 3 phút'}],
-    ['.boot [data-mode=quick]', {en:'About me', vi:'Về Xinh'}],
-    ['.hw .dk-c.top', {en:'Drag →', vi:'Kéo →'}],
-    ['#tfStrip .tf-t', {en:'Open', vi:'Mở'}],
-    ['#tfStrip', {en:'Drag ↔', vi:'Kéo ↔'}],
-    ['#badge3d', {en:'Drag · tap to flip', vi:'Kéo · chạm để lật'}],
-    ['#fan .fc', {en:'Next mode', vi:'Chế độ khác'}],
-    ['.sp-row', {en:'Tick', vi:'Tick'}],
-    ['.ac:not(.on)', {en:'Open', vi:'Mở'}],
-    ['a[href^="#case-"],[data-jobd],[data-job]', {en:'View', vi:'Xem'}],
-    ['#brief,#hw,#pf,#vx', {en:'Scroll ↓', vi:'Cuộn ↓'}]
-  ];
-  (function(){
-    var cur = $('#cur'), curT = $('#curT');
-    if (!cur || !finePointer) { if (cur) cur.remove(); return; }
-    var x = -100, y = -100, cx = -100, cy = -100, running = false, last = '';
-    function frame(){
-      var k = reduce ? 1 : 0.22; cx += (x - cx) * k; cy += (y - cy) * k;
-      cur.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
-      if (Math.abs(x - cx) + Math.abs(y - cy) > 0.3) requestAnimationFrame(frame); else running = false;
-    }
-    document.addEventListener('pointermove', function(e){
-      if (e.pointerType !== 'mouse') return;
-      x = e.clientX; y = e.clientY; cur.classList.add('on');
-      if (!running){ running = true; requestAnimationFrame(frame); }
-      var t = e.target, hit = null;
-      if (t && t.closest) for (var i = 0; i < CUR.length; i++){ if (t.closest(CUR[i][0])){ hit = CUR[i][1]; break; } }
-      var lbl = hit ? hit[lang === 'vi' ? 'vi' : 'en'] : '';
-      var link = !hit && t && t.closest && t.closest('a,button,[role=button]');
-      if (lbl !== last){ last = lbl; curT.textContent = lbl; }
-      cur.classList.toggle('lbl', !!lbl); cur.classList.toggle('link', !!link);
-    }, {passive:true});
-    document.addEventListener('pointerdown', function(){ cur.classList.add('down'); });
-    document.addEventListener('pointerup', function(){ cur.classList.remove('down'); });
-    document.documentElement.addEventListener('mouseleave', function(){ cur.classList.remove('on'); });
-  })();
   var COLS = [
     {k:'imc', g:'type', t:{en:'IMC campaign', vi:'Chiến dịch IMC'},
      d:{en:'Integrated campaigns and launches: one big idea carried across paid, owned, earned, KOL and on-ground, from plan to report.', vi:'Chiến dịch tích hợp và ra mắt: một ý tưởng lớn chạy xuyên paid, owned, earned, KOL và on-ground, từ kế hoạch đến báo cáo.'}},
@@ -1631,18 +1591,38 @@ import './styles.css';
     runBootBar();
     setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
   }
-  /* Boot playground (ref: a sky with objects orbiting the portrait). The letter bubbles were dropped in v15g for a cleaner cover. */
-  /* the orbit leans toward the pointer */
-  bootEl.addEventListener('pointermove', function(e){ if (reduce || !finePointer) return; var st = $('#stage'); if (!st) return;
-    st.style.setProperty('--px', ((e.clientX / window.innerWidth) - .5).toFixed(3)); st.style.setProperty('--py', ((e.clientY / window.innerHeight) - .5).toFixed(3)); });
-  /* every object reacts; the portrait cycles through Xinh's photos like changing expressions */
-  var FACES = [['hi.png', 'hi hi!'], ['go.png', "let's go!"], ['work.png', 'on it!'], ['chill.png', 'chill~']], face = 0;
+  /* Boot playground (v20, ref millascope): a 3D head that turns toward the pointer, objects at
+     different depths around it, the wordmark tilting with them. Clicking the head flips it to
+     Xinh's other face; clicking an object makes it bounce. */
+  var X3_FACES = [{color:'assets/xinh-3d-hi.webp', depth:'assets/xinh-3d-hi-d.webp', say:{en:'hi hi!', vi:'hi hi!'}},
+                  {color:'assets/xinh-3d-work.webp', depth:'assets/xinh-3d-work-d.webp', say:{en:'on it!', vi:'để Xinh lo!'}}];
+  var x3 = $('#x3'), x3Head = $('#x3Head'), x3Face = 0, head3d = null;
+  if (!reduce){
+    head3d = mountHead3D($('#x3Cv'), X3_FACES, function(){ x3Head.classList.add('gl'); });
+  }
+  function x3Aim(nx, ny){
+    x3.style.setProperty('--mx', nx.toFixed(3)); x3.style.setProperty('--my', ny.toFixed(3));
+    if (head3d) head3d.aim(nx, ny);
+  }
+  bootEl.addEventListener('pointermove', function(e){
+    if (reduce) return;
+    var r = x3Head.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * .42;
+    x3Aim((e.clientX - cx) / (window.innerWidth * .42), (e.clientY - cy) / (window.innerHeight * .5));
+  }, {passive:true});
+  bootEl.addEventListener('pointerleave', function(){ x3Aim(0, 0); });
+  /* touch screens: the head looks around on its own until touched */
+  if (!reduce && !finePointer){
+    var x3t0 = performance.now();
+    (function idle(t){ if (bootEl.hidden) return; var k = (t - x3t0) / 1000; x3Aim(Math.sin(k * .7) * .55, Math.sin(k * .45) * .25); setTimeout(function(){ requestAnimationFrame(idle); }, 40); })(x3t0);
+  }
   bootEl.addEventListener('click', function(e){
-    var ob = e.target.closest('.ob');
-    if (ob){ ob.classList.remove('hit'); void ob.offsetWidth; ob.classList.add('hit'); }
-    var pic = e.target.closest('.bx-pic');
-    if (pic){ face = (face + 1) % FACES.length; var fr = $('.bx-pic .ph-frame'); if (fr){ fr.dataset.portrait = FACES[face][0]; fr.innerHTML = portrait(FACES[face][0]); } }
-    if (pic || (ob && ob.classList.contains('tagx'))){ var by = $('.bx-pic .bye'); if (by){ by.textContent = FACES[face][1]; by.classList.remove('pop'); void by.offsetWidth; by.classList.add('pop'); } }
+    var ob = e.target.closest('.x3o');
+    if (ob){ ob.classList.remove('hit'); void ob.offsetWidth; ob.classList.add('hit'); return; }
+    if (!e.target.closest('#x3Head')) return;
+    x3Face = (x3Face + 1) % X3_FACES.length;
+    var say = $('#x3Say'); say.textContent = X3_FACES[x3Face].say[lang === 'vi' ? 'vi' : 'en'];
+    x3Head.classList.remove('flip', 'said'); void x3Head.offsetWidth; x3Head.classList.add('flip', 'said');
+    setTimeout(function(){ if (head3d) head3d.show(x3Face); $('.x3-img', x3Head).src = X3_FACES[x3Face].color; }, reduce ? 0 : 260);
   });
 
   function chooseMode(m){
@@ -1661,7 +1641,7 @@ import './styles.css';
      objects drift away, and the SAY_HI window itself flies onto the photo of the page underneath
      (LV.1's WORK_MODE window, or the ID card on About me), then hands over to it. */
   function bootFly(m){
-    var fig = $('.boot .stage .bx-pic');
+    var fig = $('.boot .x3-head');
     if (reduce || !fig || !fig.animate) return false;
     var tgtSel = m === 'quick' ? '#badge3d .front .bf-pic' : '#start .rec .win';
     document.body.classList.add('arrive'); if (m === 'quick') document.body.classList.add('arr-q');
