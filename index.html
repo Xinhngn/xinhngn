@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&text=EmXinh&display=block">
 <script type="module" src="/src/main.ts"></script>
 </head>
 <body>
@@ -17,7 +16,6 @@
 <!-- Global SVG: gradients, liquid-chrome filter, one hand-built sticker/icon language -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <filter id="x3Puff" x="-6%" y="-14%" width="112%" height="130%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/><feSpecularLighting in="b" surfaceScale="7" specularConstant="1.15" specularExponent="20" lighting-color="#ffffff" result="s"><feDistantLight azimuth="235" elevation="50"/></feSpecularLighting><feComposite in="s" in2="SourceAlpha" operator="in" result="si"/><feDiffuseLighting in="b" surfaceScale="7" diffuseConstant="1.08" lighting-color="#ffffff" result="d"><feDistantLight azimuth="235" elevation="58"/></feDiffuseLighting><feComposite in="d" in2="SourceAlpha" operator="in" result="di"/><feBlend in="SourceGraphic" in2="di" mode="multiply" result="sh"/><feComposite in="si" in2="sh" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/></filter>
     <linearGradient id="gIrid" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#ffffff"/><stop offset=".28" stop-color="#ffd1ec"/><stop offset=".46" stop-color="#b8c2ff"/>
       <stop offset=".52" stop-color="#262a6e"/><stop offset=".6" stop-color="#b9f3ff"/><stop offset=".8" stop-color="#eaffb0"/><stop offset="1" stop-color="#ffffff"/>
@@ -48,6 +46,8 @@
     </filter>
     <linearGradient id="gThread" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fc0"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#b9bdc9"/></linearGradient>
     <linearGradient id="gPk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3ee"/><stop offset=".45" stop-color="#ff8fc0"/><stop offset="1" stop-color="#d9548f"/></linearGradient>
+    <linearGradient id="gRg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe2d6"/><stop offset=".4" stop-color="#e9a08c"/><stop offset=".7" stop-color="#fff0ea"/><stop offset="1" stop-color="#c97a68"/></linearGradient>
+    <linearGradient id="gGl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6f0" stop-opacity=".95"/><stop offset=".55" stop-color="#ffb3cf" stop-opacity=".75"/><stop offset="1" stop-color="#f58bb5" stop-opacity=".85"/></linearGradient>
     <linearGradient id="gIr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".3" stop-color="#ffd3e4"/><stop offset=".5" stop-color="#8d92a2"/><stop offset=".62" stop-color="#cfe3f7"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
     <linearGradient id="gC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#d4d7e0"/><stop offset=".5" stop-color="#5a5e6e"/><stop offset=".62" stop-color="#e6e8ee"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
     <linearGradient id="gH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#d9ddea"/><stop offset=".55" stop-color="#a9b0c6"/><stop offset="1" stop-color="#eef0f6"/></linearGradient>
@@ -110,16 +110,17 @@
       </h1>
       <div class="x3-stage" id="stage">
         <div class="x3-objs" aria-hidden="true">
-          <i class="x3o sph" style="--x:-300px; --y:-120px; --z:1.3; --s:58px; --i:0"></i>
-          <i class="x3o star" style="--x:285px; --y:-150px; --z:1.6; --s:64px; --i:1"><svg viewBox="0 0 64 64"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z" fill="url(#gIr)" stroke="#fff" stroke-width="1"/></svg></i>
-          <i class="x3o pager" style="--x:-255px; --y:70px; --z:.9; --s:84px; --i:2"><b>XINH.OS</b><em>hi hi ♥</em></i>
-          <i class="x3o heart" style="--x:250px; --y:40px; --z:1.2; --s:56px; --i:3"><svg viewBox="0 0 64 64"><path d="M32 56 C13 42 5 32 5 21 C5 12 12 6 20 6 C26 6 30 10 32 15 C34 10 38 6 44 6 C52 6 59 12 59 21 C59 32 51 42 32 56Z" fill="url(#gPk)"/><ellipse cx="20" cy="17" rx="7" ry="4" fill="#fff" opacity=".7" transform="rotate(-30 20 17)"/></svg></i>
-          <i class="x3o ring" style="--x:-160px; --y:-205px; --z:.7; --s:40px; --i:4"></i>
-          <i class="x3o fold" style="--x:300px; --y:120px; --z:1.5; --s:62px; --i:5"></i>
-          <i class="x3o pearl" style="--x:-330px; --y:-10px; --z:1.8; --s:36px; --i:6"></i>
+          <i class="x3o chr" style="--x:-300px; --y:-130px; --z:1.3; --s:54px; --i:0"></i>
+          <i class="x3o star" style="--x:290px; --y:-160px; --z:1.6; --s:56px; --i:1"><svg viewBox="0 0 64 64"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z" fill="url(#gIr)" stroke="#fff" stroke-width="1"/></svg></i>
+          <i class="x3o badge" style="--x:-285px; --y:95px; --z:.9; --s:96px; --i:2"><b>XINH.AI</b><em></em></i>
+          <i class="x3o heart" style="--x:275px; --y:70px; --z:1.2; --s:58px; --i:3"><svg viewBox="0 0 64 64"><path d="M32 56 C13 42 5 32 5 21 C5 12 12 6 20 6 C26 6 30 10 32 15 C34 10 38 6 44 6 C52 6 59 12 59 21 C59 32 51 42 32 56Z" fill="url(#gGl)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/><ellipse cx="20" cy="17" rx="7" ry="4" fill="#fff" opacity=".8" transform="rotate(-30 20 17)"/></svg></i>
+          <i class="x3o hoop" style="--x:-185px; --y:-230px; --z:.7; --s:44px; --i:4"></i>
+          <i class="x3o clip" style="--x:320px; --y:-30px; --z:1.5; --s:50px; --i:5"><svg viewBox="0 0 64 64"><rect x="9" y="6" width="20" height="52" rx="10" fill="none" stroke="url(#gRg)" stroke-width="6" transform="rotate(-24 19 32)"/><rect x="33" y="6" width="20" height="52" rx="10" fill="none" stroke="url(#gRg)" stroke-width="6" transform="rotate(-24 43 32)"/></svg></i>
+          <i class="x3o bub" style="--x:-250px; --y:-250px; --z:1.8; --s:34px; --i:6"></i>
         </div>
+        <span class="x3-note" aria-hidden="true">Curious<br>Creative<br>A bit chaotic<br>Always Xinh ♡</span>
         <button class="x3-head" id="x3Head" type="button" aria-label="Say hi to Xinh">
-          <img class="x3-img" src="assets/xinh-avatar.webp" alt="" width="740" height="740">
+          <img class="x3-img" src="assets/xinh-ai.webp" alt="" width="700" height="700">
           <canvas class="x3-cv" id="x3Cv" aria-hidden="true"></canvas>
           <span class="x3-say" id="x3Say" aria-hidden="true">CLICK ME</span>
           <span class="x3-love" aria-hidden="true"><i>♥</i><i>♥</i></span>

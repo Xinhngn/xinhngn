@@ -3185,10 +3185,44 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
   .x3-w1{font-size:clamp(54px,17vw,76px)}
   .x3-w2{font-size:clamp(48px,14vw,66px)}
   .x3-stage{width:min(340px,84vw)}
-  .x3o.pager b{font-size:8px} .x3o.pager em{font-size:9px; padding:3px 4px}
   .x3-say{font-size:12px; right:-2%; top:2%}
   .x3o{--s:36px!important; --k:.56; translate:none}
-  .x3o.pager{--s:60px!important}
-  .x3o.ring,.x3o.pearl{display:none}
+  .x3o.badge{--s:64px!important}
+  .x3o.hoop,.x3o.bub{display:none}
   .boot .bh-cta .mode h2{padding-right:22px}
 }
+
+/* ===== v22 · XINH AI on the open screen (Xinh's character handoff, 16 Oct): the character is a glossy
+   fashion-editorial portrait (blush glasses, lime hoops, rose-gold clips, chrome collar), so the screen
+   follows her palette: warm white → pale blush air instead of the blue sky, ink editorial type with the
+   pink script, and objects taken from her accessories (chrome, glass, lime hoop, rose-gold clip). */
+.boot{background:radial-gradient(48% 42% at 50% 46%, #fff 0%, rgba(255,255,255,0) 70%), radial-gradient(40% 36% at 14% 18%, rgba(255,196,218,.55), transparent 72%), radial-gradient(34% 30% at 88% 70%, rgba(231,240,140,.28), transparent 70%), radial-gradient(46% 40% at 86% 12%, rgba(255,214,228,.6), transparent 70%), linear-gradient(180deg,#fbf3f1 0%,#f8ece9 60%,#f6e4e4 100%)}
+.boot .sky{display:none}
+.boot .boot-top,.boot .boot-load{color:rgba(14,15,20,.6)} .boot .boot-top b{color:var(--ink)}
+.boot .boot-load .bar{background:rgba(14,15,20,.1)} .boot .boot-load .bar i{background:var(--lime)}
+.x3-word{margin-bottom:calc(-1 * clamp(8px,1.6vh,18px))}
+.x3-w1{font-family:'Inter Tight',var(--f-head); font-weight:900; font-size:clamp(60px,7.6vw,118px); letter-spacing:-.065em; line-height:.9; padding:0 .08em .04em; color:var(--ink); filter:none}
+.x3-w2{margin:-.42em 0 0 46%; font-size:clamp(62px,7vw,108px); filter:drop-shadow(0 0 1px #fff) drop-shadow(0 6px 12px rgba(217,84,143,.25))}
+.x3-stage{width:clamp(300px,31vw,430px)}
+.x3-stage::after{background:radial-gradient(closest-side,rgba(150,70,90,.18),transparent)}
+.x3-img{filter:none}
+/* her own tagline from the sheet, hand-written beside her */
+.x3-note{position:absolute; z-index:1; left:-34%; top:30%; font:400 clamp(20px,1.7vw,26px)/1.05 var(--f-script); color:#7a4a55; rotate:-9deg; pointer-events:none; opacity:.85; animation:x3In .7s cubic-bezier(.3,1.6,.5,1) 1.4s both}
+.x3-say{box-shadow:0 0 0 1.5px var(--ink), 3px 3px 0 1.5px var(--ink)}
+/* objects from her accessories */
+.x3o{filter:drop-shadow(0 12px 14px rgba(150,70,90,.18))}
+.x3o.chr{border-radius:50%; background:radial-gradient(circle at 34% 28%,#fff 0 8%,#e9ecf2 18%,#9aa0ad 48%,#f4f5f8 62%,#6d7382 86%,#c9ccd5 100%)}
+.x3o.bub{border-radius:50%; background:radial-gradient(circle at 34% 28%,#fff 0 12%,rgba(255,230,240,.7) 30%,rgba(255,170,205,.45) 70%,rgba(255,143,192,.75) 100%); box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+.x3o.hoop{border-radius:50%; background:radial-gradient(circle,transparent 0 46%,#bccb2c 48%,#eef88a 56%,#d6e649 64%,#a7b51e 70%,transparent 72%)}
+.x3o.badge{height:calc(var(--s) * .64); border-radius:12px; padding:9px 10px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; rotate:-10deg;
+  background:linear-gradient(150deg,rgba(255,255,255,.75),rgba(240,236,246,.45)); box-shadow:inset 0 0 0 1px rgba(255,255,255,.95), inset 0 -6px 12px rgba(180,170,200,.25)}
+.x3o.badge b{font:700 11px/1 var(--f-mono); letter-spacing:.08em; color:var(--ink)}
+.x3o.badge em{display:block; height:9px; border-radius:3px; background:repeating-linear-gradient(90deg,#ff8fc0 0 3px,#ffb7d4 3px 5px)}
+@media (max-width:760px){
+  .x3-w1{font-size:clamp(54px,16vw,74px)}
+  .x3-w2{font-size:clamp(50px,13.5vw,66px); margin-left:40%}
+  .x3-stage{width:min(360px,88vw)}
+  .x3-note{display:none}
+  .x3o.badge b{font-size:8px} .x3o.badge{padding:6px 7px}
+}
+@media (prefers-reduced-motion:reduce){ .x3-note{animation:none} }
