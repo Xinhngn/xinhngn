@@ -1632,36 +1632,24 @@ import { mountHead3D } from './head3d';
     document.body.classList.remove('booting');
     if (m === 'quick'){ location.hash = 'profile'; }
     else { if (curView !== 'story') location.hash = 'story'; window.scrollTo(0, 0); setTimeout(smartStart, 1400); }
-    if (bootFly(m)) return;
+    if (bootClouds(m)) return;
     var fl = $('#flash'); fl.classList.remove('on'); void fl.offsetWidth; if (!reduce) fl.classList.add('on');
     bootEl.classList.add('out');
     setTimeout(function(){ bootEl.hidden = true; rebuild(); }, reduce ? 0 : 800);
   }
-  /* one continuous shot into the next page (ref paysages.studio): the sky dissolves, the title and
-     objects drift away, and the SAY_HI window itself flies onto the photo of the page underneath
-     (LV.1's WORK_MODE window, or the ID card on About me), then hands over to it. */
-  function bootFly(m){
-    var fig = $('.boot .x3-head');
-    if (reduce || !fig || !fig.animate) return false;
-    var tgtSel = m === 'quick' ? '#badge3d .front .bf-pic' : '#start .rec .win';
-    document.body.classList.add('arrive'); if (m === 'quick') document.body.classList.add('arr-q');
-    bootEl.classList.add('fly');
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){
-      var tgt = $(tgtSel), a = fig.getBoundingClientRect(), b = tgt && tgt.getBoundingClientRect();
-      var done = function(){ bootEl.hidden = true; bootEl.classList.remove('fly'); if (tgt) tgt.classList.remove('fly-target'); fig.getAnimations().forEach(function(x){ x.cancel(); }); rebuild();
-        setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q'); }, 1200); };
-      if (!b || !b.width){ setTimeout(done, 800); return; }
-      tgt.classList.add('fly-target');
-      var dx = (b.left + b.width / 2) - (a.left + a.width / 2), dy = (b.top + b.height / 2) - (a.top + a.height / 2), sc = b.width / a.width;
-      var an = fig.animate([
-        {translate:'0px 0px', scale:'1', rotate:'0deg', opacity:1},
-        {translate:(dx * .5) + 'px ' + (dy * .5 - 40) + 'px', scale:String(1 + (sc - 1) * .55), rotate:'3deg', opacity:1, offset:.55},
-        {translate:dx + 'px ' + dy + 'px', scale:String(sc), rotate:'2deg', opacity:1, offset:.86},
-        {translate:dx + 'px ' + dy + 'px', scale:String(sc), rotate:'2deg', opacity:0}
-      ], {duration:1250, easing:'cubic-bezier(.65,0,.25,1)', fill:'forwards'});
-      setTimeout(function(){ if (tgt) tgt.classList.remove('fly-target'); }, 1050);
-      an.onfinish = done;
-    }); });
+  /* leaving the open screen (v20): the objects scatter, Xinh sinks into her cloud, and a bank of
+     clouds rises over the whole screen; behind it the page is swapped in, then the clouds keep rising
+     and the new page arrives underneath, as if flying up through the sky into the site. */
+  function bootClouds(m){
+    var cw = $('#cloudWipe');
+    if (reduce || !cw) return false;
+    bootEl.classList.add('leave');
+    cw.hidden = false; cw.classList.remove('go'); void cw.offsetWidth; cw.classList.add('go');
+    setTimeout(function(){
+      bootEl.hidden = true; bootEl.classList.remove('leave'); rebuild();
+      document.body.classList.add('arrive'); if (m === 'quick') document.body.classList.add('arr-q');
+    }, 760);
+    setTimeout(function(){ cw.classList.remove('go'); cw.hidden = true; document.body.classList.remove('arrive', 'arr-q'); }, 2300);
     return true;
   }
   document.addEventListener('click', function(e){
