@@ -101,6 +101,47 @@ import './styles.css';
     var offIO = new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.toggleAttribute('data-off', !e.isIntersecting); }); }, {rootMargin:'100px 0px'});
     document.querySelectorAll('main section, .band, #player, .boot').forEach(function(el){ offIO.observe(el); });
   }
+  /* the cursor tells you what to do next (ref jarcos.work): a dot that trails the pointer and a small
+     note that changes with what is under it — click, drag, scroll, open. Fine pointers only. */
+  var CUR = [
+    ['.boot .bx-pic', {en:'Click me', vi:'Bấm nè'}],
+    ['.boot .ob', {en:'Poke', vi:'Chọc thử'}],
+    ['.boot [data-mode=story]', {en:'Play · 3 min', vi:'Chơi · 3 phút'}],
+    ['.boot [data-mode=quick]', {en:'About me', vi:'Về Xinh'}],
+    ['.hw .dk-c.top', {en:'Drag →', vi:'Kéo →'}],
+    ['#tfStrip .tf-t', {en:'Open', vi:'Mở'}],
+    ['#tfStrip', {en:'Drag ↔', vi:'Kéo ↔'}],
+    ['#badge3d', {en:'Drag · tap to flip', vi:'Kéo · chạm để lật'}],
+    ['#fan .fc', {en:'Next mode', vi:'Chế độ khác'}],
+    ['.sp-row', {en:'Tick', vi:'Tick'}],
+    ['.ac:not(.on)', {en:'Open', vi:'Mở'}],
+    ['a[href^="#case-"],[data-jobd],[data-job]', {en:'View', vi:'Xem'}],
+    ['#brief,#hw,#pf,#vx', {en:'Scroll ↓', vi:'Cuộn ↓'}]
+  ];
+  (function(){
+    var cur = $('#cur'), curT = $('#curT');
+    if (!cur || !finePointer) { if (cur) cur.remove(); return; }
+    var x = -100, y = -100, cx = -100, cy = -100, running = false, last = '';
+    function frame(){
+      var k = reduce ? 1 : 0.22; cx += (x - cx) * k; cy += (y - cy) * k;
+      cur.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
+      if (Math.abs(x - cx) + Math.abs(y - cy) > 0.3) requestAnimationFrame(frame); else running = false;
+    }
+    document.addEventListener('pointermove', function(e){
+      if (e.pointerType !== 'mouse') return;
+      x = e.clientX; y = e.clientY; cur.classList.add('on');
+      if (!running){ running = true; requestAnimationFrame(frame); }
+      var t = e.target, hit = null;
+      if (t && t.closest) for (var i = 0; i < CUR.length; i++){ if (t.closest(CUR[i][0])){ hit = CUR[i][1]; break; } }
+      var lbl = hit ? hit[lang === 'vi' ? 'vi' : 'en'] : '';
+      var link = !hit && t && t.closest && t.closest('a,button,[role=button]');
+      if (lbl !== last){ last = lbl; curT.textContent = lbl; }
+      cur.classList.toggle('lbl', !!lbl); cur.classList.toggle('link', !!link);
+    }, {passive:true});
+    document.addEventListener('pointerdown', function(){ cur.classList.add('down'); });
+    document.addEventListener('pointerup', function(){ cur.classList.remove('down'); });
+    document.documentElement.addEventListener('mouseleave', function(){ cur.classList.remove('on'); });
+  })();
   var COLS = [
     {k:'imc', g:'type', t:{en:'IMC campaign', vi:'Chiến dịch IMC'},
      d:{en:'Integrated campaigns and launches: one big idea carried across paid, owned, earned, KOL and on-ground, from plan to report.', vi:'Chiến dịch tích hợp và ra mắt: một ý tưởng lớn chạy xuyên paid, owned, earned, KOL và on-ground, từ kế hoạch đến báo cáo.'}},
@@ -1595,27 +1636,53 @@ import './styles.css';
   bootEl.addEventListener('pointermove', function(e){ if (reduce || !finePointer) return; var st = $('#stage'); if (!st) return;
     st.style.setProperty('--px', ((e.clientX / window.innerWidth) - .5).toFixed(3)); st.style.setProperty('--py', ((e.clientY / window.innerHeight) - .5).toFixed(3)); });
   /* every object reacts; the portrait cycles through Xinh's photos like changing expressions */
-  var FACES = [['assets/xinh-head-hi.webp', 'hi hi!'], ['assets/xinh-head-work.webp', 'on it!']], face = 0, loveT = 0;
+  var FACES = [['hi.png', 'hi hi!'], ['go.png', "let's go!"], ['work.png', 'on it!'], ['chill.png', 'chill~']], face = 0;
   bootEl.addEventListener('click', function(e){
     var ob = e.target.closest('.ob');
     if (ob){ ob.classList.remove('hit'); void ob.offsetWidth; ob.classList.add('hit'); }
-    var pic = e.target.closest('.b18-pic');
-    if (pic){ face = (face + 1) % FACES.length; var me = $('.b18-pic .o-me'); if (me){ me.classList.remove('swap'); void me.offsetWidth; me.src = FACES[face][0]; me.classList.add('swap'); }
-      pic.classList.remove('love'); void pic.offsetWidth; pic.classList.add('love'); clearTimeout(loveT); loveT = setTimeout(function(){ pic.classList.remove('love'); }, 1300); }
-    if (pic){ var by = $('.b18-pic .bye'); if (by){ by.textContent = FACES[face][1]; by.classList.remove('pop'); void by.offsetWidth; by.classList.add('pop'); } }
+    var pic = e.target.closest('.bx-pic');
+    if (pic){ face = (face + 1) % FACES.length; var fr = $('.bx-pic .ph-frame'); if (fr){ fr.dataset.portrait = FACES[face][0]; fr.innerHTML = portrait(FACES[face][0]); } }
+    if (pic || (ob && ob.classList.contains('tagx'))){ var by = $('.bx-pic .bye'); if (by){ by.textContent = FACES[face][1]; by.classList.remove('pop'); void by.offsetWidth; by.classList.add('pop'); } }
   });
-  /* the foot height decides where the cut-out stands on phones */
-  setTimeout(function(){ var im = new Image(); im.src = FACES[1][0]; }, 2500);
 
   function chooseMode(m){
     if (booted) return; booted = true;
     try{ localStorage.setItem('xinhos-mode', m); }catch(e){}
     track('mode', m);
-    var fl = $('#flash'); fl.classList.remove('on'); void fl.offsetWidth; if (!reduce) fl.classList.add('on');
-    bootEl.classList.add('out'); document.body.classList.remove('booting');
+    document.body.classList.remove('booting');
     if (m === 'quick'){ location.hash = 'profile'; }
-    else { if (curView !== 'story') location.hash = 'story'; window.scrollTo(0, 0); setTimeout(smartStart, 900); }
+    else { if (curView !== 'story') location.hash = 'story'; window.scrollTo(0, 0); setTimeout(smartStart, 1400); }
+    if (bootFly(m)) return;
+    var fl = $('#flash'); fl.classList.remove('on'); void fl.offsetWidth; if (!reduce) fl.classList.add('on');
+    bootEl.classList.add('out');
     setTimeout(function(){ bootEl.hidden = true; rebuild(); }, reduce ? 0 : 800);
+  }
+  /* one continuous shot into the next page (ref paysages.studio): the sky dissolves, the title and
+     objects drift away, and the SAY_HI window itself flies onto the photo of the page underneath
+     (LV.1's WORK_MODE window, or the ID card on About me), then hands over to it. */
+  function bootFly(m){
+    var fig = $('.boot .stage .bx-pic');
+    if (reduce || !fig || !fig.animate) return false;
+    var tgtSel = m === 'quick' ? '#badge3d .front .bf-pic' : '#start .rec .win';
+    document.body.classList.add('arrive'); if (m === 'quick') document.body.classList.add('arr-q');
+    bootEl.classList.add('fly');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      var tgt = $(tgtSel), a = fig.getBoundingClientRect(), b = tgt && tgt.getBoundingClientRect();
+      var done = function(){ bootEl.hidden = true; bootEl.classList.remove('fly'); if (tgt) tgt.classList.remove('fly-target'); fig.getAnimations().forEach(function(x){ x.cancel(); }); rebuild();
+        setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q'); }, 1200); };
+      if (!b || !b.width){ setTimeout(done, 800); return; }
+      tgt.classList.add('fly-target');
+      var dx = (b.left + b.width / 2) - (a.left + a.width / 2), dy = (b.top + b.height / 2) - (a.top + a.height / 2), sc = b.width / a.width;
+      var an = fig.animate([
+        {translate:'0px 0px', scale:'1', rotate:'0deg', opacity:1},
+        {translate:(dx * .5) + 'px ' + (dy * .5 - 40) + 'px', scale:String(1 + (sc - 1) * .55), rotate:'3deg', opacity:1, offset:.55},
+        {translate:dx + 'px ' + dy + 'px', scale:String(sc), rotate:'2deg', opacity:1, offset:.86},
+        {translate:dx + 'px ' + dy + 'px', scale:String(sc), rotate:'2deg', opacity:0}
+      ], {duration:1250, easing:'cubic-bezier(.65,0,.25,1)', fill:'forwards'});
+      setTimeout(function(){ if (tgt) tgt.classList.remove('fly-target'); }, 1050);
+      an.onfinish = done;
+    }); });
+    return true;
   }
   document.addEventListener('click', function(e){
     var m = e.target.closest('[data-mode]'); if (m){ chooseMode(m.dataset.mode); return; }
