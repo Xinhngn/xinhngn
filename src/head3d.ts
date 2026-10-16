@@ -32,11 +32,14 @@ const FS = `#version 300 es
 precision highp float;
 in vec2 uv; out vec4 o;
 uniform sampler2D tc, td, tl;
-uniform vec2 m; uniform float amp, px, split, lidA, lidB, hasLids; uniform vec4 rect;
+uniform vec2 m, fit; uniform float amp, px, split, lidA, lidB, hasLids; uniform vec4 rect;
 void main(){
   // vertical travel kept small: a big up/down shift reads as a longer face
-  vec2 mm = vec2(m.x, m.y * .45), q = uv;
-  for (int i = 0; i < 5; i++){ float d = texture(td, q).r; q = uv - mm * amp * (d - .45); }
+  // draw the portrait at its own proportions whatever the box does (letterbox, never stretch)
+  vec2 st = (uv - .5) * fit + .5;
+  if (st.x < 0. || st.x > 1. || st.y < 0. || st.y > 1.) { o = vec4(0.); return; }
+  vec2 mm = vec2(m.x, m.y * .45), q = st;
+  for (int i = 0; i < 5; i++){ float d = texture(td, q).r; q = st - mm * amp * (d - .45); }
   vec4 c = texture(tc, q);
   float d = texture(td, q).r;
   vec3 col = c.rgb;
@@ -75,7 +78,7 @@ export function mountHead3D(cv: HTMLCanvasElement, a: Head3DAssets, onReady?: ()
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
   const U = (n: string) => gl.getUniformLocation(pr, n);
-  const uM = U('m'), uPx = U('px'), uA = U('lidA'), uB = U('lidB');
+  const uM = U('m'), uFit = U('fit'), uPx = U('px'), uA = U('lidA'), uB = U('lidB');
   gl.uniform1i(U('tc'), 0); gl.uniform1i(U('td'), 1); gl.uniform1i(U('tl'), 2);
   gl.uniform1f(U('amp'), 0.016);
   gl.uniform1f(U('hasLids'), 0);
@@ -90,7 +93,7 @@ export function mountHead3D(cv: HTMLCanvasElement, a: Head3DAssets, onReady?: ()
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   };
-  let ready = false, tx = 0, ty = 0, x = 0, y = 0, raf = 0, dead = false, w = 1;
+  let ready = false, tx = 0, ty = 0, x = 0, y = 0, raf = 0, dead = false, w = 1, ta = 1;
   let blinkAt = -1e9, winkAt = -1e9, nextBlink = performance.now() + 2600;
 
   const size = () => {
@@ -108,6 +111,8 @@ export function mountHead3D(cv: HTMLCanvasElement, a: Head3DAssets, onReady?: ()
     size(); gl.viewport(0, 0, cv.width, cv.height);
     gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
     const b = lid(now, blinkAt, 150, .2), wk = lid(now, winkAt, 640, .5);
+    const ca = cv.width / cv.height;
+    gl.uniform2f(uFit, ca > ta ? ca / ta : 1, ca > ta ? 1 : ta / ca);
     gl.uniform2f(uM, x, y); gl.uniform1f(uPx, 2 / w);
     gl.uniform1f(uA, Math.max(b, wk)); gl.uniform1f(uB, b);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -129,7 +134,7 @@ export function mountHead3D(cv: HTMLCanvasElement, a: Head3DAssets, onReady?: ()
 
   Promise.all([load(a.color), load(a.depth), a.lids ? load(a.lids.src) : Promise.resolve(null)]).then(([c, d, l]) => {
     if (dead) return;
-    tex(c, 0, true); tex(d, 1, false); w = c.naturalWidth;
+    tex(c, 0, true); tex(d, 1, false); w = c.naturalWidth; ta = c.naturalWidth / c.naturalHeight;
     if (l && a.lids){
       tex(l, 2, false);
       const r = a.lids.rect; gl.uniform4f(U('rect'), r[0], r[1], r[2], r[3]);
