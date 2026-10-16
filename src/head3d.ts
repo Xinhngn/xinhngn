@@ -26,15 +26,17 @@ in vec2 p; out vec2 uv;
 void main(){ uv = vec2(p.x * .5 + .5, .5 - p.y * .5); gl_Position = vec4(p, 0., 1.); }`;
 
 // Fixed-point parallax: find the source pixel whose depth puts it under this one.
-// Depth is pre-blurred, which keeps the iteration stable at the silhouette.
+// Depth is blurred hard inside the silhouette so the face moves as one piece (no feature drags
+// ahead of the rest and stretches it), which also keeps the iteration stable at the edge.
 const FS = `#version 300 es
 precision highp float;
 in vec2 uv; out vec4 o;
 uniform sampler2D tc, td, tl;
 uniform vec2 m; uniform float amp, px, split, lidA, lidB, hasLids; uniform vec4 rect;
 void main(){
-  vec2 q = uv;
-  for (int i = 0; i < 5; i++){ float d = texture(td, q).r; q = uv - m * amp * (d - .45); }
+  // vertical travel kept small: a big up/down shift reads as a longer face
+  vec2 mm = vec2(m.x, m.y * .45), q = uv;
+  for (int i = 0; i < 5; i++){ float d = texture(td, q).r; q = uv - mm * amp * (d - .45); }
   vec4 c = texture(tc, q);
   float d = texture(td, q).r;
   vec3 col = c.rgb;
@@ -75,7 +77,7 @@ export function mountHead3D(cv: HTMLCanvasElement, a: Head3DAssets, onReady?: ()
   const U = (n: string) => gl.getUniformLocation(pr, n);
   const uM = U('m'), uPx = U('px'), uA = U('lidA'), uB = U('lidB');
   gl.uniform1i(U('tc'), 0); gl.uniform1i(U('td'), 1); gl.uniform1i(U('tl'), 2);
-  gl.uniform1f(U('amp'), 0.03);
+  gl.uniform1f(U('amp'), 0.016);
   gl.uniform1f(U('hasLids'), 0);
   gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
