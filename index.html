@@ -423,12 +423,15 @@
 <!-- =========================================================== ABOUT ME (view id stays "profile") =========================================================== -->
 <section class="view qv sc-paper" data-view="profile" id="v-profile" hidden>
   <div class="d3s" aria-hidden="true"><i class="d3 sph pink" style="--x:92%;--y:6%;--s:70px;--f:7s"></i><i class="d3 sph pearl" style="--x:56%;--y:3%;--s:40px;--f:6s"></i></div>
-  <div class="wrap plain">
+  <div class="wrap plain ab">
+    <nav class="ab-rail" id="abRail" aria-label="About me chapters"><i class="ab-track"><i class="ab-fill"></i><i class="ab-bead"></i></i><ol id="abIdx"></ol></nav>
+    <div class="ab-main">
     <div class="qhead">
       <p class="tag"><b>01</b><span class="en">About me</span><span class="vi">Về Xinh</span></p>
       <h2 class="qword"><span class="en">About me</span><span class="vi">Về Xinh</span></h2>
+      <p class="ab-sub"><span class="en"><em>for</em> brands &amp; the projects behind them</span><span class="vi"><em>cho</em> thương hiệu &amp; những dự án phía sau</span></p>
     </div>
-    <div class="pf-grid">
+    <div class="pf-grid" data-ch="01" data-en="Who I am" data-vi="Xinh là ai">
       <div class="lanyard" id="lanyard">
         <span class="strap" aria-hidden="true"></span><span class="clip" aria-hidden="true"></span>
         <button class="badge3d" id="badge3d" type="button" aria-label="Xinh's ID card. Tap to flip">
@@ -455,18 +458,19 @@
         <p class="lan-tip"><span class="en">Drag to swing · tap to flip</span><span class="vi">Kéo để lắc · chạm để lật</span></p>
       </div>
       <div class="pf-bio">
-        <p class="big"><span class="en">I work where understanding the business problem, developing partnerships and putting the plan into real execution meet.</span><span class="vi">Xinh làm việc ở giao điểm giữa hiểu bài toán kinh doanh, phát triển cơ hội hợp tác và đưa kế hoạch vào triển khai thực tế.</span></p>
         <p class="lead"><span class="en">5 years in Marketing &amp; Communication, growing from Digital Planning and Account into Business Development and project management.</span><span class="vi">5 năm kinh nghiệm trong Marketing &amp; Communication, phát triển từ Digital Planning và Account đến Business Development và quản lý dự án.</span></p>
-        <div class="stats4">
-          <div><b>5</b><span><span class="en">years experience</span><span class="vi">năm kinh nghiệm</span></span></div>
-          <div><b>20</b><span><span class="en">brands in the portfolio</span><span class="vi">thương hiệu trong portfolio</span></span></div>
-          <div><b>4</b><span><span class="en">roles, one agency</span><span class="vi">vai trò, một agency</span></span></div>
+        <div class="stats4 rv">
+          <div><b data-to="5">5</b><span><span class="en">years experience</span><span class="vi">năm kinh nghiệm</span></span></div>
+          <div><b data-to="20">20</b><span><span class="en">brands in the portfolio</span><span class="vi">thương hiệu trong portfolio</span></span></div>
+          <div><b data-to="4">4</b><span><span class="en">roles, one agency</span><span class="vi">vai trò, một agency</span></span></div>
           <div><b>1–2</b><span><span class="en">juniors mentored</span><span class="vi">junior đã kèm</span></span></div>
         </div>
         <button class="quizchip" type="button" data-quiz style="margin-top:4px"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg><span><b>XINH_QUIZ.EXE</b><span class="en">3 quick ones with Xinh</span><span class="vi">Chơi 3 câu với Xinh</span></span><em><span class="en">Open</span><span class="vi">Mở</span></em></button>
       </div>
     </div>
-    <div class="sec rv"><h3><span class="en">One Xinh, many modes</span><span class="vi">Một Xinh, nhiều chế độ</span><i></i></h3>
+    <p class="ab-say" id="abSay"><span class="en">I work where <em>understanding the business problem</em>, developing partnerships and putting the plan into real execution meet.</span><span class="vi">Xinh làm việc ở giao điểm giữa <em>hiểu bài toán kinh doanh</em>, phát triển cơ hội hợp tác và đưa kế hoạch vào triển khai thực tế.</span></p>
+    <div class="ab-run" aria-hidden="true"><div><span>IMC campaign</span><i></i><span>Social management</span><i></i><span>Activation &amp; event</span><i></i><span>Production</span><i></i><span>Pitch → sign-off</span><i></i><span>IMC campaign</span><i></i><span>Social management</span><i></i><span>Activation &amp; event</span><i></i><span>Production</span><i></i><span>Pitch → sign-off</span><i></i></div></div>
+    <div class="sec rv ab-modes" data-ch="02"><p class="ab-k"><b>02</b><span class="en">Modes</span><span class="vi">Chế độ</span></p><h3><span class="en">One Xinh, <em>many modes</em></span><span class="vi">Một Xinh, <em>nhiều chế độ</em></span><i></i></h3>
       <div class="fan stackx" id="fan">
         <figure class="fc" data-fc="0"><div class="pf" data-portrait="hi.png"></div><figcaption><b>Say-hi mode</b><span class="en">First meeting, warm and curious.</span><span class="vi">Gặp lần đầu, thân thiện và tò mò.</span></figcaption></figure>
         <figure class="fc" data-fc="1"><div class="pf" data-portrait="work.png"></div><figcaption><b>Work mode</b><span class="en">Brief open, thinking it through.</span><span class="vi">Mở brief ra, nghĩ cho thấu.</span></figcaption></figure>
@@ -475,19 +479,20 @@
       </div>
       <p class="fan-cap" id="fanCap" aria-live="polite"></p>
     </div>
-    <div class="sec rv"><h3><span class="en">Career path</span><span class="vi">Lộ trình nghề nghiệp</span><i></i></h3><div class="tl4" id="tl4"></div></div>
-    <div class="sec pf-skills" id="pfSkills"><h3><span class="en">Skills</span><span class="vi">Năng lực</span><i></i></h3>
+    <div class="sec rv ab-path" data-ch="03"><p class="ab-k"><b>03</b><span class="en">Career path</span><span class="vi">Lộ trình</span></p><h3><span class="en">Four levels, <em>one direction</em></span><span class="vi">Bốn level, <em>một hướng đi</em></span><i></i></h3><div class="tl4" id="tl4"></div></div>
+    <div class="sec rv pf-skills" id="pfSkills" data-ch="04"><p class="ab-k"><b>04</b><span class="en">Skills</span><span class="vi">Năng lực</span></p><h3><span class="en">What I run, <em>how far I take it</em></span><span class="vi">Xinh chạy gì, <em>gánh tới đâu</em></span><i></i></h3>
       <p class="lead"><span class="en">Nine things I do well: the four kinds of project I run, and how far I take each one, from pitch to sign-off.</span><span class="vi">Chín đầu việc Xinh làm thạo: bốn mảng dự án Xinh chạy, và Xinh gánh tới đâu, từ pitch đến nghiệm thu.</span></p>
       <div class="sk sk-pf rv" id="skGrid"></div>
     </div>
-    <div class="sec rv"><h3><span class="en">How I work</span><span class="vi">Cách tôi làm việc</span><i></i></h3><div class="proc" id="steps4"></div></div>
-    <div class="sec rv"><h3><span class="en">Education &amp; certificates</span><span class="vi">Học vấn &amp; chứng chỉ</span><i></i></h3>
+    <div class="sec rv ab-how" data-ch="05"><p class="ab-k"><b>05</b><span class="en">How I work</span><span class="vi">Cách làm việc</span></p><h3><span class="en">Four steps, <em>every project</em></span><span class="vi">Bốn bước, <em>dự án nào cũng vậy</em></span><i></i></h3><div class="ab-line" aria-hidden="true"><i></i><b></b></div><div class="proc" id="steps4"></div></div>
+    <div class="sec rv ab-edu" data-ch="06"><p class="ab-k"><b>06</b><span class="en">Education</span><span class="vi">Học vấn</span></p><h3><span class="en">Where I <em>learnt it</em></span><span class="vi">Xinh <em>học từ đâu</em></span><i></i></h3>
       <div class="edu">
         <div class="win"><div class="win-body"><h4><span class="en">EDUCATION</span><span class="vi">HỌC VẤN</span></h4><ul><li><span class="en">Bachelor of Public Administration, Ho Chi Minh City Cadre Academy</span><span class="vi">Cử nhân Hành chính công, Học viện Cán bộ TP.HCM</span></li></ul></div></div>
         <div class="win"><div class="win-body"><h4>BRANDCAMP</h4><ul><li>Foundation of Digital Marketing</li><li>Foundation of PR &amp; Corporate Communication</li><li>Integrated Brand Communication</li></ul></div></div>
       </div>
     </div>
-    <div class="stamp"><p><span class="en">Like what you see?</span><span class="vi">Thấy hợp?</span></p><div class="mrow"><a class="btn" href="#work"><span class="en">See the work</span><span class="vi">Xem dự án</span></a><button class="btn hot" type="button" data-connect><span class="en">Say hi</span><span class="vi">Liên hệ ngay</span></button></div></div>
+    <div class="stamp ab-end rv"><div class="d3s" aria-hidden="true"><i class="d3 sph pink" style="--x:58%;--y:-10%;--s:54px;--f:7s"></i><i class="d3 sph pearl" style="--x:66%;--y:60%;--s:30px;--f:6s"></i></div><p><span class="en">Like what you see? <em>Let's make the next level.</em></span><span class="vi">Thấy hợp? <em>Cùng làm level tiếp theo.</em></span></p><div class="mrow"><a class="btn" href="#work"><span class="en">See the work</span><span class="vi">Xem dự án</span></a><button class="btn hot" type="button" data-connect><span class="en">Say hi</span><span class="vi">Liên hệ ngay</span></button></div></div>
+  </div>
   </div>
 </section>
 
