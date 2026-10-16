@@ -3502,3 +3502,19 @@ body.arrive.arr-q #v-profile .pf-bio > *:nth-child(2){animation-delay:.08s} body
 .ab-pop .pf .ph{position:absolute; inset:0}
 .ab-nest-cam{overflow:visible}
 @media (max-width:860px){ .ab-pop{width:27vw} .ab-pop.p0{top:4%} .ab-pop.p1{top:3%} .ab-pop.p2{bottom:6%} .ab-pop.p3{bottom:8%} .ab-zm-win{scale:calc(1 - var(--k,0) * .38)} }
+/* v25b · the objects around her share one theme: the social feed she runs (no more XINH.AI card) */
+.x3o.play,.x3o.chat,.x3o.at,.x3o.like,.x3o.hash{background:none; box-shadow:none; border-radius:0}
+.x3o.like{height:calc(var(--s) * .44); rotate:8deg}
+.x3o.chat{height:calc(var(--s) * .88); rotate:-8deg}
+.x3o.play{rotate:-10deg}
+.x3o svg{display:block; width:100%; height:100%; overflow:visible}
+@media (max-width:760px){ .x3o.at,.x3o.hash{display:none} .x3o.chat{--s:58px!important} .x3o.like{--s:66px!important} }
+/* v25b · open screen → page: drawn into the centre, then into focus */
+.boot.suck .x3{transition:transform .56s cubic-bezier(.7,0,.25,1), filter .56s ease-in, opacity .36s .2s; transform:scale(.22); filter:blur(9px); opacity:0}
+.boot.suck .bx-foot,.boot.suck .boot-top,.boot.suck .boot-skip{transition:opacity .3s, filter .4s; opacity:0; filter:blur(6px)}
+.boot.suck::after{content:""; position:fixed; z-index:50; left:50%; top:46%; width:80vmin; aspect-ratio:1; translate:-50% -50%; border-radius:50%; pointer-events:none;
+  background:radial-gradient(closest-side, rgba(255,255,255,.95), rgba(255,214,231,.7) 45%, rgba(255,214,231,0)); animation:suckGlow .56s cubic-bezier(.6,0,.3,1) forwards}
+@keyframes suckGlow{0%{scale:.2; opacity:0} 60%{opacity:1} 100%{scale:3.2; opacity:1}}
+body.arr-in main{animation:arrIn .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes arrIn{0%{transform:scale(1.07); filter:blur(10px); opacity:0} 60%{filter:blur(1px)} 100%{transform:none; filter:none; opacity:1}}
+@media (max-width:860px),(hover:none){ body.arr-in main{animation-name:arrInLite} @keyframes arrInLite{0%{transform:scale(1.05); opacity:0} 100%{transform:none; opacity:1}} .boot.suck .x3{filter:none} }

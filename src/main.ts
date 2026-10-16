@@ -1705,7 +1705,7 @@ import { mountHead3D } from './head3d';
   /* Boot playground (v23, ref millascope): XINH AI, the character from Xinh's handoff, as a depth
      cut-out that turns a little toward the pointer, blinks on her own and winks when clicked; objects
      at different depths around her (some behind, some in front), the wordmark tilting with them. */
-  var X3_SAY = [{en:'hi hi!', vi:'hi hi!'}, {en:'on it!', vi:'để Xinh lo!'}];
+  var X3_SAY = [{en:'hi hi!', vi:'hi hi!'}, {en:'leave it to me!', vi:'để em!'}];
   var x3 = $('#x3'), x3Head = $('#x3Head'), x3Said = 0, head3d = null;
   if (!reduce){
     head3d = mountHead3D($('#x3Cv'), {color:'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp',
@@ -1750,19 +1750,17 @@ import { mountHead3D } from './head3d';
     bootEl.classList.add('out');
     setTimeout(function(){ bootEl.hidden = true; rebuild(); }, reduce ? 0 : 800);
   }
-  /* leaving the open screen (v20, faster in v21): the objects scatter, Xinh floats up and away, and a bank of
-     clouds rises over the whole screen; behind it the page is swapped in, then the clouds keep rising
-     and the new page arrives underneath, as if flying up through the sky into the site. */
+  /* leaving the open screen (v25, Xinh: smoother, a light blur that pulls you into the content, high-tech but
+     not dizzying): a thin pink focus ring closes on her, the whole open screen is drawn into the centre and
+     softens, then the page arrives from slightly in front of you and comes into focus. One motion, ~1s. */
   function bootClouds(m){
-    var cw = $('#cloudWipe');
-    if (reduce || !cw) return false;
-    bootEl.classList.add('leave');
-    cw.hidden = false; cw.classList.remove('go'); void cw.offsetWidth; cw.classList.add('go');
+    if (reduce) return false;
+    bootEl.classList.add('suck');
     setTimeout(function(){
-      bootEl.hidden = true; bootEl.classList.remove('leave'); rebuild();
-      document.body.classList.add('arrive'); if (m === 'quick') document.body.classList.add('arr-q');
-    }, 470);
-    setTimeout(function(){ cw.classList.remove('go'); cw.hidden = true; document.body.classList.remove('arrive', 'arr-q'); }, 1400);
+      bootEl.hidden = true; bootEl.classList.remove('suck'); rebuild();
+      document.body.classList.add('arrive', 'arr-in'); if (m === 'quick') document.body.classList.add('arr-q');
+    }, 560);
+    setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q', 'arr-in'); }, 1500);
     return true;
   }
   document.addEventListener('click', function(e){

@@ -47,6 +47,8 @@ void main(){
   if (hasLids > .5 && q.x > rect.x && q.x < rect.z && q.y > rect.y && q.y < rect.w){
     vec2 lp = (q - rect.xy) / (rect.zw - rect.xy);
     float k = mix(lidA, lidB, smoothstep(split - .06, split + .06, lp.x));
+    // feathered edges, so the patch never shows as a pasted box
+    k *= smoothstep(0., .1, lp.x) * smoothstep(1., .9, lp.x) * smoothstep(0., .22, lp.y) * smoothstep(1., .78, lp.y);
     col = mix(col, texture(tl, lp).rgb * c.a, k);
   }
   // soft studio key from the pointer side, broad gradients only
@@ -59,6 +61,14 @@ void main(){
   // warm rim where the head turns away from the light, so she sits in the room
   float rim = pow(1. - clamp(n.z, 0., 1.), 2.) * smoothstep(.04, .25, d) * clamp(-dot(n.xy, L.xy) * 2. + .3, 0., 1.);
   col += vec3(1., .9, .9) * rim * .16 * c.a;
+  // light wrap: the blush of the room bleeds a little into her outline, and a soft grade toward the
+  // scene's warm pink, so she sits in the space instead of looking cut out and pasted on
+  float ab = 0.;
+  for (int i = 0; i < 8; i++){ float an = float(i) * .785398; ab += texture(tc, q + vec2(cos(an), sin(an)) * px * 3.5).a; }
+  ab /= 8.;
+  float wrap = clamp(c.a * (1. - ab) * 1.8, 0., .6);
+  col = mix(col, vec3(.99, .9, .93) * c.a, wrap);
+  col = mix(col, col * vec3(1.03, .97, .99) + vec3(.025, .015, .02) * c.a, .55);
   o = vec4(col, c.a); // the texture is premultiplied already
 }`;
 
@@ -110,7 +120,8 @@ export function mountHead3D(cv: HTMLCanvasElement, a: Head3DAssets, onReady?: ()
     if (!ready) return;
     size(); gl.viewport(0, 0, cv.width, cv.height);
     gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-    const b = lid(now, blinkAt, 150, .2), wk = lid(now, winkAt, 640, .5);
+    // a blink never lands inside a wink (that read as an extra closed-eye frame)
+    const wk = lid(now, winkAt, 640, .5), b = now - winkAt < 760 ? 0 : lid(now, blinkAt, 150, .2);
     const ca = cv.width / cv.height;
     gl.uniform2f(uFit, ca > ta ? ca / ta : 1, ca > ta ? 1 : ta / ca);
     gl.uniform2f(uM, x, y); gl.uniform1f(uPx, 2 / w);
@@ -148,7 +159,7 @@ export function mountHead3D(cv: HTMLCanvasElement, a: Head3DAssets, onReady?: ()
   return {
     aim(nx, ny){ tx = Math.max(-1, Math.min(1, nx)); ty = Math.max(-1, Math.min(1, ny)); kick(); },
     blink(){ blinkAt = performance.now(); kick(); },
-    wink(){ winkAt = performance.now(); kick(); },
+    wink(){ const now = performance.now(); winkAt = now; blinkAt = -1e9; nextBlink = now + 2200 + Math.random() * 1600; kick(); },
     stop(){ dead = true; if (raf) cancelAnimationFrame(raf); clearInterval(tick); if (ro) ro.disconnect(); }
   };
 }
