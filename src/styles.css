@@ -3798,3 +3798,22 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
   .x3-stage{--sh:min(calc(100vh - clamp(300px,46vh,400px)), 600px)}
 }
 @media (max-width:760px){ .x3o.like{--y:-120px!important} }
+
+/* ===== v30 · LV.1 name card (Xinh's review): "Xinh Nguyễn" on one line in both sizes, with real space
+   between the two words (they overlapped on desktop), the tag line on one line, a balanced hook. */
+.p1 h1.p1name{display:block; white-space:nowrap; font-size:clamp(56px,7.4vw,128px); line-height:1.08; letter-spacing:-.05em; margin-top:10px; padding-top:.06em}
+.p1 h1.p1name .ol{margin-right:.06em}
+.p1 h1.p1name em{display:inline!important; margin:0!important; padding:0 .04em 0 0!important; font-family:var(--f-serif); font-style:italic; font-weight:400; letter-spacing:-.035em; line-height:1.08; color:var(--ink)!important}
+.p1 h1.p1name small{display:block; margin-top:12px; font-size:12px; line-height:1.4; letter-spacing:.12em; white-space:normal}
+.p1 .tag{flex-wrap:nowrap; white-space:nowrap}
+.p1 .tag span{overflow:hidden; text-overflow:ellipsis}
+.p1 .hook{max-width:none; text-wrap:balance}
+.p1 .hook b{display:block}
+.p1 .hook .nb{white-space:nowrap}
+@media (max-width:760px){
+  .p1 h1.p1name{font-size:calc((100vw - 40px) / 5.5)}
+  .p1 h1.p1name small{font-size:11px}
+  .p1 .tag{font-size:10px; letter-spacing:.03em; gap:8px}
+  .p1 .hook{font-size:clamp(24px,7vw,30px)}
+}
+@media (max-width:760px){ .p1 .d3.pearl{display:none} }
