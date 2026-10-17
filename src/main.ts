@@ -755,9 +755,13 @@ import { mountHead3D } from './head3d';
     if (curView !== 'story' || !ATMO.length) return;
     var yc = window.innerHeight / 2, i = 0, f = 0;
     for (var j = 0; j < ATMO.length; j++){ var r = ATMO[j].el.getBoundingClientRect(); if (r.top <= yc){ i = j; f = clamp((yc - r.top) / Math.max(1, r.height), 0, 1); } }
-    var a = ATMO[i].c, b = a, k = 0;
-    if (f > 0.75 && ATMO[i + 1]){ b = ATMO[i + 1].c; k = sm((f - 0.75) / 0.25) * 0.5; }
-    else if (f < 0.25 && ATMO[i - 1]){ b = ATMO[i - 1].c; k = sm((0.25 - f) / 0.25) * 0.5; }
+    /* v30: blend only while a section edge crosses the middle band of the screen (±22% of the
+       viewport), not over the last quarter of a section: on the long pinned scenes that quarter was
+       more than a full screen, so the colour changed well before the next section arrived. */
+    var a = ATMO[i].c, b = a, k = 0, band = window.innerHeight * 0.22, rb = ATMO[i].el.getBoundingClientRect();
+    var dn = rb.bottom - yc, up = yc - rb.top;
+    if (ATMO[i + 1] && dn < band){ b = ATMO[i + 1].c; k = sm((band - dn) / (2 * band)) ; }
+    else if (ATMO[i - 1] && up < band){ b = ATMO[i - 1].c; k = sm((band - up) / (2 * band)); }
     var v = [0,1,2].map(function(n){ return mixC(a[n], b[n], k); }), key = v.join();
     if (key === atmoKey) return; atmoKey = key;
     /* set on #atmo itself: a custom property on <html> would restyle the whole document on every scroll */
@@ -834,12 +838,19 @@ import { mountHead3D } from './head3d';
   }
   /* Contact page (v27): every channel as one wide row, the action on the right; hover fills it pink */
   function c3RowsHTML(){
-    var vi = lang === 'vi';
-    return methodList().filter(function(m){ return m.v; }).map(function(m, i){
+    var vi = lang === 'vi', ms = methodList().filter(function(m){ return m.v; });
+    function go(m, verb){ return '<a class="c3-go" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span>' + verb + '</span><i aria-hidden="true">↗</i></a>'; }
+    /* v29: Zalo on the same number as the phone is one row, not two (the number was shown twice). */
+    var call = ms.filter(function(m){ return m.k === 'call'; })[0], zalo = ms.filter(function(m){ return m.k === 'zalo'; })[0];
+    var same = call && zalo && call.copy === zalo.copy;
+    if (same) ms = ms.filter(function(m){ return m !== zalo; });
+    return ms.map(function(m, i){
       var verb = m.k === 'call' ? (vi ? 'Gọi' : 'Call') : m.k === 'email' ? (vi ? 'Viết thư' : 'Write') : (vi ? 'Mở' : 'Open');
-      var open = m.href ? '<a class="c3-go" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span>' + verb + '</span><i aria-hidden="true">↗</i></a>' : '';
-      var cp = m.copy ? '<button class="c3-cp" type="button" data-copy="' + esc(m.copy) + '" data-m="' + m.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '';
-      return '<div class="c3-row" style="--j:' + i + '"><span class="c3-row-n">0' + (i + 1) + '</span><span class="c3-row-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.v) + '</small><span class="c3-row-a">' + cp + open + '</span></div>';
+      var t = L(m.t); if (same && m.k === 'call') t = vi ? 'Gọi / Zalo' : 'Call / Zalo';
+      var open = m.href ? go(m, verb) : '';
+      if (same && m.k === 'call' && zalo.href) open += go(zalo, 'Zalo');
+      var cp = m.copy ? '<button class="c3-cp" type="button" data-copy="' + esc(m.copy) + '" data-m="' + m.k + '" aria-label="' + (vi ? 'Chép ' : 'Copy ') + esc(m.v) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>' + (vi ? 'Chép' : 'Copy') + '</span></button>' : '';
+      return '<div class="c3-row" style="--j:' + i + '"><span class="c3-row-n">0' + (i + 1) + '</span><span class="c3-row-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(t) + '</b><small>' + esc(m.v) + '</small><span class="c3-row-a">' + cp + open + '</span></div>';
     }).join('');
   }
   var WHO = [
@@ -868,11 +879,11 @@ import { mountHead3D } from './head3d';
     $('#goalCv').innerHTML = cvBtn;
     $('#whoOpts').innerHTML = WHO.map(function(w, i){ return '<button class="c3-opt" type="button" data-who="' + i + '" aria-pressed="' + (i === whoIdx ? 'true' : 'false') + '">' + esc(L(w.t)) + '</button>'; }).join('');
     var w = WHO[whoIdx], vi = lang === 'vi';
-    $('#tpl').innerHTML = '<p class="c3-chat-k"><i></i><span>' + (vi ? 'Tin nhắn đầu tiên' : 'First message') + '</span><span>' + esc(L(w.t)) + '</span></p>' +
+    $('#tpl').innerHTML = '<p class="c3-chat-k"><i></i><span>' + (vi ? 'Tin nhắn đầu tiên' : 'First message') + '</span></p>' +
       '<p class="c3-bub" data-k="' + whoIdx + '">' + esc(L(w.msg)).replace(/___/g, '<u>___</u>') + '</p>' +
       '<p class="c3-bub me"><span class="c3-typing" aria-hidden="true"><i></i><i></i><i></i></span><span class="c3-rec">' + esc(L(w.rec)) + '</span></p>' +
       '<button class="btn hot c3-copy" type="button" data-copy="' + esc(L(w.msg)) + '" data-m="template">' + (vi ? 'Sao chép tin nhắn' : 'Copy this message') + '</button>';
-    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
+    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.k === 'zalo' && m.copy === c.copy ? (lang === 'vi' ? 'Cùng số điện thoại' : 'Same number') : m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
   }
   document.addEventListener('click', function(e){
     var w = e.target.closest('[data-who]'); if (w){ whoIdx = +w.dataset.who; renderContact(); track('who', WHO[whoIdx].k); return; }
@@ -959,6 +970,8 @@ import { mountHead3D } from './head3d';
     /* v15g: Quick view folded into Profile, Skills is a section of Profile */
     if (h === 'desk') return {view:'profile'};
     if (h === 'skills') return {view:'profile', anchor:'pfSkills'};
+    // the owner console only exists inside the claude.ai runtime; on the public site it is not a page
+    if (h === 'report' && !runtimeHere) return {view:'story'};
     if (VIEWS.indexOf(h) > -1) return {view:h};
     return {view:'story', anchor:h};
   }
@@ -999,7 +1012,7 @@ import { mountHead3D } from './head3d';
       document.body.classList.remove('vt-out'); void document.body.offsetWidth; document.body.classList.add('vt-in');
       wipeEl.className = 'out';
       setTimeout(function(){ wipeEl.className = ''; }, 700);
-      setTimeout(function(){ document.body.classList.remove('vt-in'); }, 1100);
+      setTimeout(function(){ document.body.classList.remove('vt-in'); if (typeof rebuild === 'function') rebuild(); }, 1100);
     }, 520);
   }
   /* each part of About and Contact reveals as it comes on screen, and again on every visit */
@@ -1018,7 +1031,7 @@ import { mountHead3D } from './head3d';
      "searching", scroll ticks the five starting points one at a time, and once all five are
      ticked the top hit resolves to Xinh, with her answer. Tapping a row ticks it. */
   var tzCount = $('#tzCount'), tz = $('#brief'), bfAskT = $('#bfAskT'), bfRows = $$('#brief .sp-row');
-  var BF_Q = {en:'A goal. A budget. But where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
+  var BF_Q = {en:'You have the goal and the budget. Where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
   var bfFix = [0,0,0,0,0], bfOk = [0,0,0,0,0], briefAnim = false, lastT = -1, tangleVis = true, bfTxt = '';
   var bfTypeAt = 0, bfListAt = 0, bfTickAt = 0;
   bfRows.forEach(function(el){ el.addEventListener('click', function(){ bfFix[+el.dataset.r] = 1; schedule(); }); });
@@ -1054,8 +1067,8 @@ import { mountHead3D } from './head3d';
     tz.classList.toggle('listed', !!listed); tz.classList.toggle('clear', cl);
     var key = lang + open + cl;
     if (tzCount.dataset.k !== key){ tzCount.dataset.k = key; var vi = lang === 'vi';
-      tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All untangled! · <b>plan locked</b>')
-        : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'open question' : 'open questions')); }
+      tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All sorted · <b>plan locked</b>')
+        : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'question still open' : 'questions still open')); }
   }
 
   var pin = $('#pin'), pinView = $('#pinView'), trackEl = $('#track');
@@ -1099,7 +1112,14 @@ import { mountHead3D } from './head3d';
     svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     var els = $$('#v-story [data-node]').filter(function(el){ return !(pinned && el.closest('.track')) && el.getClientRects().length > 0; });
     var sx = window.scrollX, sy = window.scrollY;
-    var pts = els.map(function(el){ var r = el.getBoundingClientRect(); return {x:r.left + r.width/2 + sx, y:r.top + r.height/2 + sy, el:el}; });
+    /* v30: every node sits on one rail in the left gutter, so the thread runs straight down the margin
+       and never cuts across text or cards (it used to swing between centre and rail nodes). */
+    els.forEach(function(el){ el.style.translate = ''; });
+    var p1w = $('#start .wrap'), cl = p1w ? p1w.getBoundingClientRect().left + parseFloat(getComputedStyle(p1w).paddingLeft || 0) : 40;
+    var railX = W <= 760 ? 9 : Math.max(18, cl - 34);
+    var pts = els.map(function(el){ var r = el.getBoundingClientRect(), cx = r.left + r.width/2;
+      el.style.translate = (railX - cx).toFixed(1) + 'px 0';
+      return {x:railX + sx, y:r.top + r.height/2 + sy, el:el}; });
     if (pts.length < 2) return;
     var d = 'M' + pts[0].x.toFixed(1) + ',' + pts[0].y.toFixed(1);
     for (var i = 1; i < pts.length; i++){
@@ -1109,7 +1129,7 @@ import { mountHead3D } from './head3d';
     [base, under, live, shine].forEach(function(p){ p.setAttribute('d', d); });
     total = live.getTotalLength();
     samples = [];
-    for (var l = 0; l < total; l += 6){ var p = live.getPointAtLength(l); samples.push([l, p.x, p.y]); }
+    for (var l = 0, stp = finePointer ? 6 : 16; l < total; l += stp){ var p = live.getPointAtLength(l); samples.push([l, p.x, p.y]); }
     var pe = live.getPointAtLength(total); samples.push([total, pe.x, pe.y]);
     var si = 0;
     nodes = pts.map(function(p){
@@ -1175,8 +1195,17 @@ import { mountHead3D } from './head3d';
   window.addEventListener('scroll', schedule, {passive:true});
   var rt = 0;
   function rebuild(){ clearTimeout(rt); rt = setTimeout(build, 140); }
-  window.addEventListener('resize', rebuild);
-  if ('ResizeObserver' in window){ new ResizeObserver(rebuild).observe($('main')); }
+  /* phones fire resize whenever the address bar shows or hides, and main changes height as images and
+     reveals land: rebuilding the thread each time (it samples the whole path) froze phones while scrolling.
+     Rebuild only when the width or the page height really changed. */
+  var lastW = 0, lastH = 0;
+  function rebuildIfChanged(){
+    var w = window.innerWidth, h = $('main').scrollHeight;
+    if (w === lastW && Math.abs(h - lastH) < 24) return;
+    lastW = w; lastH = h; rebuild();
+  }
+  window.addEventListener('resize', rebuildIfChanged);
+  if ('ResizeObserver' in window){ new ResizeObserver(rebuildIfChanged).observe($('main')); }
   if (document.fonts && document.fonts.ready){ document.fonts.ready.then(rebuild); }
   window.addEventListener('load', rebuild);
 
@@ -1603,7 +1632,7 @@ import { mountHead3D } from './head3d';
      step, then the whole method in one line and "Problem solved." 06: the close.
      ===================================================================== */
   var abBuilt = false;
-  var AB_BG = ['#f8e3ec', '#f3eee6', '#ebebef', '#f3eee6', '#ffd3e4', '#f8e3ec'];
+  var AB_BG = ['#f8e3ec', '#ebebef', '#f3eee6', '#ffd3e4', '#f8e3ec'];
   var A3_TINT = ['blush', 'paper', 'silver', 'rose'];
   function wrapWords(root){
     (function wrap(node){
@@ -1620,12 +1649,36 @@ import { mountHead3D } from './head3d';
     $$('#abSay > span').forEach(wrapWords);
     abBuilt = true;
   }
+  /* v34 · "What I run" = four file dividers in one pinned screen. Divider k is pulled forward:
+     the ones behind it keep their tabs at the top, the ones in front slide down to the bottom. */
+  var a3K = 0, a3H = -1;
+  function a3Fold(k, force){
+    var st = $('#a3Cards'); if (!st) return;
+    var H = st.clientHeight;
+    if (k === a3K && H === a3H && !force) return; a3K = k; a3H = H;
+    var cs = getComputedStyle(st), step = parseFloat(cs.getPropertyValue('--step')) || 60, n = 4;
+    $$('.a3-c', st).forEach(function(c, i){
+      var y = i <= k ? i * step : H - (n - i) * step;
+      c.style.transform = 'translateY(' + Math.round(y) + 'px)';
+      c.classList.toggle('on', i === k);
+      var tb = $('.a3-c-tab', c); if (tb) tb.setAttribute('aria-selected', i === k ? 'true' : 'false');
+    });
+  }
+  document.addEventListener('click', function(e){
+    var tb = e.target.closest('[data-a3tab],[data-a3lv]'); if (!tb) return;
+    var lv = tb.hasAttribute('data-a3lv'), k = +(lv ? tb.dataset.a3lv : tb.dataset.a3tab), sc = $(lv ? '.a3-path-sc' : '.a3-run-sc');
+    if (!sc){ a3Fold(k); return; }
+    var top = sc.getBoundingClientRect().top + window.scrollY, span = Math.max(1, sc.offsetHeight - window.innerHeight);
+    window.scrollTo({top: Math.round(top + span * (k + .5) / 4), behavior: reduce ? 'auto' : 'smooth'});
+  });
+  window.addEventListener('resize', function(){ a3Fold(a3K, true); }, {passive:true});
   function a3Render(){
     var vi = lang === 'vi';
     var cards = $('#a3Cards');
     if (cards) cards.innerHTML = COLS.filter(function(c){ return c.g === 'type'; }).map(function(col, j){
-      return '<article class="a3-c t-' + A3_TINT[j] + '" style="--j:' + j + '"><p class="a3-c-k"><b>0' + (j + 1) + '</b><span>/ 04</span></p><h4>' + esc(L(col.t)) + '</h4><p class="a3-c-d">' + esc(L(col.d)) + '</p><i class="a3-c-o" aria-hidden="true"></i></article>';
+      return '<article class="a3-c f' + j + '" style="--j:' + j + '"><button class="a3-c-tab" type="button" role="tab" data-a3tab="' + j + '"><b>0' + (j + 1) + '</b><span>' + esc(L(col.t)) + '</span></button><div class="a3-c-b"><p class="a3-c-n">0' + (j + 1) + '<small>/ 04</small></p><p class="a3-c-d">' + esc(L(col.d)) + '</p></div></article>';
     }).join('');
+    a3Fold(a3K, true);
     var far = $('#a3Far');
     if (far) far.innerHTML = COLS.filter(function(c){ return c.g === 'own'; }).map(function(col, j){
       return '<li style="--j:' + j + '"><i aria-hidden="true"></i><b>' + esc(L(col.t)) + '</b><span>' + esc(L(col.d)) + '</span></li>';
@@ -1679,13 +1732,17 @@ import { mountHead3D } from './head3d';
       var sr = say.getBoundingClientRect(), fill = reduce ? 1 : clamp((vh * .78 - sr.top) / Math.max(1, sr.height * .9), 0, 1);
       $$('#abSay > span', v).forEach(function(x){ var ws = $$('.wd', x), n = Math.round(fill * ws.length); ws.forEach(function(w, i){ w.classList.toggle('on', i < n); }); });
     }
+    var rsc = $('.a3-run-sc', v);
+    if (rsc){ var rr = rsc.getBoundingClientRect(), rsp = Math.max(1, rr.height - vh); a3Fold(Math.min(3, Math.floor(clamp(-rr.top / rsp, 0, .999) * 4))); }
     // 03 · the photo of the level whose role is in the middle of the screen
     var tl = $('#tl4', v), st = $('#a3Stack', v);
     if (tl && st){
-      var arts = $$('article', tl), act = 0;
-      arts.forEach(function(a, i){ if (a.getBoundingClientRect().top < vh * .52) act = i; });
+      var arts = $$('article', tl), act = 0, psc = $('.a3-path-sc', v);
+      if (psc){ var pr = psc.getBoundingClientRect(); act = Math.min(3, Math.floor(clamp(-pr.top / Math.max(1, pr.height - vh), 0, .999) * 4)); }
+      else arts.forEach(function(a, i){ if (a.getBoundingClientRect().top < vh * .52) act = i; });
+      $$('.a3-lvn button', v).forEach(function(b, i){ b.classList.toggle('on', i === act); b.setAttribute('aria-selected', i === act ? 'true' : 'false'); });
       arts.forEach(function(a, i){ a.classList.toggle('on', i === act); });
-      $$('figure', st).forEach(function(f, i){ f.classList.toggle('on', i <= act); f.classList.toggle('cur', i === act); });
+      $$('figure', st).forEach(function(f, i){ f.classList.toggle('on', i <= act); f.classList.toggle('cur', i === act); f.style.setProperty('--d', i - act); f.style.setProperty('--a', Math.abs(i - act)); });
     }
     // 04 · the line from pitch to sign-off draws itself
     var fr = $('.a3-far', v);
@@ -1733,7 +1790,7 @@ import { mountHead3D } from './head3d';
     bootEl.hidden = false; bootEl.classList.remove('out'); document.body.classList.add('booting'); booted = false;
     var last = null; try{ last = localStorage.getItem('xinhos-mode'); }catch(e){}
     runBootBar();
-    setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
+    if (finePointer) setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
   }
   /* Boot playground (v23, ref millascope): XINH AI, the character from Xinh's handoff, as a depth
      cut-out that turns a little toward the pointer, blinks on her own and winks when clicked; objects
@@ -1741,9 +1798,38 @@ import { mountHead3D } from './head3d';
   var X3_SAY = [{en:'hi hi!', vi:'hi hi!'}, {en:'leave it to me!', vi:'để em!'}];
   var x3 = $('#x3'), x3Head = $('#x3Head'), x3Said = 0, head3d = null;
   if (!reduce){
-    head3d = mountHead3D($('#x3Cv'), {color:'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp',
+    var x3Small = window.innerWidth <= 760;
+    head3d = mountHead3D($('#x3Cv'), {color:x3Small ? 'assets/xinh-ai-m.webp' : 'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp', maxDpr:finePointer ? 2 : 1.5,
       lids:{src:'assets/xinh-ai-blink.webp', rect:[336/1024, 786/1470, 768/1024, 906/1470], split:.5}}, function(){ x3Head.classList.add('gl'); });
   }
+  /* v29: on phones the boot is one visible screen; the face gets the height left above the buttons. */
+  var x3Stage = $('.x3-stage'), bootFoot = $('.bx-foot', bootEl), bootFitWH = '';
+  function bootFit(){
+    /* v31: the head + title cluster is centred in the free room between the top bar and the buttons,
+       on every screen; the head takes the height that is left, so nothing sinks to the bottom. */
+    if (!x3Stage || !bootFoot) return;
+    var wh = window.innerWidth + 'x' + window.innerHeight;
+    if (wh === bootFitWH || bootEl.hidden) return; bootFitWH = wh;
+    var H = window.innerHeight, W = window.innerWidth, phone = W <= 760;
+    var bar = $('.boot-top', bootEl), barB = bar && bar.offsetHeight ? bar.getBoundingClientRect().bottom : (phone ? 12 : 30);
+    var first = x3.firstElementChild;
+    var fixed = x3Stage.getBoundingClientRect().top - (first ? first.getBoundingClientRect().top : 0);
+    var room, maxH;
+    if (phone){
+      var bottomPad = parseFloat(getComputedStyle(bootEl).paddingBottom) || 0;
+      var gap = clamp(H * .06, 24, 56);
+      room = (H - barB - bottomPad - bootFoot.offsetHeight - fixed - 2 * gap) / .95;
+      maxH = Math.min(430, W * .84 * 1205 / 840);
+      x3Stage.style.setProperty('--sh', Math.round(clamp(room, 190, maxH)) + 'px');
+    } else {
+      var fTop = bootFoot.getBoundingClientRect().top, t = barB + 14, bt = H - fTop + 16;
+      x3.style.setProperty('--x3t', Math.round(t) + 'px'); x3.style.setProperty('--x3b', Math.round(bt) + 'px');
+      room = (H - bt) - t - fixed - 10;
+      x3Stage.style.setProperty('--sh', Math.round(clamp(room, 200, 600)) + 'px');
+    }
+  }
+  bootFit(); window.addEventListener('resize', bootFit, {passive:true});
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ bootFitWH = ''; bootFit(); });
   function x3Aim(nx, ny){
     x3.style.setProperty('--mx', nx.toFixed(3)); x3.style.setProperty('--my', ny.toFixed(3));
     if (head3d) head3d.aim(nx, ny);
@@ -1760,7 +1846,7 @@ import { mountHead3D } from './head3d';
     var x3g = 0, x3Idle = setInterval(function(){
       if (bootEl.hidden){ clearInterval(x3Idle); return; }
       x3g++; if (x3g % 2) x3Aim(Math.random() * 1.2 - .6, Math.random() * .5 - .3); else x3Aim(0, 0);
-    }, 2400);
+    }, 4200);
   }
   bootEl.addEventListener('click', function(e){
     var ob = e.target.closest('.x3o');
@@ -1793,7 +1879,7 @@ import { mountHead3D } from './head3d';
       bootEl.hidden = true; bootEl.classList.remove('suck'); rebuild();
       document.body.classList.add('arrive', 'arr-in'); if (m === 'quick') document.body.classList.add('arr-q');
     }, 560);
-    setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q', 'arr-in'); }, 1500);
+    setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q', 'arr-in'); if (typeof rebuild === 'function') rebuild(); }, 1500);
     return true;
   }
   document.addEventListener('click', function(e){
@@ -1801,12 +1887,6 @@ import { mountHead3D } from './head3d';
     var bl = e.target.closest('[data-boot-lang]'); if (bl){ setLang(bl.dataset.bootLang); }
   });
   document.addEventListener('keydown', function(e){ if (!bootEl.hidden && !booted && (e.key === 'Escape' || (e.key === 'Enter' && !e.target.closest('button')))){ e.preventDefault(); chooseMode('story'); } });
-  $('#restart').addEventListener('click', function(){
-    var sd = $('#shutdown'); track('restart', 1);
-    if (reduce){ window.scrollTo(0, 0); openBoot(); return; }
-    sd.classList.remove('on'); void sd.offsetWidth; sd.classList.add('on');
-    setTimeout(function(){ try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){} window.scrollTo(0, 0); openBoot(); sd.classList.remove('on'); }, 650);
-  });
 
   /* =====================================================================
      LANGUAGE + BOOT

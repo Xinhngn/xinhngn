@@ -10,6 +10,8 @@ export interface Head3DAssets {
   depth: string;
   /** closed-eyes patch and where it sits on the portrait, as fractions [x0, y0, x1, y1] */
   lids?: { src: string; rect: [number, number, number, number]; split: number };
+  /** cap on device pixels per CSS pixel (phones: lower, the shader runs per pixel) */
+  maxDpr?: number;
 }
 
 export interface Head3D {
@@ -107,7 +109,7 @@ export function mountHead3D(cv: HTMLCanvasElement, a: Head3DAssets, onReady?: ()
   let blinkAt = -1e9, winkAt = -1e9, nextBlink = performance.now() + 2600;
 
   const size = () => {
-    const r = cv.getBoundingClientRect(), k = Math.min(window.devicePixelRatio || 1, 2);
+    const r = cv.getBoundingClientRect(), k = Math.min(window.devicePixelRatio || 1, a.maxDpr || 2);
     const cw = Math.max(1, Math.round(r.width * k)), ch = Math.max(1, Math.round(r.height * k));
     if (cv.width !== cw || cv.height !== ch){ cv.width = cw; cv.height = ch; }
   };

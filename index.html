@@ -6,9 +6,10 @@
 <meta name="description" content="Xinh Nguyen, brand and project management. XINH.OS: say hi.">
 <title>XINH.OS</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Cdefs%3E%3CradialGradient id=%27g%27 cx=%27.32%27 cy=%27.28%27 r=%27.8%27%3E%3Cstop offset=%270%27 stop-color=%27%23fff%27/%3E%3Cstop offset=%27.35%27 stop-color=%27%23ffb3d4%27/%3E%3Cstop offset=%27.75%27 stop-color=%27%23ff6fae%27/%3E%3Cstop offset=%271%27 stop-color=%27%23d9407f%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2730%27 fill=%27url(%23g)%27/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="assets/xinh-ai.webp" imagesrcset="assets/xinh-ai-m.webp 480w, assets/xinh-ai.webp 840w" imagesizes="(max-width:760px) 70vw, 420px" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&text=EmXinh&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&text=EmXinh&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <script type="module" src="/src/main.ts"></script>
 </head>
@@ -53,6 +54,7 @@
     <filter id="x3Puff" x="-6%" y="-14%" width="112%" height="130%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/><feSpecularLighting in="b" surfaceScale="7" specularConstant="1.15" specularExponent="20" lighting-color="#ffffff" result="s"><feDistantLight azimuth="235" elevation="50"/></feSpecularLighting><feComposite in="s" in2="SourceAlpha" operator="in" result="si"/><feDiffuseLighting in="b" surfaceScale="7" diffuseConstant="1.08" lighting-color="#ffffff" result="d"><feDistantLight azimuth="235" elevation="58"/></feDiffuseLighting><feComposite in="d" in2="SourceAlpha" operator="in" result="di"/><feBlend in="SourceGraphic" in2="di" mode="multiply" result="sh"/><feComposite in="si" in2="sh" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/></filter>
     <linearGradient id="gRg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe2d6"/><stop offset=".4" stop-color="#e9a08c"/><stop offset=".7" stop-color="#fff0ea"/><stop offset="1" stop-color="#c97a68"/></linearGradient>
     <linearGradient id="gGl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6f0" stop-opacity=".95"/><stop offset=".55" stop-color="#ffb3cf" stop-opacity=".75"/><stop offset="1" stop-color="#f58bb5" stop-opacity=".85"/></linearGradient>
+    <linearGradient id="gLk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ffe9f2"/></linearGradient>
     <linearGradient id="gIr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".3" stop-color="#ffd3e4"/><stop offset=".5" stop-color="#8d92a2"/><stop offset=".62" stop-color="#cfe3f7"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
     <linearGradient id="gC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#d4d7e0"/><stop offset=".5" stop-color="#5a5e6e"/><stop offset=".62" stop-color="#e6e8ee"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
     <linearGradient id="gH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#d9ddea"/><stop offset=".55" stop-color="#a9b0c6"/><stop offset="1" stop-color="#eef0f6"/></linearGradient>
@@ -119,17 +121,17 @@
       <div class="x3-stage" id="stage">
         <div class="x3-objs" aria-hidden="true">
           <!-- one theme around her: the social feed she runs for brands (play, like, comment, mention, tag) -->
-          <i class="x3o play fr" style="--x:-290px; --y:120px; --z:1.1; --s:64px; --i:0"><svg viewBox="0 0 64 64"><rect x="4" y="8" width="56" height="48" rx="16" fill="url(#gC)" stroke="#fff" stroke-width="1.5"/><path d="M27 22 L43 32 L27 42Z" fill="#ff8fc0" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><ellipse cx="18" cy="16" rx="8" ry="3" fill="#fff" opacity=".85"/></svg></i>
-          <i class="x3o star fr" style="--x:-230px; --y:-270px; --z:1.6; --s:58px; --i:1"><svg viewBox="0 0 64 64"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z" fill="url(#gIr)" stroke="#fff" stroke-width="1"/></svg></i>
-          <i class="x3o chat fr" style="--x:-330px; --y:-110px; --z:1.4; --s:84px; --i:2"><svg viewBox="0 0 64 56"><path d="M10 4 H54 C59 4 62 8 62 13 V33 C62 38 59 42 54 42 H26 L13 53 V42 H10 C5 42 2 38 2 33 V13 C2 8 5 4 10 4Z" fill="url(#gGl)" stroke="#fff" stroke-width="1.5"/><circle cx="20" cy="23" r="4" fill="#fff"/><circle cx="32" cy="23" r="4" fill="#fff"/><circle cx="44" cy="23" r="4" fill="#fff"/><ellipse cx="17" cy="10" rx="8" ry="2.6" fill="#fff" opacity=".8"/></svg></i>
-          <i class="x3o heart fr" style="--x:250px; --y:110px; --z:1.7; --s:66px; --i:3"><svg viewBox="0 0 64 64"><path d="M32 56 C13 42 5 32 5 21 C5 12 12 6 20 6 C26 6 30 10 32 15 C34 10 38 6 44 6 C52 6 59 12 59 21 C59 32 51 42 32 56Z" fill="url(#gGl)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/><ellipse cx="20" cy="17" rx="7" ry="4" fill="#fff" opacity=".8" transform="rotate(-30 20 17)"/></svg></i>
-          <i class="x3o at bk" style="--x:315px; --y:-40px; --z:.6; --s:56px; --i:4"><svg viewBox="0 0 64 64"><text x="32" y="47" text-anchor="middle" font-family="Inter Tight, Arial, sans-serif" font-weight="800" font-size="54" fill="url(#gC)" stroke="#fff" stroke-width="1.2">@</text></svg></i>
-          <i class="x3o like fr" style="--x:270px; --y:-200px; --z:1.3; --s:92px; --i:5"><svg viewBox="0 0 92 40"><rect x="1.5" y="1.5" width="89" height="37" rx="18.5" fill="#fff" stroke="rgba(20,20,24,.9)" stroke-width="1.5"/><path d="M27 31 C18 25 13 20 13 15 C13 11 16 8 20 8 C23 8 25 10 27 12 C29 10 31 8 34 8 C38 8 41 11 41 15 C41 20 36 25 27 31Z" fill="#ff8fc0"/><text x="50" y="27" font-family="JetBrains Mono, monospace" font-weight="600" font-size="16" fill="#141418">+1</text></svg></i>
+          <i class="x3o play fr" style="--x:-290px; --y:140px; --z:1.1; --s:64px; --i:0"><svg viewBox="0 0 64 64"><rect x="4" y="8" width="56" height="48" rx="16" fill="url(#gC)" stroke="#fff" stroke-width="1.5"/><path d="M27 22 L43 32 L27 42Z" fill="#ff8fc0" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><ellipse cx="18" cy="16" rx="8" ry="3" fill="#fff" opacity=".85"/></svg></i>
+          <i class="x3o star fr" style="--x:-260px; --y:-250px; --z:1.6; --s:58px; --i:1"><svg viewBox="0 0 64 64"><path d="M32 2 C35 24 40 29 62 32 C40 35 35 40 32 62 C29 40 24 35 2 32 C24 29 29 24 32 2Z" fill="url(#gIr)" stroke="#fff" stroke-width="1"/></svg></i>
+          <i class="x3o chat fr" style="--x:-320px; --y:-60px; --z:1.4; --s:84px; --i:2"><svg viewBox="0 0 64 56"><path d="M10 4 H54 C59 4 62 8 62 13 V33 C62 38 59 42 54 42 H26 L13 53 V42 H10 C5 42 2 38 2 33 V13 C2 8 5 4 10 4Z" fill="url(#gGl)" stroke="#fff" stroke-width="1.5"/><circle cx="20" cy="23" r="4" fill="#fff"/><circle cx="32" cy="23" r="4" fill="#fff"/><circle cx="44" cy="23" r="4" fill="#fff"/><ellipse cx="17" cy="10" rx="8" ry="2.6" fill="#fff" opacity=".8"/></svg></i>
+          <i class="x3o heart fr" style="--x:290px; --y:140px; --z:1.7; --s:66px; --i:3"><svg viewBox="0 0 64 64"><path d="M32 56 C13 42 5 32 5 21 C5 12 12 6 20 6 C26 6 30 10 32 15 C34 10 38 6 44 6 C52 6 59 12 59 21 C59 32 51 42 32 56Z" fill="url(#gGl)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/><ellipse cx="20" cy="17" rx="7" ry="4" fill="#fff" opacity=".8" transform="rotate(-30 20 17)"/></svg></i>
+          <i class="x3o at bk" style="--x:320px; --y:-60px; --z:.6; --s:56px; --i:4"><svg viewBox="0 0 64 64"><text x="32" y="47" text-anchor="middle" font-family="Inter Tight, Arial, sans-serif" font-weight="800" font-size="54" fill="url(#gGl)" stroke="#fff" stroke-width="1.2">@</text></svg></i>
+          <i class="x3o like fr" style="--x:270px; --y:-230px; --z:1.3; --s:92px; --i:5"><svg viewBox="0 0 92 40"><rect x="1.5" y="1.5" width="89" height="37" rx="18.5" fill="url(#gLk)" stroke="#fff" stroke-width="1.5"/><ellipse cx="30" cy="8" rx="16" ry="2.6" fill="#fff" opacity=".9"/><path d="M27 31 C18 25 13 20 13 15 C13 11 16 8 20 8 C23 8 25 10 27 12 C29 10 31 8 34 8 C38 8 41 11 41 15 C41 20 36 25 27 31Z" fill="#ff8fc0"/><text x="50" y="27" font-family="JetBrains Mono, monospace" font-weight="600" font-size="16" fill="#c13f7b">+1</text></svg></i>
           <i class="x3o hash bk" style="--x:-110px; --y:-330px; --z:.5; --s:44px; --i:6"><svg viewBox="0 0 64 64"><text x="32" y="50" text-anchor="middle" font-family="Inter Tight, Arial, sans-serif" font-weight="900" font-size="60" fill="url(#gGl)" stroke="#fff" stroke-width="1.5">#</text></svg></i>
         </div>
         <i class="x3-cast" aria-hidden="true"></i>
         <button class="x3-head" id="x3Head" type="button" aria-label="Say hi to Xinh">
-          <img class="x3-img" src="assets/xinh-ai.webp" alt="" width="840" height="1205">
+          <img class="x3-img" src="assets/xinh-ai.webp" srcset="assets/xinh-ai-m.webp 480w, assets/xinh-ai.webp 840w" sizes="(max-width:760px) 70vw, 420px" alt="" width="840" height="1205" fetchpriority="high">
           <canvas class="x3-cv" id="x3Cv" aria-hidden="true"></canvas>
           <span class="x3-say" id="x3Say" aria-hidden="true">CLICK ME</span>
           <span class="x3-love" aria-hidden="true"><i>♥</i><i>♥</i></span>
@@ -205,9 +207,9 @@
   <div class="d3s" aria-hidden="true"><i class="d3 sph pearl" style="--x:44%;--y:14%;--s:64px;--f:7s"></i><i class="d3 sph pink" style="--x:93%;--y:78%;--s:92px;--f:8s"></i><i class="d3 bub" style="--x:52%;--y:80%;--s:120px;--f:9s"></i></div>
   <div class="wrap plain p1-grid">
     <div>
-      <p class="tag"><b>P1</b><span class="en">Player ready · Brand · Communication · Project management</span><span class="vi">Người chơi đã sẵn sàng · Thương hiệu · Truyền thông · Dự án</span></p>
-      <h1 class="p1name"><span class="ol">Xinh</span> <em>Nguyễn</em><small><span class="en">Class: Project Owner</span><span class="vi">Class: Người làm chủ dự án</span></small></h1>
-      <p class="hook"><span class="en"><b>You run the business.</b>I'll run the project to the finish line.</span><span class="vi"><b>Bạn lo việc kinh doanh.</b>Xinh lo dự án về đích.</span></p>
+      <p class="tag"><b>P1</b><span class="en">Player ready · Brand · Comms · Projects</span><span class="vi">Sẵn sàng · Thương hiệu · Truyền thông · Dự án</span></p>
+      <h1 class="p1name"><span class="ol">Xinh</span> <em>Nguyễn</em><small><span class="en">Class: Business Project Lead</span><span class="vi">Class: Trưởng dự án kinh doanh</span></small></h1>
+      <p class="hook"><span class="en"><b>You run the business.</b>I'll run the project <span class="nb">to the finish line.</span></span><span class="vi"><b>Bạn lo việc kinh doanh.</b>Xinh lo dự án về&nbsp;đích.</span></p>
       <p class="p1-sub"><span class="en">I work where brand, communication and project management meet: from clarifying the goal and building the plan to organising execution and following through to results.</span><span class="vi">Xinh làm việc ở giao điểm giữa thương hiệu, truyền thông và quản lý dự án — từ làm rõ mục tiêu, xây dựng kế hoạch đến tổ chức triển khai và theo sát kết quả.</span></p>
       <div class="cta">
         <a class="btn lime" href="#brief"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-play"/></svg><span class="en">Start level 0</span><span class="vi">Vào level 0</span></a>
@@ -221,7 +223,7 @@
         <div class="shot0"><div class="ph" data-portrait="work.png"></div>
           <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="r">REC</span><span class="tc" id="recTc">00:00:00</span></div>
         </div>
-        <figcaption><span class="en">Right goal first. <em>Right work follows.</em></span><span class="vi">Đúng mục tiêu trước, <em>trúng đầu việc sau.</em></span></figcaption>
+        <figcaption><span class="en">Right goal first. <em>Right work follows.</em></span><span class="vi">Đúng mục tiêu trước. <em>Rồi chạy đúng việc.</em></span></figcaption>
       </div>
     </figure>
   </div>
@@ -235,21 +237,21 @@
         <p class="tz-status"><i></i><span id="tzCount"></span></p>
       </div>
       <div class="sp" id="bfSp">
-        <h2 class="sp-bar"><svg class="sp-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="bf-sr"><span class="en">A goal. A budget. But where do you start?</span><span class="vi">Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?</span></span><span class="sp-t" id="bfAskT" aria-hidden="true"></span><u aria-hidden="true"></u></h2>
+        <h2 class="sp-bar"><svg class="sp-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="bf-sr"><span class="en">You have the goal and the budget. Where do you start?</span><span class="vi">Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?</span></span><span class="sp-t" id="bfAskT" aria-hidden="true"></span><u aria-hidden="true"></u></h2>
         <div class="sp-drop">
           <div class="sp-top">
             <span class="sp-av" data-portrait="work.png"></span>
-            <div class="sp-txt"><div class="sp-wait" aria-hidden="true"><p class="sp-k"><span class="en">Finding the best match</span><span class="vi">Đang tìm người phù hợp</span><span class="sp-dots"><i>.</i><i>.</i><i>.</i></span></p><i class="sp-bone"></i><i class="sp-bone"></i></div>
-            <div class="sp-hit"><p class="sp-k"><span class="en">Top hit</span><span class="vi">Kết quả phù hợp nhất</span> · Xinh Nguyễn</p>
-            <p class="sp-ans"><span class="en">I help clarify the problem, decide what comes first and turn the brief into a plan that can actually run.</span><span class="vi">Xinh giúp làm rõ bài toán, xác định việc cần ưu tiên và biến đề bài thành kế hoạch có thể triển khai.</span></p></div></div>
+            <div class="sp-txt"><div class="sp-wait" aria-hidden="true"><p class="sp-k"><span class="en">Finding the right person</span><span class="vi">Đang tìm người phù hợp</span><span class="sp-dots"><i>.</i><i>.</i><i>.</i></span></p><i class="sp-bone"></i><i class="sp-bone"></i></div>
+            <div class="sp-hit"><p class="sp-k"><span class="en">Best match</span><span class="vi">Kết quả phù hợp nhất</span> · Xinh Nguyễn</p>
+            <p class="sp-ans"><span class="en">I clarify the real problem, set what comes first and turn your brief into a plan the team can actually run.</span><span class="vi">Xinh giúp làm rõ bài toán, xác định việc cần ưu tiên và biến đề bài thành kế hoạch có thể triển khai.</span></p></div></div>
           </div>
-          <p class="sp-k sp-k2"><span class="en">Where to start</span><span class="vi">Bắt đầu từ đâu</span> · 5</p>
+          <p class="sp-k sp-k2"><span class="en">Where to begin</span><span class="vi">Bắt đầu từ đâu</span> · 5</p>
           <ol class="sp-list">
-          <li><button type="button" class="sp-row" data-r="0"><i>01</i><span class="en">Fix the real problem first.</span><span class="vi">Gỡ đúng vấn đề trước khi bắt tay triển khai.</span><em><span class="en">problem</span><span class="vi">vấn đề</span></em><b aria-hidden="true">✓</b></button></li>
-          <li><button type="button" class="sp-row" data-r="1"><i>02</i><span class="en">Prioritise the right work.</span><span class="vi">Ưu tiên đúng việc để tối ưu nguồn lực.</span><em><span class="en">priority</span><span class="vi">ưu tiên</span></em><b aria-hidden="true">✓</b></button></li>
-          <li><button type="button" class="sp-row" data-r="2"><i>03</i><span class="en">Spend the budget wisely per goal.</span><span class="vi">Dùng ngân sách hợp lý theo từng mục tiêu.</span><em><span class="en">budget</span><span class="vi">ngân sách</span></em><b aria-hidden="true">✓</b></button></li>
-          <li><button type="button" class="sp-row" data-r="3"><i>04</i><span class="en">Measure results with the right KPIs.</span><span class="vi">Đo đúng hiệu quả bằng KPI phù hợp.</span><em><span class="en">KPI</span><span class="vi">KPI</span></em><b aria-hidden="true">✓</b></button></li>
-          <li><button type="button" class="sp-row" data-r="4"><i>05</i><span class="en">Keep many parties on schedule.</span><span class="vi">Giữ tiến độ giữa nhiều bên tham gia.</span><em><span class="en">timeline</span><span class="vi">tiến độ</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="0"><i>01</i><span class="en">Solve the right problem first.</span><span class="vi">Gỡ đúng vấn đề trước khi bắt tay triển khai.</span><em><span class="en">problem</span><span class="vi">vấn đề</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="1"><i>02</i><span class="en">Put effort where it matters most.</span><span class="vi">Ưu tiên đúng việc để tối ưu nguồn lực.</span><em><span class="en">priority</span><span class="vi">ưu tiên</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="2"><i>03</i><span class="en">Split the budget by goal.</span><span class="vi">Dùng ngân sách hợp lý theo từng mục tiêu.</span><em><span class="en">budget</span><span class="vi">ngân sách</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="3"><i>04</i><span class="en">Track KPIs that fit the goal.</span><span class="vi">Đo đúng hiệu quả bằng KPI phù hợp.</span><em><span class="en">KPI</span><span class="vi">KPI</span></em><b aria-hidden="true">✓</b></button></li>
+          <li><button type="button" class="sp-row" data-r="4"><i>05</i><span class="en">Keep every party on one timeline.</span><span class="vi">Giữ tiến độ giữa nhiều bên tham gia.</span><em><span class="en">timeline</span><span class="vi">tiến độ</span></em><b aria-hidden="true">✓</b></button></li>
           </ol>
         </div>
       </div>
@@ -329,7 +331,7 @@
 <section class="sc sc-ink zone lv4c" id="deliver">
   <div class="brk" data-reach style="padding-top:0">
     <span class="node" data-node></span>
-    <p class="say"><span class="en">Scored. <em>Now the part everyone skips to.</em></span><span class="vi">Chấm xong rồi. <em>Giờ tới phần ai cũng thích: kết quả.</em></span></p>
+    <p class="say"><span class="en">Scored. <em class="nb">Now the part everyone skips to.</em></span><span class="vi">Chấm xong rồi. <em class="nb">Giờ tới phần ai cũng thích: kết quả.</em></span></p>
   </div>
   <div class="wrap">
     <div class="head">
@@ -383,29 +385,29 @@
 <section class="sc sc-ink end goal-z" id="finish">
   <div class="d3s" aria-hidden="true"><i class="d3 bub heart" style="--x:84%;--y:16%;--s:150px;--f:9s"></i><i class="d3 sph peach" style="--x:10%;--y:62%;--s:80px;--f:7s"></i><i class="d3 sph pink" style="--x:92%;--y:52%;--s:58px;--f:6s"></i><i class="d3 sph lilac" style="--x:22%;--y:10%;--s:46px;--f:8s"></i></div>
   <div class="flagwrap" data-reach><span class="node cp" data-node data-cp="6"></span></div>
-  <div class="wrap plain">
-    <p class="tag"><b>END</b><span class="en">Session complete</span><span class="vi">Kết thúc phiên</span></p>
-    <div class="end-top">
-      <figure class="end-pic"><div class="pf" data-portrait="chill.png"></div><figcaption><span class="en">see you soon ♡</span><span class="vi">hẹn gặp bạn nha ♡</span></figcaption></figure>
-    <h2 class="end-word"><span class="en">Your turn</span><span class="vi">Đến lượt bạn</span> <em>say hi!</em></h2>
-    </div>
-    <div class="end-card">
-      <div class="ec-l">
-        <p class="ec-k"><span class="en">Next step</span><span class="vi">Bước tiếp theo</span></p>
-        <div class="acts">
-          <button class="btn lime" type="button" data-connect><span class="en">Say hi now</span><span class="vi">Say hi ngay</span></button>
-          <span id="goalCv"></span>
-          <a class="btn ghost" href="#work"><span class="en">See the work</span><span class="vi">Xem dự án</span></a>
-        </div>
-        <div class="saved" id="saved"></div>
+  <div class="wrap plain es">
+    <div class="es-slide">
+      <header class="es-hd">
+        <p class="es-brand"><b>XINH.OS</b><span class="en">Session complete</span><span class="vi">Kết thúc phiên</span></p>
+        <p class="es-nav"><span class="en">Brand</span><span class="vi">Thương hiệu</span><span class="en">Comms</span><span class="vi">Truyền thông</span><span class="en">Projects</span><span class="vi">Dự án</span></p>
+      </header>
+      <div class="es-mid">
+        <p class="es-k"><b>END</b> LV 6/6</p>
+        <h2 class="es-word"><span class="es-a"><span class="en">Your turn</span><span class="vi">Đến lượt bạn</span></span><span class="es-gl" aria-hidden="true"><i class="es-stk s1"></i><i class="es-stk s2"></i><i class="es-tile"><svg viewBox="0 0 64 64"><defs><linearGradient id="gEsH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe3ef"/><stop offset=".55" stop-color="#ff8fc0"/><stop offset="1" stop-color="#c13f7b"/></linearGradient></defs><path d="M32 54 C14 42 6 32 6 22 C6 14 12 8 20 8 C25 8 29 11 32 15 C35 11 39 8 44 8 C52 8 58 14 58 22 C58 32 50 42 32 54Z" fill="url(#gEsH)" stroke="#fff" stroke-width="2.5"/><path d="M17 18 C19 14 23 13 26 14" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/></svg></i></span><em>say hi!</em></h2>
+        <p class="es-side"><span class="en">Next</span><span class="vi">Bước</span><b><span class="en">step</span><span class="vi">tiếp theo</span></b></p>
       </div>
-      <div class="ec-ch" id="goalMethods"></div>
+      <div class="acts">
+        <button class="btn lime" type="button" data-connect><span class="en">Say hi now</span><span class="vi">Say hi ngay</span></button>
+        <span id="goalCv"></span>
+        <a class="btn ghost" href="#work"><span class="en">See the work</span><span class="vi">Xem dự án</span></a>
+      </div>
+      <div class="es-ch" id="goalMethods"></div>
+      <footer class="es-ft">
+        <div class="saved" id="saved"></div>
+        <span class="es-spk" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M32 4 C34.5 24 40 29.5 60 32 C40 34.5 34.5 40 32 60 C29.5 40 24 34.5 4 32 C24 29.5 29.5 24 32 4Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M50 8 C51 14 52 15 58 16 C52 17 51 18 50 24 C49 18 48 17 42 16 C48 15 49 14 50 8Z" fill="currentColor"/></svg></span>
+      </footer>
     </div>
-    <button class="restart" type="button" id="restart">↺ <span class="en">Restart XINH.OS</span><span class="vi">Khởi động lại XINH.OS</span></button>
-    <p class="foot">XINH.OS 2026 · <span class="en">Made with coffee and timelines</span><span class="vi">Làm bằng cà phê và timeline</span> · HO CHI MINH CITY</p>
-    <p class="notice"><span class="en">This site counts anonymous visits (source, time on page) to improve its content.</span><span class="vi">Trang ghi nhận lượt xem ẩn danh (nguồn, thời gian xem) để cải thiện nội dung.</span></p>
   </div>
-  <div class="bigmark" aria-hidden="true"><span>XINH.OS</span></div>
 </section>
 </div>
 
@@ -434,8 +436,8 @@
       <div class="a3-hero-t">
         <p class="a3-kick"><span class="en">About Xinh</span><span class="vi">Về Xinh</span></p>
         <h2 class="a3-h1" aria-label="Right goal first. Right work follows.">
-          <span class="ln"><span><span class="en">Right goal first.</span><span class="vi">Đúng mục tiêu trước,</span></span></span>
-          <span class="ln"><span><em><span class="en">Right work follows.</span><span class="vi">trúng đầu việc sau.</span></em></span></span>
+          <span class="ln"><span><span class="en">Right goal first.</span><span class="vi">Đúng mục tiêu trước.</span></span></span>
+          <span class="ln"><span><em><span class="en">Right work follows.</span><span class="vi">Rồi chạy đúng việc.</span></em></span></span>
         </h2>
         <p class="a3-lead"><span class="en">Xinh Nguyễn, project owner in brand &amp; comms. 5 years in Marketing &amp; Communication, growing from Digital Planning and Account into Business Development and project management.</span><span class="vi">Xinh Nguyễn, người làm chủ dự án brand &amp; truyền thông. 5 năm trong Marketing &amp; Communication, đi từ Digital Planning, Account đến Business Development và quản lý dự án.</span></p>
         <div class="a3-nums">
@@ -450,29 +452,32 @@
       </figure>
     </header>
 
-    <!-- 02 · the statement, filling in as you read it -->
-    <section class="a3-say" data-a3>
-      <p class="a3-say-t" id="abSay"><span class="en">I work where <em>understanding the business problem</em>, developing partnerships and putting the plan into real execution meet.</span><span class="vi">Xinh làm việc ở giao điểm giữa <em>hiểu bài toán kinh doanh</em>, phát triển cơ hội hợp tác và đưa kế hoạch vào triển khai thực tế.</span></p>
-    </section>
-
-    <!-- 03 · career: the photo for each level wipes in while the roles scroll past -->
+    <!-- 03 · career: one pinned screen; scrolling steps through the four levels (photo wipes, role swaps) -->
     <section class="a3-path" data-a3>
+      <div class="a3-path-sc"><div class="a3-path-pin">
       <h3 class="a3-h2"><span class="en">Four levels, <em>one direction.</em></span><span class="vi">Bốn level, <em>một hướng đi.</em></span></h3>
       <div class="a3-path-g">
-        <div class="a3-stack" id="a3Stack" aria-hidden="true">
-          <figure data-i="0"><div data-portrait="lv1.png"></div><figcaption><b>01</b><span>PLANNING</span></figcaption></figure>
-          <figure data-i="1"><div data-portrait="lv2.png"></div><figcaption><b>02</b><span>CLIENT &amp; DELIVERY</span></figcaption></figure>
-          <figure data-i="2"><div data-portrait="lv3.png"></div><figcaption><b>03</b><span>PITCH &amp; GROWTH</span></figcaption></figure>
-          <figure data-i="3"><div data-portrait="lv4.png"></div><figcaption><b>04</b><span>END-TO-END OWNERSHIP</span></figcaption></figure>
+        <div class="a3-stack bdk" id="a3Stack" aria-hidden="true">
+          <div class="bd-lan"><i class="bd-strap"></i><i class="bd-clip"></i></div>
+          <figure class="bd" data-i="0"><i class="bd-slot"></i><p class="bd-top"><span>XINH.OS</span><span>LV.1/4</span></p><div class="bd-ph" data-portrait="lv1.png"></div><figcaption><b>01</b><span><strong>Xinh Nguyễn</strong>PLANNING</span></figcaption><i class="bd-bar"></i></figure>
+          <figure class="bd" data-i="1"><i class="bd-slot"></i><p class="bd-top"><span>XINH.OS</span><span>LV.2/4</span></p><div class="bd-ph" data-portrait="lv2.png"></div><figcaption><b>02</b><span><strong>Xinh Nguyễn</strong>CLIENT &amp; DELIVERY</span></figcaption><i class="bd-bar"></i></figure>
+          <figure class="bd" data-i="2"><i class="bd-slot"></i><p class="bd-top"><span>XINH.OS</span><span>LV.3/4</span></p><div class="bd-ph" data-portrait="lv3.png"></div><figcaption><b>03</b><span><strong>Xinh Nguyễn</strong>PITCH &amp; GROWTH</span></figcaption><i class="bd-bar"></i></figure>
+          <figure class="bd" data-i="3"><i class="bd-slot"></i><p class="bd-top"><span>XINH.OS</span><span>LV.4/4</span></p><div class="bd-ph" data-portrait="lv4.png"></div><figcaption><b>04</b><span><strong>Xinh Nguyễn</strong>END-TO-END</span></figcaption><i class="bd-bar"></i></figure>
         </div>
-        <div class="a3-roles" id="tl4"></div>
+        <div class="a3-roles-w">
+          <div class="a3-lvn" role="tablist"><button type="button" role="tab" data-a3lv="0"><b>01</b>Planning</button><button type="button" role="tab" data-a3lv="1"><b>02</b>Client &amp; delivery</button><button type="button" role="tab" data-a3lv="2"><b>03</b>Pitch &amp; growth</button><button type="button" role="tab" data-a3lv="3"><b>04</b>End-to-end</button></div>
+          <div class="a3-roles" id="tl4"></div>
+        </div>
       </div>
+      </div></div>
     </section>
 
-    <!-- 04 · what I run: four cards that stack as you scroll -->
+    <!-- 04 · what I run: four file dividers in one screen; scrolling pulls each one forward -->
     <section class="a3-run" id="pfSkills" data-a3>
-      <h3 class="a3-h2"><span class="en">What I run, <em>end to end.</em></span><span class="vi">Xinh chạy gì, <em>từ đầu đến cuối.</em></span></h3>
-      <div class="a3-cards" id="a3Cards"></div>
+      <div class="a3-run-sc"><div class="a3-run-pin">
+        <h3 class="a3-h2"><span class="en">What I run, <em>end to end.</em></span><span class="vi">Xinh chạy gì, <em>từ đầu đến cuối.</em></span></h3>
+        <div class="a3-cards" id="a3Cards" role="tablist"></div>
+      </div></div>
       <div class="a3-far"><p class="a3-far-k"><span class="en">How far I take it</span><span class="vi">Xinh gánh tới đâu</span></p><ol id="a3Far"></ol></div>
     </section>
 

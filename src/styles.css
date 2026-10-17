@@ -3681,3 +3681,525 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
   body.vt-in main{animation-name:vtInLite}
   @keyframes vtInLite{0%{transform:scale(1.03); opacity:0} 100%{transform:none; opacity:1}}
 }
+
+/* ===== v28 · phones: lighter open screen and page changes (Xinh: the site froze on her phone).
+   SVG filters on the wordmark render on the CPU on phones and re-run whenever it tilts; a transform or
+   blur on all of <main> (thousands of pixels tall) makes the phone build one giant layer. ===== */
+@media (max-width:860px),(hover:none) and (pointer:coarse){
+  .x3-word,.x3-word *{filter:none!important}
+  body.vt-out main,body.vt-in main,body.arr-in main{transition:none!important; animation:none!important; transform:none!important; filter:none!important; opacity:1!important}
+  .boot.suck .x3{filter:none!important}
+  .x3o,.x3-tw{filter:none!important}
+}
+
+/* ===== v29 · open screen fits the visible phone screen (iPhone Safari: the buttons sat under the toolbar).
+   The boot is exactly one visible screen tall; the face takes whatever height is left between the
+   wordmark and the buttons (--sh, measured by bootFit() in main.ts; the clamp is the no-JS fallback). */
+@media (max-width:760px){
+  .boot{height:100vh; height:100dvh; min-height:0; overflow:hidden; box-sizing:border-box; padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+  .boot .bx{height:100%; min-height:0; display:flex; flex-direction:column}
+  .x3{flex:1 1 auto; min-height:0; justify-content:flex-start; padding-top:clamp(8px,2.6vh,24px)}
+  .x3-stage{--sh:clamp(190px, calc(100svh - 400px), 430px); height:var(--sh); width:calc(var(--sh) * 840 / 1205); max-width:88vw}
+  .boot .bx-foot{flex:none; margin-top:auto; padding-top:8px; gap:8px}
+  .boot .bh-line{font-size:14px; line-height:1.3}
+  .boot .bh-cta{gap:6px}
+  .boot .bh-cta .mode{padding:10px 12px}
+  .boot .bh-cta .boot-lang button{padding-top:5px; padding-bottom:5px}
+  .boot .boot-skip{display:none}
+}
+
+/* ===== v29 · Contact on phones: tighter rows (one line per channel, Call + Zalo merged when it is the
+   same number), copy as an icon, small chips, a compact chat; the jump arrows no longer cover content. */
+.c3-cp svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round}
+@media (max-width:760px){
+  .dock{display:none!important}
+  .ct3{padding-inline:20px}
+  .c3-ch,.c3-who,.c3-pk{padding-block:44px}
+  .c3-open{padding-block:28px}
+  .c3-rows{gap:8px}
+  .c3-row{grid-template-columns:40px minmax(0,1fr) auto; grid-template-areas:"ic b a" "ic s a"; column-gap:12px; row-gap:3px; padding:12px 12px 12px 14px; border-radius:18px}
+  .c3-row::before{clip-path:inset(0 100% 0 0 round 18px)}
+  .c3-row-ic{width:40px; height:40px; border-radius:12px}
+  .c3-row-ic svg{width:22px; height:22px}
+  .c3-row b{font-size:17px; letter-spacing:-.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .c3-row small{font-size:11.5px}
+  .c3-row-a{margin:0; gap:6px}
+  .c3-go{padding:9px 12px; font-size:13px; gap:0}
+  .c3-go i{display:none}
+  .c3-cp{width:36px; height:36px; padding:0; justify-content:center}
+  .c3-cp span{display:none}
+  .c3-who{gap:22px}
+  .c3-who .a3-h2{margin-bottom:10px}
+  .c3-who-l{margin-bottom:16px; font-size:15px}
+  .c3-opts{gap:6px}
+  .c3-opt{padding:9px 15px; font-size:13.5px}
+  .c3-chat{gap:10px; padding:16px; border-radius:24px}
+  .c3-chat-k{font-size:10.5px} .c3-chat-k i{width:22px; height:22px}
+  .c3-bub{padding:13px 16px; border-radius:20px 20px 6px 20px; font-size:15.5px}
+  .c3-bub.me{padding:9px 14px; font-size:13px; gap:9px}
+  .c3-copy{padding:11px 18px; font-size:14px}
+  .c3-hero{gap:20px; padding-top:8px; padding-bottom:20px}
+  .c3-face{width:min(46%,180px)}
+  .c3-seal{width:96px; height:96px; right:-22%; bottom:-10%}
+  .c3-h1{font-size:clamp(38px,11vw,48px)}
+  #ctStatus{margin-top:16px; padding:9px 14px 9px 12px; font-size:13px}
+  .c3-acts{gap:6px; margin-top:12px}
+  .c3-acts .btn{padding:11px 16px; font-size:14px}
+  .c3-t{padding:22px; border-radius:24px; gap:12px}
+  .c3-t h4{font-size:clamp(28px,8.4vw,34px); margin-top:4px}
+  .c3-t > p:not([class]){font-size:15px}
+  .c3-t-fit{font-size:16px}
+  .c3-promise{padding:8px; gap:6px}
+  .c3-promise li{padding:8px 13px; font-size:13px}
+}
+
+/* ===== v29 · About on phones: the hero photo no longer pushes the headline off screen, the 4 cards are
+   short blocks (no tall sticky stack), the How pin is shorter, one 20px gutter like the nav. */
+@media (max-width:760px){
+  .a3{padding-inline:20px}
+  .a3-hero{gap:22px; padding-top:6px}
+  .a3-pill{width:min(50%,200px)}
+  .a3-seal{width:88px; left:-26%; bottom:4%}
+  .a3-say{padding-block:60px}
+  .a3-roles{gap:40px}
+  .a3-r-ph{aspect-ratio:16/10; border-radius:20px}
+  .a3-c,.a3-c:not(:last-child){position:relative; top:auto; min-height:0; margin-bottom:10px; padding:20px 20px 22px; gap:10px; border-radius:22px; animation:none!important}
+  .a3-c h4{font-size:clamp(28px,8.6vw,36px); margin-top:6px}
+  .a3-c-d{font-size:14.5px}
+  .a3-c-o{width:40px; right:18px; top:16px}
+  .a3-how{height:200vh}
+}
+
+/* ===== v30 · open screen (Xinh's review): character centred on the page, no boot progress bar, one icon
+   material (pink glass + chrome, white rims, soft pink shadows; no black outlines), the tagline breaks
+   on purpose, and the phone footer spans the full width (it was right-aligned by align-self:end). */
+.boot .boot-load{display:none!important}
+.x3{bottom:0; justify-content:center; padding-top:clamp(40px,7vh,72px)}
+.x3-stage{--sh:min(calc(100vh - clamp(260px,42vh,380px)), 600px)}
+.x3o.bk,.x3o.bk[style]{opacity:1}
+@media (min-width:861px) and (hover:hover){ .x3o.bk{filter:drop-shadow(4px 10px 10px rgba(193,63,123,.16))} }
+.x3o{filter:drop-shadow(0 10px 14px rgba(193,63,123,.18))}
+.x3-say{background:linear-gradient(180deg,#fff,#ffeef5); color:var(--rose); font:600 12px/1 var(--f-mono); letter-spacing:.14em; padding:9px 14px 10px; border-radius:999px;
+  box-shadow:inset 0 0 0 1.5px #fff, 0 10px 24px -6px rgba(193,63,123,.32); rotate:4deg}
+.x3-say::after{left:18px; bottom:-7px; width:12px; height:9px; background:#ffeef5; box-shadow:none; clip-path:polygon(0 0,100% 0,0 100%)}
+.bx .mode{outline:none}
+.bx .mode:focus-visible{outline:none; box-shadow:0 0 0 3px #fff, 0 0 0 6px rgba(255,143,192,.55), 0 14px 30px rgba(193,63,123,.22)!important}
+.boot .bh-line b{display:block; white-space:nowrap}
+@media (max-width:760px){
+  .boot .bx-foot{align-self:stretch; width:100%; grid-template-columns:minmax(0,1fr); justify-items:stretch; text-align:center}
+  .boot .bx-foot > *{justify-self:stretch}
+  .boot .bh-line{text-align:center; margin:0; max-width:none!important; width:100%}
+  .boot .bh-cta .boot-lang{justify-self:center}
+  .boot .bh-cta .mode{text-align:left}
+  .x3{justify-content:flex-start}
+}
+@media (min-width:761px) and (max-width:1199px),(min-width:761px) and (max-height:700px){
+  .x3{bottom:clamp(110px,17vh,150px); padding-top:clamp(34px,6vh,60px)}
+  .x3-stage{--sh:min(calc(100vh - clamp(300px,46vh,400px)), 600px)}
+}
+@media (max-width:760px){ .x3o.like{--y:-120px!important} }
+
+/* ===== v30 · LV.1 name card (Xinh's review): "Xinh Nguyễn" on one line in both sizes, with real space
+   between the two words (they overlapped on desktop), the tag line on one line, a balanced hook. */
+.p1 h1.p1name{display:block; white-space:nowrap; font-size:clamp(56px,7.4vw,128px); line-height:1.08; letter-spacing:-.05em; margin-top:10px; padding-top:.06em}
+.p1 h1.p1name .ol{margin-right:.06em}
+.p1 h1.p1name em{display:inline!important; margin:0!important; padding:0 .04em 0 0!important; font-family:var(--f-serif); font-style:italic; font-weight:400; letter-spacing:-.035em; line-height:1.08; color:var(--ink)!important}
+.p1 h1.p1name small{display:block; margin-top:12px; font-size:12px; line-height:1.4; letter-spacing:.12em; white-space:normal}
+.p1 .tag{flex-wrap:nowrap; white-space:nowrap}
+.p1 .tag span{overflow:hidden; text-overflow:ellipsis}
+.p1 .hook{max-width:none; text-wrap:balance}
+.p1 .hook b{display:block}
+.p1 .hook .nb{white-space:nowrap}
+@media (max-width:760px){
+  .p1 h1.p1name{font-size:calc((100vw - 40px) / 5.5)}
+  .p1 h1.p1name small{font-size:11px}
+  .p1 .tag{font-size:10px; letter-spacing:.03em; gap:8px}
+  .p1 .hook{font-size:clamp(24px,7vw,30px)}
+}
+@media (max-width:760px){ .p1 .d3.pearl{display:none} }
+
+/* ===== v30 · LV.0 on phones: the search card sits in the middle of the screen (it hugged the top and
+   left a blank band above the tab bar). */
+@media (max-width:760px){
+  .bf0-pin{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .bf0-in{min-height:0}
+  #brief .sp{margin:auto 0}
+  #brief .sp-bar{padding:12px 16px; font-size:18px; line-height:1.15}
+  #brief .sp-drop{margin-top:8px}
+  #brief .sp-top{padding:12px 14px; min-height:84px}
+  #brief .sp-ans{font-size:13.5px; line-height:1.4}
+  #brief .sp-k2{padding:10px 16px 2px}
+  #brief .sp-row{padding:7px 10px; font-size:13px; line-height:1.3}
+}
+/* v30: the bridge lines break between the two halves, never inside the italic half */
+.brk .say{text-wrap:balance}
+@media (min-width:761px){ .brk .say em.nb{display:inline-block; white-space:nowrap} }
+
+/* ===== v30 · LV.5 on phones: one straight column, same width and same left/right edge for both tickets
+   and the promise (they were tilted and offset three different ways). */
+@media (max-width:760px){
+  .vx{--tx:20px; --t0:calc(var(--hud) + 36px); --th:114px}
+  .vx-say h2{font-size:31px}
+  .vx-t,.vx-t.t1,.vx-t.t2{left:var(--tx); right:var(--tx); width:auto; box-sizing:border-box}
+  .vx-t.t1{top:var(--t0); transform:translateY(calc((1 - var(--b)) * 95vh)) rotate(calc((1 - var(--b)) * -18deg))}
+  .vx-t.t2{top:calc(var(--t0) + var(--th) + 8px); transform:translateY(calc((1 - var(--b2)) * 95vh)) rotate(calc((1 - var(--b2)) * 18deg))}
+  .vx-t h3{margin:8px 0 8px; font-size:19px}
+  .vx-t h3 em{display:inline}
+  .vx-pr{left:var(--tx); right:var(--tx); width:auto; top:calc(var(--t0) + 2 * var(--th) + 16px); bottom:auto; box-sizing:border-box; transform:translateY(calc((1 - var(--c)) * 40px))}
+  .vx-prk{text-align:left}
+}
+/* v30 · phones: straight, even layouts (Xinh: frames should line up and sit centred) */
+@media (max-width:760px){
+  .hc{--drop:0px!important; --str:22px!important; --tilt:0deg!important; --sw:0deg!important}
+  .hcards{padding:0}
+  .end-pic{transform:none; margin-inline:auto}
+}
+/* v30 · phones: equal left and right margins (content sat 42px from the left, 16px from the right);
+   the story thread runs in the left margin */
+@media (max-width:760px){ :root{--railpad:0px; --gutter:22px} }
+
+/* =====================================================================
+   v31 · END as one slide (ref: editorial portfolio slide). 1 screen,
+   headline on 1 line, no photo, no restart / footer / big wordmark.
+   ===================================================================== */
+#finish{min-height:100svh; padding:0!important; display:flex; flex-direction:column; justify-content:center; overflow:clip}
+#finish .wrap.plain.es{width:100%; max-width:1240px; margin:0 auto; padding:calc(var(--hud) + 14px) var(--gutter) 92px!important; box-sizing:border-box}
+.es-slide{position:relative; width:100%; container-type:inline-size; display:grid; grid-template-rows:auto 1fr auto auto auto; gap:clamp(14px,2.4vh,26px); height:min(calc(100svh - var(--hud) - 106px), 660px); min-height:460px; padding:clamp(22px,3.4vh,34px) clamp(22px,3vw,40px) clamp(18px,2.6vh,26px); border-radius:22px; background:rgba(255,255,255,.8); border:1px solid #fff; box-shadow:inset 0 1px 0 #fff, 0 1px 2px rgba(80,20,60,.06), 0 40px 80px -40px rgba(150,30,90,.4); box-sizing:border-box; overflow:hidden}
+.es-slide::before{content:""; position:absolute; left:0; right:0; top:0; height:7px; background:linear-gradient(90deg,var(--lime),#ffbfd8 60%,var(--lime))}
+.es-hd{display:flex; justify-content:space-between; align-items:flex-start; gap:16px}
+.es-brand{margin:0; display:grid; gap:2px; font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#7d7f8c}
+.es-brand b{font-family:var(--f-head); font-weight:900; font-size:15px; letter-spacing:-.01em; color:var(--ink)}
+.es-nav{margin:0; display:flex; gap:clamp(14px,2.4vw,34px); font-family:var(--f-head); font-weight:600; font-size:13px; color:var(--ink)}
+
+.es-mid{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:0}
+.es-k{margin:0 0 clamp(8px,1.6vh,16px); display:inline-flex; gap:10px; align-items:center; font-family:var(--f-mono); font-size:11px; letter-spacing:.12em; color:#7d7f8c}
+.es-k b{padding:4px 8px; border-radius:6px; background:var(--lime); color:var(--ink); font-weight:700}
+.es-word{margin:0; display:flex; align-items:center; justify-content:center; gap:.16em; white-space:nowrap; font-family:var(--f-head); font-weight:900; font-size:min(10.4cqi,118px); line-height:1; letter-spacing:-.05em; color:var(--ink)}
+[data-lang="vi"] .es-word{font-size:min(8.6cqi,100px)}
+.es-word em{font-family:var(--f-script); font-style:normal; font-weight:400; font-size:1.2em; letter-spacing:0; line-height:1.1; padding:.06em .14em .14em .1em; margin:-.1em 0 -.16em; color:var(--rose); background:var(--chrome-pk); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 1px 0 rgba(123,47,82,.4)) drop-shadow(0 8px 18px rgba(193,63,123,.22))}
+.es-gl{position:relative; display:inline-block; width:.9em; height:.9em; flex:none}
+.es-tile{position:absolute; inset:.06em; display:grid; place-items:center; border-radius:.2em; background:linear-gradient(150deg,#fff 0%,#ffe1ee 60%,#ffd0e4); box-shadow:inset 0 1px 0 #fff, 0 .08em .2em rgba(193,63,123,.25); transform:rotate(-8deg); animation:esBob 4.6s ease-in-out infinite}
+.es-tile svg{width:68%; height:68%}
+.es-stk{position:absolute; left:50%; top:50%; width:.09em; height:1.25em; border-radius:99px; background:linear-gradient(var(--lime),#ffc4dc); transform-origin:50% 50%}
+.es-stk.s1{transform:translate(-50%,-50%) rotate(-28deg)}
+.es-stk.s2{height:.8em; background:linear-gradient(#c9c2f0,#efeaff); transform:translate(-50%,-50%) translate(.34em,.08em) rotate(62deg)}
+@keyframes esBob{50%{transform:rotate(-2deg) translateY(-.05em)}}
+.es-side{position:absolute; right:0; top:50%; transform:translateY(-10%); margin:0; display:grid; text-align:right; font-family:var(--f-head); font-weight:600; font-size:clamp(15px,1.5vw,20px); line-height:1.05; color:var(--ink)}
+.es-side b{font-family:var(--f-serif); font-style:italic; font-weight:400; color:var(--rose)}
+#finish .es .acts{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0}
+#finish .es .acts > span{display:contents}
+#finish .es .acts .btn{padding:12px 20px; font-size:15px; background:#fff; border:1px solid rgba(14,15,20,.14); color:var(--ink)}
+#finish .es .acts .btn.lime{padding:13px 26px; font-size:16px; background:var(--lime); border-color:transparent; box-shadow:0 12px 26px rgba(193,63,123,.25)}
+.es-ch{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
+.es-ch .ch{grid-template-columns:auto minmax(0,1fr); grid-template-areas:"ic b" "ic s"; align-items:center; column-gap:12px; row-gap:1px; padding:12px 30px 12px 12px; border-radius:14px; background:rgba(255,255,255,.9)}
+.es-ch .ch-ic{grid-area:ic; width:36px; height:36px; border-radius:11px}
+.es-ch .ch-ic svg{width:20px; height:20px}
+.es-ch .ch b{grid-area:b; font-size:15px}
+.es-ch .ch small{grid-area:s; font-size:10.5px}
+.es-ch .ch i{top:50%; right:12px; transform:translateY(-50%)}
+.es-ch .ch:hover i{transform:translate(2px,-60%)}
+.es-ft{display:flex; justify-content:space-between; align-items:center; gap:12px; padding-top:clamp(10px,1.6vh,16px); border-top:1px solid rgba(14,15,20,.07)}
+#finish .es .saved{display:flex; flex-wrap:wrap; margin:0; padding:0}
+#finish .es .saved span{padding:0!important; background:none!important; border:0!important; font-family:var(--f-mono); font-size:11px; color:#8a8d99!important}
+#finish .es .saved span + span::before{content:"·"; margin:0 8px}
+.es-spk{display:block; width:26px; height:26px; color:var(--ink)}
+.es-spk svg{width:100%; height:100%}
+#finish .d3s{z-index:0}
+@media (prefers-reduced-motion: reduce){ .es-tile{animation:none} }
+@media (max-width: 980px){ .es-side{display:none} }
+@media (max-width: 860px){ .es-ch{grid-template-columns:1fr 1fr} }
+@media (max-width: 760px){
+  #finish .wrap.plain.es{padding:calc(var(--hud) + 10px) var(--gutter) calc(96px + env(safe-area-inset-bottom))!important}
+  .es-slide{height:calc(100svh - var(--hud) - 106px - env(safe-area-inset-bottom)); min-height:440px; max-height:640px; padding:20px 16px 14px; gap:12px; border-radius:20px}
+  .es-hd{align-items:center}
+  .es-nav{gap:10px; font-size:11px}
+  .es-brand b{font-size:13px}
+  .es-brand span{font-size:9.5px}
+  .es-word{font-size:min(10.6cqi,60px)}
+  [data-lang="vi"] .es-word{font-size:min(8.8cqi,54px)}
+  #finish .es .acts{flex-wrap:nowrap; gap:6px}
+  #finish .es .acts .btn{padding:11px 13px; font-size:14px; white-space:nowrap}
+  #finish .es .acts .btn.lime{padding:11px 16px; font-size:14px}
+  .es-ch{gap:8px}
+  .es-ch .ch{column-gap:9px; padding:9px 22px 9px 9px; border-radius:12px}
+  .es-ch .ch-ic{width:30px; height:30px; border-radius:9px}
+  .es-ch .ch-ic svg{width:17px; height:17px}
+  .es-ch .ch b{font-size:13.5px}
+  .es-ch .ch small{font-size:9.5px}
+  .es-ch .ch i{right:8px; font-size:12px}
+  .es-ft{padding-top:10px}
+  #finish .es .saved span{font-size:9.5px}
+  #finish .es .saved span + span::before{margin:0 5px}
+  .es-spk{width:20px; height:20px}
+}
+.es-ch .ch{text-align:left}
+.es-brand{justify-items:start; text-align:left}
+@media (max-width: 760px){
+  .es-word{font-size:min(11.8cqi,64px)}
+  [data-lang="vi"] .es-word{font-size:min(9.6cqi,56px)}
+  #finish .d3s{display:none}
+  #finish .es .saved span:nth-child(2){display:none}
+}
+@media (max-width: 760px){
+  .es-brand,.es-nav{white-space:nowrap}
+  .es-nav{gap:9px; font-size:10.5px}
+  .es-ch .ch{padding-right:9px}
+  .es-ch .ch i{display:none}
+}
+
+/* v31 · boot centred: bootFit() measures the free room (top bar → buttons) and sets --x3t/--x3b
+   (desktop) or centres the whole column (phone); the head takes what is left. */
+@media (min-width:761px){
+  .x3{top:var(--x3t,48px)!important; bottom:var(--x3b,150px)!important; padding-top:0!important; justify-content:center!important}
+  .x3-stage{--sh:min(calc(100vh - 330px), 600px)}
+}
+@media (max-width:760px){
+  .boot .bx{justify-content:center}
+  .x3{flex:none!important; padding-top:0!important}
+  .boot .bx-foot{margin-top:18px!important}
+}
+@media (min-width:761px){ .boot{box-sizing:border-box} .boot .bx{height:100%!important; min-height:0!important} }
+@media (max-width:760px){ .boot .bx-foot{margin-top:calc(-.05 * var(--sh,300px))!important} }
+
+/* =====================================================================
+   v32 · About hero fits one screen (desktop + phone), centred; the
+   statement becomes 3 circles that meet as you scroll (--m from drawAbout)
+   ===================================================================== */
+#v-profile.qv{padding-top:var(--hud)}
+.a3-hero{min-height:calc(100svh - var(--hud)); align-items:center; padding-block:clamp(18px,3vh,36px); box-sizing:border-box; gap:clamp(28px,4vw,64px)}
+.a3-kick{margin-bottom:clamp(14px,2.2vh,26px)}
+.a3-h1{font-size:clamp(40px,min(5.8vw,10.4vh),98px)}
+.a3-h1 .ln > span{white-space:nowrap}
+.a3-lead{max-width:44ch; font-size:clamp(15px,min(1.35vw,2.3vh),19px)!important; line-height:1.5; margin-top:clamp(16px,2.6vh,28px)!important}
+.a3-nums{margin-top:clamp(16px,3vh,34px)!important; gap:clamp(22px,3vw,44px)!important}
+.a3-nums b{font-size:clamp(34px,min(4vw,7vh),64px)!important; line-height:1}
+.a3-nums span{font-size:12px}
+.a3-pill{width:auto!important; height:min(calc(100svh - var(--hud) - 90px), 640px); aspect-ratio:3/4.4; justify-self:center}
+.a3-pill-ph{height:100%; width:100%}
+.a3-seal{width:clamp(96px,min(9vw,15vh),132px)}
+
+.a3-say{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center; gap:clamp(24px,5vw,80px); padding-block:clamp(90px,12vw,170px); --m:0}
+.a3-say-t{text-indent:0; max-width:12ch; font-size:clamp(34px,4.6vw,72px)}
+.a3-meet{position:relative; width:min(100%,560px); aspect-ratio:1/.94; justify-self:center}
+.a3-meet .mt{position:absolute; width:60%; aspect-ratio:1; margin:0; border-radius:50%; display:flex; flex-direction:column; gap:8px; box-sizing:border-box; padding:15%; font:600 clamp(15px,1.45vw,20px)/1.2 var(--f-head); letter-spacing:-.02em; color:var(--ink); border:1px solid rgba(255,255,255,.9);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 30px 60px -36px rgba(150,30,90,.45);
+  opacity:calc(.25 + var(--m) * .75); transition:transform .2s linear}
+.a3-meet .mt b{font:600 11px var(--f-mono); letter-spacing:.12em; color:var(--rose)}
+.a3-meet .c1{left:20%; top:0; background:rgba(255,143,192,.34); justify-content:flex-start; align-items:center; text-align:center; padding-top:13%;
+  transform:translate(0, calc((1 - var(--m)) * -34%)) scale(calc(.8 + var(--m) * .2))}
+.a3-meet .c2{left:0; top:37%; background:rgba(201,194,240,.4); justify-content:flex-end; align-items:flex-start; text-align:left; padding:0 26% 17% 13%;
+  transform:translate(calc((1 - var(--m)) * -30%), calc((1 - var(--m)) * 22%)) scale(calc(.8 + var(--m) * .2))}
+.a3-meet .c3{left:40%; top:37%; background:rgba(255,214,228,.62); justify-content:flex-end; align-items:flex-end; text-align:right; padding:0 13% 17% 24%;
+  transform:translate(calc((1 - var(--m)) * 30%), calc((1 - var(--m)) * 22%)) scale(calc(.8 + var(--m) * .2))}
+.a3-meet .mt-core{position:absolute; left:50%; top:57%; translate:-50% -50%; padding:8px 18px 10px; border-radius:99px; background:var(--ink); color:#fff; font:400 clamp(22px,2.2vw,30px)/1 var(--f-script); box-shadow:0 14px 30px -10px rgba(14,15,20,.5);
+  opacity:clamp(0, calc((var(--m) - .82) * 6), 1); scale:clamp(.6, calc(.6 + (var(--m) - .82) * 2.4), 1)}
+
+@media (max-width:860px){
+  .a3-say{grid-template-columns:1fr; padding-block:72px; gap:28px}
+  .a3-say-t{max-width:none; font-size:clamp(30px,8.4vw,44px)}
+  .a3-meet .mt{font-size:clamp(13px,3.6vw,17px); gap:5px}
+}
+@media (max-width:760px){
+  #v-profile.qv{padding-top:var(--hud)}
+  .a3-hero{display:flex; flex-direction:column; justify-content:center; align-items:stretch; min-height:calc(100svh - var(--hud) - 96px - env(safe-area-inset-bottom)); padding-block:14px; gap:16px}
+  .a3-pill{order:-1; height:clamp(150px,27svh,260px); width:auto!important; align-self:center}
+  .a3-seal{width:clamp(70px,11svh,96px); left:-30%; bottom:2%}
+  .a3-kick{margin-bottom:10px}
+  .a3-h1{font-size:clamp(32px,min(9.4vw,5.4svh),44px)}
+  [data-lang="vi"] .a3-h1{font-size:clamp(30px,min(8.6vw,5svh),40px)}
+  .a3-lead{font-size:14.5px!important; line-height:1.45; margin-top:12px!important}
+  .a3-nums{margin-top:14px!important; gap:22px!important}
+  .a3-nums b{font-size:34px!important}
+  .a3-nums span{font-size:11px}
+}
+@media (max-width:760px){
+  .a3-hero{min-height:calc(100svh - var(--hud) - 82px - env(safe-area-inset-bottom))}
+  .a3-pill{height:clamp(150px,29svh,280px)}
+}
+@media (max-width:760px) and (max-height:700px){
+  .a3-pill{height:clamp(120px,25svh,200px)}
+  .a3-lead{font-size:13.5px!important}
+  .a3-hero{gap:12px}
+}
+.a3-meet .mt{aspect-ratio:auto; height:63.8%}
+.a3-meet .c2{padding:0 24% 16% 12%}
+.a3-meet .c3{padding:0 12% 16% 24%}
+.a3-meet{width:min(100%,520px,68vh)}
+
+/* =====================================================================
+   v33 · boot (Xinh's notes): no repeated top row; footer on one centre
+   line; icons mirrored left/right of the head; phone CTA re-stacked
+   ===================================================================== */
+.boot .boot-top{display:none!important}
+.boot .boot-skip{display:none!important}
+@media (min-width:761px){
+  .boot .bx-foot{align-items:center!important}
+  .boot .bh-line{margin:0!important; align-self:center}
+  .boot .bh-cta{align-items:center}
+}
+@media (max-width:760px){
+  .x3o.like{--x:290px!important; --y:30px!important}
+  .x3o.chat{--y:30px!important}
+  .x3o.heart{--x:280px!important; --y:190px!important}
+  .x3o.play{--y:190px!important}
+  .x3o.at{display:none!important}
+  /* CTA: one big Story pill, then About me + language on one line */
+  .boot .bh-cta{display:grid!important; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"s s" "q l"; gap:12px 10px!important; width:100%}
+  .boot .bh-cta .mode.story{grid-area:s; padding:16px 20px!important; border-radius:22px}
+  .boot .bh-cta .mode.story h2{font-size:21px}
+  .boot .bh-cta .mode.quick{grid-area:q; display:flex; align-items:center; gap:10px; padding:12px 18px!important; border-radius:999px; min-height:0}
+  .boot .bh-cta .mode.quick .k{order:2; margin:0; opacity:.6}
+  .boot .bh-cta .mode.quick .k b{display:none}
+  .boot .bh-cta .mode.quick h2{order:1; font-size:16px; margin:0}
+  .boot .bh-cta .mode.quick .go{order:3; margin-left:auto}
+  .boot .bh-cta .boot-lang{grid-area:l; align-self:stretch; display:flex; flex-direction:row!important; border-radius:999px!important}
+  .boot .bh-cta .boot-lang button{padding:0 14px}
+  .boot .bh-line{margin-bottom:4px!important}
+}
+@media (max-width:760px){
+  .x3o.like{--x:250px!important}
+  .boot .bh-cta .boot-lang{padding:4px!important; gap:2px}
+  .boot .bh-cta .boot-lang button{border-radius:999px!important; padding:0 14px!important}
+  .boot{padding-top:calc(16px + env(safe-area-inset-top,0px))!important; padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))!important}
+}
+
+/* =====================================================================
+   v34 · About "What I run": file dividers (ref: paper folder tabs).
+   One pinned screen; a3Fold() moves each divider with translateY.
+   ===================================================================== */
+.a3-run{padding-block:0 clamp(60px,8vw,110px)!important}
+.a3-run-sc{position:relative; height:280vh; height:280svh}
+.a3-run-pin{position:sticky; top:0; height:100vh; height:100svh; box-sizing:border-box; display:flex; flex-direction:column; padding:calc(var(--hud) + clamp(16px,3vh,34px)) 0 clamp(20px,4vh,44px)}
+.a3-run-pin .a3-h2{flex:none; margin-bottom:clamp(18px,3vh,34px)}
+.a3-cards{--step:clamp(56px,8.4vh,74px); --tab:clamp(40px,5.6vh,50px); position:relative; flex:1 1 auto; min-height:0; display:block!important}
+.a3-cards .a3-c{position:absolute!important; inset:0 0 auto 0; top:0!important; height:calc(100% - (3 * var(--step))); margin:0!important; padding:0!important; display:block!important; min-height:0!important; background:none!important; box-shadow:none!important; border:0!important; border-radius:0!important; transition:transform .8s var(--xo); will-change:transform; z-index:calc(1 + var(--j))}
+.a3-c-tab{position:absolute; left:var(--tx); top:0; height:calc(var(--tab) + 14px); display:flex; align-items:flex-start; gap:12px; padding:12px clamp(18px,2vw,26px) 0; border:0; border-radius:18px 18px 0 0; background:var(--fc); color:var(--ink); font:600 clamp(14px,1.25vw,18px)/1.15 var(--f-head); letter-spacing:-.01em; text-transform:uppercase; cursor:pointer; white-space:nowrap; max-width:60%; overflow:hidden; text-overflow:ellipsis}
+.a3-c-tab b{font:500 11px/1.6 var(--f-mono); letter-spacing:.1em; color:rgba(14,15,20,.5)}
+.a3-c-tab::before,.a3-c-tab::after{content:""; position:absolute; bottom:0; width:18px; height:18px; background:radial-gradient(circle at 0 0, transparent 17.5px, var(--fc) 18px)}
+.a3-c-tab::before{left:-18px; background:radial-gradient(circle at 0 0, transparent 17.5px, var(--fc) 18px); transform:scaleX(-1)}
+.a3-c-tab::after{right:-18px}
+.a3-c-tab:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
+.a3-c-b{position:absolute; left:0; right:0; top:var(--tab); bottom:0; display:grid; grid-template-columns:auto minmax(0,1fr); align-items:start; gap:clamp(20px,4vw,72px); padding:clamp(26px,4.4vh,48px) clamp(24px,4vw,64px); border-radius:22px 22px 0 0; background:var(--fc); box-shadow:0 -1px 0 rgba(255,255,255,.7) inset, 0 -14px 30px -18px rgba(80,40,50,.28); overflow:hidden}
+.a3-c-n{margin:0; font:400 clamp(64px,9vw,150px)/.8 var(--f-serif); font-style:italic; color:var(--rose); letter-spacing:-.04em}
+.a3-c-n small{display:block; margin-top:14px; font:500 11px var(--f-mono); font-style:normal; letter-spacing:.1em; color:rgba(14,15,20,.45)}
+.a3-c-d{margin:0; max-width:30ch; font:500 clamp(20px,2.2vw,34px)/1.22 var(--f-head)!important; letter-spacing:-.025em; color:var(--ink)}
+.a3-c .a3-c-b > *{opacity:.0; transform:translateY(14px); transition:opacity .5s ease, transform .7s var(--xo)}
+.a3-c.on .a3-c-b > *{opacity:1; transform:none; transition-delay:.18s}
+.a3-c.on .a3-c-tab{color:var(--ink)}
+.a3-c.f0{--fc:#e7e5e8; --tx:3%}
+.a3-c.f1{--fc:#f6f1ea; --tx:44%}
+.a3-c.f2{--fc:#f5d3df; --tx:16%}
+.a3-c.f3{--fc:#efc0cf; --tx:56%}
+.a3-c.f0 .a3-c-b{box-shadow:none}
+@media (prefers-reduced-motion:reduce){ .a3-cards .a3-c,.a3-c .a3-c-b > *{transition:none} }
+@media (max-width:760px){
+  .a3-run-sc{height:300svh}
+  .a3-run-pin{padding:calc(var(--hud) + 12px) 0 calc(92px + env(safe-area-inset-bottom))}
+  .a3-run-pin .a3-h2{font-size:clamp(30px,8.6vw,40px); margin-bottom:16px}
+  .a3-cards{--step:50px; --tab:38px; margin-inline:-6px}
+  .a3-c-tab{font-size:12.5px; padding:10px 14px 0; gap:8px; border-radius:14px 14px 0 0; max-width:58%}
+  .a3-c-tab b{font-size:10px; line-height:1.5}
+  .a3-c-tab::before,.a3-c-tab::after{width:14px; height:14px; background:radial-gradient(circle at 0 0, transparent 13.5px, var(--fc) 14px)}
+  .a3-c-tab::before{left:-14px} .a3-c-tab::after{right:-14px}
+  .a3-c-b{grid-template-columns:1fr; gap:10px; padding:22px 20px; border-radius:18px 18px 0 0}
+  .a3-c-n{font-size:56px; display:flex; align-items:baseline; gap:10px}
+  .a3-c-n small{display:inline; margin:0}
+  .a3-c-d{font-size:clamp(18px,5.2vw,22px)!important}
+  .a3-c.f0{--tx:2%} .a3-c.f1{--tx:40%} .a3-c.f2{--tx:10%} .a3-c.f3{--tx:44%}
+}
+.a3-cards{overflow:hidden; overflow:clip}
+.a3-c-b{align-content:start}
+@media (min-width:761px){ .a3-c-d{padding-top:.5em} }
+
+/* =====================================================================
+   v35 · About "Four levels": one pinned screen, scroll steps the level.
+   drawAbout() picks the level from .a3-path-sc progress.
+   ===================================================================== */
+.a3-path{padding-block:0!important}
+.a3-path-sc{position:relative; height:280vh; height:280svh}
+.a3-path-pin{position:sticky; top:0; height:100vh; height:100svh; box-sizing:border-box; display:flex; flex-direction:column; padding:calc(var(--hud) + clamp(16px,3vh,34px)) 0 clamp(20px,4vh,40px)}
+.a3-path-pin .a3-h2{flex:none; max-width:none; margin-bottom:clamp(16px,3vh,32px); font-size:clamp(32px,min(4.2vw,7.4vh),62px)}
+.a3-path-pin .a3-path-g{flex:1 1 auto; min-height:0; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center; gap:clamp(28px,5vw,80px)}
+.a3-path-pin .a3-stack{position:relative; top:auto; align-self:stretch; height:auto; max-height:540px; min-height:0}
+.a3-path-pin .a3-stack figcaption b{font-size:clamp(60px,min(7vw,12vh),112px)}
+.a3-roles-w{display:flex; flex-direction:column; gap:clamp(18px,3.4vh,36px); min-height:0}
+.a3-lvn{display:flex; flex-wrap:wrap; gap:8px}
+.a3-lvn button{display:inline-flex; align-items:baseline; gap:8px; padding:8px 14px; border:1px solid rgba(14,15,20,.14); border-radius:999px; background:rgba(255,255,255,.55); color:var(--ink2); font:500 12px/1.2 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:background .4s var(--xo), color .4s, border-color .4s}
+.a3-lvn button b{font-weight:600; color:var(--rose)}
+.a3-lvn button.on{background:var(--lime); border-color:var(--lime); color:var(--ink)}
+.a3-lvn button.on b{color:var(--ink)}
+.a3-lvn button:focus-visible{outline:2px solid var(--rose); outline-offset:2px}
+.a3-path-pin .a3-roles{position:relative; display:grid!important; gap:0!important}
+.a3-path-pin .a3-roles article,.a3-path-pin .a3-roles article:last-child{grid-area:1/1; min-height:0!important; justify-content:flex-start; gap:12px; opacity:0!important; transform:translateY(16px); pointer-events:none; transition:opacity .5s ease, transform .7s var(--xo)}
+.a3-path-pin .a3-roles article.on{opacity:1!important; transform:none; pointer-events:auto; transition-delay:.12s}
+.a3-path-pin .a3-roles h4{font-size:clamp(24px,min(2.6vw,4.8vh),40px); max-width:20ch}
+.a3-path-pin .a3-r-v{font-size:clamp(17px,min(1.5vw,2.7vh),22px)}
+.a3-path-pin .a3-r-ph{display:none!important}
+@media (prefers-reduced-motion:reduce){ .a3-path-pin .a3-roles article,.a3-lvn button{transition:none} }
+@media (max-width:860px){
+  .a3-path-sc{height:300svh}
+  .a3-path-pin{padding:calc(var(--hud) + 12px) 0 calc(92px + env(safe-area-inset-bottom))}
+  .a3-path-pin .a3-h2{font-size:clamp(28px,8.2vw,40px); margin-bottom:14px}
+  .a3-path-pin .a3-path-g{grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr); align-items:start; gap:16px}
+  .a3-path-pin .a3-stack{display:block!important; align-self:auto; height:clamp(140px,26svh,230px); border-radius:22px}
+  .a3-path-pin .a3-stack figure,.a3-path-pin .a3-stack figure:first-child,.a3-path-pin .a3-stack figure.on{clip-path:inset(0 0 0 0 round 22px)}
+  .a3-path-pin .a3-stack figure{clip-path:inset(100% 0 0 0 round 22px)}
+  .a3-path-pin .a3-stack figcaption b{font-size:56px}
+  .a3-roles-w{gap:14px}
+  .a3-lvn{flex-wrap:nowrap; gap:6px}
+  .a3-lvn button{flex:1 1 0; justify-content:center; padding:7px 4px; font-size:0; gap:0}
+  .a3-lvn button b{font-size:11px}
+  .a3-path-pin .a3-roles h4{font-size:clamp(21px,6vw,26px)}
+  .a3-path-pin .a3-r-v{font-size:16px}
+  .a3-path-pin .a3-roles article{gap:8px}
+  .a3-path-pin .a3-more{margin-top:4px}
+}
+@media (max-width:860px) and (max-height:700px){ .a3-path-pin .a3-stack{height:clamp(110px,20svh,170px)} }
+.a3-lvn{flex-wrap:nowrap; gap:8px; max-width:420px}
+.a3-lvn button{flex:1 1 0; justify-content:center; padding:8px 4px; font-size:0; gap:0}
+.a3-lvn button b{font-size:12px}
+
+/* v35b · Four levels as a cluster of ID badges on one lanyard (ref: badge mockups).
+   drawAbout() sets --d (offset from the level being read) and --a (|--d|) per badge. */
+.a3-stack.bdk{--bw:min(100%, calc((100% - 0px) * 1)); position:relative; overflow:visible!important; background:none!important; border-radius:0!important; container-type:size}
+.bdk .bd-lan{position:absolute; left:50%; top:calc(-1 * var(--hud, 60px)); height:calc(var(--hud, 60px) + 13cqh); width:0; z-index:20; pointer-events:none}
+.bdk .bd-strap{position:absolute; left:-17px; top:0; bottom:26px; width:34px; border-radius:0 0 6px 6px; background:
+  repeating-linear-gradient(180deg, transparent 0 42px, rgba(255,255,255,.85) 42px 44px, transparent 44px 60px),
+  linear-gradient(90deg,#f37fb2,#ff9cc8 40%,#ff8fc0 60%,#e9709f); box-shadow:0 8px 18px -10px rgba(193,63,123,.6)}
+.bdk .bd-clip{position:absolute; left:-15px; bottom:0; width:30px; height:34px; border-radius:8px 8px 12px 12px; background:var(--chrome-sv); box-shadow:0 6px 12px -6px rgba(20,20,40,.55), inset 0 0 0 1px rgba(255,255,255,.6)}
+.bdk .bd-clip::after{content:""; position:absolute; left:50%; bottom:-10px; width:12px; height:16px; margin-left:-6px; border:3px solid #9aa3b6; border-top:0; border-radius:0 0 8px 8px}
+.a3-path-pin .a3-stack.bdk figure.bd{--w:min(74cqw, calc(83cqh * .68)); position:absolute; left:50%; top:13cqh; width:var(--w); height:calc(var(--w) / .68); margin:0 0 0 calc(var(--w) / -2);
+  clip-path:none!important; display:flex; flex-direction:column; padding:calc(var(--w) * .06); box-sizing:border-box; border-radius:calc(var(--w) * .075); background:#f7f2ea;
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 1px rgba(14,15,20,.06) inset, 0 28px 50px -26px rgba(70,40,60,.45), 0 8px 16px -10px rgba(70,40,60,.25);
+  transform-origin:50% -6cqh; transform:translateX(calc(var(--d) * 9%)) translateY(calc(var(--a) * 1.4cqh)) rotate(calc(var(--d) * 6deg)) scale(calc(1 - var(--a) * .05));
+  z-index:calc(10 - var(--a)); opacity:calc(1 - var(--a) * .12); transition:transform 1s var(--xo), opacity .6s, filter .6s}
+.a3-path-pin .a3-stack.bdk figure.bd:not(.cur){filter:saturate(.75)}
+.a3-path-pin .a3-stack.bdk figure.bd[style*="--a: 2"],.a3-path-pin .a3-stack.bdk figure.bd[style*="--a: 3"]{opacity:.0}
+.bdk figure.bd::after{display:none!important}
+.bdk .bd-slot{align-self:center; flex:none; width:24%; height:calc(var(--w) * .045); margin-bottom:calc(var(--w) * .05); border-radius:99px; background:#e4ddd2; box-shadow:inset 0 2px 3px rgba(60,40,40,.25)}
+.bdk .bd-top{display:flex; justify-content:space-between; margin:0 0 calc(var(--w) * .04); font:600 calc(var(--w) * .034)/1 var(--f-mono); letter-spacing:.14em; color:var(--rose)}
+.bdk .bd-ph{position:relative!important; inset:auto!important; flex:1 1 auto; min-height:0; border-radius:calc(var(--w) * .04); overflow:hidden; background:#ddd5ca}
+.bdk .bd-ph .ph,.bdk .bd-ph .ph img{width:100%; height:100%; object-fit:cover}
+.bdk .bd-ph .ph img{scale:1!important}
+.a3-path-pin .bdk figure.bd figcaption{position:static!important; display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-top:calc(var(--w) * .05); color:var(--ink)!important}
+.a3-path-pin .bdk figure.bd figcaption b{font:italic 400 calc(var(--w) * .2)/.8 var(--f-serif)!important; letter-spacing:-.04em; color:var(--rose); transform:none!important; opacity:1!important}
+.bdk figure.bd figcaption span{display:flex; flex-direction:column; align-items:flex-end; gap:4px; max-width:60%; font:500 calc(var(--w) * .03)/1.25 var(--f-mono)!important; letter-spacing:.12em; color:var(--ink3); opacity:1!important}
+.bdk figure.bd figcaption strong{font:800 calc(var(--w) * .062)/1 var(--f-head); letter-spacing:-.02em; color:var(--ink); text-transform:none}
+.bdk .bd-bar{flex:none; height:calc(var(--w) * .07); margin-top:calc(var(--w) * .045); background:repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px, var(--ink) 8px 11px, transparent 11px 13px); opacity:.75}
+@media (prefers-reduced-motion:reduce){ .a3-path-pin .a3-stack.bdk figure.bd{transition:opacity .3s} }
+@media (max-width:860px){
+  .a3-path-pin .a3-stack.bdk{height:clamp(220px,40svh,330px)}
+  .bdk .bd-lan{top:-14px; height:calc(14px + 13cqh)}
+  .bdk .bd-strap{left:-12px; width:24px; bottom:22px}
+  .bdk .bd-clip{left:-11px; width:22px; height:26px}
+}
+@media (max-width:860px) and (max-height:700px){ .a3-path-pin .a3-stack.bdk{height:clamp(190px,36svh,250px)} }
+.bdk .bd-lan{top:0!important; height:13cqh!important}
+.bdk .bd-strap{top:-8px}
+.a3-path-pin .a3-stack.bdk figure.bd{transform-origin:50% -2cqh; transform:translateX(calc(var(--d) * 15%)) translateY(calc(var(--a) * 1cqh)) rotate(calc(var(--d) * 7deg)) scale(calc(1 - var(--a) * .04))}
+.a3-path-pin .a3-stack.bdk figure.bd[style*="--a: 2"]{opacity:.55}
+@media (max-width:860px) and (max-height:700px){ .a3-path-pin .a3-stack.bdk{height:clamp(170px,29svh,210px)} .a3-path-pin .a3-path-g{gap:12px} .a3-path-pin .a3-h2{margin-bottom:10px} }
+@media (max-width:860px) and (max-height:700px){
+  .a3-path-pin .a3-roles h4{font-size:19px} .a3-path-pin .a3-r-v{font-size:14.5px} .a3-path-pin .a3-roles article{gap:6px}
+  .a3-lvn button{padding:4px} .a3-roles-w{gap:10px} .a3-path-pin .a3-more{padding:4px 4px 4px 14px; font-size:13px} .a3-path-pin .a3-more i{width:26px; height:26px}
+}
