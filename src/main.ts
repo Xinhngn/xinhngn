@@ -1632,7 +1632,7 @@ import { mountHead3D } from './head3d';
      step, then the whole method in one line and "Problem solved." 06: the close.
      ===================================================================== */
   var abBuilt = false;
-  var AB_BG = ['#f8e3ec', '#ebebef', '#f3eee6', '#ffd3e4', '#f8e3ec'];
+  var AB_BG = ['#f3eee6', '#ebebef', '#f3eee6', '#f8e3ec', '#ebebef', '#ffd3e4'];
   var A3_TINT = ['blush', 'paper', 'silver', 'rose'];
   function wrapWords(root){
     (function wrap(node){
@@ -1679,16 +1679,41 @@ import { mountHead3D } from './head3d';
       return '<article class="a3-c f' + j + '" style="--j:' + j + '"><button class="a3-c-tab" type="button" role="tab" data-a3tab="' + j + '"><b>0' + (j + 1) + '</b><span>' + esc(L(col.t)) + '</span></button><div class="a3-c-b"><p class="a3-c-n">0' + (j + 1) + '<small>/ 04</small></p><p class="a3-c-d">' + esc(L(col.d)) + '</p></div></article>';
     }).join('');
     a3Fold(a3K, true);
-    var far = $('#a3Far');
-    if (far) far.innerHTML = COLS.filter(function(c){ return c.g === 'own'; }).map(function(col, j){
-      return '<li style="--j:' + j + '"><i aria-hidden="true"></i><b>' + esc(L(col.t)) + '</b><span>' + esc(L(col.d)) + '</span></li>';
+    // FILE 03 · five strips on the note; the one pulled off is read on the right
+    var strips = $('#xfStrips');
+    if (strips) strips.innerHTML = XF_OWN().map(function(col, j){
+      return '<button type="button" role="tab" class="xf-st" data-xfst="' + j + '" style="--j:' + j + '"><span>' + esc(L(col.t)) + '</span></button>';
     }).join('');
-    var hw = $('#a3HowW');
-    if (hw) hw.innerHTML = STEPS.map(function(st, i){
-      return '<div class="a3-hw" data-i="' + i + '"><strong>' + esc(L(st.t)) + '</strong><span>' + esc(L(st.k)) + '</span></div>';
-    }).join('') + '<ol class="a3-hw-all">' + STEPS.map(function(st, i){ return '<li style="--j:' + i + '"><b>0' + (i + 1) + '</b>' + esc(L(st.t)) + '</li>'; }).join('') + '</ol>';
-    void vi;
+    xfNote(xfN);
+    // FILE 04 · the receipt: one line per step, then the total
+    var pap = $('#xfPaper');
+    if (pap) pap.innerHTML = '<p class="xf-p-h"><b>XINH.OS</b><span>' + (vi ? 'HOÁ ĐƠN DỰ ÁN' : 'PROJECT RECEIPT') + '</span><span>No. 0001 · HCMC</span></p>' +
+      '<ol class="xf-p-l">' + STEPS.map(function(st, i){ return '<li style="--j:' + i + '"><b>0' + (i + 1) + '</b><span><strong>' + esc(L(st.t)) + '</strong><small>' + esc(L(st.k)) + '</small></span><i>✓</i></li>'; }).join('') + '</ol>' +
+      '<p class="xf-p-t"><span>TOTAL</span><em>' + (vi ? 'Vấn đề đã xử lý.' : 'Problem solved.') + '</em></p><i class="xf-p-bar" aria-hidden="true"></i><p class="xf-p-f">' + (vi ? 'CẢM ƠN, HẸN DỰ ÁN SAU!' : 'THANK YOU, SEE YOU NEXT PROJECT!') + '</p>';
+    // FILE 05 · this week in the calendar: today, and the day after it marked for the coffee
+    var cal = $('#xfCal');
+    if (cal){
+      var now = new Date(), d0 = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7)), pick = (now.getDay() + 6) % 7 + 1;
+      if (pick > 4) pick = 7;
+      var loc = vi ? 'vi-VN' : 'en-US', days = '';
+      for (var di = 0; di < 7; di++){
+        var dd = new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() + di);
+        days += '<li class="' + (di === (now.getDay() + 6) % 7 ? 'today' : '') + (di === pick ? ' pick' : '') + '"><small>' + esc(dd.toLocaleDateString(loc, {weekday:'short'}).replace('.', '')) + '</small><b>' + dd.getDate() + '</b></li>';
+      }
+      var pd = new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() + pick);
+      cal.innerHTML = '<p class="xf-cal-m">' + esc(pd.toLocaleDateString(loc, {month:'long', year:'numeric'})) + '</p><ol class="xf-cal-w">' + days + '</ol>' +
+        '<div class="xf-cal-ev"><b>' + (vi ? 'Cà phê cùng Xinh' : 'Coffee with Xinh') + '</b><span>' + esc(pd.toLocaleDateString(loc, {weekday:'long', day:'numeric', month:'short'})) + ' · ' + (vi ? 'giờ do bạn chọn' : 'time: your pick') + '</span></div>';
+    }
   }
+  function XF_OWN(){ return COLS.filter(function(c){ return c.g === 'own'; }); }
+  var xfN = 0;
+  function xfNote(k){
+    var cols = XF_OWN(), col = cols[k], box = $('#xfNote'); if (!col || !box) return; xfN = k;
+    $$('.xf-st').forEach(function(b, i){ b.classList.toggle('on', i === k); b.setAttribute('aria-selected', i === k ? 'true' : 'false'); });
+    box.innerHTML = '<p class="xf-note-n"><b>0' + (k + 1) + '</b> / 0' + cols.length + '</p><h4>' + esc(L(col.t)) + '</h4><p class="xf-note-d">' + esc(L(col.d)) + '</p><p class="xf-note-h">' + (lang === 'vi' ? 'Bấm 1 mảnh giấy để đọc' : 'Tap a strip to read it') + '</p>';
+  }
+  document.addEventListener('click', function(e){ var b = e.target.closest('[data-xfst]'); if (b) xfNote(+b.dataset.xfst); });
+  document.addEventListener('mouseover', function(e){ var b = e.target.closest && e.target.closest('[data-xfst]'); if (b && matchMedia('(hover:hover)').matches && +b.dataset.xfst !== xfN) xfNote(+b.dataset.xfst); });
   /* role sheet: the long description lives here, not on the page */
   var abPop = null, abPopFrom = null;
   function abPopClose(){ if (!abPop || abPop.hidden) return; abPop.classList.remove('in'); setTimeout(function(){ abPop.hidden = true; }, reduce ? 0 : 380); if (abPopFrom) abPopFrom.focus(); }
@@ -1723,15 +1748,6 @@ import { mountHead3D } from './head3d';
     var secs = $$('[data-a3]', v), cur = 0;
     secs.forEach(function(s, i){ if (s.getBoundingClientRect().top < vh * .5) cur = i; });
     v.style.setProperty('--abbg', AB_BG[cur] || AB_BG[0]);
-    // 01 · the photo drifts a little slower than the page, the seal turns with it
-    var hero = $('.a3-hero', v);
-    if (hero && !reduce){ var ht = hero.getBoundingClientRect().top; v.style.setProperty('--hy', Math.max(0, -ht).toFixed(1)); }
-    // 02 · words fill as the statement passes through the middle of the screen
-    var say = $('.a3-say', v);
-    if (say){
-      var sr = say.getBoundingClientRect(), fill = reduce ? 1 : clamp((vh * .78 - sr.top) / Math.max(1, sr.height * .9), 0, 1);
-      $$('#abSay > span', v).forEach(function(x){ var ws = $$('.wd', x), n = Math.round(fill * ws.length); ws.forEach(function(w, i){ w.classList.toggle('on', i < n); }); });
-    }
     var rsc = $('.a3-run-sc', v);
     if (rsc){ var rr = rsc.getBoundingClientRect(), rsp = Math.max(1, rr.height - vh); a3Fold(Math.min(3, Math.floor(clamp(-rr.top / rsp, 0, .999) * 4))); }
     // 03 · the photo of the level whose role is in the middle of the screen
@@ -1744,17 +1760,13 @@ import { mountHead3D } from './head3d';
       arts.forEach(function(a, i){ a.classList.toggle('on', i === act); });
       $$('figure', st).forEach(function(f, i){ f.classList.toggle('on', i <= act); f.classList.toggle('cur', i === act); f.style.setProperty('--d', i - act); f.style.setProperty('--a', Math.abs(i - act)); });
     }
-    // 04 · the line from pitch to sign-off draws itself
-    var fr = $('.a3-far', v);
-    if (fr){ var fb = fr.getBoundingClientRect(), fp = reduce ? 1 : clamp((vh * .85 - fb.top) / Math.max(1, vh * .55), 0, 1); fr.style.setProperty('--fp', fp.toFixed(3)); $$('li', fr).forEach(function(li, i){ li.classList.toggle('on', fp >= i / 4.2); }); }
-    // 05 · one word per step, then all four and the answer
-    var how = $('#a3How', v);
-    if (how){
-      var hp = reduce ? 1 : abPin(how, vh), done = hp > .8, idx = Math.min(3, Math.floor(hp / .8 * 4));
-      $$('.a3-hw', how).forEach(function(w, i){ w.classList.toggle('on', !done && i === idx); w.classList.toggle('past', !done && i < idx); });
-      how.classList.toggle('done', done);
-      how.style.setProperty('--hp', hp.toFixed(3));
-      var n = $('#a3HowN'); if (n) n.textContent = done ? '04 / 04' : '0' + (idx + 1) + ' / 04';
+    // FILE 04 · the receipt prints as the pinned scene scrolls
+    var rc = $('.xf-rc-sc', v);
+    if (rc){
+      var rp = reduce ? 1 : clamp(-rc.getBoundingClientRect().top / Math.max(1, rc.offsetHeight - vh) / .85, 0, 1);
+      v.style.setProperty('--rp', rp.toFixed(3));
+      $$('.xf-p-l li', v).forEach(function(li, i){ li.classList.toggle('on', rp >= .12 + i * .2); });
+      var pt = $('.xf-p-t', v); if (pt) pt.classList.toggle('on', rp >= .95);
     }
   }
   onScrollFrame(drawAbout);

@@ -54,6 +54,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v35 (About "Four levels", ref thẻ ID treo dây của Xinh):** `.a3-path-sc` ghim 280svh (điện thoại 300svh), 1 màn: trái là cụm 4 thẻ ID (`#a3Stack.bdk`, `figure.bd`) treo trên 1 dây hồng + móc chrome (`.bd-lan`); thẻ level đang đọc nằm trước, các thẻ khác xoè nghiêng phía sau (`drawAbout()` đặt `--d` / `--a` trên mỗi thẻ). Phải: 4 nút số `.a3-lvn` (bấm thì cuộn tới level) + mô tả vai trò (`#tl4`, chỉ hiện bài `.on`). CSS khối v35 / v35b cuối `src/styles.css`.
 
+**v36 (About = "Hồ sơ Xinh", 6 tệp, mỗi tệp 1 màn):** kịch bản: FILE 00 mở đầu kiểu phim giới thiệu nữ chính (`.xf-hero`: khung ảnh REC + timecode, "Meet / Xinh / Nguyễn." chồng lên ảnh, lời dẫn bên phải, dòng credits 5 năm · 20 thương hiệu · 4 tấm thẻ, gợi ý "câu chuyện qua 4 tấm thẻ ↓") → FILE 01 cụm thẻ ID (v35) → FILE 02 tệp hồ sơ tab (v34) → FILE 03 tờ ghi chú xé (`.xf-notes`, `#xfStrips`, `xfNote()`: 5 mảnh giấy = 5 mục "How far I take it", bấm / rê để xé và đọc) → FILE 04 hoá đơn dự án (`.xf-rc`, giữ id `#a3How`, ghim 240svh; cuộn thì hoá đơn in ra từ khe chrome, 4 bước tick lần lượt, TOTAL "Problem solved.", biến `--rp`) → FILE 05 thư mời (`.xf-inv`: lá thư rút ra từ phong bì hồng, lịch tuần này tự tính theo ngày hiện tại, đánh dấu hôm nay + ngày hẹn "Cà phê cùng Xinh", 3 nút, P.S. học vấn). Nhãn chương chung `.xf-k` (FILE 0X). `AB_BG` 6 màu. CSS khối v36 cuối `src/styles.css`.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.
