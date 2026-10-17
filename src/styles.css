@@ -4877,3 +4877,263 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
 @media (max-width:400px){ .cx-cl b{display:none} .cx-cl{font-size:12.5px} }
 @media (max-width:860px) and (max-height:700px){ .cx-hero{height:auto} }
 .cx-stamp{left:24%}
+
+/* =====================================================================
+   v41 · Story review (Xinh): every level fits one screen, and each one holds
+   for a beat before the next starts, so a fast swipe doesn't skip it
+   ===================================================================== */
+:root{--dockh:80px; --beat:55svh}
+@media (max-width:760px){ :root{--dockh:calc(88px + env(safe-area-inset-bottom,0px))} }
+.st-nodewrap{height:0; position:relative}
+.st-nodewrap .node{top:calc(var(--hud) + 30px)}
+.st-hold{position:relative; height:calc(100svh + var(--beat))}
+.st-pin{position:sticky; top:0; height:100svh; box-sizing:border-box; padding:calc(var(--hud) + 14px) 0 var(--dockh); display:flex; flex-direction:column; overflow:hidden}
+.st-col{flex:1 1 0; min-height:0; width:100%; display:flex; flex-direction:column; justify-content:center}
+
+/* LV.1 · four hanging cards sized from the height that's left */
+#clarify.st-hz{padding-block:0; overflow:clip}
+#clarify .head{margin-bottom:clamp(6px,2vh,22px); gap:clamp(8px,1.4vh,14px); flex:none}
+#clarify .h2{font-size:clamp(30px,min(5.2vw,8.4vh),76px); white-space:nowrap}
+#clarify .lead{max-width:none; font-size:clamp(14px,min(1.3vw,2.3vh),18px)}
+#clarify .hang{--cw:min(calc((100cqh - 104px) * .75), calc((100cqw - 3 * var(--cg)) / 4)); --cg:clamp(14px,2.4vw,34px); flex:1 1 0; min-height:0; container-type:size; display:flex; flex-direction:column; padding-top:10px}
+#clarify .hc{padding-top:calc((var(--drop) + var(--str)) * .6)}
+#clarify .hc-str{top:calc(var(--drop) * .6); height:calc(var(--str) * .6 + 6px)}
+#clarify .hc-card{aspect-ratio:3/4; transform-origin:50% calc(-.6 * var(--str))}
+#clarify .hcards{gap:var(--cg); grid-template-columns:repeat(4,var(--cw)); justify-content:center; padding:0; flex:none}
+#clarify .wire{left:50%; width:calc(4 * var(--cw) + 3 * var(--cg) + 40px); max-width:100%; transform:translateX(-50%); height:44px}
+#clarify .hang-foot{margin:auto auto 0; padding-top:8px; width:calc(4 * var(--cw) + 3 * var(--cg)); max-width:100%}
+#clarify .hang-foot .mono{font-size:12px}
+#clarify .hang-foot .hf-ph{display:none}
+#clarify .lead{text-wrap:balance}
+#clarify .hc-name{font-size:clamp(14px,1.2vw,17px)}
+@media (max-width:760px){
+  #clarify .h2{white-space:normal; font-size:clamp(28px,8.4vw,36px)}
+  #clarify .h2 em{display:block}
+  #clarify .lead{font-size:14px; line-height:1.45}
+  #clarify .hang{--cw:min(calc((100cqh - 96px) * .75), 64vw); --cg:12px; padding-top:4px}
+  #clarify .hcards{display:flex; grid-template-columns:none; justify-content:flex-start; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none; padding:14px var(--gutter) 22px; margin-inline:calc(-1 * var(--gutter)); scroll-padding-inline:var(--gutter)}
+  #clarify .hcards::-webkit-scrollbar{display:none}
+  #clarify .hc{flex:0 0 var(--cw); scroll-snap-align:start}
+  #clarify .hang-foot{flex-direction:row; justify-content:center; width:100%}
+  #clarify .hang-foot .mono{display:none} #clarify .hang-foot .hf-ph{display:inline}
+}
+
+/* bridge into LV.2: its own quiet screen, two clean lines */
+#structure .brk.st-beat{min-height:calc(100svh - var(--dockh)); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; align-items:center; padding-block:var(--hud) 0}
+#structure .brk.st-beat .say{max-width:none; font-size:clamp(26px,min(4.4vw,8vh),64px); line-height:1.08}
+#structure .brk.st-beat .say > span > em{display:block; white-space:nowrap}
+#structure .brk.st-beat .say > span{white-space:nowrap}
+@media (max-width:760px){ #structure .brk.st-beat .say{font-size:min(7.4vw,32px)} }
+
+/* LV.2 · "Xinh thích làm chủ." on one line, sized to its column; a longer rest after the last card */
+.hw{height:470vh}
+@media (min-width:761px){ .hw-lay{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)} }
+.hw-head{container-type:inline-size; min-width:0}
+.hw-head .own-big{white-space:nowrap; font-size:min(10.4cqi,15vh,112px)!important}
+.hw-head .own-big .en{font-size:1.18em}
+@media (max-width:760px){
+  .hw{height:460vh}
+  .hw-head .own-big{font-size:min(11.2cqi,44px)!important}
+}
+
+/* LV.3 · the title lives on the "20" screen and flies off with it */
+#align.pf3{padding-top:0}
+.pz-hd{position:absolute; left:0; right:0; top:clamp(6px,2vh,20px); z-index:2; pointer-events:none}
+.pz-hd .head{margin:0; gap:clamp(8px,1.4vh,14px)}
+.pz-hd .h2{font-size:clamp(30px,min(5.2vw,8.4vh),76px); white-space:nowrap}
+.pz-a{padding-top:clamp(70px,16vh,150px); box-sizing:border-box}
+.pz-num{font-size:min(40vh,34vw)}
+@media (max-width:760px){
+  .pz-hd .h2{font-size:clamp(28px,8.4vw,36px)}
+  .pz-a{padding-top:88px}
+  .pz-num{font-size:min(32vh,56vw)}
+  .pz-yr{top:calc(88px + 4%)}
+}
+.pz.still .pz-hd{position:relative; top:0}
+.pz.still .pz-a{padding-top:0}
+
+/* LV.4 · title + accordion in one screen, held for a beat */
+#deliver.lv4c{padding-block:0; overflow:clip}
+#deliver .head{flex:none; margin-bottom:clamp(10px,2.4vh,26px); gap:clamp(8px,1.4vh,14px)}
+#deliver .h2{font-size:clamp(30px,min(4.2vw,8vh),68px); white-space:nowrap}
+#deliver .h2 em{margin-left:.2em}
+#deliver .head .lead{max-width:none; font-size:clamp(14px,min(1.3vw,2.3vh),18px); text-wrap:balance}
+#deliver .pin{flex:1 1 0; min-height:0; display:flex; flex-direction:column}
+#deliver .pin-inner{flex:1 1 0; min-height:0; display:flex; flex-direction:column}
+#deliver .track{flex:1 1 0; min-height:0; display:flex; flex-direction:column}
+#deliver .acc{flex:1 1 0; height:auto; min-height:0; max-height:560px; margin-top:0}
+@media (max-width:760px){
+  #deliver .h2{white-space:normal; font-size:clamp(28px,8.4vw,36px)}
+  #deliver .h2 em{display:block; margin-left:0}
+  #deliver .head .lead{font-size:14px}
+  #deliver .acc{max-height:none; overflow:hidden}
+}
+#deliver .ac-name{font-size:min(var(--fs), 17vh)}
+#deliver .ac-no{font-size:clamp(44px,min(7cqi,11vh),104px)}
+#deliver .ac-mid{padding:clamp(8px,1.6vh,22px) 0}
+@media (max-width:760px){
+  #deliver .head .lead{display:none}
+  #deliver .acc{gap:4px}
+  #deliver .ac{height:40px}
+  #deliver .ac.on{height:auto; flex:1 1 0; min-height:0}
+  #deliver .ac-body{height:100%; box-sizing:border-box; padding:14px 16px 0; grid-template-rows:auto minmax(0,1fr) auto}
+  #deliver .ac-no{font-size:44px}
+  #deliver .ac-txt{display:none}
+  #deliver .ac-media .ac-k{display:none}
+  #deliver .ac-mid{padding:10px 0; gap:10px; align-content:end}
+  #deliver .ac-media{min-height:0; gap:8px; padding:12px}
+  #deliver .ac-name{font-size:min(var(--fs), 22vw)}
+}
+@media (max-width:760px){
+  /* phone: the open case fills the space, the others are a row of number tabs underneath */
+  #deliver .acc{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); grid-template-rows:minmax(0,1fr) 48px; gap:6px}
+  #deliver .ac,#deliver .ac.on{height:auto; min-height:0}
+  #deliver .ac.on{grid-row:1; grid-column:1 / -1}
+  #deliver .ac-strip{justify-content:center; padding:0}
+  #deliver .ac-strip span{display:none}
+  #deliver .ac-t{font-size:19px; text-wrap:balance}
+  #deliver .ac-media .ac-k{display:flex}
+}
+
+/* LV.5 · Squad pane, less text: a tab row for the project type, then a clean roster */
+.vo-sq{display:flex!important; flex-direction:column; gap:clamp(10px,1.8vh,16px)!important}
+.vo-sq-hd{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.vo-sq .vo-crew-k{display:block!important}
+.vo-sq .opts{display:inline-flex; gap:2px!important; padding:3px; border-radius:999px; background:rgba(14,15,20,.06)}
+.vo-sq .opts .chip{padding:5px 11px; border:0; border-radius:999px; background:transparent; font:600 12px var(--f-head); color:var(--ink2); box-shadow:none}
+.vo-sq .opts .chip[aria-pressed="true"]{background:#fff; color:var(--ink); box-shadow:0 1px 3px rgba(14,15,20,.12)}
+.vo .vo-sq .crew{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 18px}
+.vo .vo-sq .crew span{display:flex; align-items:center; gap:8px; padding:7px 0; border:0; border-top:1px solid rgba(14,15,20,.08); border-radius:0; background:none; font:500 13px var(--f-head); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.vo .vo-sq .crew span i{font-style:normal; color:var(--rose); font-weight:700}
+.vo .vo-sq .crew span.lead{grid-column:1 / -1; justify-content:flex-start; gap:10px; padding:9px 12px; margin-bottom:4px; border:0; border-radius:10px; background:var(--lime); color:var(--ink); font-weight:500}
+.vo .vo-sq .crew span.lead b{font-weight:800}
+@media (max-width:860px) and (max-height:700px){ .vo-crew.vo-sq{display:none!important} }
+@media (min-width:861px) and (max-height:780px){ .vo-sq .vo-crew-k{display:none!important} }
+.vo .vo-sq .opts .chip{padding:5px 11px; border:0; border-radius:999px; background:transparent; font:600 12px var(--f-head); color:var(--ink2); box-shadow:none}
+.vo .vo-sq .opts .chip[aria-pressed="true"]{background:#fff; color:var(--ink); box-shadow:0 1px 3px rgba(14,15,20,.12)}
+.vo .vo-sq .crew span.lead{width:auto; justify-self:stretch}
+@media (max-width:860px){
+  .vo-sq .vo-crew-k{display:none!important}
+  .vo-sq{gap:8px!important}
+  .vo .vo-sq .crew span:not(.lead){padding:5px 0; font-size:12.5px}
+  .vo .vo-sq .crew span.lead{padding:7px 10px; font-size:12.5px}
+  .vo-sq .opts{width:100%; box-sizing:border-box; justify-content:space-between}
+  .vo .vo-sq .opts .chip{flex:1; padding:5px 4px}
+}
+@media (max-width:860px){
+  .vo-say{margin-bottom:10px!important}
+  .vo-c h3{font-size:20px!important}
+  .vo .vo-sq .crew span:not(.lead){padding:4px 0}
+  .vo .vo-sq .crew span.lead{padding:6px 10px; margin-bottom:2px}
+  .vo-body{gap:6px}
+}
+
+/* =====================================================================
+   v41 · end slide = a cassette (ref: pink-label tape: code, tracklist, tape window
+   with two reels and a 100·50·0 counter, a black block with one big number).
+   Chrome shell, pink label, channels are the tracklist. Reels spin while on screen.
+   ===================================================================== */
+#finish .wrap.plain.es{display:flex; justify-content:center; align-items:center; min-height:100svh}
+.cs{--r:clamp(18px,2.4vw,30px); position:relative; width:min(100%, 1040px, calc((100svh - var(--hud) - 120px) * 1.62)); box-sizing:border-box; padding:clamp(14px,2.2vw,26px) clamp(14px,2.2vw,26px) 0; border-radius:var(--r);
+  background:linear-gradient(160deg,#fbfbfd 0%,#dcdee6 34%,#f5f6f9 52%,#c9ccd6 78%,#eef0f4 100%);
+  box-shadow:inset 0 1px 0 #fff, inset 0 -2px 0 rgba(14,15,20,.08), 0 30px 60px rgba(120,60,90,.18), 0 6px 14px rgba(14,15,20,.08)}
+.cs-scr{position:absolute; width:12px; height:12px; border-radius:50%; background:radial-gradient(circle at 40% 35%,#fff,#b9bcc7 60%,#8d91a0); box-shadow:inset 0 0 0 1px rgba(14,15,20,.15)}
+.cs-scr::after{content:""; position:absolute; left:2px; right:2px; top:50%; height:1.5px; margin-top:-.75px; background:rgba(14,15,20,.35); transform:rotate(-35deg)}
+.cs-scr.t1{left:10px; top:10px} .cs-scr.t2{right:10px; top:10px} .cs-scr.t3{left:10px; bottom:10px} .cs-scr.t4{right:10px; bottom:10px}
+.cs-lab{position:relative; container-type:inline-size; display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"code blk" "word blk" "win win" "trk trk"; column-gap:clamp(14px,2vw,24px); row-gap:clamp(10px,2vh,18px);
+  padding:clamp(14px,2vw,22px); border-radius:calc(var(--r) - 8px); background:linear-gradient(180deg,#ffd3e5 0%,#ffbcd8 100%); box-shadow:inset 0 0 0 1px rgba(255,255,255,.6), 0 1px 0 rgba(14,15,20,.06)}
+.cs-lab::before{content:""; position:absolute; left:0; right:0; top:clamp(44px,7vh,64px); height:2px; background:repeating-linear-gradient(90deg,rgba(193,63,123,.35) 0 10px,transparent 10px 16px)}
+.cs-code{grid-area:code; margin:0; display:flex; align-items:center; gap:12px; font:500 11px/1 var(--f-mono); letter-spacing:.12em; text-transform:uppercase; color:#8a3a62}
+.cs-code b{font:900 15px/1 var(--f-head); letter-spacing:-.01em; text-transform:none; color:var(--ink)}
+.cs-code span + span::before{content:"·"; margin-right:12px}
+#finish .cs .es-word{grid-area:word; justify-content:flex-start; font-size:min(7.4cqi,10vh,92px)}
+[data-lang="vi"] #finish .cs .es-word{font-size:min(6.4cqi,9vh,80px)}
+.cs-blk{grid-area:blk; margin:0; display:flex; flex-direction:column; justify-content:space-between; align-self:stretch; min-width:clamp(96px,14cqi,170px); padding:12px 14px 10px; border-radius:10px; background:#0e0f14; color:#fff}
+.cs-blk small{font:500 10px/1 var(--f-mono); letter-spacing:.14em; color:#ff8fc0}
+.cs-blk b{font:900 clamp(56px,min(10cqi,15vh),130px)/.8 var(--f-head); letter-spacing:-.06em; text-align:right}
+.cs-blk b em{font-style:normal; font-size:.34em; letter-spacing:-.02em; color:#9a9ead}
+.cs-win{grid-area:win; position:relative; height:clamp(70px,15vh,128px); border-radius:999px; background:linear-gradient(180deg,rgba(28,24,32,.88),rgba(52,42,56,.82)); box-shadow:inset 0 3px 10px rgba(0,0,0,.45), 0 1px 0 rgba(255,255,255,.7); overflow:hidden}
+.cs-win::after{content:""; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(170deg,rgba(255,255,255,.22) 0 18%,transparent 34%); pointer-events:none}
+.cs-reel{--d:calc(clamp(70px,15vh,128px) * .8); position:absolute; top:50%; width:var(--d); height:var(--d); margin-top:calc(var(--d) / -2); border-radius:50%; background:radial-gradient(circle,#4a3a44 0 46%,#2a2028 47% 100%); box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.cs-reel.l{left:16%} .cs-reel.r{right:16%; --d:calc(clamp(70px,15vh,128px) * .6)}
+.cs-reel > i{position:absolute; inset:31%; border-radius:50%; background:repeating-conic-gradient(#f6f2f4 0 30deg,#d9d2d6 30deg 60deg); box-shadow:0 0 0 3px #fff inset; animation:csSpin 3.2s linear infinite}
+.cs-reel > i::after{content:""; position:absolute; inset:32%; border-radius:50%; background:#2a2028}
+.cs-reel.r > i{animation-duration:2.2s}
+@keyframes csSpin{to{transform:rotate(360deg)}}
+[data-off] .cs-reel > i{animation-play-state:paused}
+.cs-tape{position:absolute; left:calc(16% + clamp(70px,15vh,128px) * .4); right:calc(16% + clamp(70px,15vh,128px) * .3); bottom:14%; height:3px; background:#3a2c34}
+.cs-cnt{position:absolute; left:50%; top:50%; transform:translate(-50%,-62%); display:flex; gap:clamp(14px,2.4cqi,34px); padding:6px 12px; border-radius:8px; background:rgba(255,255,255,.1); font:500 11px/1 var(--f-mono); letter-spacing:.1em; color:#ffd3e5}
+.cs-cnt i{font-style:normal; position:relative}
+.cs-cnt i::after{content:""; position:absolute; left:50%; top:calc(100% + 4px); width:1px; height:6px; background:rgba(255,211,229,.6)}
+.cs-trk{grid-area:trk; display:grid; gap:8px}
+.cs-trk-k{margin:0; font:500 10.5px/1 var(--f-mono); letter-spacing:.14em; text-transform:uppercase; color:#8a3a62}
+#finish .cs .es-ch{counter-reset:trk; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0}
+#finish .cs .es-ch .ch{counter-increment:trk; position:relative; display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-areas:"n b" "n s"; column-gap:10px; row-gap:2px; align-items:center; padding:10px 28px 10px 10px; border:0; border-left:1px solid rgba(138,58,98,.25); border-radius:0; background:none; box-shadow:none; color:var(--ink); text-decoration:none; transition:background .3s var(--xo)}
+#finish .cs .es-ch .ch:first-child{border-left:0}
+#finish .cs .es-ch .ch::before{content:"A" counter(trk); grid-area:n; font:700 12px/1 var(--f-mono); color:#c13f7b}
+#finish .cs .es-ch .ch-ic{display:none}
+#finish .cs .es-ch .ch b{grid-area:b; font:700 15px/1.1 var(--f-head); white-space:nowrap}
+#finish .cs .es-ch .ch small{grid-area:s; font:500 10.5px/1.2 var(--f-mono); color:#7a4a62; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+#finish .cs .es-ch .ch i{position:absolute; right:10px; top:50%; transform:translateY(-50%); font-style:normal; color:#c13f7b}
+#finish .cs .es-ch .ch:hover{background:rgba(255,255,255,.45)}
+.cs-foot{position:relative; display:flex; align-items:center; justify-content:center; gap:clamp(10px,2vw,22px); width:58%; height:clamp(34px,6vh,50px); margin:clamp(10px,1.6vh,16px) auto 0; clip-path:polygon(7% 0,93% 0,100% 100%,0 100%); background:linear-gradient(180deg,#d0d3dc,#b4b8c4); font:500 9.5px/1 var(--f-mono); letter-spacing:.18em; color:#5b5e6b}
+.cs-foot i{width:clamp(12px,1.8vh,16px); height:clamp(12px,1.8vh,16px); border-radius:50%; background:#2a2028; box-shadow:inset 0 2px 3px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.6)}
+.cs-foot i:nth-of-type(2),.cs-foot i:nth-of-type(3){width:10px; height:10px; border-radius:2px}
+@media (prefers-reduced-motion:reduce){ .cs-reel > i{animation:none} }
+@media (max-width:860px){ #finish .cs .es-ch{grid-template-columns:1fr 1fr} #finish .cs .es-ch .ch:nth-child(3){border-left:0} #finish .cs .es-ch .ch:nth-child(n+3){border-top:1px solid rgba(138,58,98,.25)} }
+@media (max-width:760px){
+  #finish .wrap.plain.es{padding:calc(var(--hud) + 10px) var(--gutter) calc(92px + env(safe-area-inset-bottom))!important}
+  .cs{width:100%; padding:12px 12px 0}
+  .cs-lab{grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"code code" "word word" "win blk" "trk trk"; padding:14px 12px; row-gap:12px}
+  .cs-lab::before{top:38px}
+  .cs-code{gap:8px; font-size:9.5px} .cs-code b{font-size:13px} .cs-code span + span::before{margin-right:8px} .cs-tp{display:none}
+  #finish .cs .es-word{flex-wrap:wrap; white-space:normal; row-gap:0; font-size:min(12cqi,48px)!important; line-height:1}
+  #finish .cs .es-word .es-a{white-space:nowrap}
+  .cs-win{height:84px}
+  .cs-reel{--d:66px} .cs-reel.r{--d:50px} .cs-reel.l{left:12%} .cs-reel.r{right:12%}
+  .cs-tape{left:calc(12% + 26px); right:calc(12% + 20px)} .cs-cnt{gap:10px; padding:5px 8px; font-size:9.5px}
+  .cs-blk{min-width:84px; padding:10px} .cs-blk b{font-size:54px}
+  #finish .cs .es-ch .ch{padding:9px 22px 9px 6px; column-gap:8px} #finish .cs .es-ch .ch b{font-size:14px}
+  .cs-foot{width:70%; height:32px}
+  .cs-foot span{font-size:8px}
+}
+.cs-lab::before{display:none}
+.cs-code{padding-bottom:10px; border-bottom:2px dashed rgba(193,63,123,.32)}
+#finish .cs .es-word em{background:none!important; -webkit-text-fill-color:var(--rose)!important; color:var(--rose)!important; filter:drop-shadow(0 2px 0 #fff) drop-shadow(0 8px 16px rgba(193,63,123,.25))!important; font-size:1.3em}
+#finish .cs .es-ch{grid-template-columns:1fr 1fr}
+#finish .cs .es-ch .ch:nth-child(3){border-left:0}
+#finish .cs .es-ch .ch:nth-child(n+3){border-top:1px solid rgba(138,58,98,.25)}
+#finish .cs .es-ch .ch{grid-template-areas:"n b s"; grid-template-columns:auto auto minmax(0,1fr); column-gap:12px; padding:11px 30px 11px 12px}
+#finish .cs .es-ch .ch small{justify-self:end; overflow:visible; font-size:11px}
+@media (max-width:760px){
+  .cs-cnt{display:none}
+  #finish .cs .es-ch{grid-template-columns:1fr}
+  #finish .cs .es-ch .ch{border-left:0!important; padding:9px 24px 9px 4px}
+  #finish .cs .es-ch .ch + .ch{border-top:1px solid rgba(138,58,98,.25)}
+  #finish .cs .es-ch .ch small{font-size:10.5px}
+  #finish .cs .es-word{font-size:min(13cqi,50px)!important}
+}
+/* v41 · short laptop windows (≤640px tall) */
+#clarify .hang-foot .mono{white-space:nowrap}
+@container (max-width:760px){
+  #finish .cs .es-ch .ch{grid-template-areas:"n b" "n s"; grid-template-columns:auto minmax(0,1fr); row-gap:2px}
+  #finish .cs .es-ch .ch small{justify-self:start}
+}
+@media (min-width:761px) and (max-height:640px){
+  #clarify .lead,#deliver .head .lead{display:none}
+  #clarify .hang-foot .mono:first-child{display:none}
+  #clarify .hang-foot{justify-content:center}
+  #deliver .ac-name{font-size:min(var(--fs),12vh)}
+  #deliver .ac-txt p{font-size:12px}
+  .cs-trk-k,.cs-foot span,.cs-tp{display:none}
+  .cs-win{height:11vh} .cs-reel{--d:calc(11vh * .8)} .cs-reel.r{--d:calc(11vh * .6)}
+  .cs-tape{left:calc(16% + 4.4vh); right:calc(16% + 3.3vh)}
+  .cs-foot{height:26px}
+  .cs-lab{row-gap:8px; padding:12px 14px}
+  #finish .cs .es-ch .ch{padding-block:7px}
+  .cs{width:min(100%, 1040px, calc((100svh - var(--hud) - 110px) * 1.9))}
+  .vo-bar,.vo-pr{display:none!important}
+  .vo-say h2{font-size:clamp(26px,5.4vh,40px)}
+  .vo-say{margin-bottom:8px!important}
+  .vo-c .vo-d{font-size:13px}
+}

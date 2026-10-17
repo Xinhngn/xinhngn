@@ -584,7 +584,7 @@ import { mountHead3D } from './head3d';
     if (!force && (r.bottom < -50 || r.top > vh + 50)) return;
     /* scroll → 0..4 with a rest on every card, so each one is read before it flies */
     var t = reduce ? 0 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-    var raw = clamp(t * 4.6, 0, 4), base = Math.min(3, Math.floor(raw)), f = raw - base;
+    var raw = clamp(t * 5.2, 0, 4), base = Math.min(3, Math.floor(raw)), f = raw - base;
     var target = raw >= 4 ? 4 : base + sm((f - 0.45) / 0.55);
     hwS += (target - hwS) * (reduce || force ? 1 : 0.15);
     if (Math.abs(target - hwS) < 0.001) hwS = target; else if (!hwAnim){ hwAnim = true; requestAnimationFrame(hwFrame); }
@@ -690,7 +690,7 @@ import { mountHead3D } from './head3d';
     pfA.style.transform = 'scale(' + sA.toFixed(3) + ')';
     pfA.style.opacity = (1 - clamp((k1 - 0.55) / 0.3, 0, 1)).toFixed(3);
     pfA.style.visibility = k1 >= 0.86 ? 'hidden' : '';
-    $$('.pz-cap,.pf-yr', pfA).forEach(function(el){ el.style.opacity = (1 - clamp(k1 / 0.3, 0, 1)).toFixed(3); });
+    $$('.pz-cap,.pz-yr,.pz-hd', pfA).forEach(function(el){ el.style.opacity = (1 - clamp(k1 / 0.3, 0, 1)).toFixed(3); });
     /* 2 · the wall: grows in behind the 0, drifts, then dives into the centre tile */
     var drift = clamp((pfZ - 0.34) / 0.22, 0, 1);
     var sB = k2 > 0 ? 1.04 * Math.pow(g.fill / 1.04, sm(k2) * 0.35 + k2 * k2 * 0.65) : (0.55 + 0.45 * sm(k1)) * (1 + drift * 0.04);
@@ -1599,7 +1599,7 @@ import { mountHead3D } from './head3d';
   function renderSquad(){
     var vi = lang === 'vi', sq = SQUAD[sqIdx];
     $('#squadOpts').innerHTML = SQUAD.map(function(x, i){ return '<button class="chip" type="button" data-sq="' + i + '" aria-pressed="' + (i === sqIdx ? 'true' : 'false') + '">' + esc(L(x.t)) + '</button>'; }).join('');
-    $('#crew').innerHTML = '<span class="lead">Xinh · ' + (vi ? 'chịu trách nhiệm' : 'accountable lead') + '</span>' + sq.crew.map(function(c, i){ return '<span style="animation-delay:' + (i * 60) + 'ms">+ ' + esc(L(c)) + '</span>'; }).join('');
+    $('#crew').innerHTML = '<span class="lead"><b>Xinh</b>' + (vi ? 'Chịu trách nhiệm, 1 đầu mối' : 'Accountable lead, one contact') + '</span>' + sq.crew.map(function(c, i){ return '<span style="animation-delay:' + (i * 60) + 'ms"><i>+</i>' + esc(L(c)) + '</span>'; }).join('');
   }
   document.addEventListener('click', function(e){ var b = e.target.closest('[data-sq]'); if (b){ sqIdx = +b.dataset.sq; renderSquad(); track('squad', SQUAD[sqIdx].k); } });
 
