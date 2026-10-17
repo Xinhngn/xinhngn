@@ -4396,3 +4396,107 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
   .xf-cal{padding:10px; margin-bottom:10px} .xf-cal-m{display:none} .xf-cal-w{margin-bottom:8px} .xf-cal-w small{margin-bottom:3px}
 }
 @media (max-width:860px){ .xf-sign{grid-area:auto} .xf-l-to{padding-right:70px} }
+
+/* =====================================================================
+   v37 · LV.5 "Two ways to work" = one OS chooser window, one screen.
+   Ref: translate box (two panes, swap) + a right-click menu with the pick highlighted.
+   The picked pane is paper white; the other sits back in grey.
+   ===================================================================== */
+.vo{position:relative; box-sizing:border-box; min-height:100svh; display:flex; align-items:center; padding:calc(var(--hud) + clamp(12px,2.4vh,28px)) var(--gutter) clamp(18px,3.4vh,36px) calc(var(--gutter) + var(--railpad))}
+.vo-in{width:min(1120px,100%); margin:0 auto}
+.vo-say{text-align:center; margin-bottom:clamp(16px,3vh,34px)}
+.vo-say .tag{justify-content:center; margin-bottom:12px}
+.vo-say h2{margin:0; font:600 clamp(34px,min(4.6vw,8vh),72px)/1 var(--f-head); letter-spacing:-.045em; color:var(--ink)}
+.vo-say h2 em{display:block; font-family:var(--f-serif); font-style:italic; font-weight:400; color:var(--rose)}
+.vo-win{position:relative; border-radius:22px; background:#fbf8f2; box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 1px rgba(14,15,20,.07), 0 40px 80px -40px rgba(70,40,60,.4)}
+.vo-bar{display:flex; align-items:center; gap:7px; margin:0; padding:12px 18px; border-bottom:1px solid rgba(14,15,20,.07); font:500 11px var(--f-mono); letter-spacing:.1em; color:var(--ink3)}
+.vo-bar > i{width:10px; height:10px; border-radius:50%; background:#e3dfe2} .vo-bar > i:first-child{background:var(--lime)}
+.vo-bar span{margin-left:8px} .vo-q{margin-left:auto; padding:4px 10px; border-radius:99px; background:var(--ink); color:#fff; font-weight:600; letter-spacing:.12em; text-transform:uppercase}
+.vo-body{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:12px; align-items:stretch; padding:clamp(14px,2.2vh,20px)}
+.vo-p{position:relative; display:flex; flex-direction:column; gap:clamp(12px,2vh,18px); padding:clamp(14px,2vh,18px); border-radius:14px; background:#ecebee; cursor:pointer; transition:background .5s var(--xo), box-shadow .5s var(--xo)}
+.vo-p.on{background:#fff; cursor:default; box-shadow:0 0 0 1.5px var(--lime), 0 18px 34px -22px rgba(193,63,123,.45)}
+.vo-sw{position:relative}
+.vo-sel{display:flex; align-items:baseline; gap:10px; width:100%; padding:11px 44px 11px 14px; border:1.5px solid rgba(14,15,20,.55); border-radius:9px; background:transparent; color:var(--ink); text-align:left; cursor:pointer; position:relative}
+.vo-sel b{font:700 clamp(18px,1.6vw,22px)/1 var(--f-head); letter-spacing:-.02em}
+.vo-sel small{font:500 11px var(--f-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--ink3)}
+.vo-sel i{position:absolute; right:14px; top:50%; width:0; height:0; margin-top:-3px; border:6px solid transparent; border-top:7px solid var(--ink); border-bottom:0; transition:rotate .3s}
+.vo-sel[aria-expanded="true"] i{rotate:180deg}
+.vo-p.on .vo-sel{border-color:var(--ink)}
+.vo-sel:focus-visible,.vo-swap:focus-visible,.vo-menu button:focus-visible{outline:2px solid var(--rose); outline-offset:2px}
+.vo-menu{position:absolute; z-index:20; left:10px; top:calc(100% + 6px); width:min(330px,calc(100% - 20px)); padding:6px; border-radius:12px; background:rgba(251,248,242,.97); box-shadow:0 0 0 1px rgba(14,15,20,.08), 0 22px 40px -16px rgba(40,30,50,.45); animation:voPop .32s var(--xo)}
+.vo-menu[hidden]{display:none}
+@keyframes voPop{from{opacity:0; transform:translateY(-6px) scale(.97)}}
+.vo-menu button{display:flex; flex-direction:column; align-items:flex-start; gap:2px; width:100%; padding:9px 12px; border:0; border-radius:8px; background:none; color:var(--ink); text-align:left; cursor:pointer}
+.vo-menu button b{font:600 15px var(--f-head)} .vo-menu button > span{font:400 12px/1.3 var(--f-mono); color:var(--ink3)}
+.vo-menu button:hover,.vo-menu button[aria-checked="true"]{background:var(--lime)} .vo-menu button:hover > span,.vo-menu button[aria-checked="true"] > span{color:var(--ink2)}
+.vo-menu hr{margin:4px 8px; border:0; border-top:1px solid rgba(14,15,20,.1)}
+.vo-c{display:flex; flex-direction:column; gap:clamp(8px,1.4vh,12px); flex:1; opacity:.5; transition:opacity .5s}
+.vo-p.on .vo-c{opacity:1}
+.vo-c h3{margin:0; font:600 clamp(22px,min(2.2vw,4vh),32px)/1.05 var(--f-head); letter-spacing:-.03em}
+.vo-c h3 em{font-family:var(--f-serif); font-style:italic; font-weight:400; color:var(--rose)}
+.vo-d{margin:0; font:400 clamp(14px,min(1.15vw,2vh),16px)/1.45 var(--f-head); color:var(--ink2)}
+.vo-fit{margin:0; font:italic 400 clamp(15px,min(1.25vw,2.2vh),18px)/1.35 var(--f-serif); color:var(--ink2)} .vo-fit b{margin-right:6px; font:600 10.5px var(--f-mono); font-style:normal; letter-spacing:.12em; text-transform:uppercase; color:var(--rose)}
+.vo-crew{gap:8px!important} .vo-crew-k{margin:0; font:500 10.5px var(--f-mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink3)}
+.vo .squad .opts .chip{padding:6px 12px; border-radius:99px; border:1px solid rgba(14,15,20,.18); background:transparent; font:600 12.5px var(--f-head); color:var(--ink); cursor:pointer}
+.vo .squad .opts .chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:#fff}
+.vo .crew{min-height:0}
+.vo .crew span{padding:5px 10px; border-radius:8px; background:#f4f1ec; border:1px solid rgba(14,15,20,.08); font:500 12px var(--f-head)}
+.vo .crew span.lead{background:var(--lime); border-color:var(--lime); color:var(--ink)}
+.vo-go{align-self:flex-start; margin-top:auto; visibility:hidden}
+.vo-p.on .vo-go{visibility:visible}
+.vo-swap{align-self:start; margin-top:6px; display:grid; place-items:center; width:42px; height:42px; border:0; border-radius:50%; background:var(--ink); color:#fff; cursor:pointer; transition:transform .5s var(--xo)}
+.vo-swap svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.vo-swap:hover{transform:rotate(180deg)}
+.vo[data-pick="squad"] .vo-swap svg{transform:scaleX(-1)}
+.vo-pr{list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:6px 0; margin:0; padding:12px 20px 14px; border-top:1px solid rgba(14,15,20,.08); font:400 12.5px/1.3 var(--f-head); color:var(--ink3)}
+.vo-pr li{display:flex; align-items:center}
+.vo-pr li + li::before{content:"•"; margin:0 10px; color:var(--lime)}
+.vo-pr b{font:600 10.5px var(--f-mono); letter-spacing:.12em; text-transform:uppercase; color:var(--rose)}
+.vo-cur{position:absolute; z-index:30; left:0; top:0; width:26px; height:26px; fill:var(--ink); stroke:#fff; stroke-width:1.4; filter:drop-shadow(0 4px 6px rgba(0,0,0,.25)); opacity:0; pointer-events:none; transition:translate .8s var(--xo), opacity .4s, scale .15s}
+.vo-cur.in{opacity:1} .vo-cur.tap{scale:.82}
+@media (max-width:860px){
+  .vo{padding:calc(var(--hud) + 8px) var(--gutter) calc(92px + env(safe-area-inset-bottom)) var(--gutter); align-items:center}
+  .vo-say{margin-bottom:14px} .vo-say .tag{margin-bottom:8px}
+  .vo-say h2{font-size:clamp(26px,7.6vw,34px)}
+  .vo-bar{padding:10px 14px}
+  .vo-body{grid-template-columns:1fr; gap:8px; padding:10px}
+  .vo-swap{justify-self:center; margin:0; width:36px; height:36px; transform:rotate(90deg)}
+  .vo-swap:hover{transform:rotate(90deg)}
+  .vo-p{padding:10px; gap:10px}
+  .vo-p:not(.on) .vo-c{display:none}
+  .vo-sel{padding:10px 40px 10px 12px} .vo-sel b{font-size:18px}
+  .vo-c h3{font-size:22px} .vo-d{font-size:14px} .vo-fit{font-size:15px}
+  .vo-pr{padding:10px 14px 12px; font-size:12px}
+  .vo-pr li:nth-child(n+4){display:none}
+  .vo-pr li + li::before{margin:0 8px}
+  .vo-cur{display:none}
+}
+@media (max-width:860px) and (max-height:700px){ .vo-fit{display:none} .vo-pr{display:none} }
+@media (prefers-reduced-motion:reduce){ .vo-p,.vo-c,.vo-cur,.vo-swap{transition:none} .vo-menu{animation:none} }
+.vo{padding-bottom:clamp(70px,10vh,96px)}
+.vo-say h2{font-size:clamp(30px,min(3.6vw,6.6vh),58px)}
+.vo-say h2 em{display:inline}
+.vo-pr{flex-wrap:nowrap; overflow:hidden; white-space:nowrap; font-size:12px}
+.vo-pr li{flex:none}
+.vo-p{gap:clamp(10px,1.6vh,14px)}
+.vo .crew span{padding:4px 9px; font-size:11.5px}
+.vo-crew .opts{gap:5px!important}
+@media (max-width:1100px){ .vo-pr li:nth-child(n+4){display:none} }
+@media (max-width:860px){
+  .vo{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+  .vo-say h2 em{display:block}
+  .vo-bar > span{display:none}
+  .vo-d{display:none}
+  .vo-pr{display:none}
+  .vo-swap{width:32px; height:32px}
+}
+@media (max-width:860px) and (max-height:700px){ .vo-crew{display:none!important} .vo-say .tag{display:none} }
+@media (min-width:861px){
+  .vo{padding-bottom:clamp(84px,12vh,104px)}
+  .vo-pr li:nth-child(n+5){display:none}
+}
+@media (min-width:861px) and (max-height:780px){
+  .vo-fit{display:none} .vo-say{margin-bottom:12px} .vo-say .tag{margin-bottom:6px}
+  .vo-body{padding:10px} .vo-p{padding:12px}
+}
+@media (min-width:861px) and (max-height:780px){ .vo-say .tag,.vo-crew-k{display:none} .vo{padding-top:calc(var(--hud) + 8px)} .vo-c{gap:8px} }

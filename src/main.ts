@@ -1551,6 +1551,50 @@ import { mountHead3D } from './head3d';
   }
   document.addEventListener('click', function(e){ var b = e.target.closest('[data-sq]'); if (b){ sqIdx = +b.dataset.sq; renderSquad(); track('squad', SQUAD[sqIdx].k); } });
 
+  /* LV.5 · "what-you-get.app": two panes, one picked (ref: a translate box + a right-click menu).
+     The select on each pane opens a small menu; the swap button flips the pick. On first view a
+     cursor shows the move once: it clicks swap, then picks a sample crew. */
+  var vo = $('#vo');
+  function voPick(k){
+    if (!vo) return; vo.dataset.pick = k;
+    $$('.vo-p', vo).forEach(function(p){ var on = p.dataset.k === k; p.classList.toggle('on', on); p.setAttribute('aria-current', on ? 'true' : 'false'); });
+    $$('[data-vochoose]', vo).forEach(function(b){ b.setAttribute('aria-checked', b.dataset.vochoose === k ? 'true' : 'false'); });
+  }
+  function voMenus(open){ $$('.vo-sw', vo || document).forEach(function(w){ var m = $('.vo-menu', w), on = w === open; if (m) m.hidden = !on; $('.vo-sel', w).setAttribute('aria-expanded', on ? 'true' : 'false'); }); }
+  if (vo){
+    voPick('solo');
+    vo.addEventListener('click', function(e){
+      var t = e.target;
+      if (t.closest('.vo-sel')){ var w = t.closest('.vo-sw'), m = $('.vo-menu', w); voMenus(m.hidden ? w : null); return; }
+      var ch = t.closest('[data-vochoose]'); if (ch){ voPick(ch.dataset.vochoose); voMenus(null); track('vo', ch.dataset.vochoose); return; }
+      if (t.closest('[data-voswap]')){ voPick(vo.dataset.pick === 'solo' ? 'squad' : 'solo'); voMenus(null); return; }
+      if (t.closest('[data-connect]')) voMenus(null);
+      var p = t.closest('.vo-p'); if (p && !t.closest('button,a')){ voPick(p.dataset.k); voMenus(null); }
+    });
+    document.addEventListener('click', function(e){ if (!e.target.closest('.vo-sw')) voMenus(null); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') voMenus(null); });
+    var voDemo = function(){
+      var win = $('.vo-win', vo), cur = $('.vo-cur', vo), sw = $('[data-voswap]', vo);
+      if (!win || !cur || !sw) return;
+      var at = function(el, dx, dy){ var a = win.getBoundingClientRect(), b = el.getBoundingClientRect(); cur.style.translate = Math.round(b.left - a.left + b.width * dx) + 'px ' + Math.round(b.top - a.top + b.height * dy) + 'px'; };
+      var stop = false; vo.addEventListener('pointerdown', function(){ stop = true; cur.classList.remove('in'); }, {once:true});
+      var steps = [
+        [0, function(){ at(win, .5, 1.05); cur.classList.add('in'); }],
+        [700, function(){ at(sw, .55, .6); }],
+        [1500, function(){ cur.classList.add('tap'); voPick('squad'); }],
+        [1800, function(){ cur.classList.remove('tap'); var c = $$('#squadOpts .chip', vo)[1]; if (c) at(c, .6, .7); }],
+        [2600, function(){ cur.classList.add('tap'); var c = $$('#squadOpts .chip', vo)[1]; if (c) c.click(); }],
+        [2900, function(){ cur.classList.remove('tap'); }],
+        [4200, function(){ cur.classList.remove('in'); }]
+      ];
+      steps.forEach(function(st){ setTimeout(function(){ if (!stop) st[1](); }, st[0]); });
+    };
+    if (!reduce && 'IntersectionObserver' in window){
+      var voIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting && curView === 'story'){ voIO.disconnect(); setTimeout(voDemo, 500); } }); }, {threshold:.6});
+      voIO.observe($('.vo-win', vo));
+    }
+  }
+
   /* END: game-saved summary */
   function renderSaved(){
     var el = $('#saved'); if (!el) return; var vi = lang === 'vi';

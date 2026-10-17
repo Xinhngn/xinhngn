@@ -347,37 +347,57 @@
 
 <section class="sc sc-paper zone vx5" id="value">
   <div class="wrap vx-headwrap"><span class="node rail cp" data-node data-cp="5"></span></div>
-  <div class="vx" id="vx">
-    <div class="vx-pin"><div class="d3s" aria-hidden="true"><i class="d3 sph pink" style="--x:14%;--y:30%;--s:88px;--f:7.5s"></i><i class="d3 sph pearl" style="--x:88%;--y:22%;--s:60px;--f:6s"></i><i class="d3 bub" style="--x:86%;--y:76%;--s:130px;--f:9s"></i></div><div class="vx-stage" id="vxStage">
-      <div class="vx-win" aria-hidden="true"><p class="vx-bar"><i></i><i></i><i></i><span>XINH.OS — what-you-get.html</span></p></div>
-      <div class="vx-in">
-        <span class="vx-sky" aria-hidden="true"></span>
-        <div class="vx-say">
-          <p class="tag"><b>LV.5</b><span class="en">What you get</span><span class="vi">Bạn nhận được gì</span></p>
-          <h2><span class="en">Two ways to work. <em>One person accountable.</em></span><span class="vi">Hai cách hợp tác. <em>Một người chịu trách nhiệm.</em></span></h2>
-        </div>
-        <article class="vx-t t1">
-          <p class="vx-k"><span><span class="en">Per project</span><span class="vi">Theo dự án</span></span><b>SOLO · 01</b></p>
-          <h3><span class="en">One person, <em>the whole project.</em></span><span class="vi">Một người, <em>trọn dự án.</em></span></h3>
-          <div class="vx-stub"><i class="barcode" aria-hidden="true"></i><button class="vx-btn" type="button" data-connect><span class="en">Start a project</span><span class="vi">Bắt đầu dự án</span> →</button></div>
-        </article>
-        <article class="vx-t t2">
-          <p class="vx-k"><span><span class="en">As your team</span><span class="vi">Như một đội</span></span><b>SQUAD · 02</b></p>
-          <h3><span class="en">A quality crew, <em>built per project.</em></span><span class="vi">Một đội chất lượng, <em>lắp theo dự án.</em></span></h3>
-          <div class="squad" hidden><div class="opts" id="squadOpts" role="group"></div><div class="crew" id="crew" aria-live="polite"></div></div>
-          <div class="vx-stub"><i class="barcode" aria-hidden="true"></i><button class="vx-btn" type="button" data-connect><span class="en">Build my crew</span><span class="vi">Lắp đội cho tôi</span> →</button></div>
-        </article>
-        <div class="vx-pr">
-          <p class="vx-prk"><span class="en">With both, my promise</span><span class="vi">Cả hai cách, Xinh đều cam kết</span></p>
-          <ol>
-            <li style="--i:0"><b>01</b><span class="en">Scope, timeline and budget clear from day one</span><span class="vi">Phạm vi, timeline, ngân sách rõ từ ngày đầu</span></li>
-            <li style="--i:1"><b>02</b><span class="en">Regular updates, problems flagged early</span><span class="vi">Cập nhật đều đặn, có vấn đề báo sớm</span></li>
-            <li style="--i:2"><b>03</b><span class="en">Quality checked before anything goes live</span><span class="vi">Kiểm soát chất lượng trước khi lên sóng</span></li>
-            <li style="--i:3"><b>04</b><span class="en">Reporting and lessons learned, where relevant</span><span class="vi">Báo cáo và rút kinh nghiệm khi phù hợp</span></li>
-          </ol>
-        </div>
+  <div class="vo" id="vo" data-pick="solo">
+    <div class="vo-in">
+      <div class="vo-say">
+        <p class="tag"><b>LV.5</b><span class="en">What you get</span><span class="vi">Bạn nhận được gì</span></p>
+        <h2><span class="en">Two ways to work. <em>One person accountable.</em></span><span class="vi">Hai cách hợp tác. <em>Một người chịu trách nhiệm.</em></span></h2>
       </div>
-    </div></div>
+      <div class="vo-win">
+        <p class="vo-bar"><i></i><i></i><i></i><span>XINH.OS — what-you-get.app</span><b class="vo-q"><span class="en">Pick one</span><span class="vi">Chọn 1</span></b></p>
+        <div class="vo-body">
+          <article class="vo-p" data-k="solo">
+            <div class="vo-sw"><button class="vo-sel" type="button" aria-haspopup="menu" aria-expanded="false"><b>Solo</b><small><span class="en">per project</span><span class="vi">theo dự án</span></small><i aria-hidden="true"></i></button>
+          <div class="vo-menu" role="menu" hidden>
+            <button type="button" role="menuitemradio" data-vochoose="solo"><b>Solo</b><span><span class="en">One person, the whole project</span><span class="vi">Một người, trọn dự án</span></span></button>
+            <button type="button" role="menuitemradio" data-vochoose="squad"><b>Squad</b><span><span class="en">A quality crew, built per project</span><span class="vi">Một đội chất lượng, lắp theo dự án</span></span></button>
+            <hr>
+            <button type="button" role="menuitem" data-connect><b><span class="en">Not sure?</span><span class="vi">Chưa chắc?</span></b><span><span class="en">Ask Xinh which fits</span><span class="vi">Hỏi Xinh cách nào hợp</span></span></button>
+          </div></div>
+            <div class="vo-c">
+              <h3><span class="en">One person, <em>the whole project.</em></span><span class="vi">Một người, <em>trọn dự án.</em></span></h3>
+              <p class="vo-d"><span class="en">From reading the brief and planning to managing execution, sign-off and reporting, you work with one point of contact the whole way.</span><span class="vi">Từ đọc brief, lên kế hoạch, quản lý triển khai đến nghiệm thu và báo cáo, bạn làm việc với một đầu mối xuyên suốt.</span></p>
+              <p class="vo-fit"><b><span class="en">Good for</span><span class="vi">Hợp với</span></b><span class="en">one end-to-end manager, or a team that needs one more project owner.</span><span class="vi">dự án cần một người quản lý đầu-cuối, hoặc team cần thêm một project owner.</span></p>
+              <button class="btn hot vo-go" type="button" data-connect><span class="en">Start a project</span><span class="vi">Bắt đầu dự án</span> →</button>
+            </div>
+          </article>
+          <button class="vo-swap" type="button" data-voswap aria-label="Swap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-4-4M20 16H6l4 4"/></svg></button>
+          <article class="vo-p" data-k="squad">
+            <div class="vo-sw"><button class="vo-sel" type="button" aria-haspopup="menu" aria-expanded="false"><b>Squad</b><small><span class="en">as your team</span><span class="vi">như một đội</span></small><i aria-hidden="true"></i></button>
+          <div class="vo-menu" role="menu" hidden>
+            <button type="button" role="menuitemradio" data-vochoose="solo"><b>Solo</b><span><span class="en">One person, the whole project</span><span class="vi">Một người, trọn dự án</span></span></button>
+            <button type="button" role="menuitemradio" data-vochoose="squad"><b>Squad</b><span><span class="en">A quality crew, built per project</span><span class="vi">Một đội chất lượng, lắp theo dự án</span></span></button>
+            <hr>
+            <button type="button" role="menuitem" data-connect><b><span class="en">Not sure?</span><span class="vi">Chưa chắc?</span></b><span><span class="en">Ask Xinh which fits</span><span class="vi">Hỏi Xinh cách nào hợp</span></span></button>
+          </div></div>
+            <div class="vo-c">
+              <h3><span class="en">A quality crew, <em>built per project.</em></span><span class="vi">Một đội chất lượng, <em>lắp theo dự án.</em></span></h3>
+              <p class="vo-d"><span class="en">I bring in the right partners from my network for each problem, and stay responsible for managing execution.</span><span class="vi">Xinh kết hợp mạng lưới đối tác phù hợp theo từng bài toán và vẫn chịu trách nhiệm quản lý triển khai.</span></p>
+              <div class="squad vo-crew"><p class="vo-crew-k"><span class="en">Sample crew for</span><span class="vi">Đội mẫu cho</span></p><div class="opts" id="squadOpts" role="group"></div><div class="crew" id="crew" aria-live="polite"></div></div>
+              <button class="btn hot vo-go" type="button" data-connect><span class="en">Build my crew</span><span class="vi">Lắp đội cho tôi</span> →</button>
+            </div>
+          </article>
+        </div>
+        <ol class="vo-pr">
+          <li><b><span class="en">With both, my promise</span><span class="vi">Cả hai cách, Xinh cam kết</span></b></li>
+          <li><span class="en">Scope, timeline and budget clear from day one</span><span class="vi">Phạm vi, timeline, ngân sách rõ từ ngày đầu</span></li>
+          <li><span class="en">Regular updates, problems flagged early</span><span class="vi">Cập nhật đều đặn, có vấn đề báo sớm</span></li>
+          <li><span class="en">Quality checked before anything goes live</span><span class="vi">Kiểm soát chất lượng trước khi lên sóng</span></li>
+          <li><span class="en">Reporting and lessons learned, where relevant</span><span class="vi">Báo cáo và rút kinh nghiệm khi phù hợp</span></li>
+        </ol>
+        <svg class="vo-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2l15 11.5-6.6 1 3.7 7.3-3 1.5-3.7-7.4L4 20z"/></svg>
+      </div>
+    </div>
   </div>
   <div class="wrap vx-after"><div class="wpt"><span class="node rail wp" data-node></span></div></div>
 </section>
