@@ -556,73 +556,48 @@
 
 <!-- =========================================================== CONTACT =========================================================== -->
 <section class="view qv c3v" data-view="contact" id="v-contact" hidden>
-  <div class="ct3">
-    <!-- 01 · one screen: the line, the live status, and every channel right next to it -->
-    <header class="c3-hero c4-hero" data-c3>
-      <div class="c4-l">
-        <p class="a3-kick"><span class="en">Contact</span><span class="vi">Liên hệ</span></p>
-        <h2 class="c3-h1" aria-label="Fastest way to reach Xinh, right now.">
-          <span class="ln"><span><span class="en">Fastest way to reach Xinh,</span><span class="vi">Cách nhanh nhất để gặp Xinh,</span></span></span>
-          <span class="ln"><span><em><span class="en">right now.</span><span class="vi">ngay lúc này.</span></em></span></span>
+  <div class="ct3 cx">
+    <!-- Contact = a shop visit. 01 the shelf: every channel is a product, pick one into the basket -->
+    <header class="cx-s1" data-c3>
+      <div class="cx-hd">
+        <p class="xf-k"><span>01 / 03</span><span class="en">The shelf</span><span class="vi">Kệ hàng</span></p>
+        <h2 class="c3-h1 cx-h" aria-label="Pick a way in, drop it in the basket.">
+          <span class="ln"><span><span class="en">Pick a way in,</span><span class="vi">Chọn một kênh,</span></span></span>
+          <span class="ln"><span><em><span class="en">drop it in the basket.</span><span class="vi">bỏ vào giỏ.</span></em></span></span>
         </h2>
         <div class="status" id="ctStatus"></div>
       </div>
-      <div class="c4-r">
-        <figure class="c3-face c4-face">
-          <div class="c3-face-ph" data-portrait="hi.png"></div>
-          <svg class="a3-seal c3-seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="c3Arc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><text><textPath href="#c3Arc">SAY HI · ZALO · CALL · EMAIL · LINKEDIN · </textPath></text><path d="M60 78 C46 68 41 61 41 54 C41 48 45 44 50 44 C54 44 57 47 60 51 C63 47 66 44 70 44 C75 44 79 48 79 54 C79 61 74 68 60 78Z"/></svg>
-        </figure>
-        <p class="c4-pick"><span class="en">Pick a channel, <em>any channel.</em></span><span class="vi">Chọn kênh nào <em>cũng được.</em></span></p>
-        <div class="c3-rows c4-rows" id="methods"></div>
-        <p class="copied c3-copied" id="copied" aria-live="polite"></p>
-      </div>
+      <div class="cx-shelf" id="cxShelf"></div>
+      <p class="cx-bag" id="cxBag1" aria-live="polite"></p>
+      <p class="copied c3-copied" id="copied" aria-live="polite"></p>
     </header>
 
-    <!-- 02 · one screen: hire her for a role, or bring a project (solo or with a crew); one promise for projects -->
-    <section class="c4-ways" data-c3>
-      <h3 class="a3-h2"><span class="en">Hire me for a role, <em>or bring me a project.</em></span><span class="vi">Tuyển Xinh vào team, <em>hoặc giao Xinh một dự án.</em></span></h3>
-      <div class="c4-tabs" role="tablist">
-        <button type="button" role="tab" data-c4="0" aria-selected="true"><span class="en">Role</span><span class="vi">Vị trí</span></button>
-        <button type="button" role="tab" data-c4="1" aria-selected="false">Solo</button>
-        <button type="button" role="tab" data-c4="2" aria-selected="false">Team</button>
-      </div>
-      <div class="c4-g" data-on="0">
-        <article class="c4-c c4-role" data-i="0">
-          <p class="c4-k"><b>ROLE</b><span class="en">Join your team</span><span class="vi">Vào team của bạn</span></p>
-          <h4><span class="en">A project lead <em>on your side.</em></span><span class="vi">Một project lead <em>trong team bạn.</em></span></h4>
-          <p class="c4-d"><span class="en">Open to Marketing Project Manager, Marketing Communications and Campaign Management roles.</span><span class="vi">Đang tìm vị trí Marketing Project Manager, Marketing Communications, Campaign Management.</span></p>
-          <p class="c4-fit"><span class="en">Banking &amp; fintech first.</span><span class="vi">Ưu tiên ngân hàng &amp; fintech.</span></p>
-          <div class="c4-a"><button class="btn hot" type="button" data-connect><span class="en">Talk about a role</span><span class="vi">Trao đổi vị trí</span> →</button><a class="btn" data-cv target="_blank" rel="noopener" data-m="cv"><span class="en">View CV</span><span class="vi">Xem CV</span> ↗</a></div>
-        </article>
-        <div class="c4-proj">
-          <p class="c4-ph"><b><span class="en">Projects</span><span class="vi">Dự án</span></b><span class="en">IMC campaigns, social management, activation, production. <em>HCMC or remote.</em></span><span class="vi">Chiến dịch IMC, quản lý social, activation, sản xuất. <em>TP.HCM hoặc từ xa.</em></span></p>
-          <div class="c4-pg">
-            <article class="c4-c c4-solo" data-i="1">
-              <p class="c4-k"><b>SOLO</b><span class="en">Per project</span><span class="vi">Theo dự án</span></p>
-              <h4><span class="en">One person, <em>the whole project.</em></span><span class="vi">Một người, <em>trọn dự án.</em></span></h4>
-              <p class="c4-d"><span class="en">One point of contact from brief and plan to execution, sign-off and report.</span><span class="vi">Một đầu mối từ brief, kế hoạch đến triển khai, nghiệm thu và báo cáo.</span></p>
-              <p class="c4-fit"><span class="en">Good when you need one end-to-end owner.</span><span class="vi">Hợp khi bạn cần một người làm chủ đầu-cuối.</span></p>
-              <div class="c4-a"><button class="btn hot" type="button" data-connect><span class="en">Start a project</span><span class="vi">Bắt đầu dự án</span> →</button></div>
-            </article>
-            <article class="c4-c c4-team" data-i="2">
-              <p class="c4-k"><b>TEAM</b><span class="en">Full package</span><span class="vi">Trọn gói</span></p>
-              <h4><span class="en">A quality crew, <em>built per project.</em></span><span class="vi">Một đội chất lượng, <em>lắp theo dự án.</em></span></h4>
-              <p class="c4-d"><span class="en">I bring in the right partners for the problem and stay accountable for execution.</span><span class="vi">Xinh lắp đúng đối tác cho bài toán và vẫn chịu trách nhiệm triển khai.</span></p>
-              <p class="c4-fit"><span class="en">Good when the job needs more hands than one.</span><span class="vi">Hợp khi việc cần nhiều tay hơn một người.</span></p>
-              <div class="c4-a"><button class="btn hot" type="button" data-connect><span class="en">Build my crew</span><span class="vi">Lắp đội cho tôi</span> →</button></div>
-            </article>
-          </div>
-          <div class="c4-pr">
-            <p class="c4-pr-k"><span class="en">Solo or team, you always get</span><span class="vi">Solo hay team, bạn luôn có</span></p>
-            <ol>
-              <li><b>1</b><span class="en">A clear scope, timeline and budget before we start</span><span class="vi">Phạm vi, timeline, ngân sách rõ ràng trước khi bắt đầu</span></li>
-              <li><b>2</b><span class="en">Regular updates, and problems raised early</span><span class="vi">Cập nhật đều đặn, có vấn đề là báo sớm</span></li>
-              <li><b>3</b><span class="en">Every piece checked before it goes live</span><span class="vi">Mọi sản phẩm được duyệt trước khi lên sóng</span></li>
-            </ol>
-          </div>
+    <!-- 02 under the lens: the way of working the visitor picks, taken apart into what's inside -->
+    <section class="cx-s2" data-c3>
+      <div class="cx-s2-hd">
+        <p class="xf-k"><span>02 / 03</span><span class="en">Under the lens</span><span class="vi">Mổ xẻ sản phẩm</span></p>
+        <h3 class="a3-h2"><span class="en">What's inside <em>working with Xinh.</em></span><span class="vi">Bên trong <em>một lần làm việc với Xinh.</em></span></h3>
+        <div class="cx-tabs" role="tablist">
+          <button type="button" role="tab" data-cxway="solo" aria-selected="true">Solo</button>
+          <button type="button" role="tab" data-cxway="team" aria-selected="false">Team</button>
+          <button type="button" role="tab" data-cxway="role" aria-selected="false"><span class="en">Hire</span><span class="vi">Tuyển dụng</span></button>
         </div>
       </div>
+      <div class="cx-lab" id="cxLab"></div>
     </section>
+
+    <!-- 03 checkout: the basket becomes the bill, and the deal is a date (the same coffee as in About) -->
+    <section class="cx-s3" data-c3>
+      <div class="cx-s3-l">
+        <p class="xf-k"><span>03 / 03</span><span class="en">Checkout</span><span class="vi">Thanh toán</span></p>
+        <h3 class="a3-h2"><span class="en">Close the deal. <em>Pick the date.</em></span><span class="vi">Chốt deal. <em>Hẹn một buổi.</em></span></h3>
+        <p class="cx-s3-p"><span class="en">The invitation in my file still stands: one coffee, time of your pick.</span><span class="vi">Lời mời trong hồ sơ vẫn còn đó: một buổi cà phê, giờ do bạn chọn.</span></p>
+        <div class="cx-s3-a"><a class="btn hot cx-go" id="cxGo" href="#"></a><a class="btn" href="#cxShelf" data-cxtop><span class="en">Change channel</span><span class="vi">Đổi kênh</span></a></div>
+        <p class="cx-bye"><span class="en">That's the end of the Xinh tour. See you soon.</span><span class="vi">Hết phiên tìm hiểu Xinh rồi. Hẹn gặp bạn nhé.</span></p>
+      </div>
+      <div class="cx-bill" id="cxBill"></div>
+    </section>
+    <div hidden><div id="methods"></div></div>
   </div>
 </section>
 

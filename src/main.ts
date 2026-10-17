@@ -845,7 +845,7 @@ import { mountHead3D } from './head3d';
   function renderContact(){
     var s = hcmStatus();
     ['#ctStatus', '#cnStatus'].forEach(function(id){ var el = $(id); if (!el) return; el.className = 'status' + (s.on ? '' : ' off'); el.innerHTML = statusHTML(); });
-    $('#methods').innerHTML = c3RowsHTML();
+    cxRender();
     $('#cnMethods').innerHTML = methodsHTML();
     var ms = methodList(), c = ms[0];
     var cvBtn = CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">CV ↗</a>' : '';
@@ -853,6 +853,89 @@ import { mountHead3D } from './head3d';
     $$('[data-cv]').forEach(function(a){ if (CV_URL) a.href = CV_URL; else a.hidden = true; });
     $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.k === 'zalo' && m.copy === c.copy ? (lang === 'vi' ? 'Cùng số điện thoại' : 'Same number') : m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
   }
+  /* v40 · Contact as a shop visit: the shelf (channels as products) → under the lens (the way of
+     working, taken apart) → checkout (the basket as a bill; the deal is a date, the same coffee as in About) */
+  var CX = {ch:'zalo', way:'solo', chSet:false, waySet:false, done:false};
+  var CX_PK = {zalo:'Zalo', call:{en:'Call', vi:'Gọi'}, email:'Gmail', linkedin:'LinkedIn'};
+  var CX_WAYS = {
+    solo:{n:'SOLO', t:{en:'One person, the whole project.', vi:'Một người, trọn dự án.'},
+      fit:{en:'One point of contact, start to finish.', vi:'1 đầu mối từ đầu đến cuối.'},
+      parts:[{en:'Brief & goal', vi:'Brief & mục tiêu'}, {en:'Plan', vi:'Kế hoạch'}, {en:'Execution', vi:'Triển khai'}, {en:'Sign-off & report', vi:'Nghiệm thu & báo cáo'}]},
+    team:{n:'TEAM', t:{en:'A quality crew, built per project.', vi:'Một đội chất lượng, lắp theo dự án.'},
+      fit:{en:'When the job needs more hands than one.', vi:'Khi việc cần nhiều tay hơn một người.'},
+      parts:[{en:'The right partners', vi:'Đúng đối tác'}, {en:'Xinh runs the crew', vi:'Xinh điều phối đội'}, {en:'One contact for you', vi:'1 đầu mối cho bạn'}, {en:'Xinh is accountable', vi:'Xinh chịu trách nhiệm'}]},
+    role:{n:'HIRE', t:{en:'A project lead on your team.', vi:'Một project lead trong team bạn.'},
+      fit:{en:'Banking & fintech first.', vi:'Ưu tiên ngân hàng & fintech.'},
+      parts:[{en:'Marketing Project Manager', vi:'Marketing Project Manager'}, {en:'Marketing Communications', vi:'Marketing Communications'}, {en:'Campaign Management', vi:'Campaign Management'}, {en:'HCMC or remote', vi:'TP.HCM hoặc từ xa'}]}
+  };
+  var CX_PROMISE = [{en:'Clear scope, timeline and budget before we start', vi:'Phạm vi, timeline, ngân sách rõ trước khi bắt đầu'}, {en:'Regular updates, problems raised early', vi:'Cập nhật đều, có vấn đề là báo sớm'}, {en:'Every piece checked before it goes live', vi:'Mọi sản phẩm được duyệt trước khi lên sóng'}];
+  function cxChannels(){
+    var ms = methodList().filter(function(m){ return m.v && m.href && CX_PK[m.k]; }), call = ms.filter(function(m){ return m.k === 'call'; })[0];
+    var order = ['zalo', 'call', 'email', 'linkedin'];
+    return ms.sort(function(a, b){ return order.indexOf(a.k) - order.indexOf(b.k); }).map(function(m){
+      return {k:m.k, href:m.href, copy:m.copy, v: m.k === 'zalo' && call && call.copy === m.copy ? (lang === 'vi' ? 'Cùng số với Gọi' : 'Same number as Call') : m.v};
+    });
+  }
+  function cxDate(){
+    var now = new Date(), d = (now.getDay() + 6) % 7, pick = d + 1; if (pick > 4) pick = 7;
+    var pd = new Date(now.getFullYear(), now.getMonth(), now.getDate() - d + pick);
+    return pd.toLocaleDateString(lang === 'vi' ? 'vi-VN' : 'en-US', lang === 'vi' ? {weekday:'short', day:'numeric', month:'numeric'} : {weekday:'short', day:'numeric', month:'short'});
+  }
+  function cxRender(){
+    var vi = lang === 'vi', chs = cxChannels(), shelf = $('#cxShelf');
+    if (!chs.some(function(c){ return c.k === CX.ch; }) && chs[0]) CX.ch = chs[0].k;
+    if (shelf) shelf.innerHTML = '<div class="cx-row">' + chs.map(function(c, i){
+      var on = c.k === CX.ch && CX.chSet, nm = L(CX_PK[c.k]) || CX_PK[c.k];
+      var open = '<a class="cx-open" href="' + esc(c.href) + '"' + (c.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + c.k + '">' + (c.k === 'call' ? (vi ? 'Gọi' : 'Call') : c.k === 'email' ? (vi ? 'Viết' : 'Write') : (vi ? 'Mở' : 'Open')) + ' ↗</a>';
+      var cp = c.copy ? '<button class="cx-cp" type="button" data-copy="' + esc(c.copy) + '" data-m="' + c.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '';
+      return '<article class="cx-p cx-' + c.k + (on ? ' on' : '') + '" style="--j:' + i + '">' +
+        '<button class="cx-pk" type="button" data-cxch="' + c.k + '" aria-pressed="' + (on ? 'true' : 'false') + '" aria-label="' + (vi ? 'Bỏ ' : 'Add ') + esc(nm) + (vi ? ' vào giỏ' : ' to the basket') + '"><span class="cx-box"><i class="cx-cap"></i><span class="cx-lbl"><small>XINH.OS</small><b>' + esc(nm) + '</b></span></span><span class="cx-in">' + (on ? (vi ? 'Trong giỏ ✓' : 'In basket ✓') : (vi ? '+ Bỏ vào giỏ' : '+ Add')) + '</span></button>' +
+        '<div class="cx-tag"><p><b>' + esc(nm) + '</b><small>' + esc(c.v) + '</small></p><span>' + cp + open + '</span></div></article>';
+    }).join('') + '</div><i class="cx-glass" aria-hidden="true"></i>';
+    var chN = L(CX_PK[CX.ch]) || CX_PK[CX.ch], w = CX_WAYS[CX.way];
+    var bag = $('#cxBag1');
+    if (bag) bag.innerHTML = '<span class="cx-bag-ic" aria-hidden="true"><i>' + ((CX.chSet ? 1 : 0) + (CX.waySet ? 1 : 0)) + '</i></span>' + (CX.chSet ? '<span>' + (vi ? 'Trong giỏ: <b>' + esc(chN) + '</b>. Tiếp theo, xem bên trong ↓' : 'In your basket: <b>' + esc(chN) + '</b>. Next, look inside ↓') + '</span>' : '<span>' + (vi ? 'Bấm vào 1 món trên kệ để bỏ vào giỏ' : 'Tap a product on the shelf to add it') + '</span>');
+    $$('[data-cxway]').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.cxway === CX.way ? 'true' : 'false'); });
+    var lab = $('#cxLab');
+    if (lab){
+      var ps = w.parts.map(function(p, i){ return '<li class="cx-cl k' + i + '" style="--j:' + i + '"><i aria-hidden="true"></i><b>0' + (i + 1) + '</b><span>' + esc(L(p)) + '</span></li>'; }).join('');
+      var extra = CX.way === 'role'
+        ? '<div class="cx-in2"><p>' + (vi ? 'Kèm theo' : 'Comes with') + '</p>' + (CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗</a>' : '') + '</div>'
+        : '<div class="cx-in2"><p>' + (vi ? 'Luôn có trong hộp' : 'Always in the box') + '</p><ol>' + CX_PROMISE.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ol></div>';
+      var picked = CX.waySet;
+      lab.innerHTML = '<ul class="cx-cls">' + ps + '</ul>' +
+        '<div class="cx-hero cx-w-' + CX.way + '"><span class="cx-hero-box"><i class="cx-cap"></i><span class="cx-lbl"><small>XINH.OS</small><b>' + w.n + '</b><em>' + esc(L(w.t)) + '</em></span></span></div>' +
+        '<div class="cx-side"><p class="cx-fit">' + esc(L(w.fit)) + '</p>' + extra +
+        '<button class="btn ' + (picked ? '' : 'hot') + ' cx-add" type="button" data-cxadd>' + (picked ? (vi ? 'Đã bỏ vào giỏ ✓' : 'In your basket ✓') : (vi ? '+ Bỏ ' + w.n + ' vào giỏ' : '+ Add ' + w.n + ' to basket')) + '</button></div>';
+    }
+    var bill = $('#cxBill');
+    if (bill){
+      var sug = vi ? ' <i>gợi ý</i>' : ' <i>suggested</i>';
+      bill.className = 'cx-bill' + (CX.done ? ' done' : '');
+      bill.innerHTML = '<p class="cx-bill-h"><b>XINH.OS</b><span>' + (vi ? 'ĐƠN HÀNG' : 'ORDER') + ' · No. 0001</span></p>' +
+        '<dl><div><dt>' + (vi ? 'Kênh' : 'Channel') + '</dt><dd>' + esc(chN) + (CX.chSet ? '' : sug) + '</dd></div>' +
+        '<div><dt>' + (vi ? 'Cách làm' : 'Way of working') + '</dt><dd>' + w.n + (CX.waySet ? '' : sug) + '</dd></div>' +
+        '<div><dt>' + (vi ? 'Buổi hẹn' : 'The date') + '</dt><dd>' + (vi ? 'Cà phê' : 'Coffee') + ' · ' + esc(cxDate()) + '</dd></div>' +
+        '<div><dt>' + (vi ? 'Đầu mối' : 'Your contact') + '</dt><dd>Xinh Nguyễn</dd></div></dl>' +
+        '<p class="cx-bill-t"><span>TOTAL</span><em>' + (vi ? '1 buổi hẹn' : '1 date') + '</em></p>' +
+        '<span class="cx-stamp" aria-hidden="true">' + (vi ? 'ĐÃ CHỐT' : 'DEAL') + '</span>';
+    }
+    var go = $('#cxGo'), ch = chs.filter(function(c){ return c.k === CX.ch; })[0];
+    if (go && ch){
+      var href = ch.href;
+      if (ch.k === 'email') href += '?subject=' + encodeURIComponent((vi ? 'Hẹn cà phê với Xinh · ' : 'Coffee with Xinh · ') + w.n);
+      go.href = href; if (href.indexOf('http') === 0){ go.target = '_blank'; go.rel = 'noopener'; } else { go.removeAttribute('target'); }
+      go.dataset.m = ch.k;
+      go.innerHTML = (vi ? 'Chốt deal qua ' : 'Close it on ') + esc(chN) + ' →';
+    }
+  }
+  document.addEventListener('click', function(e){
+    var c = e.target.closest('[data-cxch]'); if (c){ CX.ch = c.dataset.cxch; CX.chSet = true; cxRender(); track('cart', 'ch:' + CX.ch); return; }
+    var w = e.target.closest('[data-cxway]'); if (w){ if (CX.way !== w.dataset.cxway) CX.waySet = false; CX.way = w.dataset.cxway; cxRender(); return; }
+    if (e.target.closest('[data-cxadd]')){ CX.waySet = true; cxRender(); track('cart', 'way:' + CX.way); return; }
+    if (e.target.closest('#cxGo')){ CX.done = true; setTimeout(cxRender, 60); track('cart', 'checkout'); return; }
+    var tp = e.target.closest('[data-cxtop]'); if (tp){ e.preventDefault(); var sh = $('#cxShelf'); if (sh) sh.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
+  });
   document.addEventListener('click', function(e){ var t = e.target.closest('[data-c4]'); if (!t) return; var g = $('.c4-g'); if (g) g.dataset.on = t.dataset.c4; $$('[data-c4]').forEach(function(b){ b.setAttribute('aria-selected', b === t ? 'true' : 'false'); }); });
   document.addEventListener('click', function(e){
     var w = e.target.closest('[data-who]'); if (w){ whoIdx = +w.dataset.who; renderContact(); track('who', WHO[whoIdx].k); return; }
