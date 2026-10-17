@@ -48,6 +48,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v32 (About hero + câu tuyên bố, góp ý Xinh):** hero About cao đúng 1 màn (`.a3-hero` min-height = màn − thanh nav, canh giữa theo chiều dọc; điện thoại trừ thêm thanh tab, ảnh viên thuốc cao theo `svh`), chữ tiêu đề cỡ theo cả vw và vh, mỗi dòng không rớt chữ. Câu VI: "Đúng mục tiêu trước. *Rồi chạy đúng việc.*" (cả LV.1). Câu tuyên bố `#abSay` rút gọn thành "I work where *three things meet.*" + 3 vòng tròn (`.a3-meet .mt.c1-3`: hiểu bài toán kinh doanh / phát triển hợp tác / triển khai thực tế) tách xa nhau rồi chụm lại khi cuộn, nhãn "Xinh" hiện ở giao điểm (`--m` đặt trong `drawAbout()`).
 
+**v33 (màn mở đầu, note của Xinh):** bỏ hàng "XINH.OS v2026 · HCMC + giờ" trên cùng (`.boot-top` ẩn, lặp với dòng `.x3-cap`) và dòng "press Enter" (`.boot-skip` ẩn, Enter vẫn chạy). Máy tính: câu + cụm nút canh giữa trên 1 đường ngang. Vật thể đối xứng 2 bên mặt (sao ↔ +1, chat ↔ @, play ↔ tim). Điện thoại: +1 dời xuống ngang chat để không đè CLICK ME, ẩn @; cụm nút xếp lại: 1 viên Story lớn full ngang, dưới là About me (viên trắng) + EN/VI; khoảng trên = dưới.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.

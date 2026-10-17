@@ -1785,7 +1785,7 @@ import { mountHead3D } from './head3d';
     var wh = window.innerWidth + 'x' + window.innerHeight;
     if (wh === bootFitWH || bootEl.hidden) return; bootFitWH = wh;
     var H = window.innerHeight, W = window.innerWidth, phone = W <= 760;
-    var bar = $('.boot-top', bootEl), barB = bar ? bar.getBoundingClientRect().bottom : 32;
+    var bar = $('.boot-top', bootEl), barB = bar && bar.offsetHeight ? bar.getBoundingClientRect().bottom : (phone ? 12 : 30);
     var first = x3.firstElementChild;
     var fixed = x3Stage.getBoundingClientRect().top - (first ? first.getBoundingClientRect().top : 0);
     var room, maxH;
