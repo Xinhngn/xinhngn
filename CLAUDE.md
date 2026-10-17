@@ -52,6 +52,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v34 (About "What I run", ref tab hồ sơ của Xinh):** 4 thẻ màu xếp chồng cũ thay bằng 4 tờ phân trang hồ sơ có tab (`.a3-c.f0-3`, tab `.a3-c-tab` lệch vị trí như ref, màu giấy bạc / kem / hồng nhạt / hồng). Cả cụm ghim gọn 1 màn (`.a3-run-sc` 280svh, `.a3-run-pin` sticky 100svh); cuộn thì kéo từng tờ ra trước: các tờ phía sau giữ tab ở trên, các tờ phía trước trượt xuống đáy (`a3Fold(k)` đặt translateY, gọi từ `drawAbout()`); bấm tab thì cuộn tới tờ đó. Thân tờ: số lớn Newsreader nghiêng + mô tả. Máy tính và điện thoại dùng chung bố cục.
 
+**v35 (About "Four levels", ref thẻ ID treo dây của Xinh):** `.a3-path-sc` ghim 280svh (điện thoại 300svh), 1 màn: trái là cụm 4 thẻ ID (`#a3Stack.bdk`, `figure.bd`) treo trên 1 dây hồng + móc chrome (`.bd-lan`); thẻ level đang đọc nằm trước, các thẻ khác xoè nghiêng phía sau (`drawAbout()` đặt `--d` / `--a` trên mỗi thẻ). Phải: 4 nút số `.a3-lvn` (bấm thì cuộn tới level) + mô tả vai trò (`#tl4`, chỉ hiện bài `.on`). CSS khối v35 / v35b cuối `src/styles.css`.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.

@@ -1665,8 +1665,8 @@ import { mountHead3D } from './head3d';
     });
   }
   document.addEventListener('click', function(e){
-    var tb = e.target.closest('[data-a3tab]'); if (!tb) return;
-    var k = +tb.dataset.a3tab, sc = $('.a3-run-sc');
+    var tb = e.target.closest('[data-a3tab],[data-a3lv]'); if (!tb) return;
+    var lv = tb.hasAttribute('data-a3lv'), k = +(lv ? tb.dataset.a3lv : tb.dataset.a3tab), sc = $(lv ? '.a3-path-sc' : '.a3-run-sc');
     if (!sc){ a3Fold(k); return; }
     var top = sc.getBoundingClientRect().top + window.scrollY, span = Math.max(1, sc.offsetHeight - window.innerHeight);
     window.scrollTo({top: Math.round(top + span * (k + .5) / 4), behavior: reduce ? 'auto' : 'smooth'});
@@ -1737,10 +1737,12 @@ import { mountHead3D } from './head3d';
     // 03 · the photo of the level whose role is in the middle of the screen
     var tl = $('#tl4', v), st = $('#a3Stack', v);
     if (tl && st){
-      var arts = $$('article', tl), act = 0;
-      arts.forEach(function(a, i){ if (a.getBoundingClientRect().top < vh * .52) act = i; });
+      var arts = $$('article', tl), act = 0, psc = $('.a3-path-sc', v);
+      if (psc){ var pr = psc.getBoundingClientRect(); act = Math.min(3, Math.floor(clamp(-pr.top / Math.max(1, pr.height - vh), 0, .999) * 4)); }
+      else arts.forEach(function(a, i){ if (a.getBoundingClientRect().top < vh * .52) act = i; });
+      $$('.a3-lvn button', v).forEach(function(b, i){ b.classList.toggle('on', i === act); b.setAttribute('aria-selected', i === act ? 'true' : 'false'); });
       arts.forEach(function(a, i){ a.classList.toggle('on', i === act); });
-      $$('figure', st).forEach(function(f, i){ f.classList.toggle('on', i <= act); f.classList.toggle('cur', i === act); });
+      $$('figure', st).forEach(function(f, i){ f.classList.toggle('on', i <= act); f.classList.toggle('cur', i === act); f.style.setProperty('--d', i - act); f.style.setProperty('--a', Math.abs(i - act)); });
     }
     // 04 · the line from pitch to sign-off draws itself
     var fr = $('.a3-far', v);

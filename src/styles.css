@@ -4110,3 +4110,96 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
 .a3-cards{overflow:hidden; overflow:clip}
 .a3-c-b{align-content:start}
 @media (min-width:761px){ .a3-c-d{padding-top:.5em} }
+
+/* =====================================================================
+   v35 · About "Four levels": one pinned screen, scroll steps the level.
+   drawAbout() picks the level from .a3-path-sc progress.
+   ===================================================================== */
+.a3-path{padding-block:0!important}
+.a3-path-sc{position:relative; height:280vh; height:280svh}
+.a3-path-pin{position:sticky; top:0; height:100vh; height:100svh; box-sizing:border-box; display:flex; flex-direction:column; padding:calc(var(--hud) + clamp(16px,3vh,34px)) 0 clamp(20px,4vh,40px)}
+.a3-path-pin .a3-h2{flex:none; max-width:none; margin-bottom:clamp(16px,3vh,32px); font-size:clamp(32px,min(4.2vw,7.4vh),62px)}
+.a3-path-pin .a3-path-g{flex:1 1 auto; min-height:0; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center; gap:clamp(28px,5vw,80px)}
+.a3-path-pin .a3-stack{position:relative; top:auto; align-self:stretch; height:auto; max-height:540px; min-height:0}
+.a3-path-pin .a3-stack figcaption b{font-size:clamp(60px,min(7vw,12vh),112px)}
+.a3-roles-w{display:flex; flex-direction:column; gap:clamp(18px,3.4vh,36px); min-height:0}
+.a3-lvn{display:flex; flex-wrap:wrap; gap:8px}
+.a3-lvn button{display:inline-flex; align-items:baseline; gap:8px; padding:8px 14px; border:1px solid rgba(14,15,20,.14); border-radius:999px; background:rgba(255,255,255,.55); color:var(--ink2); font:500 12px/1.2 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:background .4s var(--xo), color .4s, border-color .4s}
+.a3-lvn button b{font-weight:600; color:var(--rose)}
+.a3-lvn button.on{background:var(--lime); border-color:var(--lime); color:var(--ink)}
+.a3-lvn button.on b{color:var(--ink)}
+.a3-lvn button:focus-visible{outline:2px solid var(--rose); outline-offset:2px}
+.a3-path-pin .a3-roles{position:relative; display:grid!important; gap:0!important}
+.a3-path-pin .a3-roles article,.a3-path-pin .a3-roles article:last-child{grid-area:1/1; min-height:0!important; justify-content:flex-start; gap:12px; opacity:0!important; transform:translateY(16px); pointer-events:none; transition:opacity .5s ease, transform .7s var(--xo)}
+.a3-path-pin .a3-roles article.on{opacity:1!important; transform:none; pointer-events:auto; transition-delay:.12s}
+.a3-path-pin .a3-roles h4{font-size:clamp(24px,min(2.6vw,4.8vh),40px); max-width:20ch}
+.a3-path-pin .a3-r-v{font-size:clamp(17px,min(1.5vw,2.7vh),22px)}
+.a3-path-pin .a3-r-ph{display:none!important}
+@media (prefers-reduced-motion:reduce){ .a3-path-pin .a3-roles article,.a3-lvn button{transition:none} }
+@media (max-width:860px){
+  .a3-path-sc{height:300svh}
+  .a3-path-pin{padding:calc(var(--hud) + 12px) 0 calc(92px + env(safe-area-inset-bottom))}
+  .a3-path-pin .a3-h2{font-size:clamp(28px,8.2vw,40px); margin-bottom:14px}
+  .a3-path-pin .a3-path-g{grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr); align-items:start; gap:16px}
+  .a3-path-pin .a3-stack{display:block!important; align-self:auto; height:clamp(140px,26svh,230px); border-radius:22px}
+  .a3-path-pin .a3-stack figure,.a3-path-pin .a3-stack figure:first-child,.a3-path-pin .a3-stack figure.on{clip-path:inset(0 0 0 0 round 22px)}
+  .a3-path-pin .a3-stack figure{clip-path:inset(100% 0 0 0 round 22px)}
+  .a3-path-pin .a3-stack figcaption b{font-size:56px}
+  .a3-roles-w{gap:14px}
+  .a3-lvn{flex-wrap:nowrap; gap:6px}
+  .a3-lvn button{flex:1 1 0; justify-content:center; padding:7px 4px; font-size:0; gap:0}
+  .a3-lvn button b{font-size:11px}
+  .a3-path-pin .a3-roles h4{font-size:clamp(21px,6vw,26px)}
+  .a3-path-pin .a3-r-v{font-size:16px}
+  .a3-path-pin .a3-roles article{gap:8px}
+  .a3-path-pin .a3-more{margin-top:4px}
+}
+@media (max-width:860px) and (max-height:700px){ .a3-path-pin .a3-stack{height:clamp(110px,20svh,170px)} }
+.a3-lvn{flex-wrap:nowrap; gap:8px; max-width:420px}
+.a3-lvn button{flex:1 1 0; justify-content:center; padding:8px 4px; font-size:0; gap:0}
+.a3-lvn button b{font-size:12px}
+
+/* v35b · Four levels as a cluster of ID badges on one lanyard (ref: badge mockups).
+   drawAbout() sets --d (offset from the level being read) and --a (|--d|) per badge. */
+.a3-stack.bdk{--bw:min(100%, calc((100% - 0px) * 1)); position:relative; overflow:visible!important; background:none!important; border-radius:0!important; container-type:size}
+.bdk .bd-lan{position:absolute; left:50%; top:calc(-1 * var(--hud, 60px)); height:calc(var(--hud, 60px) + 13cqh); width:0; z-index:20; pointer-events:none}
+.bdk .bd-strap{position:absolute; left:-17px; top:0; bottom:26px; width:34px; border-radius:0 0 6px 6px; background:
+  repeating-linear-gradient(180deg, transparent 0 42px, rgba(255,255,255,.85) 42px 44px, transparent 44px 60px),
+  linear-gradient(90deg,#f37fb2,#ff9cc8 40%,#ff8fc0 60%,#e9709f); box-shadow:0 8px 18px -10px rgba(193,63,123,.6)}
+.bdk .bd-clip{position:absolute; left:-15px; bottom:0; width:30px; height:34px; border-radius:8px 8px 12px 12px; background:var(--chrome-sv); box-shadow:0 6px 12px -6px rgba(20,20,40,.55), inset 0 0 0 1px rgba(255,255,255,.6)}
+.bdk .bd-clip::after{content:""; position:absolute; left:50%; bottom:-10px; width:12px; height:16px; margin-left:-6px; border:3px solid #9aa3b6; border-top:0; border-radius:0 0 8px 8px}
+.a3-path-pin .a3-stack.bdk figure.bd{--w:min(74cqw, calc(83cqh * .68)); position:absolute; left:50%; top:13cqh; width:var(--w); height:calc(var(--w) / .68); margin:0 0 0 calc(var(--w) / -2);
+  clip-path:none!important; display:flex; flex-direction:column; padding:calc(var(--w) * .06); box-sizing:border-box; border-radius:calc(var(--w) * .075); background:#f7f2ea;
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 1px rgba(14,15,20,.06) inset, 0 28px 50px -26px rgba(70,40,60,.45), 0 8px 16px -10px rgba(70,40,60,.25);
+  transform-origin:50% -6cqh; transform:translateX(calc(var(--d) * 9%)) translateY(calc(var(--a) * 1.4cqh)) rotate(calc(var(--d) * 6deg)) scale(calc(1 - var(--a) * .05));
+  z-index:calc(10 - var(--a)); opacity:calc(1 - var(--a) * .12); transition:transform 1s var(--xo), opacity .6s, filter .6s}
+.a3-path-pin .a3-stack.bdk figure.bd:not(.cur){filter:saturate(.75)}
+.a3-path-pin .a3-stack.bdk figure.bd[style*="--a: 2"],.a3-path-pin .a3-stack.bdk figure.bd[style*="--a: 3"]{opacity:.0}
+.bdk figure.bd::after{display:none!important}
+.bdk .bd-slot{align-self:center; flex:none; width:24%; height:calc(var(--w) * .045); margin-bottom:calc(var(--w) * .05); border-radius:99px; background:#e4ddd2; box-shadow:inset 0 2px 3px rgba(60,40,40,.25)}
+.bdk .bd-top{display:flex; justify-content:space-between; margin:0 0 calc(var(--w) * .04); font:600 calc(var(--w) * .034)/1 var(--f-mono); letter-spacing:.14em; color:var(--rose)}
+.bdk .bd-ph{position:relative!important; inset:auto!important; flex:1 1 auto; min-height:0; border-radius:calc(var(--w) * .04); overflow:hidden; background:#ddd5ca}
+.bdk .bd-ph .ph,.bdk .bd-ph .ph img{width:100%; height:100%; object-fit:cover}
+.bdk .bd-ph .ph img{scale:1!important}
+.a3-path-pin .bdk figure.bd figcaption{position:static!important; display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-top:calc(var(--w) * .05); color:var(--ink)!important}
+.a3-path-pin .bdk figure.bd figcaption b{font:italic 400 calc(var(--w) * .2)/.8 var(--f-serif)!important; letter-spacing:-.04em; color:var(--rose); transform:none!important; opacity:1!important}
+.bdk figure.bd figcaption span{display:flex; flex-direction:column; align-items:flex-end; gap:4px; max-width:60%; font:500 calc(var(--w) * .03)/1.25 var(--f-mono)!important; letter-spacing:.12em; color:var(--ink3); opacity:1!important}
+.bdk figure.bd figcaption strong{font:800 calc(var(--w) * .062)/1 var(--f-head); letter-spacing:-.02em; color:var(--ink); text-transform:none}
+.bdk .bd-bar{flex:none; height:calc(var(--w) * .07); margin-top:calc(var(--w) * .045); background:repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px, var(--ink) 8px 11px, transparent 11px 13px); opacity:.75}
+@media (prefers-reduced-motion:reduce){ .a3-path-pin .a3-stack.bdk figure.bd{transition:opacity .3s} }
+@media (max-width:860px){
+  .a3-path-pin .a3-stack.bdk{height:clamp(220px,40svh,330px)}
+  .bdk .bd-lan{top:-14px; height:calc(14px + 13cqh)}
+  .bdk .bd-strap{left:-12px; width:24px; bottom:22px}
+  .bdk .bd-clip{left:-11px; width:22px; height:26px}
+}
+@media (max-width:860px) and (max-height:700px){ .a3-path-pin .a3-stack.bdk{height:clamp(190px,36svh,250px)} }
+.bdk .bd-lan{top:0!important; height:13cqh!important}
+.bdk .bd-strap{top:-8px}
+.a3-path-pin .a3-stack.bdk figure.bd{transform-origin:50% -2cqh; transform:translateX(calc(var(--d) * 15%)) translateY(calc(var(--a) * 1cqh)) rotate(calc(var(--d) * 7deg)) scale(calc(1 - var(--a) * .04))}
+.a3-path-pin .a3-stack.bdk figure.bd[style*="--a: 2"]{opacity:.55}
+@media (max-width:860px) and (max-height:700px){ .a3-path-pin .a3-stack.bdk{height:clamp(170px,29svh,210px)} .a3-path-pin .a3-path-g{gap:12px} .a3-path-pin .a3-h2{margin-bottom:10px} }
+@media (max-width:860px) and (max-height:700px){
+  .a3-path-pin .a3-roles h4{font-size:19px} .a3-path-pin .a3-r-v{font-size:14.5px} .a3-path-pin .a3-roles article{gap:6px}
+  .a3-lvn button{padding:4px} .a3-roles-w{gap:10px} .a3-path-pin .a3-more{padding:4px 4px 4px 14px; font-size:13px} .a3-path-pin .a3-more i{width:26px; height:26px}
+}
