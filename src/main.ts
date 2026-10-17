@@ -853,10 +853,10 @@ import { mountHead3D } from './head3d';
     $$('[data-cv]').forEach(function(a){ if (CV_URL) a.href = CV_URL; else a.hidden = true; });
     $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.k === 'zalo' && m.copy === c.copy ? (lang === 'vi' ? 'Cùng số điện thoại' : 'Same number') : m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
   }
-  /* v40 · Contact as a shop visit: the shelf (channels as products) → under the lens (the way of
-     working, taken apart) → checkout (the basket as a bill; the deal is a date, the same coffee as in About) */
-  var CX = {ch:'zalo', way:'solo', chSet:false, waySet:false, done:false};
-  var CX_PK = {zalo:'Zalo', call:{en:'Call', vi:'Gọi'}, email:'Gmail', linkedin:'LinkedIn'};
+  /* v42 · Contact in three screens (Xinh's refs: a slot machine, a gift guide, a door hanger):
+     01 pick one of three channels on a three-reel machine → 02 unbox the three ways of working →
+     03 pack it up: the order rides home on a door hanger, sent on the channel picked in 01 */
+  var CX = {ch:'phone', way:'solo', chSet:false, waySet:false, done:false};
   var CX_WAYS = {
     solo:{n:'SOLO', t:{en:'One person, the whole project.', vi:'Một người, trọn dự án.'},
       fit:{en:'One point of contact, start to finish.', vi:'1 đầu mối từ đầu đến cuối.'},
@@ -869,72 +869,79 @@ import { mountHead3D } from './head3d';
       parts:[{en:'Marketing Project Manager', vi:'Marketing Project Manager'}, {en:'Marketing Communications', vi:'Marketing Communications'}, {en:'Campaign Management', vi:'Campaign Management'}, {en:'HCMC or remote', vi:'TP.HCM hoặc từ xa'}]}
   };
   var CX_PROMISE = [{en:'Clear scope, timeline and budget before we start', vi:'Phạm vi, timeline, ngân sách rõ trước khi bắt đầu'}, {en:'Regular updates, problems raised early', vi:'Cập nhật đều, có vấn đề là báo sớm'}, {en:'Every piece checked before it goes live', vi:'Mọi sản phẩm được duyệt trước khi lên sóng'}];
-  function cxChannels(){
-    var ms = methodList().filter(function(m){ return m.v && m.href && CX_PK[m.k]; }), call = ms.filter(function(m){ return m.k === 'call'; })[0];
-    var order = ['zalo', 'call', 'email', 'linkedin'];
-    return ms.sort(function(a, b){ return order.indexOf(a.k) - order.indexOf(b.k); }).map(function(m){
-      return {k:m.k, href:m.href, copy:m.copy, v: m.k === 'zalo' && call && call.copy === m.copy ? (lang === 'vi' ? 'Cùng số với Gọi' : 'Same number as Call') : m.v};
-    });
-  }
   function cxDate(){
     var now = new Date(), d = (now.getDay() + 6) % 7, pick = d + 1; if (pick > 4) pick = 7;
     var pd = new Date(now.getFullYear(), now.getMonth(), now.getDate() - d + pick);
     return pd.toLocaleDateString(lang === 'vi' ? 'vi-VN' : 'en-US', lang === 'vi' ? {weekday:'short', day:'numeric', month:'numeric'} : {weekday:'short', day:'numeric', month:'short'});
   }
+  function kxChannels(){
+    var by = {}; methodList().forEach(function(m){ if (m.v && m.href) by[m.k] = m; });
+    var out = [], call = by.call, zalo = by.zalo;
+    if (call || zalo) out.push({k:'phone', ic:'i-chat', n:{en:'Zalo · Call', vi:'Zalo · Gọi'}, v:(call || zalo).v, why:{en:'Quickest reply', vi:'Nhanh nhất'}, copy:(call || zalo).copy,
+      acts:[zalo ? {t:'Zalo', href:zalo.href, m:'zalo'} : null, call ? {t:{en:'Call', vi:'Gọi'}, href:call.href, m:'call'} : null].filter(Boolean), send:zalo || call});
+    if (by.email) out.push({k:'email', ic:'i-mail', n:{en:'Gmail', vi:'Gmail'}, v:by.email.v, why:{en:'Briefs & files', vi:'Brief, tài liệu'}, copy:by.email.copy, acts:[{t:{en:'Write', vi:'Viết thư'}, href:by.email.href, m:'email'}], send:by.email});
+    if (by.linkedin) out.push({k:'linkedin', ic:'i-case', n:{en:'LinkedIn', vi:'LinkedIn'}, v:by.linkedin.v, why:{en:'Roles & hiring', vi:'Tuyển dụng'}, acts:[{t:{en:'Open', vi:'Mở'}, href:by.linkedin.href, m:'linkedin'}], send:by.linkedin});
+    return out;
+  }
+  function kxA(a, cls){ return '<a class="' + cls + '" href="' + esc(a.href) + '"' + (a.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + a.m + '">' + esc(L(a.t)) + ' ↗</a>'; }
   function cxRender(){
-    var vi = lang === 'vi', chs = cxChannels(), shelf = $('#cxShelf');
+    var vi = lang === 'vi', chs = kxChannels();
     if (!chs.some(function(c){ return c.k === CX.ch; }) && chs[0]) CX.ch = chs[0].k;
-    if (shelf) shelf.innerHTML = '<div class="cx-row">' + chs.map(function(c, i){
-      var on = c.k === CX.ch && CX.chSet, nm = L(CX_PK[c.k]) || CX_PK[c.k];
-      var open = '<a class="cx-open" href="' + esc(c.href) + '"' + (c.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + c.k + '">' + (c.k === 'call' ? (vi ? 'Gọi' : 'Call') : c.k === 'email' ? (vi ? 'Viết' : 'Write') : (vi ? 'Mở' : 'Open')) + ' ↗</a>';
-      var cp = c.copy ? '<button class="cx-cp" type="button" data-copy="' + esc(c.copy) + '" data-m="' + c.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '';
-      return '<article class="cx-p cx-' + c.k + (on ? ' on' : '') + '" style="--j:' + i + '">' +
-        '<button class="cx-pk" type="button" data-cxch="' + c.k + '" aria-pressed="' + (on ? 'true' : 'false') + '" aria-label="' + (vi ? 'Bỏ ' : 'Add ') + esc(nm) + (vi ? ' vào giỏ' : ' to the basket') + '"><span class="cx-box"><i class="cx-cap"></i><span class="cx-lbl"><small>XINH.OS</small><b>' + esc(nm) + '</b></span></span><span class="cx-in">' + (on ? (vi ? 'Trong giỏ ✓' : 'In basket ✓') : (vi ? '+ Bỏ vào giỏ' : '+ Add')) + '</span></button>' +
-        '<div class="cx-tag"><p><b>' + esc(nm) + '</b><small>' + esc(c.v) + '</small></p><span>' + cp + open + '</span></div></article>';
-    }).join('') + '</div><i class="cx-glass" aria-hidden="true"></i>';
-    var chN = L(CX_PK[CX.ch]) || CX_PK[CX.ch], w = CX_WAYS[CX.way];
-    var bag = $('#cxBag1');
-    if (bag) bag.innerHTML = '<span class="cx-bag-ic" aria-hidden="true"><i>' + ((CX.chSet ? 1 : 0) + (CX.waySet ? 1 : 0)) + '</i></span>' + (CX.chSet ? '<span>' + (vi ? 'Trong giỏ: <b>' + esc(chN) + '</b>. Tiếp theo, xem bên trong ↓' : 'In your basket: <b>' + esc(chN) + '</b>. Next, look inside ↓') + '</span>' : '<span>' + (vi ? 'Bấm vào 1 món trên kệ để bỏ vào giỏ' : 'Tap a product on the shelf to add it') + '</span>');
-    $$('[data-cxway]').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.cxway === CX.way ? 'true' : 'false'); });
-    var lab = $('#cxLab');
-    if (lab){
-      var ps = w.parts.map(function(p, i){ return '<li class="cx-cl k' + i + '" style="--j:' + i + '"><i aria-hidden="true"></i><b>0' + (i + 1) + '</b><span>' + esc(L(p)) + '</span></li>'; }).join('');
-      var extra = CX.way === 'role'
-        ? '<div class="cx-in2"><p>' + (vi ? 'Kèm theo' : 'Comes with') + '</p>' + (CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗</a>' : '') + '</div>'
-        : '<div class="cx-in2"><p>' + (vi ? 'Luôn có trong hộp' : 'Always in the box') + '</p><ol>' + CX_PROMISE.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ol></div>';
-      var picked = CX.waySet;
-      lab.innerHTML = '<ul class="cx-cls">' + ps + '</ul>' +
-        '<div class="cx-hero cx-w-' + CX.way + '"><span class="cx-hero-box"><i class="cx-cap"></i><span class="cx-lbl"><small>XINH.OS</small><b>' + w.n + '</b><em>' + esc(L(w.t)) + '</em></span></span></div>' +
-        '<div class="cx-side"><p class="cx-fit">' + esc(L(w.fit)) + '</p>' + extra +
-        '<button class="btn ' + (picked ? '' : 'hot') + ' cx-add" type="button" data-cxadd>' + (picked ? (vi ? 'Đã bỏ vào giỏ ✓' : 'In your basket ✓') : (vi ? '+ Bỏ ' + w.n + ' vào giỏ' : '+ Add ' + w.n + ' to basket')) + '</button></div>';
+    var ch = chs.filter(function(c){ return c.k === CX.ch; })[0], w = CX_WAYS[CX.way];
+    var mc = $('#kxMc');
+    if (mc && ch){
+      mc.innerHTML = '<div class="kx-mach"><p class="kx-mtop"><b>XINH.OS</b><span>MATCH MACHINE</span><i aria-hidden="true"></i></p>' +
+        '<div class="kx-reels">' + chs.map(function(c, i){ var on = c.k === CX.ch;
+          return '<button class="kx-reel' + (on ? ' on' : '') + '" type="button" data-kxch="' + c.k + '" aria-pressed="' + (on && CX.chSet ? 'true' : 'false') + '" style="--j:' + i + '"><span class="kx-drum"><span class="kx-face"><i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + c.ic + '"/></svg></i><b>' + esc(L(c.n)) + '</b><small>' + esc(L(c.why)) + '</small></span></span><em class="kx-match">' + (on ? (CX.chSet ? 'MATCH' : (vi ? 'GỢI Ý' : 'TIP')) : '0' + (i + 1)) + '</em></button>'; }).join('') + '</div>' +
+        '<button class="kx-lever" type="button" data-kxspin aria-label="' + (vi ? 'Kéo cần' : 'Pull the lever') + '"><i></i></button>' +
+        '<div class="kx-plate"><p><small>' + (CX.chSet ? (vi ? 'Kênh bạn chọn' : 'Your channel') : (vi ? 'Gợi ý cho bạn' : 'Suggested')) + '</small><b>' + esc(L(ch.n)) + '</b><span>' + esc(ch.v) + '</span></p>' +
+        '<span class="kx-pa">' + ch.acts.map(function(a){ return kxA(a, 'kx-btn'); }).join('') + (ch.copy ? '<button class="kx-btn ghost" type="button" data-copy="' + esc(ch.copy) + '" data-m="' + ch.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '') + '</span></div></div>';
     }
-    var bill = $('#cxBill');
-    if (bill){
-      var sug = vi ? ' <i>gợi ý</i>' : ' <i>suggested</i>';
-      bill.className = 'cx-bill' + (CX.done ? ' done' : '');
-      bill.innerHTML = '<p class="cx-bill-h"><b>XINH.OS</b><span>' + (vi ? 'ĐƠN HÀNG' : 'ORDER') + ' · No. 0001</span></p>' +
-        '<dl><div><dt>' + (vi ? 'Kênh' : 'Channel') + '</dt><dd>' + esc(chN) + (CX.chSet ? '' : sug) + '</dd></div>' +
-        '<div><dt>' + (vi ? 'Cách làm' : 'Way of working') + '</dt><dd>' + w.n + (CX.waySet ? '' : sug) + '</dd></div>' +
-        '<div><dt>' + (vi ? 'Buổi hẹn' : 'The date') + '</dt><dd>' + (vi ? 'Cà phê' : 'Coffee') + ' · ' + esc(cxDate()) + '</dd></div>' +
-        '<div><dt>' + (vi ? 'Đầu mối' : 'Your contact') + '</dt><dd>Xinh Nguyễn</dd></div></dl>' +
-        '<p class="cx-bill-t"><span>TOTAL</span><em>' + (vi ? '1 buổi hẹn' : '1 date') + '</em></p>' +
-        '<span class="cx-stamp" aria-hidden="true">' + (vi ? 'ĐÃ CHỐT' : 'DEAL') + '</span>';
+    var gift = $('#kxGift');
+    if (gift){
+      var ks = ['solo', 'team', 'role'];
+      var items = ks.map(function(k, i){ var x = CX_WAYS[k], on = k === CX.way;
+        return '<button class="kx-it n' + (i + 1) + (on ? ' on' : '') + '" type="button" data-kxway="' + k + '" aria-pressed="' + (on ? 'true' : 'false') + '"><span class="kx-no">(' + (i + 1) + ')</span><span class="kx-card"><small>' + x.n + '</small><b>' + esc(L(x.t)) + '</b></span></button>'; }).join('');
+      var n = ks.indexOf(CX.way) + 1;
+      var extra = CX.way === 'role' && CV_URL ? '<a class="kx-btn ghost" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗</a>' : '';
+      gift.innerHTML = '<div class="kx-stage"><div class="kx-items">' + items + '</div>' +
+        '<div class="kx-box" aria-hidden="true"><i class="kx-lid"></i><span class="kx-body"><b>XINH.OS</b><small>' + (vi ? 'hộp ' : 'box ') + n + '/3</small></span><i class="kx-rib l"></i><i class="kx-rib r"></i></div></div>' +
+        '<div class="kx-cap"><p class="kx-cap-t"><b>(' + n + ') ' + w.n + '</b><span>' + esc(L(w.fit)) + '</span></p>' +
+        '<ol class="kx-parts">' + w.parts.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ol>' +
+        '<p class="kx-cap-a"><button class="btn' + (CX.waySet ? '' : ' hot') + '" type="button" data-kxadd>' + (CX.waySet ? (vi ? 'Đã chọn ' + w.n + ' ✓' : w.n + ' picked ✓') : (vi ? 'Chọn hộp ' + w.n : 'Take the ' + w.n + ' box')) + '</button>' + extra + '</p></div>';
     }
-    var go = $('#cxGo'), ch = chs.filter(function(c){ return c.k === CX.ch; })[0];
+    var door = $('#kxDoor');
+    if (door && ch){
+      var sug = CX.chSet && CX.waySet ? '' : '<i>' + (vi ? 'gợi ý' : 'suggested') + '</i>';
+      door.innerHTML = '<span class="kx-panel" aria-hidden="true"></span><span class="kx-knob" aria-hidden="true"></span>' +
+        '<div class="kx-tag' + (CX.done ? ' done' : '') + '"><i class="kx-hole" aria-hidden="true"></i><p class="kx-tag-k">XINH × ' + (vi ? 'BẠN' : 'YOU') + '</p>' +
+        '<p class="kx-tag-h">COMING<br>SOON</p><p class="kx-tag-s">' + (vi ? 'Dự án đang chuẩn bị' : 'Project in progress') + '</p>' +
+        '<dl><div><dt>' + (vi ? 'Kênh' : 'Channel') + '</dt><dd>' + esc(L(ch.n)) + '</dd></div><div><dt>' + (vi ? 'Cách làm' : 'Way') + '</dt><dd>' + w.n + '</dd></div><div><dt>' + (vi ? 'Hẹn' : 'Date') + '</dt><dd>' + (vi ? 'Cà phê · ' : 'Coffee · ') + esc(cxDate()) + '</dd></div></dl>' + sug +
+        '<span class="kx-stamp" aria-hidden="true">' + (vi ? 'ĐÃ GỬI' : 'SENT') + '</span></div>';
+    }
+    var go = $('#cxGo');
     if (go && ch){
-      var href = ch.href;
+      var href = ch.send.href;
       if (ch.k === 'email') href += '?subject=' + encodeURIComponent((vi ? 'Hẹn cà phê với Xinh · ' : 'Coffee with Xinh · ') + w.n);
-      go.href = href; if (href.indexOf('http') === 0){ go.target = '_blank'; go.rel = 'noopener'; } else { go.removeAttribute('target'); }
-      go.dataset.m = ch.k;
-      go.innerHTML = (vi ? 'Chốt deal qua ' : 'Close it on ') + esc(chN) + ' →';
+      go.href = href; if (href.indexOf('http') === 0){ go.target = '_blank'; go.rel = 'noopener'; } else go.removeAttribute('target');
+      go.dataset.m = ch.send.k;
+      go.innerHTML = (vi ? 'Gửi qua ' : 'Send on ') + esc(L(ch.n).split(' · ')[0]) + ' →';
     }
   }
+  var kxSpin = 0;
   document.addEventListener('click', function(e){
-    var c = e.target.closest('[data-cxch]'); if (c){ CX.ch = c.dataset.cxch; CX.chSet = true; cxRender(); track('cart', 'ch:' + CX.ch); return; }
-    var w = e.target.closest('[data-cxway]'); if (w){ if (CX.way !== w.dataset.cxway) CX.waySet = false; CX.way = w.dataset.cxway; cxRender(); return; }
-    if (e.target.closest('[data-cxadd]')){ CX.waySet = true; cxRender(); track('cart', 'way:' + CX.way); return; }
+    var c = e.target.closest('[data-kxch]'); if (c){ CX.ch = c.dataset.kxch; CX.chSet = true; cxRender(); track('cart', 'ch:' + CX.ch); return; }
+    if (e.target.closest('[data-kxspin]')){
+      var r = $('.kx-reels'); if (!r || kxSpin) return;
+      if (reduce){ CX.chSet = true; CX.ch = 'phone'; cxRender(); return; }
+      r.classList.add('spin'); var lv = $('.kx-lever'); if (lv) lv.classList.add('pull');
+      kxSpin = setTimeout(function(){ kxSpin = 0; CX.ch = 'phone'; CX.chSet = true; cxRender(); var nr = $('.kx-reels'); if (nr){ nr.classList.add('land'); setTimeout(function(){ nr.classList.remove('land'); }, 700); } }, 1100);
+      track('cart', 'spin'); return;
+    }
+    var w = e.target.closest('[data-kxway]'); if (w){ if (CX.way !== w.dataset.kxway) CX.waySet = false; CX.way = w.dataset.kxway; cxRender(); return; }
+    if (e.target.closest('[data-kxadd]')){ CX.waySet = true; cxRender(); track('cart', 'way:' + CX.way); return; }
     if (e.target.closest('#cxGo')){ CX.done = true; setTimeout(cxRender, 60); track('cart', 'checkout'); return; }
-    var tp = e.target.closest('[data-cxtop]'); if (tp){ e.preventDefault(); var sh = $('#cxShelf'); if (sh) sh.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
+    if (e.target.closest('[data-kxtop]')){ var s1 = $('.kx-s1'); if (s1) s1.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); }
   });
   document.addEventListener('click', function(e){ var t = e.target.closest('[data-c4]'); if (!t) return; var g = $('.c4-g'); if (g) g.dataset.on = t.dataset.c4; $$('[data-c4]').forEach(function(b){ b.setAttribute('aria-selected', b === t ? 'true' : 'false'); }); });
   document.addEventListener('click', function(e){

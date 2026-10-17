@@ -545,35 +545,40 @@
 
 <!-- =========================================================== CONTACT =========================================================== -->
 <section class="view qv c3v" data-view="contact" id="v-contact" hidden>
-  <div class="ct3 cx">
-    <!-- Contact = a shop visit. 01 the shelf: every channel is a product, pick one into the basket -->
-    <header class="cx-s1" data-c3>
-      <div class="cx-hd">
-        <p class="xf-k"><span>01 / 03</span><span class="en">The shelf</span><span class="vi">Kệ hàng</span></p>
-        <h2 class="c3-h1 cx-h" aria-label="Pick a way in, drop it in the basket.">
-          <span class="ln"><span><span class="en">Pick a way in,</span><span class="vi">Chọn một kênh,</span></span></span>
-          <span class="ln"><span><em><span class="en">drop it in the basket.</span><span class="vi">bỏ vào giỏ.</span></em></span></span>
-        </h2>
+  <div class="ct3 kx">
+    <!-- Contact in three screens: 01 pick a channel (a three-reel machine) → 02 unbox the three ways
+         to work together → 03 pack it up and take it home (a door hanger with your order) -->
+    <section class="kx-s kx-s1" data-c3>
+      <div class="kx-txt">
+        <p class="xf-k"><span>01 / 03</span><span class="en">Pick a channel</span><span class="vi">Chọn kênh</span></p>
+        <h2 class="kx-h"><span class="ln"><span class="en">Three ways in.</span><span class="vi">Ba kênh liên hệ.</span></span><span class="ln"><em><span class="en">Pick your match.</span><span class="vi">Chọn kênh hợp bạn.</span></em></span></h2>
+        <p class="kx-p"><span class="en">Tap a reel, or pull the lever and let the machine pick the fastest one.</span><span class="vi">Bấm 1 ô, hoặc kéo cần để máy chọn kênh nhanh nhất.</span></p>
         <div class="status" id="ctStatus"></div>
       </div>
-      <div class="cx-shelf" id="cxShelf"></div>
-      <p class="cx-bag" id="cxBag1" aria-live="polite"></p>
+      <div class="kx-mc" id="kxMc"></div>
       <p class="copied c3-copied" id="copied" aria-live="polite"></p>
-    </header>
-
-    <!-- 02 under the lens: the way of working the visitor picks, taken apart into what's inside -->
-    <section class="cx-s2" data-c3>
-      <div class="cx-s2-hd">
-        <p class="xf-k"><span>02 / 03</span><span class="en">Under the lens</span><span class="vi">Mổ xẻ sản phẩm</span></p>
-        <h3 class="a3-h2"><span class="en">What's inside <em>working with Xinh.</em></span><span class="vi">Bên trong <em>một lần làm việc với Xinh.</em></span></h3>
-        <div class="cx-tabs" role="tablist">
-          <button type="button" role="tab" data-cxway="solo" aria-selected="true">Solo</button>
-          <button type="button" role="tab" data-cxway="team" aria-selected="false">Team</button>
-          <button type="button" role="tab" data-cxway="role" aria-selected="false"><span class="en">Hire</span><span class="vi">Tuyển dụng</span></button>
-        </div>
-      </div>
-      <div class="cx-lab" id="cxLab"></div>
     </section>
+
+    <section class="kx-s kx-s2" data-c3>
+      <div class="kx-s2-hd">
+        <p class="xf-k"><span>02 / 03</span><span class="en">Unbox</span><span class="vi">Khui hộp</span></p>
+        <h3 class="kx-h2"><span class="en">Three ways to work. <em>Open one.</em></span><span class="vi">Ba cách hợp tác. <em>Khui thử 1 hộp.</em></span></h3>
+      </div>
+      <div class="kx-gift" id="kxGift"></div>
+    </section>
+
+    <section class="kx-s kx-s3" data-c3>
+      <div class="kx-door" id="kxDoor"></div>
+      <div class="kx-s3-t">
+        <p class="xf-k"><span>03 / 03</span><span class="en">Take it home</span><span class="vi">Mang về</span></p>
+        <h3 class="kx-h2"><span class="en">All packed. <em>See you over coffee.</em></span><span class="vi">Đóng gói xong. <em>Hẹn bạn một buổi cà phê.</em></span></h3>
+        <p class="kx-p"><span class="en">Your order is on the tag. Send it on the channel you picked.</span><span class="vi">Đơn của bạn nằm trên thẻ. Gửi qua kênh bạn đã chọn là xong.</span></p>
+        <div class="kx-acts"><a class="btn hot" id="cxGo" href="#"></a><button class="btn" type="button" data-kxtop><span class="en">Change channel</span><span class="vi">Đổi kênh</span></button></div>
+      </div>
+    </section>
+    <div hidden><div id="methods"></div></div>
+  </div>
+</section>
 
     <!-- 03 checkout: the basket becomes the bill, and the deal is a date (the same coffee as in About) -->
     <section class="cx-s3" data-c3>
