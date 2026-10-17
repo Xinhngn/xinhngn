@@ -755,9 +755,13 @@ import { mountHead3D } from './head3d';
     if (curView !== 'story' || !ATMO.length) return;
     var yc = window.innerHeight / 2, i = 0, f = 0;
     for (var j = 0; j < ATMO.length; j++){ var r = ATMO[j].el.getBoundingClientRect(); if (r.top <= yc){ i = j; f = clamp((yc - r.top) / Math.max(1, r.height), 0, 1); } }
-    var a = ATMO[i].c, b = a, k = 0;
-    if (f > 0.75 && ATMO[i + 1]){ b = ATMO[i + 1].c; k = sm((f - 0.75) / 0.25) * 0.5; }
-    else if (f < 0.25 && ATMO[i - 1]){ b = ATMO[i - 1].c; k = sm((0.25 - f) / 0.25) * 0.5; }
+    /* v30: blend only while a section edge crosses the middle band of the screen (±22% of the
+       viewport), not over the last quarter of a section: on the long pinned scenes that quarter was
+       more than a full screen, so the colour changed well before the next section arrived. */
+    var a = ATMO[i].c, b = a, k = 0, band = window.innerHeight * 0.22, rb = ATMO[i].el.getBoundingClientRect();
+    var dn = rb.bottom - yc, up = yc - rb.top;
+    if (ATMO[i + 1] && dn < band){ b = ATMO[i + 1].c; k = sm((band - dn) / (2 * band)) ; }
+    else if (ATMO[i - 1] && up < band){ b = ATMO[i - 1].c; k = sm((band - up) / (2 * band)); }
     var v = [0,1,2].map(function(n){ return mixC(a[n], b[n], k); }), key = v.join();
     if (key === atmoKey) return; atmoKey = key;
     /* set on #atmo itself: a custom property on <html> would restyle the whole document on every scroll */
@@ -1008,7 +1012,7 @@ import { mountHead3D } from './head3d';
       document.body.classList.remove('vt-out'); void document.body.offsetWidth; document.body.classList.add('vt-in');
       wipeEl.className = 'out';
       setTimeout(function(){ wipeEl.className = ''; }, 700);
-      setTimeout(function(){ document.body.classList.remove('vt-in'); }, 1100);
+      setTimeout(function(){ document.body.classList.remove('vt-in'); if (typeof rebuild === 'function') rebuild(); }, 1100);
     }, 520);
   }
   /* each part of About and Contact reveals as it comes on screen, and again on every visit */
@@ -1027,7 +1031,7 @@ import { mountHead3D } from './head3d';
      "searching", scroll ticks the five starting points one at a time, and once all five are
      ticked the top hit resolves to Xinh, with her answer. Tapping a row ticks it. */
   var tzCount = $('#tzCount'), tz = $('#brief'), bfAskT = $('#bfAskT'), bfRows = $$('#brief .sp-row');
-  var BF_Q = {en:'A goal. A budget. But where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
+  var BF_Q = {en:'You have the goal and the budget. Where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
   var bfFix = [0,0,0,0,0], bfOk = [0,0,0,0,0], briefAnim = false, lastT = -1, tangleVis = true, bfTxt = '';
   var bfTypeAt = 0, bfListAt = 0, bfTickAt = 0;
   bfRows.forEach(function(el){ el.addEventListener('click', function(){ bfFix[+el.dataset.r] = 1; schedule(); }); });
@@ -1063,8 +1067,8 @@ import { mountHead3D } from './head3d';
     tz.classList.toggle('listed', !!listed); tz.classList.toggle('clear', cl);
     var key = lang + open + cl;
     if (tzCount.dataset.k !== key){ tzCount.dataset.k = key; var vi = lang === 'vi';
-      tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All untangled! · <b>plan locked</b>')
-        : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'open question' : 'open questions')); }
+      tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All sorted · <b>plan locked</b>')
+        : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'question still open' : 'questions still open')); }
   }
 
   var pin = $('#pin'), pinView = $('#pinView'), trackEl = $('#track');
@@ -1108,7 +1112,14 @@ import { mountHead3D } from './head3d';
     svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     var els = $$('#v-story [data-node]').filter(function(el){ return !(pinned && el.closest('.track')) && el.getClientRects().length > 0; });
     var sx = window.scrollX, sy = window.scrollY;
-    var pts = els.map(function(el){ var r = el.getBoundingClientRect(); return {x:r.left + r.width/2 + sx, y:r.top + r.height/2 + sy, el:el}; });
+    /* v30: every node sits on one rail in the left gutter, so the thread runs straight down the margin
+       and never cuts across text or cards (it used to swing between centre and rail nodes). */
+    els.forEach(function(el){ el.style.translate = ''; });
+    var p1w = $('#start .wrap'), cl = p1w ? p1w.getBoundingClientRect().left + parseFloat(getComputedStyle(p1w).paddingLeft || 0) : 40;
+    var railX = W <= 760 ? 9 : Math.max(18, cl - 34);
+    var pts = els.map(function(el){ var r = el.getBoundingClientRect(), cx = r.left + r.width/2;
+      el.style.translate = (railX - cx).toFixed(1) + 'px 0';
+      return {x:railX + sx, y:r.top + r.height/2 + sy, el:el}; });
     if (pts.length < 2) return;
     var d = 'M' + pts[0].x.toFixed(1) + ',' + pts[0].y.toFixed(1);
     for (var i = 1; i < pts.length; i++){
@@ -1826,7 +1837,7 @@ import { mountHead3D } from './head3d';
       bootEl.hidden = true; bootEl.classList.remove('suck'); rebuild();
       document.body.classList.add('arrive', 'arr-in'); if (m === 'quick') document.body.classList.add('arr-q');
     }, 560);
-    setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q', 'arr-in'); }, 1500);
+    setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q', 'arr-in'); if (typeof rebuild === 'function') rebuild(); }, 1500);
     return true;
   }
   document.addEventListener('click', function(e){
