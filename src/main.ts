@@ -1715,17 +1715,17 @@ import { mountHead3D } from './head3d';
       }
       var pd = new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() + pick);
       cal.innerHTML = '<p class="xf-cal-m">' + esc(pd.toLocaleDateString(loc, {month:'long', year:'numeric'})) + '</p><ol class="xf-cal-w">' + days + '</ol>' +
-        '<div class="xf-cal-ev"><b>' + (vi ? 'Cà phê cùng Xinh' : 'Coffee with Xinh') + '</b><span>' + esc(pd.toLocaleDateString(loc, {weekday:'long', day:'numeric', month:'short'})) + ' · ' + (vi ? 'giờ do bạn chọn' : 'time: your pick') + '</span></div>';
+        '<div class="xf-cal-ev"><b>' + (vi ? 'Cà phê cùng Xinh' : 'Coffee with Xinh') + '</b><span>' + esc(pd.toLocaleDateString(loc, vi ? {weekday:'short', day:'numeric', month:'numeric'} : {weekday:'short', day:'numeric', month:'short'})) + ' · ' + (vi ? 'giờ do bạn chọn' : 'time: your pick') + '</span></div>';
     }
   }
   function XF_OWN(){ return COLS.filter(function(c){ return c.g === 'own'; }); }
-  var xfN = 0;
+  var xfN = 0, xfSK = -1;
   function xfNote(k){
     var cols = XF_OWN(), col = cols[k], box = $('#xfNote'); if (!col || !box) return; xfN = k;
     $$('.xf-st').forEach(function(b, i){ b.classList.toggle('on', i === k); b.setAttribute('aria-selected', i === k ? 'true' : 'false'); });
-    box.innerHTML = '<p class="xf-note-n"><b>0' + (k + 1) + '</b> / 0' + cols.length + '</p><h4>' + esc(L(col.t)) + '</h4><p class="xf-note-d">' + esc(L(col.d)) + '</p><p class="xf-note-h">' + (lang === 'vi' ? 'Bấm 1 mảnh giấy để đọc' : 'Tap a strip to read it') + '</p>';
+    box.innerHTML = '<p class="xf-note-n"><b>0' + (k + 1) + '</b> / 0' + cols.length + '</p><h4>' + esc(L(col.t)) + '</h4><p class="xf-note-d">' + esc(L(col.d)) + '</p><p class="xf-note-h">' + (k < cols.length - 1 ? (lang === 'vi' ? 'Cuộn hoặc bấm mảnh kế tiếp →' : 'Scroll or tap the next strip →') : (lang === 'vi' ? 'Đủ 5 mảnh. Cuộn tiếp ↓' : 'All 5 read. Keep scrolling ↓')) + '</p>';
   }
-  document.addEventListener('click', function(e){ var b = e.target.closest('[data-xfst]'); if (b) xfNote(+b.dataset.xfst); });
+  document.addEventListener('click', function(e){ var b = e.target.closest('[data-xfst]'); if (b){ xfNote(+b.dataset.xfst); var sh = b.closest('.xf-sheet'); if (sh) sh.classList.add('used'); } });
   document.addEventListener('mouseover', function(e){ var b = e.target.closest && e.target.closest('[data-xfst]'); if (b && matchMedia('(hover:hover)').matches && +b.dataset.xfst !== xfN) xfNote(+b.dataset.xfst); });
   /* role sheet: the long description lives here, not on the page */
   var abPop = null, abPopFrom = null;
@@ -1772,6 +1772,12 @@ import { mountHead3D } from './head3d';
       $$('.a3-lvn button', v).forEach(function(b, i){ b.classList.toggle('on', i === act); b.setAttribute('aria-selected', i === act ? 'true' : 'false'); });
       arts.forEach(function(a, i){ a.classList.toggle('on', i === act); });
       $$('figure', st).forEach(function(f, i){ f.classList.toggle('on', i <= act); f.classList.toggle('cur', i === act); f.style.setProperty('--d', i - act); f.style.setProperty('--a', Math.abs(i - act)); });
+    }
+    // FILE 03 · the pinned note holds the reader: scrolling tears the strips off one by one
+    var ns = $('.xf-notes-sc', v);
+    if (ns){
+      var nr = ns.getBoundingClientRect(), nk = Math.min(4, Math.floor(clamp(-nr.top / Math.max(1, nr.height - vh), 0, .999) * 5));
+      if (nk !== xfSK){ xfSK = nk; if (nr.top < vh * .5 && nr.bottom > vh * .5) xfNote(nk); }
     }
     // FILE 04 · the receipt prints as the pinned scene scrolls
     var rc = $('.xf-rc-sc', v);

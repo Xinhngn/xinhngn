@@ -454,22 +454,22 @@
     <!-- FILE 00 · the opening, like a film introducing its lead: freeze frame, big name, a voice-over line -->
     <header class="xf-hero" data-a3>
       <p class="xf-k"><span>FILE 00</span><span class="en">The lead</span><span class="vi">Nhân vật chính</span></p>
-      <h2 class="xf-name" aria-label="Meet Xinh Nguyễn.">
-        <span class="ln l1"><span><span class="en">Meet</span><span class="vi">Đây là</span></span></span>
-        <span class="ln l2"><span>Xinh</span></span>
-        <span class="ln l3"><span><em>Nguyễn.</em></span></span>
-      </h2>
+      <div class="xf-txt">
+        <h2 class="xf-name" aria-label="Meet Xinh Nguyễn.">
+          <span class="ln l1"><span><span class="en">Meet</span><span class="vi">Đây là</span></span></span>
+          <span class="ln l2"><span>Xinh <em>Nguyễn.</em></span></span>
+        </h2>
+        <div class="xf-vo">
+          <p class="xf-vo-a"><span class="en">Yes, that's me. I lead brand &amp; comms projects: set the right goal, bring in the right people, then take it with the team <mark>from brief</mark> <em>to result.</em></span><span class="vi">Và đó là mình. Mình dẫn dắt dự án brand &amp; truyền thông: chốt đúng mục tiêu, kết nối đúng người, rồi cùng team đi <mark>từ brief</mark> <em>đến kết quả.</em></span></p>
+        </div>
+        <p class="xf-credits"><span><b data-to="5">5</b> <span class="en">years</span><span class="vi">năm</span></span><i></i><span><b data-to="20">20</b> <span class="en">brands</span><span class="vi">thương hiệu</span></span><i></i><span><b data-to="4">4</b> <span class="en">badges</span><span class="vi">tấm thẻ</span></span></p>
+        <p class="xf-cue"><span class="en">My story, in four badges</span><span class="vi">Câu chuyện của mình, qua 4 tấm thẻ</span><i aria-hidden="true">↓</i></p>
+      </div>
       <figure class="xf-frame">
         <div class="xf-ph" data-portrait="portrait.png"></div>
         <figcaption class="xf-rec"><i></i>REC · HCMC</figcaption>
         <span class="xf-tc" aria-hidden="true">00:00:05:20</span>
       </figure>
-      <div class="xf-vo">
-        <p class="xf-vo-a"><span class="en">That's me. I own brand &amp; comms projects, <mark>from brief</mark> <em>to result.</em></span><span class="vi">Là mình đó. Mình làm chủ dự án brand &amp; truyền thông, <mark>từ brief</mark> <em>đến kết quả.</em></span></p>
-        <p class="xf-vo-b"><span class="en">Right goal first. <em>Right work follows.</em></span><span class="vi">Đúng mục tiêu trước. <em>Rồi chạy đúng việc.</em></span></p>
-      </div>
-      <p class="xf-credits"><span><b data-to="5">5</b> <span class="en">years</span><span class="vi">năm</span></span><i></i><span><b data-to="20">20</b> <span class="en">brands</span><span class="vi">thương hiệu</span></span><i></i><span><b data-to="4">4</b> <span class="en">badges</span><span class="vi">tấm thẻ</span></span></p>
-      <p class="xf-cue"><span class="en">My story, in four badges</span><span class="vi">Câu chuyện của mình, qua 4 tấm thẻ</span><i aria-hidden="true">↓</i></p>
     </header>
 
     <!-- 03 · career: one pinned screen; scrolling steps through the four levels (photo wipes, role swaps) -->
@@ -504,14 +504,17 @@
 
     <!-- FILE 03 · the note clipped to the file: tear one strip off to read it -->
     <section class="xf-notes" data-a3>
+      <div class="xf-notes-sc"><div class="xf-notes-pin">
       <p class="xf-k"><span>FILE 03</span><span class="en">Notes on the file</span><span class="vi">Ghi chú trong hồ sơ</span></p>
       <div class="xf-notes-g">
         <div class="xf-sheet">
           <p class="xf-sheet-h"><span class="en">How far do <em>I take it?</em></span><span class="vi">Mình gánh <em>tới đâu?</em></span></p>
           <div class="xf-strips" id="xfStrips" role="tablist"></div>
+          <p class="xf-tap" aria-hidden="true"><i></i><span class="en">Tap a strip to read</span><span class="vi">Bấm 1 mảnh để đọc</span></p>
         </div>
         <div class="xf-note" id="xfNote" aria-live="polite"></div>
       </div>
+      </div></div>
     </section>
 
     <!-- FILE 04 · how I work: every project prints the same receipt -->
@@ -535,13 +538,12 @@
       <div class="xf-env">
         <div class="xf-env-back" aria-hidden="true"></div>
         <article class="xf-letter">
-          <p class="xf-l-to"><span class="en">To: you, with a goal and a budget</span><span class="vi">Gửi: bạn, người đang có mục tiêu và ngân sách</span></p>
+          <p class="xf-l-to"><span class="en">To: you</span><span class="vi">Gửi: bạn</span></p>
           <h3 class="xf-l-h"><span class="en">You're <em>invited.</em></span><span class="vi">Mời bạn <em>một buổi hẹn.</em></span></h3>
-          <p class="xf-l-p"><span class="en">Bring the goal, I'll bring the plan. A coffee, a call or a quick brief, your pick. Then let's play the next level together.</span><span class="vi">Bạn mang mục tiêu, mình mang kế hoạch. Cà phê, gọi điện hay gửi brief nhanh đều được. Rồi mình cùng chơi level tiếp theo.</span></p>
+          <p class="xf-l-p"><span class="en">Bring the goal, I'll bring the plan.</span><span class="vi">Bạn mang mục tiêu, mình mang kế hoạch.</span></p>
           <div class="xf-cal" id="xfCal" aria-label="Calendar"></div>
           <div class="xf-l-a"><button class="btn hot" type="button" data-connect><span class="en">Say hi</span><span class="vi">Liên hệ ngay</span></button><a class="btn" href="#work"><span class="en">See the work</span><span class="vi">Xem dự án</span></a><button class="btn" type="button" data-quiz><span class="en">3 quick questions</span><span class="vi">Chơi 3 câu hỏi</span></button></div>
-          <p class="xf-sign">Xinh</p>
-          <p class="xf-ps"><b>P.S.</b> <span class="en">Learnt at Ho Chi Minh City Cadre Academy (Public Administration) and Brandcamp (Digital Marketing · PR &amp; Corporate Communication · Integrated Brand Communication).</span><span class="vi">Học tại Học viện Cán bộ TP.HCM (Hành chính công) và Brandcamp (Digital Marketing · PR &amp; Corporate Communication · Integrated Brand Communication).</span></p>
+          <p class="xf-ps"><b>P.S.</b> <span class="en">Public Administration at HCMC Cadre Academy, plus three comms courses at Brandcamp.</span><span class="vi">Mình học Hành chính công (Học viện Cán bộ TP.HCM) và 3 khoá truyền thông tại Brandcamp.</span></p>
         </article>
         <div class="xf-env-front" aria-hidden="true"><svg class="xf-seal" viewBox="0 0 120 120"><path d="M60 92 C38 76 30 64 30 52 C30 42 37 35 46 35 C52 35 57 39 60 45 C63 39 68 35 74 35 C83 35 90 42 90 52 C90 64 82 76 60 92Z"/></svg></div>
       </div>

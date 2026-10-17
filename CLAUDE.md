@@ -60,6 +60,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v38 (Liên hệ còn 2 màn, góp ý Xinh):** màn 1 (`.c4-hero`): trái là tiêu đề "Fastest way to reach Xinh, right now." + trạng thái giờ HCMC; phải là ảnh tròn nhỏ + "Pick a channel" + 3 hàng kênh liên hệ gọn (`#methods`, `c3RowsHTML`). Đã bỏ cụm nút Zalo / Gọi / CV trùng (`#bigActs`) và phần "Who's saying hi" (`#whoOpts`, `#tpl`; dữ liệu `WHO` còn nhưng không dùng). Màn 2 (`.c4-ways`): "Hire me for a role, or bring me a project." = 1 thẻ Role (vị trí đang tìm + nút CV `[data-cv]`) + 1 nhóm Dự án (dòng loại dự án, 2 thẻ Solo / Team, dải cam kết "Solo hay team, bạn luôn có" 3 ý đánh số). Điện thoại: 3 nút Role / Solo / Team (`[data-c4]`, `data-on` trên `.c4-g`) chỉ hiện 1 thẻ.
 
+**v39 (About, góp ý Xinh):** FILE 00 không còn chữ chồng ảnh: cột chữ `.xf-txt` (Đây là / Xinh *Nguyễn.* / "Và đó là mình. Mình dẫn dắt dự án…, cùng team đi từ brief đến kết quả" + credits) bên trái, ảnh REC bên phải; điện thoại chữ trên, ảnh co theo chỗ còn lại. "Làm chủ" đổi thành "dẫn dắt… cùng team" để không hiểu là tự làm hết. FILE 01 điện thoại: thẻ co theo chỗ trống nên chữ + nút "Xem việc đã làm" luôn thấy. FILE 03 ghim 260svh (`.xf-notes-sc` / `.xf-notes-pin`): cuộn là xé lần lượt 5 mảnh (`xfSK` trong `drawAbout()`), có nút gợi ý `.xf-tap` (ẩn sau lần bấm đầu). FILE 05: bỏ chữ ký "Xinh", bớt chữ, tiêu đề 1 hàng ngang lá thư, P.S. học vấn rút gọn.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.
