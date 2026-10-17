@@ -1632,7 +1632,7 @@ import { mountHead3D } from './head3d';
      step, then the whole method in one line and "Problem solved." 06: the close.
      ===================================================================== */
   var abBuilt = false;
-  var AB_BG = ['#f8e3ec', '#f3eee6', '#ebebef', '#f3eee6', '#ffd3e4', '#f8e3ec'];
+  var AB_BG = ['#f8e3ec', '#ebebef', '#f3eee6', '#ffd3e4', '#f8e3ec'];
   var A3_TINT = ['blush', 'paper', 'silver', 'rose'];
   function wrapWords(root){
     (function wrap(node){
@@ -1707,8 +1707,6 @@ import { mountHead3D } from './head3d';
     if (say){
       var sr = say.getBoundingClientRect(), fill = reduce ? 1 : clamp((vh * .78 - sr.top) / Math.max(1, sr.height * .9), 0, 1);
       $$('#abSay > span', v).forEach(function(x){ var ws = $$('.wd', x), n = Math.round(fill * ws.length); ws.forEach(function(w, i){ w.classList.toggle('on', i < n); }); });
-      // the three circles drift together while the section rises through the screen (v32)
-      var mt = $('.a3-meet', say); if (mt){ var mr = mt.getBoundingClientRect(); say.style.setProperty('--m', (reduce ? 1 : clamp((vh * .95 - mr.top) / Math.max(1, vh * .55), 0, 1)).toFixed(3)); }
     }
     // 03 · the photo of the level whose role is in the middle of the screen
     var tl = $('#tl4', v), st = $('#a3Stack', v);
