@@ -1751,7 +1751,7 @@ import { mountHead3D } from './head3d';
     bootEl.hidden = false; bootEl.classList.remove('out'); document.body.classList.add('booting'); booted = false;
     var last = null; try{ last = localStorage.getItem('xinhos-mode'); }catch(e){}
     runBootBar();
-    setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
+    if (finePointer) setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
   }
   /* Boot playground (v23, ref millascope): XINH AI, the character from Xinh's handoff, as a depth
      cut-out that turns a little toward the pointer, blinks on her own and winks when clicked; objects

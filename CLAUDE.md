@@ -40,6 +40,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v29 (điện thoại, ảnh chụp iPhone của Xinh):** màn mở đầu cao đúng 1 màn hình nhìn thấy (`100dvh`), mặt nhân vật lấy phần cao còn lại giữa chữ và cụm nút (`bootFit()` đặt `--sh` trên `.x3-stage`) nên nút Story / About me không bị thanh Safari che; ẩn dòng "press Enter" trên điện thoại. Liên hệ: Gọi + Zalo gộp 1 hàng khi cùng số (`c3RowsHTML`), nút Chép thành icon, mỗi kênh 1 hàng gọn; chip "Bạn là ai" nhỏ, thẻ chat gọn, bỏ tên chip lặp trên thẻ. About: ảnh hero nhỏ lại, 4 thẻ "What I run" thành khối ngắn (không chồng dính), How ghim 200vh. Điện thoại: lề 20px như thanh nav, ẩn 2 nút mũi tên `.dock` (che chữ). CSS ở các khối v29 cuối `src/styles.css`.
 
+**v30 (màn mở đầu, góp ý Xinh):** nhân vật + chữ canh giữa theo chiều cao trang (`.x3` top 0 → bottom 0, `justify-content:center`; màn hẹp < 1200px hoặc thấp < 700px thì chừa chỗ cho cụm nút). Bỏ thanh "BOOTING / EM XINH IS READY" (`.boot-load` ẩn). Icon cùng 1 chất liệu: kính hồng + chrome, viền trắng, bóng hồng mềm, không viền đen (thẻ "+1" `#gLk`, bong bóng CLICK ME dạng viên trắng chữ hồng, "@" kính hồng, bỏ mờ `.bk`). Nút Story / About me không còn vòng đen: chỉ tự focus khi dùng chuột, focus là quầng hồng. Câu "I play it to the last level." xuống dòng có chủ đích (`b` block, nowrap). Điện thoại: `.bx-foot` bị `align-self:end` nên co lại và lệch phải → kéo full bề ngang, câu + EN/VI canh giữa.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.
