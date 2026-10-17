@@ -161,7 +161,7 @@ import { mountHead3D } from './head3d';
      title:{en:'Trust Opens New Doors', vi:'Niềm tin mở ra cánh cửa mới'},
      t:{en:'A relationship that opened the next door.', vi:'Một mối quan hệ mở ra cánh cửa mới.'},
      ask:{en:'Grow Gen Y without diluting a Gen Z identity.', vi:'Mở rộng Gen Y mà không làm loãng chất Gen Z.'},
-     me:{en:'A client from Digimi moved to Cake and invited me into the pitch. I reconnected and contributed to pitching.', vi:'Một client cũ ở Digimi chuyển sang Cake và mời tôi vào pitch. Tôi kết nối lại và góp sức vào quá trình pitching.'},
+     me:{en:'A client from Digimi moved to Cake and invited me into the pitch. I reconnected and contributed to pitching.', vi:'Một client cũ ở Digimi chuyển sang Cake và mời Xinh vào pitch. Xinh kết nối lại và góp sức vào quá trình pitching.'},
      team:{en:'Creative (Cake AI-land, comment-led play, WeChoice photo series, Gato mascot) was agency team work.', vi:'Sáng tạo (Cake AI-land, tương tác bình luận, bộ ảnh WeChoice, mascot Gato) là của team agency.'},
      out:{en:'The team won the social retainer.', vi:'Team giành được social retainer.'},
      res:[{line:true, b:{en:'Social retainer won', vi:'Giành social retainer'}, l:{en:'the relationship opened the door, the team won the pitch', vi:'quan hệ mở cửa, team thắng pitch'}}],
@@ -267,7 +267,7 @@ import { mountHead3D } from './head3d';
           '<div class="ac-top"><p class="ac-no">' + no + '</p><p class="ac-sub">' + esc(c.subs.join(' · ')) + '<br>' + esc(c.meta.split(' · ').slice(0, 2).join(' · ')) + '</p></div>' +
           '<div class="ac-mid"><div class="ac-txt">' + (c.ask ? '<p><b>' + (vi ? 'Bài toán' : 'The ask') + '</b>' + esc(L(c.ask)) + '</p>' : '') + (c.role ? '<p><b>' + (vi ? 'Vai trò' : 'Role') + '</b>' + esc(L(c.role)) + '</p>' : '') + '</div>' +
             '<div class="ac-media"><p class="ac-t">' + both(c.t) + '</p><p class="ac-k"><i></i>' + esc(L(NOTE[id] || {en:'', vi:''})) + '</p>' +
-            '<button type="button" class="ac-open" data-case="' + id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</button></div></div>' +
+            '<button type="button" class="ac-open" data-case="' + id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗︎</button></div></div>' +
           '<p class="ac-name" style="--fs:' + fs + 'cqi" aria-hidden="true">' + esc(nm) + '</p>' +
         '</div></article>';
     };
@@ -517,7 +517,7 @@ import { mountHead3D } from './head3d';
           '<span class="hc-face hc-front"><span class="hc-top"><span>' + (vi ? 'LEVEL · XANH' : 'LEVEL · XANH') + '</span><span>#0' + (i + 1) + '</span></span>' +
             '<span class="hc-pic">' + (IMAGES[PH[i]] ? '<img src="' + esc(IMAGES[PH[i]]) + '" alt="">' : '') + '</span>' +
             '<span class="hc-name">' + esc(r.short) + '</span><span class="hc-role">' + esc(r.w) + '</span>' +
-            '<span class="hc-row"><span>' + (vi ? 'XEM VAI TRÒ' : 'VIEW ROLE') + '</span><i>↗</i></span><span class="hc-holo" aria-hidden="true"></span></span>' +
+            '<span class="hc-row"><span>' + (vi ? 'XEM VAI TRÒ' : 'VIEW ROLE') + '</span><i>↗︎</i></span><span class="hc-holo" aria-hidden="true"></span></span>' +
           '<span class="hc-face hc-back"><span class="hc-top"><span>' + r.lane + '</span><span>' + r.y + '</span></span>' +
             '<span class="hc-t">' + esc(r.t) + '</span><span class="hc-d">' + esc(L(r.d)) + '</span>' +
             '<span class="hc-v">' + esc(L(r.v)).replace(/^(For you|Với bạn): (.)/, function(_, x, c){ return c.toUpperCase(); }) + '</span>' +
@@ -624,7 +624,7 @@ import { mountHead3D } from './head3d';
   }
   function grpName(col){ var vi = lang === 'vi'; return col.g === 'type' ? (vi ? 'Xinh chạy gì' : 'What I run') : (vi ? 'Xinh gánh tới đâu' : 'How far I take it'); }
   function proofChips(i){
-    return CASES.filter(function(c){ return (MX[c.id] || [])[i]; }).map(function(c){ return '<a class="chip" href="#case-' + c.id + '">' + esc(c.brand) + ' ↗</a>'; }).join('');
+    return CASES.filter(function(c){ return (MX[c.id] || [])[i]; }).map(function(c){ return '<a class="chip" href="#case-' + c.id + '">' + esc(c.brand) + ' ↗︎</a>'; }).join('');
   }
   function capCard(col, n){
     var i = colIdx(col.k), vi = lang === 'vi';
@@ -719,14 +719,14 @@ import { mountHead3D } from './head3d';
      The story sections are transparent; a fixed layer behind them mixes each section's palette
      into the next as the viewport centre crosses from one to the other. [base, glow left, glow right] */
   var ATMO = [
-    ['start',     ['#f3eee6', '#ffdcea', '#dfe9f6']],
-    ['brief',     ['#f4eef2', '#ffc8df', '#d9d1f5']],
-    ['clarify',   ['#f3eee6', '#ffe0ec', '#e8e2f4']],
-    ['structure', ['#f3eee6', '#ffd3e6', '#e3dcf5']],
-    ['align',     ['#ecebf0', '#f7d0e2', '#dde3f0']],
-    ['deliver',   ['#d6e6f7', '#9cc6f0', '#f7d4e5']],
-    ['value',     ['#eef0f8', '#ffd9e8', '#d6e3f6']],
-    ['finish',    ['#f6dde8', '#ffbfd8', '#cfc6f2']]
+    ['start',     ['#f6f1ea', '#ffe1cf', '#dfe9f6']],
+    ['brief',     ['#f4f1ee', '#ffd9c8', '#ddd6f7']],
+    ['clarify',   ['#f6f1ea', '#ffe6d6', '#e6e2f6']],
+    ['structure', ['#f4f1ec', '#fde0d4', '#e2ddf6']],
+    ['align',     ['#ecedf1', '#f3e1ea', '#dde5f2']],
+    ['deliver',   ['#d9e7f6', '#a9cdef', '#ece4f7']],
+    ['value',     ['#eff0f6', '#ffe2d2', '#d8e5f6']],
+    ['finish',    ['#f4ebe6', '#ffd9cc', '#d6d0f6']]
   ].map(function(a){ return {el: document.getElementById(a[0]), c: a[1].map(function(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; })}; }).filter(function(a){ return a.el; });
   var atmoKey = '';
   function mixC(a, b, k){ return 'rgb(' + [0,1,2].map(function(i){ return Math.round(a[i] + (b[i] - a[i]) * k); }).join(',') + ')'; }
@@ -811,7 +811,7 @@ import { mountHead3D } from './head3d';
   function methodsHTML(){
     return methodList().map(function(m){
       if (!m.v) return EDIT ? '<div class="mth off" style="--c:' + m.c + '"><span class="ico2"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><div><b>' + esc(L(m.t)) + '</b><span>' + (lang === 'vi' ? 'cần bổ sung' : 'missing') + '</span></div></div>' : '';
-      var open = m.href ? '<a href="' + esc(m.href) + '" target="_blank" rel="noopener" data-m="' + m.k + '">' + (m.k === 'call' ? (lang === 'vi' ? 'GỌI' : 'CALL') : m.k === 'email' ? (lang === 'vi' ? 'VIẾT THƯ' : 'WRITE') : (lang === 'vi' ? 'MỞ' : 'OPEN')) + ' ↗</a>' : '';
+      var open = m.href ? '<a href="' + esc(m.href) + '" target="_blank" rel="noopener" data-m="' + m.k + '">' + (m.k === 'call' ? (lang === 'vi' ? 'GỌI' : 'CALL') : m.k === 'email' ? (lang === 'vi' ? 'VIẾT THƯ' : 'WRITE') : (lang === 'vi' ? 'MỞ' : 'OPEN')) + ' ↗︎</a>' : '';
       var cp = m.copy ? '<button type="button" data-copy="' + esc(m.copy) + '" data-m="' + m.k + '">' + (lang === 'vi' ? 'SAO CHÉP' : 'COPY') + '</button>' : '';
       return '<div class="mth" style="--c:' + m.c + '"><span class="ico2"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><div><b>' + esc(L(m.t)) + '</b><span>' + esc(m.v) + '</span></div><div class="go2">' + open + cp + '</div></div>';
     }).join('');
@@ -819,7 +819,7 @@ import { mountHead3D } from './head3d';
   /* Contact page (v27): every channel as one wide row, the action on the right; hover fills it pink */
   function c3RowsHTML(){
     var vi = lang === 'vi', ms = methodList().filter(function(m){ return m.v; });
-    function go(m, verb){ return '<a class="c3-go" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span>' + verb + '</span><i aria-hidden="true">↗</i></a>'; }
+    function go(m, verb){ return '<a class="c3-go" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span>' + verb + '</span><i aria-hidden="true">↗︎</i></a>'; }
     /* v29: Zalo on the same number as the phone is one row, not two (the number was shown twice). */
     var call = ms.filter(function(m){ return m.k === 'call'; })[0], zalo = ms.filter(function(m){ return m.k === 'zalo'; })[0];
     var same = call && zalo && call.copy === zalo.copy;
@@ -848,10 +848,10 @@ import { mountHead3D } from './head3d';
     cxRender();
     $('#cnMethods').innerHTML = methodsHTML();
     var ms = methodList(), c = ms[0];
-    var cvBtn = CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">CV ↗</a>' : '';
+    var cvBtn = CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">CV ↗︎</a>' : '';
     $('#goalCv').innerHTML = cvBtn;
     $$('[data-cv]').forEach(function(a){ if (CV_URL) a.href = CV_URL; else a.hidden = true; });
-    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.k === 'zalo' && m.copy === c.copy ? (lang === 'vi' ? 'Cùng số điện thoại' : 'Same number') : m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
+    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.k === 'zalo' && m.copy === c.copy ? (lang === 'vi' ? 'Cùng số điện thoại' : 'Same number') : m.v) + '</small><i aria-hidden="true">↗︎</i></a>'; }).join('');
   }
   /* v42 · Contact in three screens (Xinh's refs: a slot machine, a gift guide, a door hanger):
      01 pick one of three channels on a three-reel machine → 02 unbox the three ways of working →
@@ -868,12 +868,6 @@ import { mountHead3D } from './head3d';
       fit:{en:'Banking & fintech first.', vi:'Ưu tiên ngân hàng & fintech.'},
       parts:[{en:'Marketing Project Manager', vi:'Marketing Project Manager'}, {en:'Marketing Communications', vi:'Marketing Communications'}, {en:'Campaign Management', vi:'Campaign Management'}, {en:'HCMC or remote', vi:'TP.HCM hoặc từ xa'}]}
   };
-  var CX_PROMISE = [{en:'Clear scope, timeline and budget before we start', vi:'Phạm vi, timeline, ngân sách rõ trước khi bắt đầu'}, {en:'Regular updates, problems raised early', vi:'Cập nhật đều, có vấn đề là báo sớm'}, {en:'Every piece checked before it goes live', vi:'Mọi sản phẩm được duyệt trước khi lên sóng'}];
-  function cxDate(){
-    var now = new Date(), d = (now.getDay() + 6) % 7, pick = d + 1; if (pick > 4) pick = 7;
-    var pd = new Date(now.getFullYear(), now.getMonth(), now.getDate() - d + pick);
-    return pd.toLocaleDateString(lang === 'vi' ? 'vi-VN' : 'en-US', lang === 'vi' ? {weekday:'short', day:'numeric', month:'numeric'} : {weekday:'short', day:'numeric', month:'short'});
-  }
   function kxChannels(){
     var by = {}; methodList().forEach(function(m){ if (m.v && m.href) by[m.k] = m; });
     var out = [], call = by.call, zalo = by.zalo;
@@ -883,7 +877,7 @@ import { mountHead3D } from './head3d';
     if (by.linkedin) out.push({k:'linkedin', ic:'i-case', n:{en:'LinkedIn', vi:'LinkedIn'}, v:by.linkedin.v, why:{en:'Roles & hiring', vi:'Tuyển dụng'}, acts:[{t:{en:'Open', vi:'Mở'}, href:by.linkedin.href, m:'linkedin'}], send:by.linkedin});
     return out;
   }
-  function kxA(a, cls){ return '<a class="' + cls + '" href="' + esc(a.href) + '"' + (a.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + a.m + '">' + esc(L(a.t)) + ' ↗</a>'; }
+  function kxA(a, cls){ return '<a class="' + cls + '" href="' + esc(a.href) + '"' + (a.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + a.m + '">' + esc(L(a.t)) + ' ↗︎</a>'; }
   function cxRender(){
     var vi = lang === 'vi', chs = kxChannels();
     if (!chs.some(function(c){ return c.k === CX.ch; }) && chs[0]) CX.ch = chs[0].k;
@@ -903,30 +897,23 @@ import { mountHead3D } from './head3d';
       var items = ks.map(function(k, i){ var x = CX_WAYS[k], on = k === CX.way;
         return '<button class="kx-it n' + (i + 1) + (on ? ' on' : '') + '" type="button" data-kxway="' + k + '" aria-pressed="' + (on ? 'true' : 'false') + '"><span class="kx-no">(' + (i + 1) + ')</span><span class="kx-card"><small>' + x.n + '</small><b>' + esc(L(x.t)) + '</b></span></button>'; }).join('');
       var n = ks.indexOf(CX.way) + 1;
-      var extra = CX.way === 'role' && CV_URL ? '<a class="kx-btn ghost" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗</a>' : '';
+      var extra = CX.way === 'role' && CV_URL ? '<a class="kx-btn ghost" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗︎</a>' : '';
       gift.innerHTML = '<div class="kx-stage"><div class="kx-items">' + items + '</div>' +
-        '<div class="kx-box" aria-hidden="true"><i class="kx-lid"></i><span class="kx-body"><b>XINH.OS</b><small>' + (vi ? 'hộp ' : 'box ') + n + '/3</small></span><i class="kx-rib l"></i><i class="kx-rib r"></i></div></div>' +
+        '<div class="kx-box" aria-hidden="true"><div class="kx-cube"><i class="kf bk"></i><i class="kf lf"></i><i class="kf bt"></i><i class="kf in"></i><i class="kf rt"></i><span class="kf fr"><b>XINH.OS</b><small>' + (vi ? 'hộp ' : 'box ') + n + '/3</small></span><i class="kx-lid3"><i class="kl tp"></i><i class="kl fr"></i><i class="kl rt"></i></i></div><i class="kx-satin a"></i><i class="kx-satin b"></i></div></div>' +
         '<div class="kx-cap"><p class="kx-cap-t"><b>(' + n + ') ' + w.n + '</b><span>' + esc(L(w.fit)) + '</span></p>' +
         '<ol class="kx-parts">' + w.parts.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ol>' +
-        '<p class="kx-cap-a"><button class="btn' + (CX.waySet ? '' : ' hot') + '" type="button" data-kxadd>' + (CX.waySet ? (vi ? 'Đã chọn ' + w.n + ' ✓' : w.n + ' picked ✓') : (vi ? 'Chọn hộp ' + w.n : 'Take the ' + w.n + ' box')) + '</button>' + extra + '</p></div>';
-    }
-    var door = $('#kxDoor');
-    if (door && ch){
-      var sug = CX.chSet && CX.waySet ? '' : '<i>' + (vi ? 'gợi ý' : 'suggested') + '</i>';
-      door.innerHTML = '<span class="kx-panel" aria-hidden="true"></span><span class="kx-knob" aria-hidden="true"></span>' +
-        '<div class="kx-tag' + (CX.done ? ' done' : '') + '"><i class="kx-hole" aria-hidden="true"></i><p class="kx-tag-k">XINH × ' + (vi ? 'BẠN' : 'YOU') + '</p>' +
-        '<p class="kx-tag-h">COMING<br>SOON</p><p class="kx-tag-s">' + (vi ? 'Dự án đang chuẩn bị' : 'Project in progress') + '</p>' +
-        '<dl><div><dt>' + (vi ? 'Kênh' : 'Channel') + '</dt><dd>' + esc(L(ch.n)) + '</dd></div><div><dt>' + (vi ? 'Cách làm' : 'Way') + '</dt><dd>' + w.n + '</dd></div><div><dt>' + (vi ? 'Hẹn' : 'Date') + '</dt><dd>' + (vi ? 'Cà phê · ' : 'Coffee · ') + esc(cxDate()) + '</dd></div></dl>' + sug +
-        '<span class="kx-stamp" aria-hidden="true">' + (vi ? 'ĐÃ GỬI' : 'SENT') + '</span></div>';
+        '<p class="kx-cap-a"><a class="btn hot kx-send" href="#" data-kxsend>' + (vi ? 'Gửi qua ' : 'Send on ') + esc(ch ? L(ch.n).split(' · ')[0] : '') + ' →</a>' + extra + '</p></div>';
     }
     var go = $('#cxGo');
     if (go && ch){
       var href = ch.send.href;
-      if (ch.k === 'email') href += '?subject=' + encodeURIComponent((vi ? 'Hẹn cà phê với Xinh · ' : 'Coffee with Xinh · ') + w.n);
+      if (ch.k === 'email') href += '?subject=' + encodeURIComponent('XINH.OS · ' + w.n);
       go.href = href; if (href.indexOf('http') === 0){ go.target = '_blank'; go.rel = 'noopener'; } else go.removeAttribute('target');
       go.dataset.m = ch.send.k;
       go.innerHTML = (vi ? 'Gửi qua ' : 'Send on ') + esc(L(ch.n).split(' · ')[0]) + ' →';
     }
+    var snd = $('[data-kxsend]');
+    if (snd && go){ snd.href = go.href; if (go.target){ snd.target = go.target; snd.rel = 'noopener'; } snd.dataset.m = go.dataset.m; }
   }
   var kxSpin = 0;
   document.addEventListener('click', function(e){
@@ -939,9 +926,7 @@ import { mountHead3D } from './head3d';
       track('cart', 'spin'); return;
     }
     var w = e.target.closest('[data-kxway]'); if (w){ if (CX.way !== w.dataset.kxway) CX.waySet = false; CX.way = w.dataset.kxway; cxRender(); return; }
-    if (e.target.closest('[data-kxadd]')){ CX.waySet = true; cxRender(); track('cart', 'way:' + CX.way); return; }
-    if (e.target.closest('#cxGo')){ CX.done = true; setTimeout(cxRender, 60); track('cart', 'checkout'); return; }
-    if (e.target.closest('[data-kxtop]')){ var s1 = $('.kx-s1'); if (s1) s1.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); }
+    if (e.target.closest('[data-kxsend]')){ track('cart', 'send:' + CX.ch + ':' + CX.way); }
   });
   document.addEventListener('click', function(e){ var t = e.target.closest('[data-c4]'); if (!t) return; var g = $('.c4-g'); if (g) g.dataset.on = t.dataset.c4; $$('[data-c4]').forEach(function(b){ b.setAttribute('aria-selected', b === t ? 'true' : 'false'); }); });
   document.addEventListener('click', function(e){
@@ -1735,7 +1720,7 @@ import { mountHead3D } from './head3d';
      step, then the whole method in one line and "Problem solved." 06: the close.
      ===================================================================== */
   var abBuilt = false;
-  var AB_BG = ['#f3eee6', '#ebebef', '#f3eee6', '#f8e3ec', '#ebebef', '#ffd3e4'];
+  var AB_BG = ['#f3eee6', '#ebebef', '#f3eee6', '#f5e9e0', '#ebebef', '#e8e4f6'];
   var A3_TINT = ['blush', 'paper', 'silver', 'rose'];
   function wrapWords(root){
     (function wrap(node){
@@ -1793,20 +1778,6 @@ import { mountHead3D } from './head3d';
     if (pap) pap.innerHTML = '<p class="xf-p-h"><b>XINH.OS</b><span>' + (vi ? 'HOÁ ĐƠN DỰ ÁN' : 'PROJECT RECEIPT') + '</span><span>No. 0001 · HCMC</span></p>' +
       '<ol class="xf-p-l">' + STEPS.map(function(st, i){ return '<li style="--j:' + i + '"><b>0' + (i + 1) + '</b><span><strong>' + esc(L(st.t)) + '</strong><small>' + esc(L(st.k)) + '</small></span><i>✓</i></li>'; }).join('') + '</ol>' +
       '<p class="xf-p-t"><span>TOTAL</span><em>' + (vi ? 'Vấn đề đã xử lý.' : 'Problem solved.') + '</em></p><i class="xf-p-bar" aria-hidden="true"></i><p class="xf-p-f">' + (vi ? 'CẢM ƠN, HẸN DỰ ÁN SAU!' : 'THANK YOU, SEE YOU NEXT PROJECT!') + '</p>';
-    // FILE 05 · this week in the calendar: today, and the day after it marked for the coffee
-    var cal = $('#xfCal');
-    if (cal){
-      var now = new Date(), d0 = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7)), pick = (now.getDay() + 6) % 7 + 1;
-      if (pick > 4) pick = 7;
-      var loc = vi ? 'vi-VN' : 'en-US', days = '';
-      for (var di = 0; di < 7; di++){
-        var dd = new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() + di);
-        days += '<li class="' + (di === (now.getDay() + 6) % 7 ? 'today' : '') + (di === pick ? ' pick' : '') + '"><small>' + esc(dd.toLocaleDateString(loc, {weekday:'short'}).replace('.', '')) + '</small><b>' + dd.getDate() + '</b></li>';
-      }
-      var pd = new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() + pick);
-      cal.innerHTML = '<p class="xf-cal-m">' + esc(pd.toLocaleDateString(loc, {month:'long', year:'numeric'})) + '</p><ol class="xf-cal-w">' + days + '</ol>' +
-        '<div class="xf-cal-ev"><b>' + (vi ? 'Cà phê cùng Xinh' : 'Coffee with Xinh') + '</b><span>' + esc(pd.toLocaleDateString(loc, vi ? {weekday:'short', day:'numeric', month:'numeric'} : {weekday:'short', day:'numeric', month:'short'})) + ' · ' + (vi ? 'giờ do bạn chọn' : 'time: your pick') + '</span></div>';
-    }
   }
   function XF_OWN(){ return COLS.filter(function(c){ return c.g === 'own'; }); }
   var xfN = 0, xfSK = -1;
