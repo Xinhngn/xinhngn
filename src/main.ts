@@ -1777,14 +1777,28 @@ import { mountHead3D } from './head3d';
   /* v29: on phones the boot is one visible screen; the face gets the height left above the buttons. */
   var x3Stage = $('.x3-stage'), bootFoot = $('.bx-foot', bootEl), bootFitWH = '';
   function bootFit(){
+    /* v31: the head + title cluster is centred in the free room between the top bar and the buttons,
+       on every screen; the head takes the height that is left, so nothing sinks to the bottom. */
     if (!x3Stage || !bootFoot) return;
-    if (window.innerWidth > 760){ if (bootFitWH){ x3Stage.style.removeProperty('--sh'); bootFitWH = ''; } return; }
     var wh = window.innerWidth + 'x' + window.innerHeight;
     if (wh === bootFitWH || bootEl.hidden) return; bootFitWH = wh;
-    var bottomPad = parseFloat(getComputedStyle(bootEl).paddingBottom) || 0;
-    var room = window.innerHeight - x3Stage.getBoundingClientRect().top - bootFoot.offsetHeight - bottomPad - 14;
-    var maxH = Math.min(430, window.innerWidth * .88 * 1205 / 840);
-    x3Stage.style.setProperty('--sh', Math.round(clamp(room, 190, maxH)) + 'px');
+    var H = window.innerHeight, W = window.innerWidth, phone = W <= 760;
+    var bar = $('.boot-top', bootEl), barB = bar ? bar.getBoundingClientRect().bottom : 32;
+    var first = x3.firstElementChild;
+    var fixed = x3Stage.getBoundingClientRect().top - (first ? first.getBoundingClientRect().top : 0);
+    var room, maxH;
+    if (phone){
+      var bottomPad = parseFloat(getComputedStyle(bootEl).paddingBottom) || 0;
+      var gap = clamp(H * .06, 24, 56);
+      room = (H - barB - bottomPad - bootFoot.offsetHeight - fixed - 2 * gap) / .95;
+      maxH = Math.min(430, W * .84 * 1205 / 840);
+      x3Stage.style.setProperty('--sh', Math.round(clamp(room, 190, maxH)) + 'px');
+    } else {
+      var fTop = bootFoot.getBoundingClientRect().top, t = barB + 14, bt = H - fTop + 16;
+      x3.style.setProperty('--x3t', Math.round(t) + 'px'); x3.style.setProperty('--x3b', Math.round(bt) + 'px');
+      room = (H - bt) - t - fixed - 10;
+      x3Stage.style.setProperty('--sh', Math.round(clamp(room, 200, 600)) + 'px');
+    }
   }
   bootFit(); window.addEventListener('resize', bootFit, {passive:true});
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ bootFitWH = ''; bootFit(); });
@@ -1845,12 +1859,6 @@ import { mountHead3D } from './head3d';
     var bl = e.target.closest('[data-boot-lang]'); if (bl){ setLang(bl.dataset.bootLang); }
   });
   document.addEventListener('keydown', function(e){ if (!bootEl.hidden && !booted && (e.key === 'Escape' || (e.key === 'Enter' && !e.target.closest('button')))){ e.preventDefault(); chooseMode('story'); } });
-  $('#restart').addEventListener('click', function(){
-    var sd = $('#shutdown'); track('restart', 1);
-    if (reduce){ window.scrollTo(0, 0); openBoot(); return; }
-    sd.classList.remove('on'); void sd.offsetWidth; sd.classList.add('on');
-    setTimeout(function(){ try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){} window.scrollTo(0, 0); openBoot(); sd.classList.remove('on'); }, 650);
-  });
 
   /* =====================================================================
      LANGUAGE + BOOT

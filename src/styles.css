@@ -3857,3 +3857,106 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
 /* v30 · phones: equal left and right margins (content sat 42px from the left, 16px from the right);
    the story thread runs in the left margin */
 @media (max-width:760px){ :root{--railpad:0px; --gutter:22px} }
+
+/* =====================================================================
+   v31 · END as one slide (ref: editorial portfolio slide). 1 screen,
+   headline on 1 line, no photo, no restart / footer / big wordmark.
+   ===================================================================== */
+#finish{min-height:100svh; padding:0!important; display:flex; flex-direction:column; justify-content:center; overflow:clip}
+#finish .wrap.plain.es{width:100%; max-width:1240px; margin:0 auto; padding:calc(var(--hud) + 14px) var(--gutter) 92px!important; box-sizing:border-box}
+.es-slide{position:relative; width:100%; container-type:inline-size; display:grid; grid-template-rows:auto 1fr auto auto auto; gap:clamp(14px,2.4vh,26px); height:min(calc(100svh - var(--hud) - 106px), 660px); min-height:460px; padding:clamp(22px,3.4vh,34px) clamp(22px,3vw,40px) clamp(18px,2.6vh,26px); border-radius:22px; background:rgba(255,255,255,.8); border:1px solid #fff; box-shadow:inset 0 1px 0 #fff, 0 1px 2px rgba(80,20,60,.06), 0 40px 80px -40px rgba(150,30,90,.4); box-sizing:border-box; overflow:hidden}
+.es-slide::before{content:""; position:absolute; left:0; right:0; top:0; height:7px; background:linear-gradient(90deg,var(--lime),#ffbfd8 60%,var(--lime))}
+.es-hd{display:flex; justify-content:space-between; align-items:flex-start; gap:16px}
+.es-brand{margin:0; display:grid; gap:2px; font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#7d7f8c}
+.es-brand b{font-family:var(--f-head); font-weight:900; font-size:15px; letter-spacing:-.01em; color:var(--ink)}
+.es-nav{margin:0; display:flex; gap:clamp(14px,2.4vw,34px); font-family:var(--f-head); font-weight:600; font-size:13px; color:var(--ink)}
+
+.es-mid{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:0}
+.es-k{margin:0 0 clamp(8px,1.6vh,16px); display:inline-flex; gap:10px; align-items:center; font-family:var(--f-mono); font-size:11px; letter-spacing:.12em; color:#7d7f8c}
+.es-k b{padding:4px 8px; border-radius:6px; background:var(--lime); color:var(--ink); font-weight:700}
+.es-word{margin:0; display:flex; align-items:center; justify-content:center; gap:.16em; white-space:nowrap; font-family:var(--f-head); font-weight:900; font-size:min(10.4cqi,118px); line-height:1; letter-spacing:-.05em; color:var(--ink)}
+[data-lang="vi"] .es-word{font-size:min(8.6cqi,100px)}
+.es-word em{font-family:var(--f-script); font-style:normal; font-weight:400; font-size:1.2em; letter-spacing:0; line-height:1.1; padding:.06em .14em .14em .1em; margin:-.1em 0 -.16em; color:var(--rose); background:var(--chrome-pk); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 1px 0 rgba(123,47,82,.4)) drop-shadow(0 8px 18px rgba(193,63,123,.22))}
+.es-gl{position:relative; display:inline-block; width:.9em; height:.9em; flex:none}
+.es-tile{position:absolute; inset:.06em; display:grid; place-items:center; border-radius:.2em; background:linear-gradient(150deg,#fff 0%,#ffe1ee 60%,#ffd0e4); box-shadow:inset 0 1px 0 #fff, 0 .08em .2em rgba(193,63,123,.25); transform:rotate(-8deg); animation:esBob 4.6s ease-in-out infinite}
+.es-tile svg{width:68%; height:68%}
+.es-stk{position:absolute; left:50%; top:50%; width:.09em; height:1.25em; border-radius:99px; background:linear-gradient(var(--lime),#ffc4dc); transform-origin:50% 50%}
+.es-stk.s1{transform:translate(-50%,-50%) rotate(-28deg)}
+.es-stk.s2{height:.8em; background:linear-gradient(#c9c2f0,#efeaff); transform:translate(-50%,-50%) translate(.34em,.08em) rotate(62deg)}
+@keyframes esBob{50%{transform:rotate(-2deg) translateY(-.05em)}}
+.es-side{position:absolute; right:0; top:50%; transform:translateY(-10%); margin:0; display:grid; text-align:right; font-family:var(--f-head); font-weight:600; font-size:clamp(15px,1.5vw,20px); line-height:1.05; color:var(--ink)}
+.es-side b{font-family:var(--f-serif); font-style:italic; font-weight:400; color:var(--rose)}
+#finish .es .acts{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0}
+#finish .es .acts > span{display:contents}
+#finish .es .acts .btn{padding:12px 20px; font-size:15px; background:#fff; border:1px solid rgba(14,15,20,.14); color:var(--ink)}
+#finish .es .acts .btn.lime{padding:13px 26px; font-size:16px; background:var(--lime); border-color:transparent; box-shadow:0 12px 26px rgba(193,63,123,.25)}
+.es-ch{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
+.es-ch .ch{grid-template-columns:auto minmax(0,1fr); grid-template-areas:"ic b" "ic s"; align-items:center; column-gap:12px; row-gap:1px; padding:12px 30px 12px 12px; border-radius:14px; background:rgba(255,255,255,.9)}
+.es-ch .ch-ic{grid-area:ic; width:36px; height:36px; border-radius:11px}
+.es-ch .ch-ic svg{width:20px; height:20px}
+.es-ch .ch b{grid-area:b; font-size:15px}
+.es-ch .ch small{grid-area:s; font-size:10.5px}
+.es-ch .ch i{top:50%; right:12px; transform:translateY(-50%)}
+.es-ch .ch:hover i{transform:translate(2px,-60%)}
+.es-ft{display:flex; justify-content:space-between; align-items:center; gap:12px; padding-top:clamp(10px,1.6vh,16px); border-top:1px solid rgba(14,15,20,.07)}
+#finish .es .saved{display:flex; flex-wrap:wrap; margin:0; padding:0}
+#finish .es .saved span{padding:0!important; background:none!important; border:0!important; font-family:var(--f-mono); font-size:11px; color:#8a8d99!important}
+#finish .es .saved span + span::before{content:"·"; margin:0 8px}
+.es-spk{display:block; width:26px; height:26px; color:var(--ink)}
+.es-spk svg{width:100%; height:100%}
+#finish .d3s{z-index:0}
+@media (prefers-reduced-motion: reduce){ .es-tile{animation:none} }
+@media (max-width: 980px){ .es-side{display:none} }
+@media (max-width: 860px){ .es-ch{grid-template-columns:1fr 1fr} }
+@media (max-width: 760px){
+  #finish .wrap.plain.es{padding:calc(var(--hud) + 10px) var(--gutter) calc(96px + env(safe-area-inset-bottom))!important}
+  .es-slide{height:calc(100svh - var(--hud) - 106px - env(safe-area-inset-bottom)); min-height:440px; max-height:640px; padding:20px 16px 14px; gap:12px; border-radius:20px}
+  .es-hd{align-items:center}
+  .es-nav{gap:10px; font-size:11px}
+  .es-brand b{font-size:13px}
+  .es-brand span{font-size:9.5px}
+  .es-word{font-size:min(10.6cqi,60px)}
+  [data-lang="vi"] .es-word{font-size:min(8.8cqi,54px)}
+  #finish .es .acts{flex-wrap:nowrap; gap:6px}
+  #finish .es .acts .btn{padding:11px 13px; font-size:14px; white-space:nowrap}
+  #finish .es .acts .btn.lime{padding:11px 16px; font-size:14px}
+  .es-ch{gap:8px}
+  .es-ch .ch{column-gap:9px; padding:9px 22px 9px 9px; border-radius:12px}
+  .es-ch .ch-ic{width:30px; height:30px; border-radius:9px}
+  .es-ch .ch-ic svg{width:17px; height:17px}
+  .es-ch .ch b{font-size:13.5px}
+  .es-ch .ch small{font-size:9.5px}
+  .es-ch .ch i{right:8px; font-size:12px}
+  .es-ft{padding-top:10px}
+  #finish .es .saved span{font-size:9.5px}
+  #finish .es .saved span + span::before{margin:0 5px}
+  .es-spk{width:20px; height:20px}
+}
+.es-ch .ch{text-align:left}
+.es-brand{justify-items:start; text-align:left}
+@media (max-width: 760px){
+  .es-word{font-size:min(11.8cqi,64px)}
+  [data-lang="vi"] .es-word{font-size:min(9.6cqi,56px)}
+  #finish .d3s{display:none}
+  #finish .es .saved span:nth-child(2){display:none}
+}
+@media (max-width: 760px){
+  .es-brand,.es-nav{white-space:nowrap}
+  .es-nav{gap:9px; font-size:10.5px}
+  .es-ch .ch{padding-right:9px}
+  .es-ch .ch i{display:none}
+}
+
+/* v31 · boot centred: bootFit() measures the free room (top bar → buttons) and sets --x3t/--x3b
+   (desktop) or centres the whole column (phone); the head takes what is left. */
+@media (min-width:761px){
+  .x3{top:var(--x3t,48px)!important; bottom:var(--x3b,150px)!important; padding-top:0!important; justify-content:center!important}
+  .x3-stage{--sh:min(calc(100vh - 330px), 600px)}
+}
+@media (max-width:760px){
+  .boot .bx{justify-content:center}
+  .x3{flex:none!important; padding-top:0!important}
+  .boot .bx-foot{margin-top:18px!important}
+}
+@media (min-width:761px){ .boot{box-sizing:border-box} .boot .bx{height:100%!important; min-height:0!important} }
+@media (max-width:760px){ .boot .bx-foot{margin-top:calc(-.05 * var(--sh,300px))!important} }
