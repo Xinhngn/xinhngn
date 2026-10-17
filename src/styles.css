@@ -4062,3 +4062,51 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
   .boot .bh-cta .boot-lang button{border-radius:999px!important; padding:0 14px!important}
   .boot{padding-top:calc(16px + env(safe-area-inset-top,0px))!important; padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))!important}
 }
+
+/* =====================================================================
+   v34 · About "What I run": file dividers (ref: paper folder tabs).
+   One pinned screen; a3Fold() moves each divider with translateY.
+   ===================================================================== */
+.a3-run{padding-block:0 clamp(60px,8vw,110px)!important}
+.a3-run-sc{position:relative; height:280vh; height:280svh}
+.a3-run-pin{position:sticky; top:0; height:100vh; height:100svh; box-sizing:border-box; display:flex; flex-direction:column; padding:calc(var(--hud) + clamp(16px,3vh,34px)) 0 clamp(20px,4vh,44px)}
+.a3-run-pin .a3-h2{flex:none; margin-bottom:clamp(18px,3vh,34px)}
+.a3-cards{--step:clamp(56px,8.4vh,74px); --tab:clamp(40px,5.6vh,50px); position:relative; flex:1 1 auto; min-height:0; display:block!important}
+.a3-cards .a3-c{position:absolute!important; inset:0 0 auto 0; top:0!important; height:calc(100% - (3 * var(--step))); margin:0!important; padding:0!important; display:block!important; min-height:0!important; background:none!important; box-shadow:none!important; border:0!important; border-radius:0!important; transition:transform .8s var(--xo); will-change:transform; z-index:calc(1 + var(--j))}
+.a3-c-tab{position:absolute; left:var(--tx); top:0; height:calc(var(--tab) + 14px); display:flex; align-items:flex-start; gap:12px; padding:12px clamp(18px,2vw,26px) 0; border:0; border-radius:18px 18px 0 0; background:var(--fc); color:var(--ink); font:600 clamp(14px,1.25vw,18px)/1.15 var(--f-head); letter-spacing:-.01em; text-transform:uppercase; cursor:pointer; white-space:nowrap; max-width:60%; overflow:hidden; text-overflow:ellipsis}
+.a3-c-tab b{font:500 11px/1.6 var(--f-mono); letter-spacing:.1em; color:rgba(14,15,20,.5)}
+.a3-c-tab::before,.a3-c-tab::after{content:""; position:absolute; bottom:0; width:18px; height:18px; background:radial-gradient(circle at 0 0, transparent 17.5px, var(--fc) 18px)}
+.a3-c-tab::before{left:-18px; background:radial-gradient(circle at 0 0, transparent 17.5px, var(--fc) 18px); transform:scaleX(-1)}
+.a3-c-tab::after{right:-18px}
+.a3-c-tab:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
+.a3-c-b{position:absolute; left:0; right:0; top:var(--tab); bottom:0; display:grid; grid-template-columns:auto minmax(0,1fr); align-items:start; gap:clamp(20px,4vw,72px); padding:clamp(26px,4.4vh,48px) clamp(24px,4vw,64px); border-radius:22px 22px 0 0; background:var(--fc); box-shadow:0 -1px 0 rgba(255,255,255,.7) inset, 0 -14px 30px -18px rgba(80,40,50,.28); overflow:hidden}
+.a3-c-n{margin:0; font:400 clamp(64px,9vw,150px)/.8 var(--f-serif); font-style:italic; color:var(--rose); letter-spacing:-.04em}
+.a3-c-n small{display:block; margin-top:14px; font:500 11px var(--f-mono); font-style:normal; letter-spacing:.1em; color:rgba(14,15,20,.45)}
+.a3-c-d{margin:0; max-width:30ch; font:500 clamp(20px,2.2vw,34px)/1.22 var(--f-head)!important; letter-spacing:-.025em; color:var(--ink)}
+.a3-c .a3-c-b > *{opacity:.0; transform:translateY(14px); transition:opacity .5s ease, transform .7s var(--xo)}
+.a3-c.on .a3-c-b > *{opacity:1; transform:none; transition-delay:.18s}
+.a3-c.on .a3-c-tab{color:var(--ink)}
+.a3-c.f0{--fc:#e7e5e8; --tx:3%}
+.a3-c.f1{--fc:#f6f1ea; --tx:44%}
+.a3-c.f2{--fc:#f5d3df; --tx:16%}
+.a3-c.f3{--fc:#efc0cf; --tx:56%}
+.a3-c.f0 .a3-c-b{box-shadow:none}
+@media (prefers-reduced-motion:reduce){ .a3-cards .a3-c,.a3-c .a3-c-b > *{transition:none} }
+@media (max-width:760px){
+  .a3-run-sc{height:300svh}
+  .a3-run-pin{padding:calc(var(--hud) + 12px) 0 calc(92px + env(safe-area-inset-bottom))}
+  .a3-run-pin .a3-h2{font-size:clamp(30px,8.6vw,40px); margin-bottom:16px}
+  .a3-cards{--step:50px; --tab:38px; margin-inline:-6px}
+  .a3-c-tab{font-size:12.5px; padding:10px 14px 0; gap:8px; border-radius:14px 14px 0 0; max-width:58%}
+  .a3-c-tab b{font-size:10px; line-height:1.5}
+  .a3-c-tab::before,.a3-c-tab::after{width:14px; height:14px; background:radial-gradient(circle at 0 0, transparent 13.5px, var(--fc) 14px)}
+  .a3-c-tab::before{left:-14px} .a3-c-tab::after{right:-14px}
+  .a3-c-b{grid-template-columns:1fr; gap:10px; padding:22px 20px; border-radius:18px 18px 0 0}
+  .a3-c-n{font-size:56px; display:flex; align-items:baseline; gap:10px}
+  .a3-c-n small{display:inline; margin:0}
+  .a3-c-d{font-size:clamp(18px,5.2vw,22px)!important}
+  .a3-c.f0{--tx:2%} .a3-c.f1{--tx:40%} .a3-c.f2{--tx:10%} .a3-c.f3{--tx:44%}
+}
+.a3-cards{overflow:hidden; overflow:clip}
+.a3-c-b{align-content:start}
+@media (min-width:761px){ .a3-c-d{padding-top:.5em} }

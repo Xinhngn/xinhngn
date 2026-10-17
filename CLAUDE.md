@@ -50,6 +50,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v33 (màn mở đầu, note của Xinh):** bỏ hàng "XINH.OS v2026 · HCMC + giờ" trên cùng (`.boot-top` ẩn, lặp với dòng `.x3-cap`) và dòng "press Enter" (`.boot-skip` ẩn, Enter vẫn chạy). Máy tính: câu + cụm nút canh giữa trên 1 đường ngang. Vật thể đối xứng 2 bên mặt (sao ↔ +1, chat ↔ @, play ↔ tim). Điện thoại: +1 dời xuống ngang chat để không đè CLICK ME, ẩn @; cụm nút xếp lại: 1 viên Story lớn full ngang, dưới là About me (viên trắng) + EN/VI; khoảng trên = dưới.
 
+**v34 (About "What I run", ref tab hồ sơ của Xinh):** 4 thẻ màu xếp chồng cũ thay bằng 4 tờ phân trang hồ sơ có tab (`.a3-c.f0-3`, tab `.a3-c-tab` lệch vị trí như ref, màu giấy bạc / kem / hồng nhạt / hồng). Cả cụm ghim gọn 1 màn (`.a3-run-sc` 280svh, `.a3-run-pin` sticky 100svh); cuộn thì kéo từng tờ ra trước: các tờ phía sau giữ tab ở trên, các tờ phía trước trượt xuống đáy (`a3Fold(k)` đặt translateY, gọi từ `drawAbout()`); bấm tab thì cuộn tới tờ đó. Thân tờ: số lớn Newsreader nghiêng + mô tả. Máy tính và điện thoại dùng chung bố cục.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.

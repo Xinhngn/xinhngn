@@ -1649,12 +1649,36 @@ import { mountHead3D } from './head3d';
     $$('#abSay > span').forEach(wrapWords);
     abBuilt = true;
   }
+  /* v34 · "What I run" = four file dividers in one pinned screen. Divider k is pulled forward:
+     the ones behind it keep their tabs at the top, the ones in front slide down to the bottom. */
+  var a3K = 0, a3H = -1;
+  function a3Fold(k, force){
+    var st = $('#a3Cards'); if (!st) return;
+    var H = st.clientHeight;
+    if (k === a3K && H === a3H && !force) return; a3K = k; a3H = H;
+    var cs = getComputedStyle(st), step = parseFloat(cs.getPropertyValue('--step')) || 60, n = 4;
+    $$('.a3-c', st).forEach(function(c, i){
+      var y = i <= k ? i * step : H - (n - i) * step;
+      c.style.transform = 'translateY(' + Math.round(y) + 'px)';
+      c.classList.toggle('on', i === k);
+      var tb = $('.a3-c-tab', c); if (tb) tb.setAttribute('aria-selected', i === k ? 'true' : 'false');
+    });
+  }
+  document.addEventListener('click', function(e){
+    var tb = e.target.closest('[data-a3tab]'); if (!tb) return;
+    var k = +tb.dataset.a3tab, sc = $('.a3-run-sc');
+    if (!sc){ a3Fold(k); return; }
+    var top = sc.getBoundingClientRect().top + window.scrollY, span = Math.max(1, sc.offsetHeight - window.innerHeight);
+    window.scrollTo({top: Math.round(top + span * (k + .5) / 4), behavior: reduce ? 'auto' : 'smooth'});
+  });
+  window.addEventListener('resize', function(){ a3Fold(a3K, true); }, {passive:true});
   function a3Render(){
     var vi = lang === 'vi';
     var cards = $('#a3Cards');
     if (cards) cards.innerHTML = COLS.filter(function(c){ return c.g === 'type'; }).map(function(col, j){
-      return '<article class="a3-c t-' + A3_TINT[j] + '" style="--j:' + j + '"><p class="a3-c-k"><b>0' + (j + 1) + '</b><span>/ 04</span></p><h4>' + esc(L(col.t)) + '</h4><p class="a3-c-d">' + esc(L(col.d)) + '</p><i class="a3-c-o" aria-hidden="true"></i></article>';
+      return '<article class="a3-c f' + j + '" style="--j:' + j + '"><button class="a3-c-tab" type="button" role="tab" data-a3tab="' + j + '"><b>0' + (j + 1) + '</b><span>' + esc(L(col.t)) + '</span></button><div class="a3-c-b"><p class="a3-c-n">0' + (j + 1) + '<small>/ 04</small></p><p class="a3-c-d">' + esc(L(col.d)) + '</p></div></article>';
     }).join('');
+    a3Fold(a3K, true);
     var far = $('#a3Far');
     if (far) far.innerHTML = COLS.filter(function(c){ return c.g === 'own'; }).map(function(col, j){
       return '<li style="--j:' + j + '"><i aria-hidden="true"></i><b>' + esc(L(col.t)) + '</b><span>' + esc(L(col.d)) + '</span></li>';
@@ -1708,6 +1732,8 @@ import { mountHead3D } from './head3d';
       var sr = say.getBoundingClientRect(), fill = reduce ? 1 : clamp((vh * .78 - sr.top) / Math.max(1, sr.height * .9), 0, 1);
       $$('#abSay > span', v).forEach(function(x){ var ws = $$('.wd', x), n = Math.round(fill * ws.length); ws.forEach(function(w, i){ w.classList.toggle('on', i < n); }); });
     }
+    var rsc = $('.a3-run-sc', v);
+    if (rsc){ var rr = rsc.getBoundingClientRect(), rsp = Math.max(1, rr.height - vh); a3Fold(Math.min(3, Math.floor(clamp(-rr.top / rsp, 0, .999) * 4))); }
     // 03 · the photo of the level whose role is in the middle of the screen
     var tl = $('#tl4', v), st = $('#a3Stack', v);
     if (tl && st){
