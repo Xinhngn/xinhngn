@@ -84,6 +84,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v48 (Xinh: chữ cứng nhắc, màu máy lệch với vé):** chữ toàn web đổi sang Bricolage Grotesque (tiêu đề, 600, hơi hẹp `font-stretch:92%`, tracking -.022em) + Fraunces nghiêng (SOFT 100, WONK 1) cho từ nhấn; từ nhấn tô gradient hồng → be → xanh (`--g-acc`), đã bỏ vạch highlighter `--g-hl`. Mực ấm hơn `--ink:#24222a`. Máy chọn kênh + vé dùng chung 1 bộ chất liệu (biến trên `.kx`: `--pl*` ngọc trai be, `--pk*` hồng = Solo / ô chọn, `--bl*` xanh = Team / icon / núm QUAY, `--sv*` bạc = Hire / chrome; bóng xám-mauve `--shd`): đế máy + túi vé bạc, cuống vé màu be như vỏ máy. Newsreader không còn tải. CSS khối v48 cuối `src/styles.css`.
 
+**v49 (Xinh: font + màu + hiệu ứng lẫn lộn toàn web):** 1 hệ chữ: Bricolage Grotesque cho mọi chữ đọc (tiêu đề, thân, nút, chú thích; `--f-body`, `--f-head`, cả `--f-serif` / `--f-ital` giờ trỏ về Bricolage, `font-synthesis-style:none` nên không có nghiêng giả); Fraunces nghiêng + gradient `--g-acc` CHỈ cho từ nhấn trong tiêu đề và tên "Nguyễn" (`--f-acc`); JetBrains Mono chỉ cho nhãn OS nhỏ; Imperial Script chỉ cho "say hi". Bỏ ô hồng `mark` trong thân bài (nhấn bằng độ đậm). Vé Liên hệ: bỏ dòng Kênh; điện thoại danh sách 1 cột, cuống vé là 1 hàng nút (HIRE: Gửi + Xem CV chia đôi, ẩn Đầu mối). About FILE 01 điện thoại: thẻ ID cao hơn (46svh), nút level 46px dễ bấm.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.

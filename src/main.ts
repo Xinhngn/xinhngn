@@ -909,7 +909,7 @@ import { mountHead3D } from './head3d';
           '<div class="kx-tk-main"><p class="kx-tk-top"><span>ADMIT ONE · XINH.OS</span><span>No. 0' + n + ' / 03</span></p>' +
           '<h4 class="kx-tk-h">' + w.n + '</h4><p class="kx-tk-t">' + esc(L(w.t)) + '</p>' +
           '<ul class="kx-tk-l">' + w.parts.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ul></div>' +
-          '<div class="kx-tk-stub"><dl><div><dt>' + (vi ? 'Kênh' : 'Channel') + '</dt><dd>' + esc(L(ch.n)) + '</dd></div><div><dt>' + (vi ? 'Đầu mối' : 'Contact') + '</dt><dd>Xinh</dd></div></dl>' +
+          '<div class="kx-tk-stub"><dl><div><dt>' + (vi ? 'Đầu mối' : 'Contact') + '</dt><dd>Xinh</dd></div></dl>' +
           '<p class="kx-tk-a"><a class="btn hot" href="#" data-kxsend></a>' + extra + '</p></div>' +
         '</article>';
     }

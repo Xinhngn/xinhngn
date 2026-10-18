@@ -5398,7 +5398,7 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
 body{color:var(--ink)}
 /* accent words: soft italic, gradient-filled, no highlighter */
 .h2 em,.sc-ink .h2 em,.own-big em,.hw-head .own-big em,.kx-h em,.kx-h2 em,.a3-h2 em,.vo-say h2 em,.brk .say em,#structure .brk .say em,#deliver .h2 em,.xf-hero .xf-name .l2 em,.c3-h1 em,.tf-title #tfCur.tf-pill.big{
-  font-family:var(--f-serif)!important; font-style:italic!important; font-weight:400!important; letter-spacing:-.01em!important;
+  font-family:var(--f-acc)!important; font-style:italic!important; font-weight:400!important; letter-spacing:-.01em!important;
   font-variation-settings:"SOFT" 100,"WONK" 1;
   background:var(--g-acc)!important; -webkit-background-clip:text!important; background-clip:text!important;
   color:transparent!important; -webkit-text-fill-color:transparent!important;
@@ -5473,6 +5473,42 @@ body{color:var(--ink)}
 @media (max-width:760px){ .sk-c b{font-size:14.5px; letter-spacing:-.025em; white-space:nowrap} }
 /* every remaining heading accent gets the same soft gradient italic */
 :is(h1,h2,h3,.h2,.sk-h,.a3-h2,.xf-name .l2) em:not(.kx-match):not(.p1name em){
-  font-family:var(--f-serif)!important; font-style:italic!important; font-weight:400!important; font-variation-settings:"SOFT" 100,"WONK" 1;
+  font-family:var(--f-acc)!important; font-style:italic!important; font-weight:400!important; font-variation-settings:"SOFT" 100,"WONK" 1;
   background:var(--g-acc)!important; -webkit-background-clip:text!important; background-clip:text!important;
   color:transparent!important; -webkit-text-fill-color:transparent!important; -webkit-box-decoration-break:clone; box-decoration-break:clone}
+
+/* =====================================================================
+   v49 · one type system for the whole site (Xinh: too many fonts / effects on one screen).
+   Bricolage Grotesque for everything people read (headings, body, buttons, captions);
+   Fraunces italic + gradient ONLY for the accent word of a headline (and the name);
+   JetBrains Mono only for small OS labels; Imperial Script only for "say hi".
+   Every other italic-serif line (sub-lines, quotes, numbers) becomes upright Bricolage,
+   so --f-serif / --f-ital now point at the grotesk and fake italics are switched off.
+   ===================================================================== */
+:root{--f-acc:"Fraunces",Georgia,serif; --f-body:"Bricolage Grotesque","Be Vietnam Pro",Arial,sans-serif;
+  --f-serif:"Bricolage Grotesque","Be Vietnam Pro",Arial,sans-serif; --f-ital:"Bricolage Grotesque","Be Vietnam Pro",Arial,sans-serif}
+html{font-synthesis-style:none}
+body{font-family:var(--f-body); letter-spacing:-.005em}
+.p1 h1.p1name em,.xf-name em,.xf-name .l2 em{font-family:var(--f-acc)!important; font-style:italic!important; font-weight:400!important; font-variation-settings:"SOFT" 100,"WONK" 1;
+  background:var(--g-acc)!important; -webkit-background-clip:text!important; background-clip:text!important; color:transparent!important; -webkit-text-fill-color:transparent!important}
+/* ticket on phones: one list column (long role names never run under the stub), stub = contact + buttons in one row */
+@media (max-width:760px){
+  .kx-tk-l{grid-template-columns:1fr; gap:6px}
+  .kx-tk-a{display:flex; gap:8px; align-items:center}
+  .kx-tk-a .btn,.kx-tk-a .kx-btn{padding:10px 14px; font-size:13px}
+  .kx-tk-stub{align-items:center; padding:0 4px; height:72px}
+  .kx-ticket{--py:calc(100% - 72px)}
+  .kx-tk-stub:has(.kx-tk-a > :nth-child(2)) dl{display:none}
+  .kx-tk-stub:has(.kx-tk-a > :nth-child(2)) .kx-tk-a{margin:0; width:100%}
+  .kx-tk-stub:has(.kx-tk-a > :nth-child(2)) .kx-tk-a > *{flex:1}
+}
+/* About FILE 01 on phones: the badge takes the spare height, level buttons become real tap targets */
+@media (max-width:860px) and (min-height:701px){
+  .a3-path-pin .a3-stack.bdk{height:clamp(240px,46svh,420px)}
+  .a3-lvn{gap:8px; max-width:none}
+  .a3-lvn button{padding:12px 4px; min-height:46px}
+  .a3-lvn button b{font-size:14px}
+}
+.kx-tk-a > .btn,.kx-tk-a > .kx-btn{box-sizing:border-box; min-height:44px; padding-top:0!important; padding-bottom:0!important; display:inline-flex; align-items:center}
+/* no second highlight style in body copy: emphasis is weight, not a pink box */
+.xf-vo-a mark{padding:0; border-radius:0; background:none; color:var(--ink); font-weight:650}
