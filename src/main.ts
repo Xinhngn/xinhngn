@@ -156,7 +156,7 @@ import { mountHead3D } from './head3d';
      out:{en:'One pitch grew into a longer-term relationship with multiple follow-on projects.', vi:'Từ một lần pitch, mối hợp tác kéo dài hơn và mở ra nhiều dự án tiếp theo.'},
      res:[{line:true, b:{en:'Multiple projects', vi:'Nhiều dự án'}, l:{en:'from one pitch', vi:'từ một lần pitch'}}, {empty:true, l:{en:'add a result', vi:'thêm kết quả'}}],
      imgs:['vib_ivy_kv.jpg','anh_trai_say_hi.jpg','bo_tu_bao_thu.jpg','cashless_day.jpg']},
-    {id:'cake', core:true, brand:'Cake', cats:['bank','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd3ec,#ff8fc6 60%,#ddd6ff)',
+    {id:'cake', core:true, brand:'Cake', cats:['bank','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd3ec,#ff8fc6 60%,#faecdb)',
      subs:['BY VPBANK','NEW BUSINESS'], meta:'DIGITAL BANK · NEW BUSINESS',
      title:{en:'Trust Opens New Doors', vi:'Niềm tin mở ra cánh cửa mới'},
      t:{en:'A relationship that opened the next door.', vi:'Một mối quan hệ mở ra cánh cửa mới.'},
@@ -194,7 +194,7 @@ import { mountHead3D } from './head3d';
      t:{en:'A Tết plan from pitch to media.', vi:'Kế hoạch Tết từ pitch đến media.'},
      me:{en:'Communication plan, pitching, always-on, production, booking and media.', vi:'Kế hoạch truyền thông, pitching, always-on, production, booking và media.'},
      res:[{line:true, b:{en:'Pitch won', vi:'Thắng pitch'}, l:{en:'with the team', vi:'cùng team'}}], imgs:['duytan_tet_2025.jpg','duytan_02.jpg','duytan_03.jpg','duytan_04.jpg']},
-    {id:'cindy', brand:'Cindy Bloom', cats:['fmcg','pitch','launch'], size:'', grad:'linear-gradient(135deg,#ffd3ec,#ddd6ff)', small:true,
+    {id:'cindy', brand:'Cindy Bloom', cats:['fmcg','pitch','launch'], size:'', grad:'linear-gradient(135deg,#ffd3ec,#faecdb)', small:true,
      subs:['LAUNCH'], meta:'OTHER PROJECT · CONSUMER · LAUNCH CAMPAIGN',
      t:{en:'A launch from pitch to execution.', vi:'Một đợt ra mắt từ pitch đến triển khai.'},
      me:{en:'Pitch to execution, production and the social campaign.', vi:'Từ pitch đến triển khai, production và social campaign.'},
@@ -202,7 +202,7 @@ import { mountHead3D } from './head3d';
   ];
   /* Cover colours when there is no photo yet */
   var LOOK = {vib:['linear-gradient(100deg,#f4f5f8,#c9ccd6 40%,#8d92a2 52%,#e8eaf0 70%,#fff)','#0e0f14'], msb:['linear-gradient(170deg,#5d9de3,#9cc8f2 55%,#dcecf9)','#ffffff'], cake:['#f3eee6','#0e0f14'], poca:['#ff8fc0','#0e0f14'],
-              digimi:['linear-gradient(160deg,#d9d4f5,#f6d9e7)','#0e0f14'], duytan:['#ffd3e4','#0e0f14'], cindy:['linear-gradient(160deg,#cfe3f7,#ffd3e4)','#0e0f14']};
+              digimi:['linear-gradient(160deg,#f1e5d8,#f6d9e7)','#0e0f14'], duytan:['#ffd3e4','#0e0f14'], cindy:['linear-gradient(160deg,#cfe3f7,#ffd3e4)','#0e0f14']};
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {
@@ -720,13 +720,13 @@ import { mountHead3D } from './head3d';
      into the next as the viewport centre crosses from one to the other. [base, glow left, glow right] */
   var ATMO = [
     ['start',     ['#f6f1ea', '#ffe1cf', '#dfe9f6']],
-    ['brief',     ['#f4f1ee', '#ffd9c8', '#ddd6f7']],
-    ['clarify',   ['#f6f1ea', '#ffe6d6', '#e6e2f6']],
-    ['structure', ['#f4f1ec', '#fde0d4', '#e2ddf6']],
-    ['align',     ['#ecedf1', '#f3e1ea', '#dde5f2']],
-    ['deliver',   ['#d9e7f6', '#a9cdef', '#ece4f7']],
+    ['brief',     ['#f4f1ee', '#ffd9c8', '#fbecc6']],
+    ['clarify',   ['#f6f1ea', '#ffe6d6', '#f3ede5']],
+    ['structure', ['#f4f1ec', '#fde0d4', '#f3eae0']],
+    ['align',     ['#efece6', '#f8ead4', '#dde7f2']],
+    ['deliver',   ['#d9e7f6', '#a9cdef', '#f5eee6']],
     ['value',     ['#eff0f6', '#ffe2d2', '#d8e5f6']],
-    ['finish',    ['#f4ebe6', '#ffd9cc', '#d6d0f6']]
+    ['finish',    ['#f4ebe6', '#ffd9cc', '#f1e4d5']]
   ].map(function(a){ return {el: document.getElementById(a[0]), c: a[1].map(function(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; })}; }).filter(function(a){ return a.el; });
   var atmoKey = '';
   function mixC(a, b, k){ return 'rgb(' + [0,1,2].map(function(i){ return Math.round(a[i] + (b[i] - a[i]) * k); }).join(',') + ')'; }
@@ -877,6 +877,16 @@ import { mountHead3D } from './head3d';
     if (by.linkedin) out.push({k:'linkedin', ic:'i-case', n:{en:'LinkedIn', vi:'LinkedIn'}, v:by.linkedin.v, why:{en:'Roles & hiring', vi:'Tuyển dụng'}, acts:[{t:{en:'Open', vi:'Mở'}, href:by.linkedin.href, m:'linkedin'}], send:by.linkedin});
     return out;
   }
+  var KX_ICON = {
+    phone:'<i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><path class="pf" d="M19 6c3 0 5 2 6 5l3 8c1 3 0 6-2 8l-4 3c3 7 9 13 16 16l3-4c2-2 5-3 8-2l8 3c3 1 5 3 5 6v6c0 5-4 9-9 9C28 64 0 36 0 15 0 10 4 6 9 6z" transform="translate(3 -3) scale(.92)"/><ellipse class="hl" cx="15" cy="12" rx="6" ry="3" transform="rotate(-30 15 12)"/></svg></i>',
+    email:'<i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="pf" x="4" y="12" width="56" height="40" rx="11"/><path d="M10 20l22 16 22-16" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><ellipse class="hl" cx="17" cy="17" rx="8" ry="2.6"/></svg></i>',
+    linkedin:'<i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="pf" x="6" y="6" width="52" height="52" rx="15"/><text x="32" y="45" text-anchor="middle" font-family="Inter Tight, Arial" font-weight="900" font-size="30" fill="#fff">in</text><ellipse class="hl" cx="20" cy="13" rx="9" ry="3"/></svg></i>'
+  };
+  var KX_OBJ = {
+    solo:'<i class="ob s1"></i>',
+    team:'<i class="ob s1"></i><i class="ob s2"></i><i class="ob s3"></i>',
+    role:'<i class="ob id"><i></i></i>'
+  };
   function kxA(a, cls){ return '<a class="' + cls + '" href="' + esc(a.href) + '"' + (a.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + a.m + '">' + esc(L(a.t)) + ' ↗︎</a>'; }
   function cxRender(){
     var vi = lang === 'vi', chs = kxChannels();
@@ -884,25 +894,28 @@ import { mountHead3D } from './head3d';
     var ch = chs.filter(function(c){ return c.k === CX.ch; })[0], w = CX_WAYS[CX.way];
     var mc = $('#kxMc');
     if (mc && ch){
-      mc.innerHTML = '<div class="kx-mach"><p class="kx-mtop"><b>XINH.OS</b><span>MATCH MACHINE</span><i aria-hidden="true"></i></p>' +
-        '<div class="kx-reels">' + chs.map(function(c, i){ var on = c.k === CX.ch;
-          return '<button class="kx-reel' + (on ? ' on' : '') + '" type="button" data-kxch="' + c.k + '" aria-pressed="' + (on && CX.chSet ? 'true' : 'false') + '" style="--j:' + i + '"><span class="kx-drum"><span class="kx-face"><i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + c.ic + '"/></svg></i><b>' + esc(L(c.n)) + '</b><small>' + esc(L(c.why)) + '</small></span></span><em class="kx-match">' + (on ? (CX.chSet ? 'MATCH' : (vi ? 'GỢI Ý' : 'TIP')) : '0' + (i + 1)) + '</em></button>'; }).join('') + '</div>' +
-        '<button class="kx-lever" type="button" data-kxspin aria-label="' + (vi ? 'Kéo cần' : 'Pull the lever') + '"><i></i></button>' +
-        '<div class="kx-plate"><p><small>' + (CX.chSet ? (vi ? 'Kênh bạn chọn' : 'Your channel') : (vi ? 'Gợi ý cho bạn' : 'Suggested')) + '</small><b>' + esc(L(ch.n)) + '</b><span>' + esc(ch.v) + '</span></p>' +
-        '<span class="kx-pa">' + ch.acts.map(function(a){ return kxA(a, 'kx-btn'); }).join('') + (ch.copy ? '<button class="kx-btn ghost" type="button" data-copy="' + esc(ch.copy) + '" data-m="' + ch.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '') + '</span></div></div>';
+      mc.innerHTML = '<div class="kx-mach">' +
+        '<div class="kx-top"><i class="kx-vent" aria-hidden="true"></i><p class="kx-disp"><b>XINH.OS</b><span>MATCH MACHINE</span></p><i class="kx-vent" aria-hidden="true"></i></div>' +
+        '<div class="kx-reels"><i class="kx-axle" aria-hidden="true"></i>' + chs.map(function(c, i){ var on = c.k === CX.ch;
+          return '<button class="kx-reel' + (on ? ' on' : '') + '" type="button" data-kxch="' + c.k + '" aria-pressed="' + (on && CX.chSet ? 'true' : 'false') + '" style="--j:' + i + '"><span class="kx-drum"><span class="kx-face">' + KX_ICON[c.k] + '<b>' + esc(L(c.n)) + '</b><small>' + esc(L(c.why)) + '</small></span></span>' +
+            (on ? '<em class="kx-match">' + (CX.chSet ? 'MATCH' : (vi ? 'GỢI Ý' : 'TIP')) + '</em>' : '') + '</button>'; }).join('') + '</div>' +
+        '<div class="kx-deck"><div class="kx-sel"><small>' + (CX.chSet ? (vi ? 'Kênh bạn chọn' : 'Your channel') : (vi ? 'Gợi ý cho bạn' : 'Suggested')) + '</small><p><b>' + esc(L(ch.n)) + '</b><span>' + esc(ch.v) + '</span></p>' +
+          '<span class="kx-pa">' + ch.acts.map(function(a){ return kxA(a, 'kx-btn'); }).join('') + (ch.copy ? '<button class="kx-btn ghost" type="button" data-copy="' + esc(ch.copy) + '" data-m="' + ch.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '') + '</span></div>' +
+          '<button class="kx-spin" type="button" data-kxspin><span>' + (vi ? 'QUAY' : 'SPIN') + '</span></button></div>' +
+        '<span class="kx-lever" aria-hidden="true"><i></i></span></div>';
     }
-    var gift = $('#kxGift');
+    var gift = $('#kxGift'), ks = ['solo', 'team', 'role'], n = ks.indexOf(CX.way) + 1;
     if (gift){
-      var ks = ['solo', 'team', 'role'];
-      var items = ks.map(function(k, i){ var x = CX_WAYS[k], on = k === CX.way;
-        return '<button class="kx-it n' + (i + 1) + (on ? ' on' : '') + '" type="button" data-kxway="' + k + '" aria-pressed="' + (on ? 'true' : 'false') + '"><span class="kx-no">(' + (i + 1) + ')</span><span class="kx-card"><small>' + x.n + '</small><b>' + esc(L(x.t)) + '</b></span></button>'; }).join('');
-      var n = ks.indexOf(CX.way) + 1;
-      var extra = CX.way === 'role' && CV_URL ? '<a class="kx-btn ghost" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗︎</a>' : '';
-      gift.innerHTML = '<div class="kx-stage"><div class="kx-items">' + items + '</div>' +
-        '<div class="kx-box" aria-hidden="true"><div class="kx-cube"><i class="kf bk"></i><i class="kf lf"></i><i class="kf bt"></i><i class="kf in"></i><i class="kf rt"></i><span class="kf fr"><b>XINH.OS</b><small>' + (vi ? 'hộp ' : 'box ') + n + '/3</small></span><i class="kx-lid3"><i class="kl tp"></i><i class="kl fr"></i><i class="kl rt"></i></i></div><i class="kx-satin a"></i><i class="kx-satin b"></i></div></div>' +
-        '<div class="kx-cap"><p class="kx-cap-t"><b>(' + n + ') ' + w.n + '</b><span>' + esc(L(w.fit)) + '</span></p>' +
-        '<ol class="kx-parts">' + w.parts.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ol>' +
-        '<p class="kx-cap-a"><a class="btn hot kx-send" href="#" data-kxsend>' + (vi ? 'Gửi qua ' : 'Send on ') + esc(ch ? L(ch.n).split(' · ')[0] : '') + ' →</a>' + extra + '</p></div>';
+      gift.innerHTML = '<div class="kx-bl"><p class="kx-bl-h"><b>XINH.OS</b><span>' + (vi ? 'Cách hợp tác · vỉ ' : 'Ways to work · pack ') + n + '/3</span></p><div class="kx-cells">' +
+        ks.map(function(k, i){ var x = CX_WAYS[k], on = k === CX.way;
+          return '<button class="kx-cell c-' + k + (on ? ' on' : '') + '" type="button" data-kxway="' + k + '" aria-pressed="' + (on ? 'true' : 'false') + '"><span class="kx-pod"><span class="kx-obj o-' + k + '" aria-hidden="true">' + KX_OBJ[k] + '</span></span><span class="kx-cl"><b>' + x.n + '</b><small>' + esc(L(x.t)) + '</small></span></button>'; }).join('') + '</div></div>';
+    }
+    var ing = $('#kxIng');
+    if (ing){
+      var extra = CX.way === 'role' && CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗︎</a>' : '';
+      ing.innerHTML = '<p class="kx-ing-k"><span>' + (vi ? 'Thành phần' : 'Ingredients') + ':</span><b>(' + n + ') ' + w.n + '</b></p>' +
+        '<ol class="kx-ing-l">' + w.parts.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ol>' +
+        '<p class="kx-ing-f">' + esc(L(w.fit)) + '</p><p class="kx-ing-a"><a class="btn hot" href="#" data-kxsend></a>' + extra + '</p>';
     }
     var go = $('#cxGo');
     if (go && ch){
@@ -912,8 +925,7 @@ import { mountHead3D } from './head3d';
       go.dataset.m = ch.send.k;
       go.innerHTML = (vi ? 'Gửi qua ' : 'Send on ') + esc(L(ch.n).split(' · ')[0]) + ' →';
     }
-    var snd = $('[data-kxsend]');
-    if (snd && go){ snd.href = go.href; if (go.target){ snd.target = go.target; snd.rel = 'noopener'; } snd.dataset.m = go.dataset.m; }
+    $$('[data-kxsend]').forEach(function(snd){ if (!go) return; snd.href = go.href; if (go.target){ snd.target = go.target; snd.rel = 'noopener'; } else snd.removeAttribute('target'); snd.dataset.m = go.dataset.m; snd.innerHTML = go.innerHTML; });
   }
   var kxSpin = 0;
   document.addEventListener('click', function(e){
@@ -1720,7 +1732,7 @@ import { mountHead3D } from './head3d';
      step, then the whole method in one line and "Problem solved." 06: the close.
      ===================================================================== */
   var abBuilt = false;
-  var AB_BG = ['#f3eee6', '#ebebef', '#f3eee6', '#f5e9e0', '#ebebef', '#e8e4f6'];
+  var AB_BG = ['#f3eee6', '#ebebef', '#f3eee6', '#f5e9e0', '#ebebef', '#f4eee6'];
   var A3_TINT = ['blush', 'paper', 'silver', 'rose'];
   function wrapWords(root){
     (function wrap(node){

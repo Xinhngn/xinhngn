@@ -537,27 +537,39 @@
 <!-- =========================================================== CONTACT =========================================================== -->
 <section class="view qv c3v" data-view="contact" id="v-contact" hidden>
   <div class="ct3 kx">
-    <!-- Contact in two screens: 01 pick a channel (a three-reel machine) → 02 unbox the three ways
-         to work together -->
+    <!-- Contact: 01 pick a channel (a three-reel machine) → 02 three ways to work (a clear blister
+         pack, its "ingredients" listed) → a short closing call to action -->
     <section class="kx-s kx-s1" data-c3>
       <div class="kx-txt">
         <p class="xf-k"><span>01 / 02</span><span class="en">Pick a channel</span><span class="vi">Chọn kênh</span></p>
         <h2 class="kx-h"><span class="ln"><span class="en">Three ways in.</span><span class="vi">Ba kênh liên hệ.</span></span><span class="ln"><em><span class="en">Pick your match.</span><span class="vi">Chọn kênh hợp bạn.</span></em></span></h2>
-        <p class="kx-p"><span class="en">Tap a reel, or pull the lever and let the machine pick the fastest one.</span><span class="vi">Bấm 1 ô, hoặc kéo cần để máy chọn kênh nhanh nhất.</span></p>
+        <p class="kx-p"><span class="en">Tap a reel, or press spin and let the machine pick the fastest one.</span><span class="vi">Bấm 1 ô, hoặc bấm quay để máy chọn kênh nhanh nhất.</span></p>
         <div class="status" id="ctStatus"></div>
       </div>
       <div class="kx-mc" id="kxMc"></div>
+      <svg class="kx-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><radialGradient id="kxPf" cx="34%" cy="26%" r="86%"><stop offset="0" stop-color="#ffd9e3"/><stop offset=".42" stop-color="#f6849f"/><stop offset="1" stop-color="#c94f73"/></radialGradient></defs></svg>
       <p class="copied c3-copied" id="copied" aria-live="polite"></p>
     </section>
 
     <section class="kx-s kx-s2" data-c3>
-      <div class="kx-s2-hd">
-        <p class="xf-k"><span>02 / 02</span><span class="en">Unbox</span><span class="vi">Khui hộp</span></p>
-        <h3 class="kx-h2"><span class="en">Three ways to work. <em>Open one.</em></span><span class="vi">Ba cách hợp tác. <em>Khui thử 1 hộp.</em></span></h3>
+      <div class="kx-s2-t">
+        <p class="xf-k"><span>02 / 02</span><span class="en">Ways to work</span><span class="vi">Cách hợp tác</span></p>
+        <h3 class="kx-h2"><span class="ln"><span class="en">Three ways to work.</span><span class="vi">Ba cách hợp tác.</span></span><span class="ln"><em><span class="en">Pick one.</span><span class="vi">Chọn 1 vỉ.</span></em></span></h3>
+        <div class="kx-ing" id="kxIng"></div>
       </div>
       <div class="kx-gift" id="kxGift"></div>
     </section>
 
+    <!-- the end of the page: one calm closing beat with the next step -->
+    <section class="kx-s kx-end" data-c3>
+      <div class="d3s" aria-hidden="true"><i class="d3 sph peach" style="--x:12%;--y:26%;--s:84px"></i><i class="d3 sph pink" style="--x:88%;--y:70%;--s:62px"></i><i class="d3 bub" style="--x:80%;--y:20%;--s:96px"></i></div>
+      <div class="kx-end-in">
+        <p class="xf-k"><span>XINH.OS</span><span class="en">End of the tour</span><span class="vi">Hết hành trình</span></p>
+        <h2 class="kx-h"><span class="ln"><span class="en">That's all of Xinh.</span><span class="vi">Bạn đã xem hết Xinh.</span></span><span class="ln"><em><span class="en">Your move.</span><span class="vi">Giờ tới lượt bạn.</span></em></span></h2>
+        <p class="kx-p"><span class="en">One message is enough to start.</span><span class="vi">Chỉ cần 1 tin nhắn để bắt đầu.</span></p>
+        <div class="kx-end-a"><a class="btn hot" href="#" data-kxsend></a><a class="btn" href="#work"><span class="en">See the work</span><span class="vi">Xem dự án</span></a><a class="btn" href="#" data-cv target="_blank" rel="noopener"><span class="en">View CV</span><span class="vi">Xem CV</span> ↗︎</a></div>
+      </div>
+    </section>
     <div hidden><div id="methods"></div><a id="cxGo" href="#"></a></div>
   </div>
 </section>
