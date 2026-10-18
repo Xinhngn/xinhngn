@@ -78,6 +78,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v46b (ảnh iPhone của Xinh):** số "2" của "20" ở LV.3 bị vẽ thành khối gradient (thuộc tính tắt `background` có !important xoá `background-clip:text`) → chỉ đổi `background-image`. Điện thoại: lưới thương hiệu LV.3 canh giữa (lề 2 bên = `--gutter`), cao 64svh, hiện thêm câu mô tả mỗi ô. Vé Liên hệ trên điện thoại: bỏ dòng ADMIT ONE, giãn khoảng giữa chữ và kệ vé.
 
+**v47 (góp ý Xinh):** máy chọn kênh làm theo đúng ref Kingdo (`.kx-mach.kd`): tủ kem cao vai bo tròn, có vít, 2 khe gió + ô kính viên thuốc viền chrome, 3 trống dạng thùng có nắp chrome 2 đầu trên 1 trục chrome thò ra 2 bên, tên kênh đã chọn chữ nổi khối hồng (`.kd-big`), núm QUAY tròn có rãnh, cần gạt chrome. LV.5: menu chọn chỉ còn Solo (trên) + Squad (dưới), bỏ "Chưa chắc? Hỏi Xinh". Đã bỏ câu nối "Biết Xinh là ai rồi…" (`.brk.st-beat`) trước LV.2.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.

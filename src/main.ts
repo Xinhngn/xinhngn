@@ -889,12 +889,12 @@ import { mountHead3D } from './head3d';
     var ch = chs.filter(function(c){ return c.k === CX.ch; })[0], w = CX_WAYS[CX.way];
     var mc = $('#kxMc');
     if (mc && ch){
-      mc.innerHTML = '<div class="kx-mach">' +
+      mc.innerHTML = '<div class="kx-mach kd">' +
         '<div class="kx-top"><i class="kx-vent" aria-hidden="true"></i><p class="kx-disp"><b>XINH.OS</b><span>MATCH MACHINE</span></p><i class="kx-vent" aria-hidden="true"></i></div>' +
         '<div class="kx-reels"><i class="kx-axle" aria-hidden="true"></i>' + chs.map(function(c, i){ var on = c.k === CX.ch;
           return '<button class="kx-reel' + (on ? ' on' : '') + '" type="button" data-kxch="' + c.k + '" aria-pressed="' + (on && CX.chSet ? 'true' : 'false') + '" style="--j:' + i + '"><span class="kx-drum"><span class="kx-face">' + KX_ICON[c.k] + '<b>' + esc(L(c.n)) + '</b><small>' + esc(L(c.why)) + '</small></span></span>' +
             (on ? '<em class="kx-match">' + (CX.chSet ? 'MATCH' : (vi ? 'GỢI Ý' : 'TIP')) + '</em>' : '') + '</button>'; }).join('') + '</div>' +
-        '<div class="kx-deck"><div class="kx-sel"><small>' + (CX.chSet ? (vi ? 'Kênh bạn chọn' : 'Your channel') : (vi ? 'Gợi ý cho bạn' : 'Suggested')) + '</small><p><b>' + esc(L(ch.n)) + '</b><span>' + esc(ch.v) + '</span></p>' +
+        '<div class="kx-deck"><div class="kx-sel"><small>' + (CX.chSet ? (vi ? 'Kênh bạn chọn' : 'Your channel') : (vi ? 'Gợi ý cho bạn' : 'Suggested')) + '</small><p><b class="kd-big">' + esc(L(ch.n)) + '</b><span>' + esc(ch.v) + '</span></p>' +
           '<span class="kx-pa">' + ch.acts.map(function(a){ return kxA(a, 'kx-btn'); }).join('') + (ch.copy ? '<button class="kx-btn ghost" type="button" data-copy="' + esc(ch.copy) + '" data-m="' + ch.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '') + '</span></div>' +
           '<button class="kx-spin" type="button" data-kxspin><span>' + (vi ? 'QUAY' : 'SPIN') + '</span></button></div>' +
         '<span class="kx-lever" aria-hidden="true"><i></i></span></div>';
