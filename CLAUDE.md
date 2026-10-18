@@ -76,6 +76,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v46 (màu toàn web + Liên hệ, Xinh: gu là hồng + be + xanh dương + bạc, có gradient, tạo khối, sáng tối; không bơ / đào / tím):** `--g-brand` / `--g-hl` = hồng → be → bạc → xanh; `ATMO`, `AB_BG`, nền boot, LV.3 lõi, nhãn cassette, cầu `.peach` (giờ là chrome bạc) đổi theo. Liên hệ 01: bỏ khung giờ HCMC (`#ctStatus` ẩn bằng CSS, vẫn giữ trong HTML cho test), máy be có viền chrome + bóng đổ sâu, icon ô chưa chọn xanh (`#kxPb`), ô chọn hồng, nút QUAY xanh bóng; điện thoại canh giữa dọc. Liên hệ 02: "Ba cách hợp tác. *Rút 1 tấm vé.*" = kệ vé (`.kx-holder`: 3 vé `.kx-tab.t-solo/team/role` thò lên khỏi túi bạc `.kx-case`, vé chọn nhô cao) + 1 vé lớn (`.kx-ticket`: góc khuyết + lỗ bấm bằng mask, đường xé, cuống vé ghi Kênh = kênh đã chọn ở máy + Đầu mối + nút gửi). Hồng = Solo, xanh = Team, bạc = Hire. Đã xoá vỉ nhựa (`.kx-bl`, `KX_OBJ`, `#kxIng`). Điện thoại: nút lên đầu / xuống cuối chỉ hiện khi đang cuộn (`.dock.live`) để không che nút.
 
+**v46b (ảnh iPhone của Xinh):** số "2" của "20" ở LV.3 bị vẽ thành khối gradient (thuộc tính tắt `background` có !important xoá `background-clip:text`) → chỉ đổi `background-image`. Điện thoại: lưới thương hiệu LV.3 canh giữa (lề 2 bên = `--gutter`), cao 64svh, hiện thêm câu mô tả mỗi ô. Vé Liên hệ trên điện thoại: bỏ dòng ADMIT ONE, giãn khoảng giữa chữ và kệ vé.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.
