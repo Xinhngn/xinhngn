@@ -80,6 +80,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v47 (góp ý Xinh):** máy chọn kênh làm theo đúng ref Kingdo (`.kx-mach.kd`): tủ kem cao vai bo tròn, có vít, 2 khe gió + ô kính viên thuốc viền chrome, 3 trống dạng thùng có nắp chrome 2 đầu trên 1 trục chrome thò ra 2 bên, tên kênh đã chọn chữ nổi khối hồng (`.kd-big`), núm QUAY tròn có rãnh, cần gạt chrome. LV.5: menu chọn chỉ còn Solo (trên) + Squad (dưới), bỏ "Chưa chắc? Hỏi Xinh". Đã bỏ câu nối "Biết Xinh là ai rồi…" (`.brk.st-beat`) trước LV.2.
 
+**v47b (góp ý Xinh: máy phải ra máy):** vỏ ngà gồ lên (sáng góc trên trái, mép tối ấm), đế dày phía sau (`.kx-mc::before`), khe gió + ô kính lõm, trống + nắp chrome có bóng đổ, núm QUAY nhô cao có thành bên. Bỏ dòng "Kênh bạn chọn" + tên kênh chữ lớn, tấm dưới chỉ còn số / địa chỉ (`.kd-num`) + nút. Nhãn GỢI Ý / MATCH nằm ở mép dưới trống (không chồng ô kính).
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.
