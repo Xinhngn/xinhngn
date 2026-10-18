@@ -5385,3 +5385,94 @@ body.vt-in main{animation:vtIn .95s cubic-bezier(.16,1,.3,1) both}
 @media (max-width:860px){ .kx-mc::before{left:2px; right:2px; height:50px; border-radius:16px 16px 20px 20px} }
 @media (max-width:860px){ .kd .kx-deck{margin-top:22px} .kd .kx-pa{flex-wrap:nowrap} }
 @media (max-width:380px){ .kd .kx-pa .kx-btn{padding:8px 10px; font-size:12px} .kd .kx-spin{width:68px; height:68px} .kd .kd-num{font-size:15px} }
+
+/* =====================================================================
+   v48 · softer type (Xinh: font, colour and the highlighter underline all felt rigid).
+   Bricolage Grotesque (a warm grotesk, slightly narrowed) for headings, Fraunces italic
+   (SOFT 100, WONK 1: round, a little bouncy) for accent words; accents are a pink → taupe →
+   blue gradient fill, no underline bar. Ink is a warm charcoal, headings lighter + looser.
+   ===================================================================== */
+:root{--f-head:"Bricolage Grotesque","Be Vietnam Pro",Arial,sans-serif; --f-serif:"Fraunces",Georgia,serif; --f-ital:"Fraunces",Georgia,serif;
+  --ink:#24222a; --ink2:#34313b; --ink3:#4a4652; --muted:#6c6772; --rose:#24222a;
+  --g-acc:linear-gradient(100deg,#d65a8e 0%,#c88a8f 46%,#5d84c0 100%)}
+body{color:var(--ink)}
+/* accent words: soft italic, gradient-filled, no highlighter */
+.h2 em,.sc-ink .h2 em,.own-big em,.hw-head .own-big em,.kx-h em,.kx-h2 em,.a3-h2 em,.vo-say h2 em,.brk .say em,#structure .brk .say em,#deliver .h2 em,.xf-hero .xf-name .l2 em,.c3-h1 em,.tf-title #tfCur.tf-pill.big{
+  font-family:var(--f-serif)!important; font-style:italic!important; font-weight:400!important; letter-spacing:-.01em!important;
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+  background:var(--g-acc)!important; -webkit-background-clip:text!important; background-clip:text!important;
+  color:transparent!important; -webkit-text-fill-color:transparent!important;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone; padding:0 .08em .06em 0!important}
+/* headings: one weight lighter, looser tracking, narrowed a touch so line breaks stay put */
+:is(h1,h2,h3,h4,.h2,.ln,.p1name,.own-big,.qword,.ac-name,.ac-no,.pz-yr,.pz-num,.kx-tk-h,.es-a,.sk-h,.a3-h2,.tf-pill.big,.kx-h,.kx-h2,.xf-name,#wipeWord,.tf-nm),
+:is(h1,h2,h3,h4,.h2,.ln,.p1name,.own-big,.qword,.ac-name,.es-a,.a3-h2,.tf-pill.big,.kx-h,.kx-h2,.xf-name) :is(span,b,strong):not(.x3-blk){
+  font-stretch:92%; font-optical-sizing:auto}
+:is(.h2,.ln,.p1name,.own-big,.qword,.ac-name,.ac-no,.pz-yr,.kx-tk-h,.es-a,.sk-h,.kx-h,.kx-h2,.xf-name,.tf-pill.big),
+:is(.h2,.ln,.p1name,.own-big,.qword,.ac-name,.es-a,.kx-h,.kx-h2,.xf-name) :is(span,b):not(.x3-blk){
+  font-weight:600!important; letter-spacing:-.022em!important}
+:is(h3,h4,.a3-h2,.a3-h2 span,.dk-c h3,.xf-note h4,.tf-nm){letter-spacing:-.022em!important}
+.pz-num,.pz-num span{font-weight:640!important; letter-spacing:-.045em!important}
+#wipeWord,#wipeWord span{font-weight:620!important; letter-spacing:-.035em!important}
+.cs-blk{letter-spacing:-.04em!important}
+/* v48 · one material kit for the machine and the tickets: pearl-beige body, chrome trims,
+   the same three tints (pink = Solo / chosen, blue = Team / idle icons, silver = Hire / chrome).
+   Shadows are a neutral grey-mauve instead of brown so both pieces sit in the same light. */
+.kx{--pl0:#fefdfb; --pl1:#f4f0ec; --pl2:#e5dfd8; --pl3:#cbc3bb; --pl4:#a49b93; --shd:62,58,70;
+  --pk0:#fdf0f5; --pk1:#f7c6d8; --pk2:#e98fb2; --pk3:#c95f8b;
+  --bl0:#f1f6fd; --bl1:#c9dbf2; --bl2:#8fb1e0; --bl3:#5a84c0;
+  --sv0:#fbfbfc; --sv1:#e6e9ee; --sv2:#c3c9d2; --sv3:#8d95a3}
+.kx-mach.kd{--iv0:var(--pl0); --iv1:var(--pl1); --iv2:var(--pl2); --iv3:var(--pl3); --iv4:var(--pl4);
+  box-shadow:inset 0 4px 2px -1px rgba(255,255,255,.95), inset 0 10px 18px -8px #fff,
+    inset 0 -18px 26px -10px rgba(var(--shd),.26), inset 24px 0 28px -18px rgba(var(--shd),.2), inset -24px 0 28px -18px rgba(var(--shd),.26),
+    0 2px 0 #fff, 0 3px 0 var(--pl3), 0 30px 46px -18px rgba(var(--shd),.42), 0 70px 80px -40px rgba(40,52,84,.38)}
+.kx-mc::before{background:linear-gradient(180deg,var(--sv0) 0%,var(--sv1) 30%,var(--sv2) 64%,var(--sv1) 84%,var(--sv3) 100%);
+  box-shadow:inset 0 2px 0 #fff, inset 0 -4px 6px rgba(var(--shd),.25), 0 22px 28px -10px rgba(var(--shd),.42)}
+.kd .kx-vent{background:repeating-linear-gradient(180deg,var(--pl3) 0 2px,var(--pl2) 2px 4px,#fff 4px 5px,rgba(0,0,0,0) 5px 9px); box-shadow:inset 0 1px 2px rgba(var(--shd),.25)}
+.kd .kx-disp{background:linear-gradient(180deg,var(--pl2),var(--pl1) 55%,var(--pl0)); box-shadow:inset 0 6px 10px rgba(var(--shd),.28), inset 0 -2px 0 #fff, 0 0 0 4px #fff, 0 0 0 7px var(--sv2), 0 0 0 8px var(--sv3), 0 8px 12px 6px rgba(var(--shd),.12)}
+.kd .kx-drum{background:linear-gradient(180deg,var(--pl4) 0%,var(--pl3) 8%,var(--pl1) 24%,#fff 44%,var(--pl0) 56%,var(--pl2) 76%,var(--pl3) 91%,var(--pl4) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45), inset 6px 0 10px -6px rgba(255,255,255,.8), inset -8px 0 12px -8px rgba(var(--shd),.3), 0 14px 16px -6px rgba(var(--shd),.4), 0 26px 22px -14px rgba(var(--shd),.26)}
+/* the chosen drum takes the Solo pink as a soft wash, like the pink ticket */
+.kd .kx-reel.on .kx-drum{background:linear-gradient(180deg,var(--pk3) 0%,var(--pk2) 8%,var(--pk1) 24%,#fff 44%,var(--pk0) 56%,var(--pk1) 78%,var(--pk2) 92%,var(--pk3) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.5), inset 6px 0 10px -6px rgba(255,255,255,.8), 0 0 0 3px #fff, 0 0 0 5px var(--pk2), 0 16px 22px -6px rgba(201,95,139,.38)}
+.kd .kx-axle{box-shadow:0 8px 10px -2px rgba(var(--shd),.36)}
+.kd .kx-reel::before,.kd .kx-reel::after{box-shadow:inset 3px 0 4px rgba(255,255,255,.7), inset -3px 0 4px rgba(60,60,80,.25), 0 10px 12px -4px rgba(var(--shd),.36)}
+.kd .kx-lever::before{box-shadow:0 10px 14px -6px rgba(var(--shd),.42)}
+/* knob: chrome collar, blue pearl cap (the Team blue), white label */
+.kd .kx-spin{background:radial-gradient(circle at 50% 50%,var(--sv2) 0 56%,var(--sv3) 57% 60%,#fff 61% 74%,var(--sv2) 75% 79%,var(--sv1) 80%);
+  box-shadow:inset 0 8px 12px -4px rgba(var(--shd),.4), inset 0 -3px 2px rgba(255,255,255,.9), 0 2px 0 #fff, 0 12px 18px -8px rgba(var(--shd),.42)}
+.kd .kx-spin span{color:#fff; text-shadow:0 1px 1px rgba(40,70,120,.55);
+  background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.14) 0 3deg,rgba(255,255,255,0) 3deg 7deg),radial-gradient(circle at 38% 30%,#fff 0 7%,var(--bl1) 24%,var(--bl2) 56%,var(--bl3) 100%);
+  box-shadow:inset 0 3px 2px rgba(255,255,255,.8), inset 0 -4px 6px rgba(30,60,110,.3),
+    0 2px 0 #7fa3d6, 0 4px 0 #6f95cc, 0 6px 0 #6288c2, 0 8px 0 #567cb6, 0 10px 0 #4b70a8, 0 18px 16px -2px rgba(var(--shd),.42)}
+.kd .kx-spin:active span{box-shadow:inset 0 3px 2px rgba(255,255,255,.8), inset 0 -4px 6px rgba(30,60,110,.3), 0 2px 0 #567cb6, 0 6px 8px rgba(var(--shd),.35)}
+.kx-match{background:linear-gradient(180deg,var(--pk2),var(--pk3))!important; box-shadow:0 4px 8px rgba(201,95,139,.3)!important}
+/* tickets: tinted pearl paper on the main part, the machine's pearl-beige on the stub */
+.kx-tab{--tk:linear-gradient(160deg,var(--pk0) 0%,var(--pk1) 52%,var(--pk2) 100%)}
+.kx-tab.t-team{--tk:linear-gradient(160deg,var(--bl0) 0%,var(--bl1) 52%,var(--bl2) 100%)}
+.kx-tab.t-role{--tk:linear-gradient(160deg,var(--sv0) 0%,var(--sv1) 52%,var(--sv2) 100%)}
+.kx-tab.on::after{background:var(--pk2)}
+.kx-case{background:linear-gradient(180deg,var(--sv0) 0%,var(--sv1) 30%,var(--sv2) 62%,var(--sv1) 82%,var(--sv3) 100%)}
+.kx-ticket{--tk:var(--pk0),var(--pk1) 48%,var(--pk2); --tk2:var(--pk3)}
+.kx-ticket.t-team{--tk:var(--bl0),var(--bl1) 48%,var(--bl2); --tk2:var(--bl3)}
+.kx-ticket.t-role{--tk:var(--sv0),var(--sv1) 48%,var(--sv2); --tk2:var(--sv3)}
+.kx-ticket::before{background:
+    linear-gradient(115deg,rgba(255,255,255,.7) 0 12%,rgba(255,255,255,0) 32%),
+    linear-gradient(90deg,rgba(0,0,0,0) 0 var(--px),var(--pl0) var(--px),var(--pl1) 70%,var(--pl2) 100%),
+    linear-gradient(135deg,var(--tk));
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.95), inset 0 -4px 8px -2px rgba(var(--shd),.18)}
+.kx-ticket{filter:drop-shadow(0 22px 22px rgba(var(--shd),.24)) drop-shadow(0 3px 3px rgba(var(--shd),.16))}
+.kx-ticket::after{border-left-color:rgba(var(--shd),.3)}
+.kx-tk-h{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+@media (max-width:760px){
+  .kx-ticket::before{background:linear-gradient(115deg,rgba(255,255,255,.7) 0 12%,rgba(255,255,255,0) 32%),
+    linear-gradient(180deg,rgba(0,0,0,0) 0 var(--py,64%),var(--pl0) var(--py,64%),var(--pl1) 100%),linear-gradient(135deg,var(--tk))}
+}
+/* Fraunces runs wider than the grotesk: accents a touch smaller so lines keep their length */
+.h2 em,.sc-ink .h2 em,.own-big em,.hw-head .own-big em,.kx-h em,.kx-h2 em,.a3-h2 em,.vo-say h2 em,.brk .say em,#structure .brk .say em,#deliver .h2 em,.c3-h1 em{font-size:.93em!important}
+.p1 h1.p1name,.p1 h1.p1name .ol{font-weight:600!important; letter-spacing:-.03em!important; font-stretch:92%}
+@media (max-width:760px){ .sk-c b{font-size:14.5px; letter-spacing:-.025em; white-space:nowrap} }
+/* every remaining heading accent gets the same soft gradient italic */
+:is(h1,h2,h3,.h2,.sk-h,.a3-h2,.xf-name .l2) em:not(.kx-match):not(.p1name em){
+  font-family:var(--f-serif)!important; font-style:italic!important; font-weight:400!important; font-variation-settings:"SOFT" 100,"WONK" 1;
+  background:var(--g-acc)!important; -webkit-background-clip:text!important; background-clip:text!important;
+  color:transparent!important; -webkit-text-fill-color:transparent!important; -webkit-box-decoration-break:clone; box-decoration-break:clone}

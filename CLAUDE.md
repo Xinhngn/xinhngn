@@ -82,6 +82,8 @@ Website portfolio của Xinh Nguyễn (Brand / Project Management). Ý tưởng:
 
 **v47b (góp ý Xinh: máy phải ra máy):** vỏ ngà gồ lên (sáng góc trên trái, mép tối ấm), đế dày phía sau (`.kx-mc::before`), khe gió + ô kính lõm, trống + nắp chrome có bóng đổ, núm QUAY nhô cao có thành bên. Bỏ dòng "Kênh bạn chọn" + tên kênh chữ lớn, tấm dưới chỉ còn số / địa chỉ (`.kd-num`) + nút. Nhãn GỢI Ý / MATCH nằm ở mép dưới trống (không chồng ô kính).
 
+**v48 (Xinh: chữ cứng nhắc, màu máy lệch với vé):** chữ toàn web đổi sang Bricolage Grotesque (tiêu đề, 600, hơi hẹp `font-stretch:92%`, tracking -.022em) + Fraunces nghiêng (SOFT 100, WONK 1) cho từ nhấn; từ nhấn tô gradient hồng → be → xanh (`--g-acc`), đã bỏ vạch highlighter `--g-hl`. Mực ấm hơn `--ink:#24222a`. Máy chọn kênh + vé dùng chung 1 bộ chất liệu (biến trên `.kx`: `--pl*` ngọc trai be, `--pk*` hồng = Solo / ô chọn, `--bl*` xanh = Team / icon / núm QUAY, `--sv*` bạc = Hire / chrome; bóng xám-mauve `--shd`): đế máy + túi vé bạc, cuống vé màu be như vỏ máy. Newsreader không còn tải. CSS khối v48 cuối `src/styles.css`.
+
 ## Công nghệ
 - Vite + TypeScript, không framework. Trang giới thiệu (landing), không có backend.
 - `index.html`: toàn bộ markup. `src/styles.css`: toàn bộ CSS. `src/main.ts`: toàn bộ logic, chuyển nguyên văn từ bản 1 file cũ nên đang để `// @ts-nocheck`. Khi sửa phần nào, tách dần phần đó ra module có kiểu.
