@@ -156,12 +156,12 @@ import { mountHead3D } from './head3d';
      out:{en:'One pitch grew into a longer-term relationship with multiple follow-on projects.', vi:'Từ một lần pitch, mối hợp tác kéo dài hơn và mở ra nhiều dự án tiếp theo.'},
      res:[{line:true, b:{en:'Multiple projects', vi:'Nhiều dự án'}, l:{en:'from one pitch', vi:'từ một lần pitch'}}, {empty:true, l:{en:'add a result', vi:'thêm kết quả'}}],
      imgs:['vib_ivy_kv.jpg','anh_trai_say_hi.jpg','bo_tu_bao_thu.jpg','cashless_day.jpg']},
-    {id:'cake', core:true, brand:'Cake', cats:['bank','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd3ec,#ff8fc6 60%,#ddd6ff)',
+    {id:'cake', core:true, brand:'Cake', cats:['bank','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd3ec,#ff8fc6 60%,#daebfb)',
      subs:['BY VPBANK','NEW BUSINESS'], meta:'DIGITAL BANK · NEW BUSINESS',
      title:{en:'Trust Opens New Doors', vi:'Niềm tin mở ra cánh cửa mới'},
      t:{en:'A relationship that opened the next door.', vi:'Một mối quan hệ mở ra cánh cửa mới.'},
      ask:{en:'Grow Gen Y without diluting a Gen Z identity.', vi:'Mở rộng Gen Y mà không làm loãng chất Gen Z.'},
-     me:{en:'A client from Digimi moved to Cake and invited me into the pitch. I reconnected and contributed to pitching.', vi:'Một client cũ ở Digimi chuyển sang Cake và mời tôi vào pitch. Tôi kết nối lại và góp sức vào quá trình pitching.'},
+     me:{en:'A client from Digimi moved to Cake and invited me into the pitch. I reconnected and contributed to pitching.', vi:'Một client cũ ở Digimi chuyển sang Cake và mời Xinh vào pitch. Xinh kết nối lại và góp sức vào quá trình pitching.'},
      team:{en:'Creative (Cake AI-land, comment-led play, WeChoice photo series, Gato mascot) was agency team work.', vi:'Sáng tạo (Cake AI-land, tương tác bình luận, bộ ảnh WeChoice, mascot Gato) là của team agency.'},
      out:{en:'The team won the social retainer.', vi:'Team giành được social retainer.'},
      res:[{line:true, b:{en:'Social retainer won', vi:'Giành social retainer'}, l:{en:'the relationship opened the door, the team won the pitch', vi:'quan hệ mở cửa, team thắng pitch'}}],
@@ -194,7 +194,7 @@ import { mountHead3D } from './head3d';
      t:{en:'A Tết plan from pitch to media.', vi:'Kế hoạch Tết từ pitch đến media.'},
      me:{en:'Communication plan, pitching, always-on, production, booking and media.', vi:'Kế hoạch truyền thông, pitching, always-on, production, booking và media.'},
      res:[{line:true, b:{en:'Pitch won', vi:'Thắng pitch'}, l:{en:'with the team', vi:'cùng team'}}], imgs:['duytan_tet_2025.jpg','duytan_02.jpg','duytan_03.jpg','duytan_04.jpg']},
-    {id:'cindy', brand:'Cindy Bloom', cats:['fmcg','pitch','launch'], size:'', grad:'linear-gradient(135deg,#ffd3ec,#ddd6ff)', small:true,
+    {id:'cindy', brand:'Cindy Bloom', cats:['fmcg','pitch','launch'], size:'', grad:'linear-gradient(135deg,#ffd3ec,#daebfb)', small:true,
      subs:['LAUNCH'], meta:'OTHER PROJECT · CONSUMER · LAUNCH CAMPAIGN',
      t:{en:'A launch from pitch to execution.', vi:'Một đợt ra mắt từ pitch đến triển khai.'},
      me:{en:'Pitch to execution, production and the social campaign.', vi:'Từ pitch đến triển khai, production và social campaign.'},
@@ -202,7 +202,7 @@ import { mountHead3D } from './head3d';
   ];
   /* Cover colours when there is no photo yet */
   var LOOK = {vib:['linear-gradient(100deg,#f4f5f8,#c9ccd6 40%,#8d92a2 52%,#e8eaf0 70%,#fff)','#0e0f14'], msb:['linear-gradient(170deg,#5d9de3,#9cc8f2 55%,#dcecf9)','#ffffff'], cake:['#f3eee6','#0e0f14'], poca:['#ff8fc0','#0e0f14'],
-              digimi:['linear-gradient(160deg,#d9d4f5,#f6d9e7)','#0e0f14'], duytan:['#ffd3e4','#0e0f14'], cindy:['linear-gradient(160deg,#cfe3f7,#ffd3e4)','#0e0f14']};
+              digimi:['linear-gradient(160deg,#d7e5f2,#f6d9e7)','#0e0f14'], duytan:['#ffd3e4','#0e0f14'], cindy:['linear-gradient(160deg,#cfe3f7,#ffd3e4)','#0e0f14']};
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {
@@ -267,7 +267,7 @@ import { mountHead3D } from './head3d';
           '<div class="ac-top"><p class="ac-no">' + no + '</p><p class="ac-sub">' + esc(c.subs.join(' · ')) + '<br>' + esc(c.meta.split(' · ').slice(0, 2).join(' · ')) + '</p></div>' +
           '<div class="ac-mid"><div class="ac-txt">' + (c.ask ? '<p><b>' + (vi ? 'Bài toán' : 'The ask') + '</b>' + esc(L(c.ask)) + '</p>' : '') + (c.role ? '<p><b>' + (vi ? 'Vai trò' : 'Role') + '</b>' + esc(L(c.role)) + '</p>' : '') + '</div>' +
             '<div class="ac-media"><p class="ac-t">' + both(c.t) + '</p><p class="ac-k"><i></i>' + esc(L(NOTE[id] || {en:'', vi:''})) + '</p>' +
-            '<button type="button" class="ac-open" data-case="' + id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗</button></div></div>' +
+            '<button type="button" class="ac-open" data-case="' + id + '">' + (vi ? 'Xem chi tiết' : 'Open case') + ' ↗︎</button></div></div>' +
           '<p class="ac-name" style="--fs:' + fs + 'cqi" aria-hidden="true">' + esc(nm) + '</p>' +
         '</div></article>';
     };
@@ -517,7 +517,7 @@ import { mountHead3D } from './head3d';
           '<span class="hc-face hc-front"><span class="hc-top"><span>' + (vi ? 'LEVEL · XANH' : 'LEVEL · XANH') + '</span><span>#0' + (i + 1) + '</span></span>' +
             '<span class="hc-pic">' + (IMAGES[PH[i]] ? '<img src="' + esc(IMAGES[PH[i]]) + '" alt="">' : '') + '</span>' +
             '<span class="hc-name">' + esc(r.short) + '</span><span class="hc-role">' + esc(r.w) + '</span>' +
-            '<span class="hc-row"><span>' + (vi ? 'XEM VAI TRÒ' : 'VIEW ROLE') + '</span><i>↗</i></span><span class="hc-holo" aria-hidden="true"></span></span>' +
+            '<span class="hc-row"><span>' + (vi ? 'XEM VAI TRÒ' : 'VIEW ROLE') + '</span><i>↗︎</i></span><span class="hc-holo" aria-hidden="true"></span></span>' +
           '<span class="hc-face hc-back"><span class="hc-top"><span>' + r.lane + '</span><span>' + r.y + '</span></span>' +
             '<span class="hc-t">' + esc(r.t) + '</span><span class="hc-d">' + esc(L(r.d)) + '</span>' +
             '<span class="hc-v">' + esc(L(r.v)).replace(/^(For you|Với bạn): (.)/, function(_, x, c){ return c.toUpperCase(); }) + '</span>' +
@@ -584,7 +584,7 @@ import { mountHead3D } from './head3d';
     if (!force && (r.bottom < -50 || r.top > vh + 50)) return;
     /* scroll → 0..4 with a rest on every card, so each one is read before it flies */
     var t = reduce ? 0 : clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-    var raw = clamp(t * 4.6, 0, 4), base = Math.min(3, Math.floor(raw)), f = raw - base;
+    var raw = clamp(t * 5.2, 0, 4), base = Math.min(3, Math.floor(raw)), f = raw - base;
     var target = raw >= 4 ? 4 : base + sm((f - 0.45) / 0.55);
     hwS += (target - hwS) * (reduce || force ? 1 : 0.15);
     if (Math.abs(target - hwS) < 0.001) hwS = target; else if (!hwAnim){ hwAnim = true; requestAnimationFrame(hwFrame); }
@@ -624,7 +624,7 @@ import { mountHead3D } from './head3d';
   }
   function grpName(col){ var vi = lang === 'vi'; return col.g === 'type' ? (vi ? 'Xinh chạy gì' : 'What I run') : (vi ? 'Xinh gánh tới đâu' : 'How far I take it'); }
   function proofChips(i){
-    return CASES.filter(function(c){ return (MX[c.id] || [])[i]; }).map(function(c){ return '<a class="chip" href="#case-' + c.id + '">' + esc(c.brand) + ' ↗</a>'; }).join('');
+    return CASES.filter(function(c){ return (MX[c.id] || [])[i]; }).map(function(c){ return '<a class="chip" href="#case-' + c.id + '">' + esc(c.brand) + ' ↗︎</a>'; }).join('');
   }
   function capCard(col, n){
     var i = colIdx(col.k), vi = lang === 'vi';
@@ -690,7 +690,7 @@ import { mountHead3D } from './head3d';
     pfA.style.transform = 'scale(' + sA.toFixed(3) + ')';
     pfA.style.opacity = (1 - clamp((k1 - 0.55) / 0.3, 0, 1)).toFixed(3);
     pfA.style.visibility = k1 >= 0.86 ? 'hidden' : '';
-    $$('.pz-cap,.pf-yr', pfA).forEach(function(el){ el.style.opacity = (1 - clamp(k1 / 0.3, 0, 1)).toFixed(3); });
+    $$('.pz-cap,.pz-yr,.pz-hd', pfA).forEach(function(el){ el.style.opacity = (1 - clamp(k1 / 0.3, 0, 1)).toFixed(3); });
     /* 2 · the wall: grows in behind the 0, drifts, then dives into the centre tile */
     var drift = clamp((pfZ - 0.34) / 0.22, 0, 1);
     var sB = k2 > 0 ? 1.04 * Math.pow(g.fill / 1.04, sm(k2) * 0.35 + k2 * k2 * 0.65) : (0.55 + 0.45 * sm(k1)) * (1 + drift * 0.04);
@@ -714,39 +714,19 @@ import { mountHead3D } from './head3d';
      up and land, then the page pulls back into an OS window). The promise is the strip that ties
      both tickets together. JS only feeds four smoothed phases: --a statement, --b tickets,
      --c promise, --d pull-back. */
-  var vx = $('#vx'), vxP = 0, vxAnim = false;
-  function vxFrame(){ vxAnim = false; drawValue(); }
-  function drawValue(force){
-    if (!vx || (curView !== 'story' && !force)) return;
-    if (reduce){ vx.classList.add('still'); ['--a','--b','--c','--d'].forEach(function(k){ vx.style.setProperty(k, k === '--d' ? 0 : 1); }); return; }
-    var r = vx.getBoundingClientRect(), vh = window.innerHeight;
-    if (!force && (r.bottom < -50 || r.top > vh + 50)) return;
-    var target = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-    vxP += (target - vxP) * (force ? 1 : 0.13);
-    if (Math.abs(target - vxP) < 0.0004) vxP = target; else if (!vxAnim){ vxAnim = true; requestAnimationFrame(vxFrame); }
-    var ph = function(a, b){ return sm((vxP - a) / (b - a)).toFixed(4); };
-    vx.style.setProperty('--a', ph(-0.02, 0.16));
-    vx.style.setProperty('--b', ph(0.16, 0.46));
-    vx.style.setProperty('--b2', ph(0.22, 0.52));
-    vx.style.setProperty('--c', ph(0.5, 0.7));
-    vx.style.setProperty('--d', ph(0.78, 0.96));
-  }
-  onScrollFrame(drawValue);
-  window.addEventListener('resize', function(){ drawValue(true); });
-  drawValue(true);
 
   /* One atmosphere for the whole story (ref: neutomni — colours change but always blend).
      The story sections are transparent; a fixed layer behind them mixes each section's palette
      into the next as the viewport centre crosses from one to the other. [base, glow left, glow right] */
   var ATMO = [
-    ['start',     ['#f3eee6', '#ffdcea', '#dfe9f6']],
-    ['brief',     ['#f4eef2', '#ffc8df', '#d9d1f5']],
-    ['clarify',   ['#f3eee6', '#ffe0ec', '#e8e2f4']],
-    ['structure', ['#f3eee6', '#ffd3e6', '#e3dcf5']],
-    ['align',     ['#ecebf0', '#f7d0e2', '#dde3f0']],
-    ['deliver',   ['#d6e6f7', '#9cc6f0', '#f7d4e5']],
-    ['value',     ['#eef0f8', '#ffd9e8', '#d6e3f6']],
-    ['finish',    ['#f6dde8', '#ffbfd8', '#cfc6f2']]
+    ['start',     ['#f4efe9', '#ffd9e6', '#d9e6f5']],
+    ['brief',     ['#f2eee9', '#ffdbe7', '#d6e4f5']],
+    ['clarify',   ['#f4efe8', '#f7e1e6', '#e3eaf3']],
+    ['structure', ['#efeef0', '#ffdfe9', '#dce7f4']],
+    ['align',     ['#ebecef', '#f6e2ea', '#d7e3f3']],
+    ['deliver',   ['#d9e7f6', '#a9cdef', '#e6eef5']],
+    ['value',     ['#eeeff3', '#ffdde8', '#d3e2f5']],
+    ['finish',    ['#f3ece8', '#ffd6e4', '#d0e0f3']]
   ].map(function(a){ return {el: document.getElementById(a[0]), c: a[1].map(function(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; })}; }).filter(function(a){ return a.el; });
   var atmoKey = '';
   function mixC(a, b, k){ return 'rgb(' + [0,1,2].map(function(i){ return Math.round(a[i] + (b[i] - a[i]) * k); }).join(',') + ')'; }
@@ -755,9 +735,13 @@ import { mountHead3D } from './head3d';
     if (curView !== 'story' || !ATMO.length) return;
     var yc = window.innerHeight / 2, i = 0, f = 0;
     for (var j = 0; j < ATMO.length; j++){ var r = ATMO[j].el.getBoundingClientRect(); if (r.top <= yc){ i = j; f = clamp((yc - r.top) / Math.max(1, r.height), 0, 1); } }
-    var a = ATMO[i].c, b = a, k = 0;
-    if (f > 0.75 && ATMO[i + 1]){ b = ATMO[i + 1].c; k = sm((f - 0.75) / 0.25) * 0.5; }
-    else if (f < 0.25 && ATMO[i - 1]){ b = ATMO[i - 1].c; k = sm((0.25 - f) / 0.25) * 0.5; }
+    /* v30: blend only while a section edge crosses the middle band of the screen (±22% of the
+       viewport), not over the last quarter of a section: on the long pinned scenes that quarter was
+       more than a full screen, so the colour changed well before the next section arrived. */
+    var a = ATMO[i].c, b = a, k = 0, band = window.innerHeight * 0.22, rb = ATMO[i].el.getBoundingClientRect();
+    var dn = rb.bottom - yc, up = yc - rb.top;
+    if (ATMO[i + 1] && dn < band){ b = ATMO[i + 1].c; k = sm((band - dn) / (2 * band)) ; }
+    else if (ATMO[i - 1] && up < band){ b = ATMO[i - 1].c; k = sm((band - up) / (2 * band)); }
     var v = [0,1,2].map(function(n){ return mixC(a[n], b[n], k); }), key = v.join();
     if (key === atmoKey) return; atmoKey = key;
     /* set on #atmo itself: a custom property on <html> would restyle the whole document on every scroll */
@@ -827,19 +811,26 @@ import { mountHead3D } from './head3d';
   function methodsHTML(){
     return methodList().map(function(m){
       if (!m.v) return EDIT ? '<div class="mth off" style="--c:' + m.c + '"><span class="ico2"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><div><b>' + esc(L(m.t)) + '</b><span>' + (lang === 'vi' ? 'cần bổ sung' : 'missing') + '</span></div></div>' : '';
-      var open = m.href ? '<a href="' + esc(m.href) + '" target="_blank" rel="noopener" data-m="' + m.k + '">' + (m.k === 'call' ? (lang === 'vi' ? 'GỌI' : 'CALL') : m.k === 'email' ? (lang === 'vi' ? 'VIẾT THƯ' : 'WRITE') : (lang === 'vi' ? 'MỞ' : 'OPEN')) + ' ↗</a>' : '';
+      var open = m.href ? '<a href="' + esc(m.href) + '" target="_blank" rel="noopener" data-m="' + m.k + '">' + (m.k === 'call' ? (lang === 'vi' ? 'GỌI' : 'CALL') : m.k === 'email' ? (lang === 'vi' ? 'VIẾT THƯ' : 'WRITE') : (lang === 'vi' ? 'MỞ' : 'OPEN')) + ' ↗︎</a>' : '';
       var cp = m.copy ? '<button type="button" data-copy="' + esc(m.copy) + '" data-m="' + m.k + '">' + (lang === 'vi' ? 'SAO CHÉP' : 'COPY') + '</button>' : '';
       return '<div class="mth" style="--c:' + m.c + '"><span class="ico2"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><div><b>' + esc(L(m.t)) + '</b><span>' + esc(m.v) + '</span></div><div class="go2">' + open + cp + '</div></div>';
     }).join('');
   }
   /* Contact page (v27): every channel as one wide row, the action on the right; hover fills it pink */
   function c3RowsHTML(){
-    var vi = lang === 'vi';
-    return methodList().filter(function(m){ return m.v; }).map(function(m, i){
+    var vi = lang === 'vi', ms = methodList().filter(function(m){ return m.v; });
+    function go(m, verb){ return '<a class="c3-go" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span>' + verb + '</span><i aria-hidden="true">↗︎</i></a>'; }
+    /* v29: Zalo on the same number as the phone is one row, not two (the number was shown twice). */
+    var call = ms.filter(function(m){ return m.k === 'call'; })[0], zalo = ms.filter(function(m){ return m.k === 'zalo'; })[0];
+    var same = call && zalo && call.copy === zalo.copy;
+    if (same) ms = ms.filter(function(m){ return m !== zalo; });
+    return ms.map(function(m, i){
       var verb = m.k === 'call' ? (vi ? 'Gọi' : 'Call') : m.k === 'email' ? (vi ? 'Viết thư' : 'Write') : (vi ? 'Mở' : 'Open');
-      var open = m.href ? '<a class="c3-go" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span>' + verb + '</span><i aria-hidden="true">↗</i></a>' : '';
-      var cp = m.copy ? '<button class="c3-cp" type="button" data-copy="' + esc(m.copy) + '" data-m="' + m.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '';
-      return '<div class="c3-row" style="--j:' + i + '"><span class="c3-row-n">0' + (i + 1) + '</span><span class="c3-row-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.v) + '</small><span class="c3-row-a">' + cp + open + '</span></div>';
+      var t = L(m.t); if (same && m.k === 'call') t = vi ? 'Gọi / Zalo' : 'Call / Zalo';
+      var open = m.href ? go(m, verb) : '';
+      if (same && m.k === 'call' && zalo.href) open += go(zalo, 'Zalo');
+      var cp = m.copy ? '<button class="c3-cp" type="button" data-copy="' + esc(m.copy) + '" data-m="' + m.k + '" aria-label="' + (vi ? 'Chép ' : 'Copy ') + esc(m.v) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>' + (vi ? 'Chép' : 'Copy') + '</span></button>' : '';
+      return '<div class="c3-row" style="--j:' + i + '"><span class="c3-row-n">0' + (i + 1) + '</span><span class="c3-row-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(t) + '</b><small>' + esc(m.v) + '</small><span class="c3-row-a">' + cp + open + '</span></div>';
     }).join('');
   }
   var WHO = [
@@ -854,26 +845,98 @@ import { mountHead3D } from './head3d';
   function renderContact(){
     var s = hcmStatus();
     ['#ctStatus', '#cnStatus'].forEach(function(id){ var el = $(id); if (!el) return; el.className = 'status' + (s.on ? '' : ' off'); el.innerHTML = statusHTML(); });
-    $('#methods').innerHTML = c3RowsHTML();
+    cxRender();
     $('#cnMethods').innerHTML = methodsHTML();
-    var ms = methodList(), z = ms[1], c = ms[0];
-    var acts = [];
-    if (z.v) acts.push('<a class="btn lime" href="' + esc(z.href) + '" target="_blank" rel="noopener" data-m="zalo">Zalo ↗</a>');
-    if (c.v) acts.push('<a class="btn hot" href="' + esc(c.href) + '" data-m="call">' + (lang === 'vi' ? 'Gọi ngay' : 'Call now') + '</a>');
-    if (acts.length < 2) acts.push('<a class="btn lime" href="mailto:' + esc(CONTACT.email) + '" data-m="email">' + (lang === 'vi' ? 'Viết email' : 'Write an email') + ' ↗</a>');
-    if (acts.length < 2) acts.push('<button class="btn hot" type="button" data-copy="' + esc(CONTACT.email) + '" data-m="email">' + (lang === 'vi' ? 'Chép email' : 'Copy email') + '</button>');
-    if (CV_URL) acts.push('<a class="btn cv" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (lang === 'vi' ? 'Xem CV' : 'View CV') + ' ↗</a>');
-    $('#bigActs').innerHTML = acts.join('');
-    var cvBtn = CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">CV ↗</a>' : '';
+    var ms = methodList(), c = ms[0];
+    var cvBtn = CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">CV ↗︎</a>' : '';
     $('#goalCv').innerHTML = cvBtn;
-    $('#whoOpts').innerHTML = WHO.map(function(w, i){ return '<button class="c3-opt" type="button" data-who="' + i + '" aria-pressed="' + (i === whoIdx ? 'true' : 'false') + '">' + esc(L(w.t)) + '</button>'; }).join('');
-    var w = WHO[whoIdx], vi = lang === 'vi';
-    $('#tpl').innerHTML = '<p class="c3-chat-k"><i></i><span>' + (vi ? 'Tin nhắn đầu tiên' : 'First message') + '</span><span>' + esc(L(w.t)) + '</span></p>' +
-      '<p class="c3-bub" data-k="' + whoIdx + '">' + esc(L(w.msg)).replace(/___/g, '<u>___</u>') + '</p>' +
-      '<p class="c3-bub me"><span class="c3-typing" aria-hidden="true"><i></i><i></i><i></i></span><span class="c3-rec">' + esc(L(w.rec)) + '</span></p>' +
-      '<button class="btn hot c3-copy" type="button" data-copy="' + esc(L(w.msg)) + '" data-m="template">' + (vi ? 'Sao chép tin nhắn' : 'Copy this message') + '</button>';
-    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.v) + '</small><i aria-hidden="true">↗</i></a>'; }).join('');
+    $$('[data-cv]').forEach(function(a){ if (CV_URL) a.href = CV_URL; else a.hidden = true; });
+    $('#goalMethods').innerHTML = ms.filter(function(m){ return m.v && m.href; }).map(function(m){ return '<a class="ch" href="' + esc(m.href) + '"' + (m.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + m.k + '"><span class="ch-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#' + m.ic + '"/></svg></span><b>' + esc(L(m.t)) + '</b><small>' + esc(m.k === 'zalo' && m.copy === c.copy ? (lang === 'vi' ? 'Cùng số điện thoại' : 'Same number') : m.v) + '</small><i aria-hidden="true">↗︎</i></a>'; }).join('');
   }
+  /* v42 · Contact in three screens (Xinh's refs: a slot machine, a gift guide, a door hanger):
+     01 pick one of three channels on a three-reel machine → 02 unbox the three ways of working →
+     03 pack it up: the order rides home on a door hanger, sent on the channel picked in 01 */
+  var CX = {ch:'phone', way:'solo', chSet:false, waySet:false, done:false};
+  var CX_WAYS = {
+    solo:{n:'SOLO', t:{en:'One person, the whole project.', vi:'Một người, trọn dự án.'},
+      fit:{en:'One point of contact, start to finish.', vi:'1 đầu mối từ đầu đến cuối.'},
+      parts:[{en:'Brief & goal', vi:'Brief & mục tiêu'}, {en:'Plan', vi:'Kế hoạch'}, {en:'Execution', vi:'Triển khai'}, {en:'Sign-off & report', vi:'Nghiệm thu & báo cáo'}]},
+    team:{n:'TEAM', t:{en:'A quality crew, built per project.', vi:'Một đội chất lượng, lắp theo dự án.'},
+      fit:{en:'When the job needs more hands than one.', vi:'Khi việc cần nhiều tay hơn một người.'},
+      parts:[{en:'The right partners', vi:'Đúng đối tác'}, {en:'Xinh runs the crew', vi:'Xinh điều phối đội'}, {en:'One contact for you', vi:'1 đầu mối cho bạn'}, {en:'Xinh is accountable', vi:'Xinh chịu trách nhiệm'}]},
+    role:{n:'HIRE', t:{en:'A project lead on your team.', vi:'Một project lead trong team bạn.'},
+      fit:{en:'Banking & fintech first.', vi:'Ưu tiên ngân hàng & fintech.'},
+      parts:[{en:'Marketing Project Manager', vi:'Marketing Project Manager'}, {en:'Marketing Communications', vi:'Marketing Communications'}, {en:'Campaign Management', vi:'Campaign Management'}, {en:'HCMC or remote', vi:'TP.HCM hoặc từ xa'}]}
+  };
+  function kxChannels(){
+    var by = {}; methodList().forEach(function(m){ if (m.v && m.href) by[m.k] = m; });
+    var out = [], call = by.call, zalo = by.zalo;
+    if (call || zalo) out.push({k:'phone', ic:'i-chat', n:{en:'Zalo · Call', vi:'Zalo · Gọi'}, v:(call || zalo).v, why:{en:'Quickest reply', vi:'Nhanh nhất'}, copy:(call || zalo).copy,
+      acts:[zalo ? {t:'Zalo', href:zalo.href, m:'zalo'} : null, call ? {t:{en:'Call', vi:'Gọi'}, href:call.href, m:'call'} : null].filter(Boolean), send:zalo || call});
+    if (by.email) out.push({k:'email', ic:'i-mail', n:{en:'Gmail', vi:'Gmail'}, v:by.email.v, why:{en:'Briefs & files', vi:'Brief, tài liệu'}, copy:by.email.copy, acts:[{t:{en:'Write', vi:'Viết thư'}, href:by.email.href, m:'email'}], send:by.email});
+    if (by.linkedin) out.push({k:'linkedin', ic:'i-case', n:{en:'LinkedIn', vi:'LinkedIn'}, v:by.linkedin.v, why:{en:'Roles & hiring', vi:'Tuyển dụng'}, acts:[{t:{en:'Open', vi:'Mở'}, href:by.linkedin.href, m:'linkedin'}], send:by.linkedin});
+    return out;
+  }
+  var KX_ICON = {
+    phone:'<i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><path class="pf" d="M19 6c3 0 5 2 6 5l3 8c1 3 0 6-2 8l-4 3c3 7 9 13 16 16l3-4c2-2 5-3 8-2l8 3c3 1 5 3 5 6v6c0 5-4 9-9 9C28 64 0 36 0 15 0 10 4 6 9 6z" transform="translate(3 -3) scale(.92)"/><ellipse class="hl" cx="15" cy="12" rx="6" ry="3" transform="rotate(-30 15 12)"/></svg></i>',
+    email:'<i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="pf" x="4" y="12" width="56" height="40" rx="11"/><path d="M10 20l22 16 22-16" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><ellipse class="hl" cx="17" cy="17" rx="8" ry="2.6"/></svg></i>',
+    linkedin:'<i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="pf" x="6" y="6" width="52" height="52" rx="15"/><text x="32" y="45" text-anchor="middle" font-family="Inter Tight, Arial" font-weight="900" font-size="30" fill="#fff">in</text><ellipse class="hl" cx="20" cy="13" rx="9" ry="3"/></svg></i>'
+  };
+  function kxA(a, cls){ return '<a class="' + cls + '" href="' + esc(a.href) + '"' + (a.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + a.m + '">' + esc(L(a.t)) + ' ↗︎</a>'; }
+  function cxRender(){
+    var vi = lang === 'vi', chs = kxChannels();
+    if (!chs.some(function(c){ return c.k === CX.ch; }) && chs[0]) CX.ch = chs[0].k;
+    var ch = chs.filter(function(c){ return c.k === CX.ch; })[0], w = CX_WAYS[CX.way];
+    var mc = $('#kxMc');
+    if (mc && ch){
+      mc.innerHTML = '<div class="kx-mach kd">' +
+        '<div class="kx-top"><i class="kx-vent" aria-hidden="true"></i><p class="kx-disp"><b>XINH.OS</b><span>MATCH MACHINE</span></p><i class="kx-vent" aria-hidden="true"></i></div>' +
+        '<div class="kx-reels"><i class="kx-axle" aria-hidden="true"></i>' + chs.map(function(c, i){ var on = c.k === CX.ch;
+          return '<button class="kx-reel' + (on ? ' on' : '') + '" type="button" data-kxch="' + c.k + '" aria-pressed="' + (on && CX.chSet ? 'true' : 'false') + '" style="--j:' + i + '"><span class="kx-drum"><span class="kx-face">' + KX_ICON[c.k] + '<b>' + esc(L(c.n)) + '</b><small>' + esc(L(c.why)) + '</small></span></span>' +
+            (on ? '<em class="kx-match">' + (CX.chSet ? 'MATCH' : (vi ? 'GỢI Ý' : 'TIP')) + '</em>' : '') + '</button>'; }).join('') + '</div>' +
+        '<div class="kx-deck"><div class="kx-sel"><p><span class="kd-num">' + esc(ch.v) + '</span></p>' +
+          '<span class="kx-pa">' + ch.acts.map(function(a){ return kxA(a, 'kx-btn'); }).join('') + (ch.copy ? '<button class="kx-btn ghost" type="button" data-copy="' + esc(ch.copy) + '" data-m="' + ch.k + '">' + (vi ? 'Chép' : 'Copy') + '</button>' : '') + '</span></div>' +
+          '<button class="kx-spin" type="button" data-kxspin><span>' + (vi ? 'QUAY' : 'SPIN') + '</span></button></div>' +
+        '<span class="kx-lever" aria-hidden="true"><i></i></span></div>';
+    }
+    var gift = $('#kxGift'), ks = ['solo', 'team', 'role'], n = ks.indexOf(CX.way) + 1;
+    if (gift && ch){
+      var extra = CX.way === 'role' && CV_URL ? '<a class="kx-btn ghost" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗︎</a>' : '';
+      var tabs = ks.map(function(k, i){ var x = CX_WAYS[k], on = k === CX.way;
+        return '<button class="kx-tab t-' + k + (on ? ' on' : '') + '" type="button" data-kxway="' + k + '" aria-pressed="' + (on ? 'true' : 'false') + '" style="--j:' + i + '"><span class="kx-tab-n">0' + (i + 1) + '</span><b>' + x.n + '</b></button>'; }).join('');
+      gift.innerHTML = '<div class="kx-holder"><div class="kx-tabs">' + tabs + '</div><div class="kx-case" aria-hidden="true"><b>XINH.OS</b><span>' + (vi ? 'Kệ vé · 3 cách hợp tác' : 'Ticket rack · 3 ways to work') + '</span></div></div>' +
+        '<article class="kx-ticket t-' + CX.way + '" aria-live="polite">' +
+          '<div class="kx-tk-main"><p class="kx-tk-top"><span>ADMIT ONE · XINH.OS</span><span>No. 0' + n + ' / 03</span></p>' +
+          '<h4 class="kx-tk-h">' + w.n + '</h4><p class="kx-tk-t">' + esc(L(w.t)) + '</p>' +
+          '<ul class="kx-tk-l">' + w.parts.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ul></div>' +
+          '<div class="kx-tk-stub"><dl><div><dt>' + (vi ? 'Đầu mối' : 'Contact') + '</dt><dd>Xinh</dd></div></dl>' +
+          '<p class="kx-tk-a"><a class="btn hot" href="#" data-kxsend></a>' + extra + '</p></div>' +
+        '</article>';
+    }
+    var go = $('#cxGo');
+    if (go && ch){
+      var href = ch.send.href;
+      if (ch.k === 'email') href += '?subject=' + encodeURIComponent('XINH.OS · ' + w.n);
+      go.href = href; if (href.indexOf('http') === 0){ go.target = '_blank'; go.rel = 'noopener'; } else go.removeAttribute('target');
+      go.dataset.m = ch.send.k;
+      go.innerHTML = (vi ? 'Gửi qua ' : 'Send on ') + esc(L(ch.n).split(' · ')[0]) + ' →';
+    }
+    $$('[data-kxsend]').forEach(function(snd){ if (!go) return; snd.href = go.href; if (go.target){ snd.target = go.target; snd.rel = 'noopener'; } else snd.removeAttribute('target'); snd.dataset.m = go.dataset.m; snd.innerHTML = go.innerHTML; });
+  }
+  var kxSpin = 0;
+  document.addEventListener('click', function(e){
+    var c = e.target.closest('[data-kxch]'); if (c){ CX.ch = c.dataset.kxch; CX.chSet = true; cxRender(); track('cart', 'ch:' + CX.ch); return; }
+    if (e.target.closest('[data-kxspin]')){
+      var r = $('.kx-reels'); if (!r || kxSpin) return;
+      if (reduce){ CX.chSet = true; CX.ch = 'phone'; cxRender(); return; }
+      r.classList.add('spin'); var lv = $('.kx-lever'); if (lv) lv.classList.add('pull');
+      kxSpin = setTimeout(function(){ kxSpin = 0; CX.ch = 'phone'; CX.chSet = true; cxRender(); var nr = $('.kx-reels'); if (nr){ nr.classList.add('land'); setTimeout(function(){ nr.classList.remove('land'); }, 700); } }, 1100);
+      track('cart', 'spin'); return;
+    }
+    var w = e.target.closest('[data-kxway]'); if (w){ if (CX.way !== w.dataset.kxway) CX.waySet = false; CX.way = w.dataset.kxway; cxRender(); return; }
+    if (e.target.closest('[data-kxsend]')){ track('cart', 'send:' + CX.ch + ':' + CX.way); }
+  });
+  document.addEventListener('click', function(e){ var t = e.target.closest('[data-c4]'); if (!t) return; var g = $('.c4-g'); if (g) g.dataset.on = t.dataset.c4; $$('[data-c4]').forEach(function(b){ b.setAttribute('aria-selected', b === t ? 'true' : 'false'); }); });
   document.addEventListener('click', function(e){
     var w = e.target.closest('[data-who]'); if (w){ whoIdx = +w.dataset.who; renderContact(); track('who', WHO[whoIdx].k); return; }
     var cp = e.target.closest('[data-copy]');
@@ -959,6 +1022,8 @@ import { mountHead3D } from './head3d';
     /* v15g: Quick view folded into Profile, Skills is a section of Profile */
     if (h === 'desk') return {view:'profile'};
     if (h === 'skills') return {view:'profile', anchor:'pfSkills'};
+    // the owner console only exists inside the claude.ai runtime; on the public site it is not a page
+    if (h === 'report' && !runtimeHere) return {view:'story'};
     if (VIEWS.indexOf(h) > -1) return {view:h};
     return {view:'story', anchor:h};
   }
@@ -999,7 +1064,7 @@ import { mountHead3D } from './head3d';
       document.body.classList.remove('vt-out'); void document.body.offsetWidth; document.body.classList.add('vt-in');
       wipeEl.className = 'out';
       setTimeout(function(){ wipeEl.className = ''; }, 700);
-      setTimeout(function(){ document.body.classList.remove('vt-in'); }, 1100);
+      setTimeout(function(){ document.body.classList.remove('vt-in'); if (typeof rebuild === 'function') rebuild(); }, 1100);
     }, 520);
   }
   /* each part of About and Contact reveals as it comes on screen, and again on every visit */
@@ -1018,7 +1083,7 @@ import { mountHead3D } from './head3d';
      "searching", scroll ticks the five starting points one at a time, and once all five are
      ticked the top hit resolves to Xinh, with her answer. Tapping a row ticks it. */
   var tzCount = $('#tzCount'), tz = $('#brief'), bfAskT = $('#bfAskT'), bfRows = $$('#brief .sp-row');
-  var BF_Q = {en:'A goal. A budget. But where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
+  var BF_Q = {en:'You have the goal and the budget. Where do you start?', vi:'Có mục tiêu. Có ngân sách. Nhưng bắt đầu từ đâu?'};
   var bfFix = [0,0,0,0,0], bfOk = [0,0,0,0,0], briefAnim = false, lastT = -1, tangleVis = true, bfTxt = '';
   var bfTypeAt = 0, bfListAt = 0, bfTickAt = 0;
   bfRows.forEach(function(el){ el.addEventListener('click', function(){ bfFix[+el.dataset.r] = 1; schedule(); }); });
@@ -1054,8 +1119,8 @@ import { mountHead3D } from './head3d';
     tz.classList.toggle('listed', !!listed); tz.classList.toggle('clear', cl);
     var key = lang + open + cl;
     if (tzCount.dataset.k !== key){ tzCount.dataset.k = key; var vi = lang === 'vi';
-      tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All untangled! · <b>plan locked</b>')
-        : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'open question' : 'open questions')); }
+      tzCount.innerHTML = cl ? (vi ? 'Gỡ xong hết! · <b>kế hoạch đã chốt</b>' : 'All sorted · <b>plan locked</b>')
+        : '<b>' + open + '</b> ' + (vi ? 'câu hỏi chưa có lời giải' : (open === 1 ? 'question still open' : 'questions still open')); }
   }
 
   var pin = $('#pin'), pinView = $('#pinView'), trackEl = $('#track');
@@ -1099,7 +1164,14 @@ import { mountHead3D } from './head3d';
     svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     var els = $$('#v-story [data-node]').filter(function(el){ return !(pinned && el.closest('.track')) && el.getClientRects().length > 0; });
     var sx = window.scrollX, sy = window.scrollY;
-    var pts = els.map(function(el){ var r = el.getBoundingClientRect(); return {x:r.left + r.width/2 + sx, y:r.top + r.height/2 + sy, el:el}; });
+    /* v30: every node sits on one rail in the left gutter, so the thread runs straight down the margin
+       and never cuts across text or cards (it used to swing between centre and rail nodes). */
+    els.forEach(function(el){ el.style.translate = ''; });
+    var p1w = $('#start .wrap'), cl = p1w ? p1w.getBoundingClientRect().left + parseFloat(getComputedStyle(p1w).paddingLeft || 0) : 40;
+    var railX = W <= 760 ? 9 : Math.max(18, cl - 34);
+    var pts = els.map(function(el){ var r = el.getBoundingClientRect(), cx = r.left + r.width/2;
+      el.style.translate = (railX - cx).toFixed(1) + 'px 0';
+      return {x:railX + sx, y:r.top + r.height/2 + sy, el:el}; });
     if (pts.length < 2) return;
     var d = 'M' + pts[0].x.toFixed(1) + ',' + pts[0].y.toFixed(1);
     for (var i = 1; i < pts.length; i++){
@@ -1109,7 +1181,7 @@ import { mountHead3D } from './head3d';
     [base, under, live, shine].forEach(function(p){ p.setAttribute('d', d); });
     total = live.getTotalLength();
     samples = [];
-    for (var l = 0; l < total; l += 6){ var p = live.getPointAtLength(l); samples.push([l, p.x, p.y]); }
+    for (var l = 0, stp = finePointer ? 6 : 16; l < total; l += stp){ var p = live.getPointAtLength(l); samples.push([l, p.x, p.y]); }
     var pe = live.getPointAtLength(total); samples.push([total, pe.x, pe.y]);
     var si = 0;
     nodes = pts.map(function(p){
@@ -1175,8 +1247,17 @@ import { mountHead3D } from './head3d';
   window.addEventListener('scroll', schedule, {passive:true});
   var rt = 0;
   function rebuild(){ clearTimeout(rt); rt = setTimeout(build, 140); }
-  window.addEventListener('resize', rebuild);
-  if ('ResizeObserver' in window){ new ResizeObserver(rebuild).observe($('main')); }
+  /* phones fire resize whenever the address bar shows or hides, and main changes height as images and
+     reveals land: rebuilding the thread each time (it samples the whole path) froze phones while scrolling.
+     Rebuild only when the width or the page height really changed. */
+  var lastW = 0, lastH = 0;
+  function rebuildIfChanged(){
+    var w = window.innerWidth, h = $('main').scrollHeight;
+    if (w === lastW && Math.abs(h - lastH) < 24) return;
+    lastW = w; lastH = h; rebuild();
+  }
+  window.addEventListener('resize', rebuildIfChanged);
+  if ('ResizeObserver' in window){ new ResizeObserver(rebuildIfChanged).observe($('main')); }
   if (document.fonts && document.fonts.ready){ document.fonts.ready.then(rebuild); }
   window.addEventListener('load', rebuild);
 
@@ -1451,8 +1532,11 @@ import { mountHead3D } from './head3d';
     var f = curView === 'story' ? $('#finish') : null;
     if (f) f.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); else window.scrollTo({top:root.scrollHeight, behavior: reduce ? 'auto' : 'smooth'});
   });
+  var dockEl = goTop.parentNode, dockT = 0;
   window.addEventListener('scroll', function(){
     dockUpdate();
+    /* phones: the top / end buttons show while you scroll, then step aside so they never sit on a button */
+    dockEl.classList.add('live'); clearTimeout(dockT); dockT = setTimeout(function(){ dockEl.classList.remove('live'); }, 2400);
     if (toastEl.classList.contains('show') && window.scrollY > window.innerHeight * 1.2 && !toastEl.dataset.keep) hideToast();
     clearTimeout(posT);
     posT = setTimeout(function(){ if (curView === 'story' && stage > 0){ try{ localStorage.setItem('xinhos-pos', JSON.stringify({s:stage, t:Date.now()})); }catch(e){} } }, 700);
@@ -1518,9 +1602,53 @@ import { mountHead3D } from './head3d';
   function renderSquad(){
     var vi = lang === 'vi', sq = SQUAD[sqIdx];
     $('#squadOpts').innerHTML = SQUAD.map(function(x, i){ return '<button class="chip" type="button" data-sq="' + i + '" aria-pressed="' + (i === sqIdx ? 'true' : 'false') + '">' + esc(L(x.t)) + '</button>'; }).join('');
-    $('#crew').innerHTML = '<span class="lead">Xinh · ' + (vi ? 'chịu trách nhiệm' : 'accountable lead') + '</span>' + sq.crew.map(function(c, i){ return '<span style="animation-delay:' + (i * 60) + 'ms">+ ' + esc(L(c)) + '</span>'; }).join('');
+    $('#crew').innerHTML = '<span class="lead"><b>Xinh</b>' + (vi ? 'Chịu trách nhiệm, 1 đầu mối' : 'Accountable lead, one contact') + '</span>' + sq.crew.map(function(c, i){ return '<span style="animation-delay:' + (i * 60) + 'ms"><i>+</i>' + esc(L(c)) + '</span>'; }).join('');
   }
   document.addEventListener('click', function(e){ var b = e.target.closest('[data-sq]'); if (b){ sqIdx = +b.dataset.sq; renderSquad(); track('squad', SQUAD[sqIdx].k); } });
+
+  /* LV.5 · "what-you-get.app": two panes, one picked (ref: a translate box + a right-click menu).
+     The select on each pane opens a small menu; the swap button flips the pick. On first view a
+     cursor shows the move once: it clicks swap, then picks a sample crew. */
+  var vo = $('#vo');
+  function voPick(k){
+    if (!vo) return; vo.dataset.pick = k;
+    $$('.vo-p', vo).forEach(function(p){ var on = p.dataset.k === k; p.classList.toggle('on', on); p.setAttribute('aria-current', on ? 'true' : 'false'); });
+    $$('[data-vochoose]', vo).forEach(function(b){ b.setAttribute('aria-checked', b.dataset.vochoose === k ? 'true' : 'false'); });
+  }
+  function voMenus(open){ $$('.vo-sw', vo || document).forEach(function(w){ var m = $('.vo-menu', w), on = w === open; if (m) m.hidden = !on; $('.vo-sel', w).setAttribute('aria-expanded', on ? 'true' : 'false'); }); }
+  if (vo){
+    voPick('solo');
+    vo.addEventListener('click', function(e){
+      var t = e.target;
+      if (t.closest('.vo-sel')){ var w = t.closest('.vo-sw'), m = $('.vo-menu', w); voMenus(m.hidden ? w : null); return; }
+      var ch = t.closest('[data-vochoose]'); if (ch){ voPick(ch.dataset.vochoose); voMenus(null); track('vo', ch.dataset.vochoose); return; }
+      if (t.closest('[data-voswap]')){ voPick(vo.dataset.pick === 'solo' ? 'squad' : 'solo'); voMenus(null); return; }
+      if (t.closest('[data-connect]')) voMenus(null);
+      var p = t.closest('.vo-p'); if (p && !t.closest('button,a')){ voPick(p.dataset.k); voMenus(null); }
+    });
+    document.addEventListener('click', function(e){ if (!e.target.closest('.vo-sw')) voMenus(null); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') voMenus(null); });
+    var voDemo = function(){
+      var win = $('.vo-win', vo), cur = $('.vo-cur', vo), sw = $('[data-voswap]', vo);
+      if (!win || !cur || !sw) return;
+      var at = function(el, dx, dy){ var a = win.getBoundingClientRect(), b = el.getBoundingClientRect(); cur.style.translate = Math.round(b.left - a.left + b.width * dx) + 'px ' + Math.round(b.top - a.top + b.height * dy) + 'px'; };
+      var stop = false; vo.addEventListener('pointerdown', function(){ stop = true; cur.classList.remove('in'); }, {once:true});
+      var steps = [
+        [0, function(){ at(win, .5, 1.05); cur.classList.add('in'); }],
+        [700, function(){ at(sw, .55, .6); }],
+        [1500, function(){ cur.classList.add('tap'); voPick('squad'); }],
+        [1800, function(){ cur.classList.remove('tap'); var c = $$('#squadOpts .chip', vo)[1]; if (c) at(c, .6, .7); }],
+        [2600, function(){ cur.classList.add('tap'); var c = $$('#squadOpts .chip', vo)[1]; if (c) c.click(); }],
+        [2900, function(){ cur.classList.remove('tap'); }],
+        [4200, function(){ cur.classList.remove('in'); }]
+      ];
+      steps.forEach(function(st){ setTimeout(function(){ if (!stop) st[1](); }, st[0]); });
+    };
+    if (!reduce && 'IntersectionObserver' in window){
+      var voIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting && curView === 'story'){ voIO.disconnect(); setTimeout(voDemo, 500); } }); }, {threshold:.6});
+      voIO.observe($('.vo-win', vo));
+    }
+  }
 
   /* END: game-saved summary */
   function renderSaved(){
@@ -1603,7 +1731,7 @@ import { mountHead3D } from './head3d';
      step, then the whole method in one line and "Problem solved." 06: the close.
      ===================================================================== */
   var abBuilt = false;
-  var AB_BG = ['#f8e3ec', '#f3eee6', '#ebebef', '#f3eee6', '#ffd3e4', '#f8e3ec'];
+  var AB_BG = ['#f3eee8', '#e9eaee', '#f3eee8', '#f6e6ea', '#e9eaee', '#e3ebf5'];
   var A3_TINT = ['blush', 'paper', 'silver', 'rose'];
   function wrapWords(root){
     (function wrap(node){
@@ -1620,22 +1748,57 @@ import { mountHead3D } from './head3d';
     $$('#abSay > span').forEach(wrapWords);
     abBuilt = true;
   }
+  /* v34 · "What I run" = four file dividers in one pinned screen. Divider k is pulled forward:
+     the ones behind it keep their tabs at the top, the ones in front slide down to the bottom. */
+  var a3K = 0, a3H = -1;
+  function a3Fold(k, force){
+    var st = $('#a3Cards'); if (!st) return;
+    var H = st.clientHeight;
+    if (k === a3K && H === a3H && !force) return; a3K = k; a3H = H;
+    var cs = getComputedStyle(st), step = parseFloat(cs.getPropertyValue('--step')) || 60, n = 4;
+    $$('.a3-c', st).forEach(function(c, i){
+      var y = i <= k ? i * step : H - (n - i) * step;
+      c.style.transform = 'translateY(' + Math.round(y) + 'px)';
+      c.classList.toggle('on', i === k);
+      var tb = $('.a3-c-tab', c); if (tb) tb.setAttribute('aria-selected', i === k ? 'true' : 'false');
+    });
+  }
+  document.addEventListener('click', function(e){
+    var tb = e.target.closest('[data-a3tab],[data-a3lv]'); if (!tb) return;
+    var lv = tb.hasAttribute('data-a3lv'), k = +(lv ? tb.dataset.a3lv : tb.dataset.a3tab), sc = $(lv ? '.a3-path-sc' : '.a3-run-sc');
+    if (!sc){ a3Fold(k); return; }
+    var top = sc.getBoundingClientRect().top + window.scrollY, span = Math.max(1, sc.offsetHeight - window.innerHeight);
+    window.scrollTo({top: Math.round(top + span * (k + .5) / 4), behavior: reduce ? 'auto' : 'smooth'});
+  });
+  window.addEventListener('resize', function(){ a3Fold(a3K, true); }, {passive:true});
   function a3Render(){
     var vi = lang === 'vi';
     var cards = $('#a3Cards');
     if (cards) cards.innerHTML = COLS.filter(function(c){ return c.g === 'type'; }).map(function(col, j){
-      return '<article class="a3-c t-' + A3_TINT[j] + '" style="--j:' + j + '"><p class="a3-c-k"><b>0' + (j + 1) + '</b><span>/ 04</span></p><h4>' + esc(L(col.t)) + '</h4><p class="a3-c-d">' + esc(L(col.d)) + '</p><i class="a3-c-o" aria-hidden="true"></i></article>';
+      return '<article class="a3-c f' + j + '" style="--j:' + j + '"><button class="a3-c-tab" type="button" role="tab" data-a3tab="' + j + '"><b>0' + (j + 1) + '</b><span>' + esc(L(col.t)) + '</span></button><div class="a3-c-b"><p class="a3-c-n">0' + (j + 1) + '<small>/ 04</small></p><p class="a3-c-d">' + esc(L(col.d)) + '</p></div></article>';
     }).join('');
-    var far = $('#a3Far');
-    if (far) far.innerHTML = COLS.filter(function(c){ return c.g === 'own'; }).map(function(col, j){
-      return '<li style="--j:' + j + '"><i aria-hidden="true"></i><b>' + esc(L(col.t)) + '</b><span>' + esc(L(col.d)) + '</span></li>';
+    a3Fold(a3K, true);
+    // FILE 03 · five strips on the note; the one pulled off is read on the right
+    var strips = $('#xfStrips');
+    if (strips) strips.innerHTML = XF_OWN().map(function(col, j){
+      return '<button type="button" role="tab" class="xf-st" data-xfst="' + j + '" style="--j:' + j + '"><span>' + esc(L(col.t)) + '</span></button>';
     }).join('');
-    var hw = $('#a3HowW');
-    if (hw) hw.innerHTML = STEPS.map(function(st, i){
-      return '<div class="a3-hw" data-i="' + i + '"><strong>' + esc(L(st.t)) + '</strong><span>' + esc(L(st.k)) + '</span></div>';
-    }).join('') + '<ol class="a3-hw-all">' + STEPS.map(function(st, i){ return '<li style="--j:' + i + '"><b>0' + (i + 1) + '</b>' + esc(L(st.t)) + '</li>'; }).join('') + '</ol>';
-    void vi;
+    xfNote(xfN);
+    // FILE 04 · the receipt: one line per step, then the total
+    var pap = $('#xfPaper');
+    if (pap) pap.innerHTML = '<p class="xf-p-h"><b>XINH.OS</b><span>' + (vi ? 'HOÁ ĐƠN DỰ ÁN' : 'PROJECT RECEIPT') + '</span><span>No. 0001 · HCMC</span></p>' +
+      '<ol class="xf-p-l">' + STEPS.map(function(st, i){ return '<li style="--j:' + i + '"><b>0' + (i + 1) + '</b><span><strong>' + esc(L(st.t)) + '</strong><small>' + esc(L(st.k)) + '</small></span><i>✓</i></li>'; }).join('') + '</ol>' +
+      '<p class="xf-p-t"><span>TOTAL</span><em>' + (vi ? 'Vấn đề đã xử lý.' : 'Problem solved.') + '</em></p><i class="xf-p-bar" aria-hidden="true"></i><p class="xf-p-f">' + (vi ? 'CẢM ƠN, HẸN DỰ ÁN SAU!' : 'THANK YOU, SEE YOU NEXT PROJECT!') + '</p>';
   }
+  function XF_OWN(){ return COLS.filter(function(c){ return c.g === 'own'; }); }
+  var xfN = 0, xfSK = -1;
+  function xfNote(k){
+    var cols = XF_OWN(), col = cols[k], box = $('#xfNote'); if (!col || !box) return; xfN = k;
+    $$('.xf-st').forEach(function(b, i){ b.classList.toggle('on', i === k); b.setAttribute('aria-selected', i === k ? 'true' : 'false'); });
+    box.innerHTML = '<p class="xf-note-n"><b>0' + (k + 1) + '</b> / 0' + cols.length + '</p><h4>' + esc(L(col.t)) + '</h4><p class="xf-note-d">' + esc(L(col.d)) + '</p><p class="xf-note-h">' + (k < cols.length - 1 ? (lang === 'vi' ? 'Cuộn hoặc bấm mảnh kế tiếp →' : 'Scroll or tap the next strip →') : (lang === 'vi' ? 'Đủ 5 mảnh. Cuộn tiếp ↓' : 'All 5 read. Keep scrolling ↓')) + '</p>';
+  }
+  document.addEventListener('click', function(e){ var b = e.target.closest('[data-xfst]'); if (b){ xfNote(+b.dataset.xfst); var sh = b.closest('.xf-sheet'); if (sh) sh.classList.add('used'); } });
+  document.addEventListener('mouseover', function(e){ var b = e.target.closest && e.target.closest('[data-xfst]'); if (b && matchMedia('(hover:hover)').matches && +b.dataset.xfst !== xfN) xfNote(+b.dataset.xfst); });
   /* role sheet: the long description lives here, not on the page */
   var abPop = null, abPopFrom = null;
   function abPopClose(){ if (!abPop || abPop.hidden) return; abPop.classList.remove('in'); setTimeout(function(){ abPop.hidden = true; }, reduce ? 0 : 380); if (abPopFrom) abPopFrom.focus(); }
@@ -1670,34 +1833,31 @@ import { mountHead3D } from './head3d';
     var secs = $$('[data-a3]', v), cur = 0;
     secs.forEach(function(s, i){ if (s.getBoundingClientRect().top < vh * .5) cur = i; });
     v.style.setProperty('--abbg', AB_BG[cur] || AB_BG[0]);
-    // 01 · the photo drifts a little slower than the page, the seal turns with it
-    var hero = $('.a3-hero', v);
-    if (hero && !reduce){ var ht = hero.getBoundingClientRect().top; v.style.setProperty('--hy', Math.max(0, -ht).toFixed(1)); }
-    // 02 · words fill as the statement passes through the middle of the screen
-    var say = $('.a3-say', v);
-    if (say){
-      var sr = say.getBoundingClientRect(), fill = reduce ? 1 : clamp((vh * .78 - sr.top) / Math.max(1, sr.height * .9), 0, 1);
-      $$('#abSay > span', v).forEach(function(x){ var ws = $$('.wd', x), n = Math.round(fill * ws.length); ws.forEach(function(w, i){ w.classList.toggle('on', i < n); }); });
-    }
+    var rsc = $('.a3-run-sc', v);
+    if (rsc){ var rr = rsc.getBoundingClientRect(), rsp = Math.max(1, rr.height - vh); a3Fold(Math.min(3, Math.floor(clamp(-rr.top / rsp, 0, .999) * 4))); }
     // 03 · the photo of the level whose role is in the middle of the screen
     var tl = $('#tl4', v), st = $('#a3Stack', v);
     if (tl && st){
-      var arts = $$('article', tl), act = 0;
-      arts.forEach(function(a, i){ if (a.getBoundingClientRect().top < vh * .52) act = i; });
+      var arts = $$('article', tl), act = 0, psc = $('.a3-path-sc', v);
+      if (psc){ var pr = psc.getBoundingClientRect(); act = Math.min(3, Math.floor(clamp(-pr.top / Math.max(1, pr.height - vh), 0, .999) * 4)); }
+      else arts.forEach(function(a, i){ if (a.getBoundingClientRect().top < vh * .52) act = i; });
+      $$('.a3-lvn button', v).forEach(function(b, i){ b.classList.toggle('on', i === act); b.setAttribute('aria-selected', i === act ? 'true' : 'false'); });
       arts.forEach(function(a, i){ a.classList.toggle('on', i === act); });
-      $$('figure', st).forEach(function(f, i){ f.classList.toggle('on', i <= act); f.classList.toggle('cur', i === act); });
+      $$('figure', st).forEach(function(f, i){ f.classList.toggle('on', i <= act); f.classList.toggle('cur', i === act); f.style.setProperty('--d', i - act); f.style.setProperty('--a', Math.abs(i - act)); });
     }
-    // 04 · the line from pitch to sign-off draws itself
-    var fr = $('.a3-far', v);
-    if (fr){ var fb = fr.getBoundingClientRect(), fp = reduce ? 1 : clamp((vh * .85 - fb.top) / Math.max(1, vh * .55), 0, 1); fr.style.setProperty('--fp', fp.toFixed(3)); $$('li', fr).forEach(function(li, i){ li.classList.toggle('on', fp >= i / 4.2); }); }
-    // 05 · one word per step, then all four and the answer
-    var how = $('#a3How', v);
-    if (how){
-      var hp = reduce ? 1 : abPin(how, vh), done = hp > .8, idx = Math.min(3, Math.floor(hp / .8 * 4));
-      $$('.a3-hw', how).forEach(function(w, i){ w.classList.toggle('on', !done && i === idx); w.classList.toggle('past', !done && i < idx); });
-      how.classList.toggle('done', done);
-      how.style.setProperty('--hp', hp.toFixed(3));
-      var n = $('#a3HowN'); if (n) n.textContent = done ? '04 / 04' : '0' + (idx + 1) + ' / 04';
+    // FILE 03 · the pinned note holds the reader: scrolling tears the strips off one by one
+    var ns = $('.xf-notes-sc', v);
+    if (ns){
+      var nr = ns.getBoundingClientRect(), nk = Math.min(4, Math.floor(clamp(-nr.top / Math.max(1, nr.height - vh), 0, .999) * 5));
+      if (nk !== xfSK){ xfSK = nk; if (nr.top < vh * .5 && nr.bottom > vh * .5) xfNote(nk); }
+    }
+    // FILE 04 · the receipt prints as the pinned scene scrolls
+    var rc = $('.xf-rc-sc', v);
+    if (rc){
+      var rp = reduce ? 1 : clamp(-rc.getBoundingClientRect().top / Math.max(1, rc.offsetHeight - vh) / .85, 0, 1);
+      v.style.setProperty('--rp', rp.toFixed(3));
+      $$('.xf-p-l li', v).forEach(function(li, i){ li.classList.toggle('on', rp >= .12 + i * .2); });
+      var pt = $('.xf-p-t', v); if (pt) pt.classList.toggle('on', rp >= .95);
     }
   }
   onScrollFrame(drawAbout);
@@ -1733,7 +1893,7 @@ import { mountHead3D } from './head3d';
     bootEl.hidden = false; bootEl.classList.remove('out'); document.body.classList.add('booting'); booted = false;
     var last = null; try{ last = localStorage.getItem('xinhos-mode'); }catch(e){}
     runBootBar();
-    setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
+    if (finePointer) setTimeout(function(){ var m = $('.mode.' + (last === 'quick' ? 'quick' : 'story')); if (m) m.focus({preventScroll:true}); }, 400);
   }
   /* Boot playground (v23, ref millascope): XINH AI, the character from Xinh's handoff, as a depth
      cut-out that turns a little toward the pointer, blinks on her own and winks when clicked; objects
@@ -1741,9 +1901,38 @@ import { mountHead3D } from './head3d';
   var X3_SAY = [{en:'hi hi!', vi:'hi hi!'}, {en:'leave it to me!', vi:'để em!'}];
   var x3 = $('#x3'), x3Head = $('#x3Head'), x3Said = 0, head3d = null;
   if (!reduce){
-    head3d = mountHead3D($('#x3Cv'), {color:'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp',
+    var x3Small = window.innerWidth <= 760;
+    head3d = mountHead3D($('#x3Cv'), {color:x3Small ? 'assets/xinh-ai-m.webp' : 'assets/xinh-ai.webp', depth:'assets/xinh-ai-d.webp', maxDpr:finePointer ? 2 : 1.5,
       lids:{src:'assets/xinh-ai-blink.webp', rect:[336/1024, 786/1470, 768/1024, 906/1470], split:.5}}, function(){ x3Head.classList.add('gl'); });
   }
+  /* v29: on phones the boot is one visible screen; the face gets the height left above the buttons. */
+  var x3Stage = $('.x3-stage'), bootFoot = $('.bx-foot', bootEl), bootFitWH = '';
+  function bootFit(){
+    /* v31: the head + title cluster is centred in the free room between the top bar and the buttons,
+       on every screen; the head takes the height that is left, so nothing sinks to the bottom. */
+    if (!x3Stage || !bootFoot) return;
+    var wh = window.innerWidth + 'x' + window.innerHeight;
+    if (wh === bootFitWH || bootEl.hidden) return; bootFitWH = wh;
+    var H = window.innerHeight, W = window.innerWidth, phone = W <= 760;
+    var bar = $('.boot-top', bootEl), barB = bar && bar.offsetHeight ? bar.getBoundingClientRect().bottom : (phone ? 12 : 30);
+    var first = x3.firstElementChild;
+    var fixed = x3Stage.getBoundingClientRect().top - (first ? first.getBoundingClientRect().top : 0);
+    var room, maxH;
+    if (phone){
+      var bottomPad = parseFloat(getComputedStyle(bootEl).paddingBottom) || 0;
+      var gap = clamp(H * .06, 24, 56);
+      room = (H - barB - bottomPad - bootFoot.offsetHeight - fixed - 2 * gap) / .95;
+      maxH = Math.min(430, W * .84 * 1205 / 840);
+      x3Stage.style.setProperty('--sh', Math.round(clamp(room, 190, maxH)) + 'px');
+    } else {
+      var fTop = bootFoot.getBoundingClientRect().top, t = barB + 14, bt = H - fTop + 16;
+      x3.style.setProperty('--x3t', Math.round(t) + 'px'); x3.style.setProperty('--x3b', Math.round(bt) + 'px');
+      room = (H - bt) - t - fixed - 10;
+      x3Stage.style.setProperty('--sh', Math.round(clamp(room, 200, 600)) + 'px');
+    }
+  }
+  bootFit(); window.addEventListener('resize', bootFit, {passive:true});
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ bootFitWH = ''; bootFit(); });
   function x3Aim(nx, ny){
     x3.style.setProperty('--mx', nx.toFixed(3)); x3.style.setProperty('--my', ny.toFixed(3));
     if (head3d) head3d.aim(nx, ny);
@@ -1760,7 +1949,7 @@ import { mountHead3D } from './head3d';
     var x3g = 0, x3Idle = setInterval(function(){
       if (bootEl.hidden){ clearInterval(x3Idle); return; }
       x3g++; if (x3g % 2) x3Aim(Math.random() * 1.2 - .6, Math.random() * .5 - .3); else x3Aim(0, 0);
-    }, 2400);
+    }, 4200);
   }
   bootEl.addEventListener('click', function(e){
     var ob = e.target.closest('.x3o');
@@ -1793,7 +1982,7 @@ import { mountHead3D } from './head3d';
       bootEl.hidden = true; bootEl.classList.remove('suck'); rebuild();
       document.body.classList.add('arrive', 'arr-in'); if (m === 'quick') document.body.classList.add('arr-q');
     }, 560);
-    setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q', 'arr-in'); }, 1500);
+    setTimeout(function(){ document.body.classList.remove('arrive', 'arr-q', 'arr-in'); if (typeof rebuild === 'function') rebuild(); }, 1500);
     return true;
   }
   document.addEventListener('click', function(e){
@@ -1801,12 +1990,6 @@ import { mountHead3D } from './head3d';
     var bl = e.target.closest('[data-boot-lang]'); if (bl){ setLang(bl.dataset.bootLang); }
   });
   document.addEventListener('keydown', function(e){ if (!bootEl.hidden && !booted && (e.key === 'Escape' || (e.key === 'Enter' && !e.target.closest('button')))){ e.preventDefault(); chooseMode('story'); } });
-  $('#restart').addEventListener('click', function(){
-    var sd = $('#shutdown'); track('restart', 1);
-    if (reduce){ window.scrollTo(0, 0); openBoot(); return; }
-    sd.classList.remove('on'); void sd.offsetWidth; sd.classList.add('on');
-    setTimeout(function(){ try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){} window.scrollTo(0, 0); openBoot(); sd.classList.remove('on'); }, 650);
-  });
 
   /* =====================================================================
      LANGUAGE + BOOT
