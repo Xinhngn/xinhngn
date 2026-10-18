@@ -156,7 +156,7 @@ import { mountHead3D } from './head3d';
      out:{en:'One pitch grew into a longer-term relationship with multiple follow-on projects.', vi:'Từ một lần pitch, mối hợp tác kéo dài hơn và mở ra nhiều dự án tiếp theo.'},
      res:[{line:true, b:{en:'Multiple projects', vi:'Nhiều dự án'}, l:{en:'from one pitch', vi:'từ một lần pitch'}}, {empty:true, l:{en:'add a result', vi:'thêm kết quả'}}],
      imgs:['vib_ivy_kv.jpg','anh_trai_say_hi.jpg','bo_tu_bao_thu.jpg','cashless_day.jpg']},
-    {id:'cake', core:true, brand:'Cake', cats:['bank','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd3ec,#ff8fc6 60%,#faecdb)',
+    {id:'cake', core:true, brand:'Cake', cats:['bank','pitch'], size:'mid', grad:'linear-gradient(135deg,#ffd3ec,#ff8fc6 60%,#daebfb)',
      subs:['BY VPBANK','NEW BUSINESS'], meta:'DIGITAL BANK · NEW BUSINESS',
      title:{en:'Trust Opens New Doors', vi:'Niềm tin mở ra cánh cửa mới'},
      t:{en:'A relationship that opened the next door.', vi:'Một mối quan hệ mở ra cánh cửa mới.'},
@@ -194,7 +194,7 @@ import { mountHead3D } from './head3d';
      t:{en:'A Tết plan from pitch to media.', vi:'Kế hoạch Tết từ pitch đến media.'},
      me:{en:'Communication plan, pitching, always-on, production, booking and media.', vi:'Kế hoạch truyền thông, pitching, always-on, production, booking và media.'},
      res:[{line:true, b:{en:'Pitch won', vi:'Thắng pitch'}, l:{en:'with the team', vi:'cùng team'}}], imgs:['duytan_tet_2025.jpg','duytan_02.jpg','duytan_03.jpg','duytan_04.jpg']},
-    {id:'cindy', brand:'Cindy Bloom', cats:['fmcg','pitch','launch'], size:'', grad:'linear-gradient(135deg,#ffd3ec,#faecdb)', small:true,
+    {id:'cindy', brand:'Cindy Bloom', cats:['fmcg','pitch','launch'], size:'', grad:'linear-gradient(135deg,#ffd3ec,#daebfb)', small:true,
      subs:['LAUNCH'], meta:'OTHER PROJECT · CONSUMER · LAUNCH CAMPAIGN',
      t:{en:'A launch from pitch to execution.', vi:'Một đợt ra mắt từ pitch đến triển khai.'},
      me:{en:'Pitch to execution, production and the social campaign.', vi:'Từ pitch đến triển khai, production và social campaign.'},
@@ -202,7 +202,7 @@ import { mountHead3D } from './head3d';
   ];
   /* Cover colours when there is no photo yet */
   var LOOK = {vib:['linear-gradient(100deg,#f4f5f8,#c9ccd6 40%,#8d92a2 52%,#e8eaf0 70%,#fff)','#0e0f14'], msb:['linear-gradient(170deg,#5d9de3,#9cc8f2 55%,#dcecf9)','#ffffff'], cake:['#f3eee6','#0e0f14'], poca:['#ff8fc0','#0e0f14'],
-              digimi:['linear-gradient(160deg,#f1e5d8,#f6d9e7)','#0e0f14'], duytan:['#ffd3e4','#0e0f14'], cindy:['linear-gradient(160deg,#cfe3f7,#ffd3e4)','#0e0f14']};
+              digimi:['linear-gradient(160deg,#d7e5f2,#f6d9e7)','#0e0f14'], duytan:['#ffd3e4','#0e0f14'], cindy:['linear-gradient(160deg,#cfe3f7,#ffd3e4)','#0e0f14']};
   /* Facts per case — fill these in. Empty values stay hidden for visitors.
      role: your title on the project · period: e.g. '03/2024 – 12/2024' · scope: short facts, e.g. ['Team 6', '3 agencies', '40 posts / month'] */
   var FACTS = {
@@ -719,14 +719,14 @@ import { mountHead3D } from './head3d';
      The story sections are transparent; a fixed layer behind them mixes each section's palette
      into the next as the viewport centre crosses from one to the other. [base, glow left, glow right] */
   var ATMO = [
-    ['start',     ['#f6f1ea', '#ffe1cf', '#dfe9f6']],
-    ['brief',     ['#f4f1ee', '#ffd9c8', '#fbecc6']],
-    ['clarify',   ['#f6f1ea', '#ffe6d6', '#f3ede5']],
-    ['structure', ['#f4f1ec', '#fde0d4', '#f3eae0']],
-    ['align',     ['#efece6', '#f8ead4', '#dde7f2']],
-    ['deliver',   ['#d9e7f6', '#a9cdef', '#f5eee6']],
-    ['value',     ['#eff0f6', '#ffe2d2', '#d8e5f6']],
-    ['finish',    ['#f4ebe6', '#ffd9cc', '#f1e4d5']]
+    ['start',     ['#f4efe9', '#ffd9e6', '#d9e6f5']],
+    ['brief',     ['#f2eee9', '#ffdbe7', '#d6e4f5']],
+    ['clarify',   ['#f4efe8', '#f7e1e6', '#e3eaf3']],
+    ['structure', ['#efeef0', '#ffdfe9', '#dce7f4']],
+    ['align',     ['#ebecef', '#f6e2ea', '#d7e3f3']],
+    ['deliver',   ['#d9e7f6', '#a9cdef', '#e6eef5']],
+    ['value',     ['#eeeff3', '#ffdde8', '#d3e2f5']],
+    ['finish',    ['#f3ece8', '#ffd6e4', '#d0e0f3']]
   ].map(function(a){ return {el: document.getElementById(a[0]), c: a[1].map(function(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; })}; }).filter(function(a){ return a.el; });
   var atmoKey = '';
   function mixC(a, b, k){ return 'rgb(' + [0,1,2].map(function(i){ return Math.round(a[i] + (b[i] - a[i]) * k); }).join(',') + ')'; }
@@ -882,11 +882,6 @@ import { mountHead3D } from './head3d';
     email:'<i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="pf" x="4" y="12" width="56" height="40" rx="11"/><path d="M10 20l22 16 22-16" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><ellipse class="hl" cx="17" cy="17" rx="8" ry="2.6"/></svg></i>',
     linkedin:'<i class="kx-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="pf" x="6" y="6" width="52" height="52" rx="15"/><text x="32" y="45" text-anchor="middle" font-family="Inter Tight, Arial" font-weight="900" font-size="30" fill="#fff">in</text><ellipse class="hl" cx="20" cy="13" rx="9" ry="3"/></svg></i>'
   };
-  var KX_OBJ = {
-    solo:'<i class="ob s1"></i>',
-    team:'<i class="ob s1"></i><i class="ob s2"></i><i class="ob s3"></i>',
-    role:'<i class="ob id"><i></i></i>'
-  };
   function kxA(a, cls){ return '<a class="' + cls + '" href="' + esc(a.href) + '"' + (a.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') + ' data-m="' + a.m + '">' + esc(L(a.t)) + ' ↗︎</a>'; }
   function cxRender(){
     var vi = lang === 'vi', chs = kxChannels();
@@ -905,17 +900,18 @@ import { mountHead3D } from './head3d';
         '<span class="kx-lever" aria-hidden="true"><i></i></span></div>';
     }
     var gift = $('#kxGift'), ks = ['solo', 'team', 'role'], n = ks.indexOf(CX.way) + 1;
-    if (gift){
-      gift.innerHTML = '<div class="kx-bl"><p class="kx-bl-h"><b>XINH.OS</b><span>' + (vi ? 'Cách hợp tác · vỉ ' : 'Ways to work · pack ') + n + '/3</span></p><div class="kx-cells">' +
-        ks.map(function(k, i){ var x = CX_WAYS[k], on = k === CX.way;
-          return '<button class="kx-cell c-' + k + (on ? ' on' : '') + '" type="button" data-kxway="' + k + '" aria-pressed="' + (on ? 'true' : 'false') + '"><span class="kx-pod"><span class="kx-obj o-' + k + '" aria-hidden="true">' + KX_OBJ[k] + '</span></span><span class="kx-cl"><b>' + x.n + '</b><small>' + esc(L(x.t)) + '</small></span></button>'; }).join('') + '</div></div>';
-    }
-    var ing = $('#kxIng');
-    if (ing){
-      var extra = CX.way === 'role' && CV_URL ? '<a class="btn" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗︎</a>' : '';
-      ing.innerHTML = '<p class="kx-ing-k"><span>' + (vi ? 'Thành phần' : 'Ingredients') + ':</span><b>(' + n + ') ' + w.n + '</b></p>' +
-        '<ol class="kx-ing-l">' + w.parts.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ol>' +
-        '<p class="kx-ing-f">' + esc(L(w.fit)) + '</p><p class="kx-ing-a"><a class="btn hot" href="#" data-kxsend></a>' + extra + '</p>';
+    if (gift && ch){
+      var extra = CX.way === 'role' && CV_URL ? '<a class="kx-btn ghost" href="' + esc(CV_URL) + '" target="_blank" rel="noopener" data-m="cv">' + (vi ? 'Xem CV' : 'View CV') + ' ↗︎</a>' : '';
+      var tabs = ks.map(function(k, i){ var x = CX_WAYS[k], on = k === CX.way;
+        return '<button class="kx-tab t-' + k + (on ? ' on' : '') + '" type="button" data-kxway="' + k + '" aria-pressed="' + (on ? 'true' : 'false') + '" style="--j:' + i + '"><span class="kx-tab-n">0' + (i + 1) + '</span><b>' + x.n + '</b></button>'; }).join('');
+      gift.innerHTML = '<div class="kx-holder"><div class="kx-tabs">' + tabs + '</div><div class="kx-case" aria-hidden="true"><b>XINH.OS</b><span>' + (vi ? 'Kệ vé · 3 cách hợp tác' : 'Ticket rack · 3 ways to work') + '</span></div></div>' +
+        '<article class="kx-ticket t-' + CX.way + '" aria-live="polite">' +
+          '<div class="kx-tk-main"><p class="kx-tk-top"><span>ADMIT ONE · XINH.OS</span><span>No. 0' + n + ' / 03</span></p>' +
+          '<h4 class="kx-tk-h">' + w.n + '</h4><p class="kx-tk-t">' + esc(L(w.t)) + '</p>' +
+          '<ul class="kx-tk-l">' + w.parts.map(function(p){ return '<li>' + esc(L(p)) + '</li>'; }).join('') + '</ul></div>' +
+          '<div class="kx-tk-stub"><dl><div><dt>' + (vi ? 'Kênh' : 'Channel') + '</dt><dd>' + esc(L(ch.n)) + '</dd></div><div><dt>' + (vi ? 'Đầu mối' : 'Contact') + '</dt><dd>Xinh</dd></div></dl>' +
+          '<p class="kx-tk-a"><a class="btn hot" href="#" data-kxsend></a>' + extra + '</p></div>' +
+        '</article>';
     }
     var go = $('#cxGo');
     if (go && ch){
@@ -1536,8 +1532,11 @@ import { mountHead3D } from './head3d';
     var f = curView === 'story' ? $('#finish') : null;
     if (f) f.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); else window.scrollTo({top:root.scrollHeight, behavior: reduce ? 'auto' : 'smooth'});
   });
+  var dockEl = goTop.parentNode, dockT = 0;
   window.addEventListener('scroll', function(){
     dockUpdate();
+    /* phones: the top / end buttons show while you scroll, then step aside so they never sit on a button */
+    dockEl.classList.add('live'); clearTimeout(dockT); dockT = setTimeout(function(){ dockEl.classList.remove('live'); }, 2400);
     if (toastEl.classList.contains('show') && window.scrollY > window.innerHeight * 1.2 && !toastEl.dataset.keep) hideToast();
     clearTimeout(posT);
     posT = setTimeout(function(){ if (curView === 'story' && stage > 0){ try{ localStorage.setItem('xinhos-pos', JSON.stringify({s:stage, t:Date.now()})); }catch(e){} } }, 700);
@@ -1732,7 +1731,7 @@ import { mountHead3D } from './head3d';
      step, then the whole method in one line and "Problem solved." 06: the close.
      ===================================================================== */
   var abBuilt = false;
-  var AB_BG = ['#f3eee6', '#ebebef', '#f3eee6', '#f5e9e0', '#ebebef', '#f4eee6'];
+  var AB_BG = ['#f3eee8', '#e9eaee', '#f3eee8', '#f6e6ea', '#e9eaee', '#e3ebf5'];
   var A3_TINT = ['blush', 'paper', 'silver', 'rose'];
   function wrapWords(root){
     (function wrap(node){
